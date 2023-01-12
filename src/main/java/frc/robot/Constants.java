@@ -9,7 +9,12 @@ import edu.wpi.first.math.util.Units;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
+    // Controls the acceleration of the robot
+    public static final double rampRate = 2;
+
     public static final double stickDeadband = 0.1;
+    // To avoid drifting when going forward
+    public static final double yDeadband = 0.2;
 
     public static final class Swerve {
 
