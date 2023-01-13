@@ -21,7 +21,13 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public AHRS gyro;
 
+    // High speed swerve?
+    public Boolean swerveHighSpeedMode;
+
     public Swerve() {
+
+        swerveHighSpeedMode = true;
+
         gyro = new AHRS(Port.kMXP);
         zeroGyro();
         
@@ -90,6 +96,11 @@ public class Swerve extends SubsystemBase {
     public Rotation2d getYaw() {
         double yaw = gyro.getAngle();
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - yaw) : Rotation2d.fromDegrees(yaw);
+    }
+
+    // alternates between high speed and low speed mode
+    public void toggleSwerveMode() {
+        swerveHighSpeedMode = !swerveHighSpeedMode;
     }
 
     @Override

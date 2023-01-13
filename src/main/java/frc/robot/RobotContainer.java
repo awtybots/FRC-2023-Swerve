@@ -33,6 +33,8 @@ public class RobotContainer {
   /* Driver Buttons */
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
 
+  private final JoystickButton toggleSwerveSpeedMode = new JoystickButton(driver, XboxController.Button.kA.value);
+
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
 
@@ -55,6 +57,9 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop));
 
     /* Driver Buttons */
+    // toggles between high speed and low speed mode
+    toggleSwerveSpeedMode.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
+    
     zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
   }
 
