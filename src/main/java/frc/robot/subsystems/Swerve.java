@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 import frc.robot.SwerveModule;
 import frc.robot.Constants;
@@ -28,7 +29,7 @@ public class Swerve extends SubsystemBase {
 
         swerveHighSpeedMode = true;
 
-        gyro = new AHRS(Port.kMXP);
+        gyro = new AHRS(SPI.Port.kMXP);
         zeroGyro();
         
         
@@ -46,17 +47,27 @@ public class Swerve extends SubsystemBase {
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates =
             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
-                fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation, 
-                                    getYaw()
-                                )
-                                : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
-                                    rotation)
-                                );
+                // fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                //                     translation.getX(), 
+                //                     translation.getY(), 
+                //                     rotation, 
+                //                     getYaw()
+                //                 )
+                //                 : new ChassisSpeeds(
+                //                     translation.getX(), 
+                //                     translation.getY(), 
+                //                     rotation)
+                //                 );
+                fieldRelative ? new ChassisSpeeds (
+                    translation.getX() * Math.cos(gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(gyro.getYaw() * (Math.PI/180)),
+                    -translation.getX() * Math.sin(gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(gyro.getYaw() * (Math.PI/180)),
+                    rotation
+                )
+                : new ChassisSpeeds(
+                    translation.getX(), 
+                    translation.getY(), 
+                    rotation)
+                );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
@@ -90,7 +101,8 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
-        gyro.reset();
+        //gyro.reset();
+        gyro.zeroYaw();
     }
 
     public Rotation2d getYaw() {
