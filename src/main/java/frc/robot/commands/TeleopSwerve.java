@@ -45,6 +45,11 @@ public class TeleopSwerve extends CommandBase {
         double yAxis = -controller.getRawAxis(translationAxis);
         double xAxis = -controller.getRawAxis(strafeAxis);
         double rAxis = -controller.getRawAxis(rotationAxis);
+        
+        /* Deadbands */
+        yAxis = (Math.abs(yAxis) < Constants.stickDeadband) ? 0 : yAxis;
+        xAxis = (Math.abs(xAxis) < Constants.xDeadband) ? 0 : xAxis;
+        rAxis = (Math.abs(rAxis) < Constants.stickDeadband) ? 0 : rAxis;
 
         // Reduces speed if low speed mode is activated
         if(!s_Swerve.swerveHighSpeedMode){
@@ -52,11 +57,6 @@ public class TeleopSwerve extends CommandBase {
             xAxis *= Constants.lowSpeedMultiplier;
             rAxis *= Constants.lowSpeedMultiplier;
         }
-        
-        /* Deadbands */
-        yAxis = (Math.abs(yAxis) < Constants.stickDeadband) ? 0 : yAxis;
-        xAxis = (Math.abs(xAxis) < Constants.xDeadband) ? 0 : xAxis;
-        rAxis = (Math.abs(rAxis) < Constants.stickDeadband) ? 0 : rAxis;
 
         translation = new Translation2d(yLimiter.calculate(yAxis), xLimiter.calculate(xAxis)).times(Constants.Swerve.maxSpeed);
         rotation = rAxis * Constants.Swerve.maxAngularVelocity;
