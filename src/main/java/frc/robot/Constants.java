@@ -16,12 +16,12 @@ public final class Constants {
 
     public static final double stickDeadband = 0.1;
     // To avoid drifting when going forward
-    public static final double xDeadband = 0.2;
+    public static final double xDeadband = 0.3;
 
     public static final class Swerve {
 
         public static final int pigeonID = 1;
-        public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
+        public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
         public static final double trackWidth = Units.inchesToMeters(32);
@@ -70,8 +70,8 @@ public final class Constants {
         public static final double driveKA = (0.27 / 12);
 
         /* Swerve Profiling Values */
-        public static final double maxSpeed = 2; //TODO MAKE IT MUCH HIGHER
-        public static final double maxAngularVelocity = 1.5; //TODO MAKE IT 10
+        public static final double maxSpeed = 10; //TODO MAKE IT MUCH HIGHER
+        public static final double maxAngularVelocity = 10; //TODO MAKE IT 10
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
@@ -132,8 +132,8 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxSpeedMetersPerSecond = 8;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 8;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     

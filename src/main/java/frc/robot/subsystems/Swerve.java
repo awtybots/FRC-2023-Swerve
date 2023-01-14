@@ -32,6 +32,7 @@ public class Swerve extends SubsystemBase {
         zeroGyro();
         
         
+        
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw());
 
         // create SweveModule for each swerve drive and putting the in mswervemods array
@@ -58,8 +59,8 @@ public class Swerve extends SubsystemBase {
                 //                     rotation)
                 //                 );
                 fieldRelative ? new ChassisSpeeds (
-                    translation.getX() * Math.cos(gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(gyro.getYaw() * (Math.PI/180)),
-                    -translation.getX() * Math.sin(gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(gyro.getYaw() * (Math.PI/180)),
+                    translation.getX() * Math.cos(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(-gyro.getYaw() * (Math.PI/180)),
+                    -translation.getX() * Math.sin(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(-gyro.getYaw() * (Math.PI/180)),
                     rotation
                 )
                 : new ChassisSpeeds(
