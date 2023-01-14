@@ -1,4 +1,16 @@
 {
+<<<<<<< HEAD
+=======
+  "HALProvider": {
+    "Other Devices": {
+      "navX-Sensor[0]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+>>>>>>> c0a70b16f423e5e45a7e26bba971035f9d381ada
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -9,7 +21,20 @@
   },
   "NetworkTables": {
     "LiveWindow": {
+<<<<<<< HEAD
       "Swerve": {
+=======
+      ".status": {
+        "open": true
+      },
+      "Ungrouped": {
+        "Scheduler": {
+          "open": true
+        },
+        "navX-Sensor[4]": {
+          "open": true
+        },
+>>>>>>> c0a70b16f423e5e45a7e26bba971035f9d381ada
         "open": true
       },
       "open": true
@@ -22,9 +47,18 @@
     "Plot <0>": {
       "plots": [
         {
+<<<<<<< HEAD
           "height": 338
         }
       ]
+=======
+          "height": 332
+        }
+      ],
+      "window": {
+        "visible": false
+      }
+>>>>>>> c0a70b16f423e5e45a7e26bba971035f9d381ada
     }
   }
 }
