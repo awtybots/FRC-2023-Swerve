@@ -125,7 +125,7 @@ public final class Constants {
             // public static final double angleOffset = 135-10;
             public static final double angleOffset = 0;
             public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);//cool line bro
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
     }
