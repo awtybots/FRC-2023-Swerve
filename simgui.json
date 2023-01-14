@@ -1,0 +1,51 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "navX-Sensor[0]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Swerve": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
+    }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      ".status": {
+        "open": true
+      },
+      "Ungrouped": {
+        "Scheduler": {
+          "open": true
+        },
+        "navX-Sensor[4]": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    },
+    "SmartDashboard": {
+      "open": true
+    }
+  },
+  "Plot": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "height": 332
+        }
+      ],
+      "window": {
+        "visible": false
+      }
+    }
+  }
+}
