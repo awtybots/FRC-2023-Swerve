@@ -11,6 +11,7 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     // Controls the acceleration of the robot
     public static final double rampRate = 2;
+    // Reduced speed for low speed mode
     public static final double lowSpeedMultiplier = 0.2;
 
     public static final double stickDeadband = 0.1;
