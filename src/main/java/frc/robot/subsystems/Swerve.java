@@ -45,7 +45,7 @@ public class Swerve extends SubsystemBase {
         /* Hiding logic behind variable names to make code more readable */
 
         double fieldRelativeXVelocity = translation.getX() * Math.cos(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(-gyro.getYaw() * (Math.PI/180));
-        double fieldRelativeYVelocity = -translation.getX() * Math.sin(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(-gyro.getYaw() * (Math.PI/180)),
+        double fieldRelativeYVelocity = -translation.getX() * Math.sin(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(-gyro.getYaw() * (Math.PI/180));
 
         double XVelocity = translation.getX();
         double YVelocity = translation.getY(); 
