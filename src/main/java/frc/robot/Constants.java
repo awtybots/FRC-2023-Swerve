@@ -86,6 +86,19 @@ public final class Constants {
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
+        public static final SwerveModuleConstants[] modules {
+            /* 
+                Creates an array of Swerve Constants using their 
+                driveMotorID, AngleMotorID, canCoderID, and angleOffset respecively 
+            */
+
+            new SwerveModuleConstants(1, 2, 9, 180); // Module 0, Front Left
+            new SwerveModuleConstants(3, 4, 10, 0); // Module 1, Front Right
+            new SwerveModuleConstants(5, 6, 11, 180); // Module 2, Back Left
+            new SwerveModuleConstants(7, 8, 12, 0); // Module 3, Back Right
+
+        }
+
         public static final class Mod0 {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 2;
