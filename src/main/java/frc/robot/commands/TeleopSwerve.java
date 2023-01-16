@@ -50,9 +50,9 @@ public class TeleopSwerve extends CommandBase {
         double xAxis = -controller.getRawAxis(strafeAxis);
         double rAxis = -controller.getRawAxis(rotationAxis);
         
-        yAxis = applyDeadband(yAxis)
-        xAxis = applyDeadband(xAxis)
-        rAxis = applyDeadband(rAxis)
+        yAxis = applyDeadband(yAxis, Constants.stickDeadband)
+        xAxis = applyDeadband(xAxis, Constants.xDeadband)
+        rAxis = applyDeadband(rAxis, Constants.stickDeadband)
 
         // Reduces speed if low speed mode is activated
         if(!s_Swerve.swerveHighSpeedMode){
