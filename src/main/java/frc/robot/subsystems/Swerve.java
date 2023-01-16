@@ -25,16 +25,12 @@ public class Swerve extends SubsystemBase {
     public Boolean swerveHighSpeedMode;
 
     public Swerve() {
-
         swerveHighSpeedMode = true;
 
         gyro = new AHRS(SPI.Port.kMXP);
         zeroGyro();
-        
-        
-        
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw());
 
+        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw());
         // create SweveModule for each swerve drive and putting the in mswervemods array
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -45,29 +41,29 @@ public class Swerve extends SubsystemBase {
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+
+        /* Hiding logic behind variable names to make code more readable */
+
+        double fieldRelativeXVelocity = translation.getX() * Math.cos(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(-gyro.getYaw() * (Math.PI/180));
+        double fieldRelativeYVelocity = -translation.getX() * Math.sin(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(-gyro.getYaw() * (Math.PI/180)),
+
+        double XVelocity = translation.getX();
+        double YVelocity = translation.getY(); 
+
+        /* Left option to not use field relative intact as I don't know if we want to get rid of it yet or not */
         SwerveModuleState[] swerveModuleStates =
             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
-                // fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                //                     translation.getX(), 
-                //                     translation.getY(), 
-                //                     rotation, 
-                //                     getYaw()
-                //                 )
-                //                 : new ChassisSpeeds(
-                //                     translation.getX(), 
-                //                     translation.getY(), 
-                //                     rotation)
-                //                 );
                 fieldRelative ? new ChassisSpeeds (
-                    translation.getX() * Math.cos(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(-gyro.getYaw() * (Math.PI/180)),
-                    -translation.getX() * Math.sin(-gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(-gyro.getYaw() * (Math.PI/180)),
+                    fieldRelativeXVelocity,
+                    fieldRelativeYVelocity,
                     rotation
                 )
                 : new ChassisSpeeds(
-                    translation.getX(), 
-                    translation.getY(), 
+                    XVelocity, 
+                    YVelocity, 
                     rotation)
                 );
+
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
