@@ -24,6 +24,10 @@ public class TeleopSwerve extends CommandBase {
     private SlewRateLimiter xLimiter = new SlewRateLimiter(Constants.rampRate);
     private SlewRateLimiter yLimiter = new SlewRateLimiter(Constants.rampRate);
 
+    private double applyDeadband(double axisValue, double deadbandValue) {
+        return (Math.abs(axisValue) < deadbandValue ? 0 : axisValue)
+    }
+
 
     /**
      * Driver control
@@ -46,10 +50,9 @@ public class TeleopSwerve extends CommandBase {
         double xAxis = -controller.getRawAxis(strafeAxis);
         double rAxis = -controller.getRawAxis(rotationAxis);
         
-        /* Deadbands */
-        yAxis = (Math.abs(yAxis) < Constants.stickDeadband) ? 0 : yAxis;
-        xAxis = (Math.abs(xAxis) < Constants.xDeadband) ? 0 : xAxis;
-        rAxis = (Math.abs(rAxis) < Constants.stickDeadband) ? 0 : rAxis;
+        yAxis = applyDeadband(yAxis, Constants.stickDeadband)
+        xAxis = applyDeadband(xAxis, Constants.xDeadband)
+        rAxis = applyDeadband(rAxis, Constants.stickDeadband)
 
         // Reduces speed if low speed mode is activated
         if(!s_Swerve.swerveHighSpeedMode){
