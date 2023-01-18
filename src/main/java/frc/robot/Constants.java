@@ -85,7 +85,6 @@ public final class Constants {
         public static final boolean canCoderInvert = false;
 
         /* Module Specific Constants */
-        /* Front Left Module - Module 0 */
         public static final SwerveModuleConstants[] modules = {
             /* 
                 Creates an array of Swerve Constants using their 
