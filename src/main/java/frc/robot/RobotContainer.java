@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -38,13 +39,15 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
 
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-
   private final Joystick driver = new Joystick(0);
 
   /* Driver Buttons */
   private final JoystickButton zeroGyroButton = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton swerveSpeedToggleButton = new JoystickButton(driver, XboxController.Button.kA.value);
+
+  private final int translationAxis = XboxController.Axis.kLeftY.value;
+  private final int strafeAxis = XboxController.Axis.kLeftX.value;
+  private final int rotationAxis = XboxController.Axis.kRightX.value;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -64,22 +67,18 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    s_Swerve.setDefaultCommand(
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
-        new RunCommand(
-            () -> s_Swerve.drive(
-                MathUtil.applyDeadband(-m_driverController.getLeftY(), 0.06),
-                MathUtil.applyDeadband(-m_driverController.getLeftX(), 0.06),
-                MathUtil.applyDeadband(-m_driverController.getRightX(), 0.06),
-                true),
-            s_Swerve));
+        // new RunCommand(
+        //     () -> s_Swerve.drive(
+        //         MathUtil.applyDeadband(-driver.getLeftY(), 0.06),
+        //         MathUtil.applyDeadband(-driver.getLeftX(), 0.06),
+        //         MathUtil.applyDeadband(-driver.getRightX(), 0.06),
+        //         true),
+        //     s_Swerve));
+    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
     swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> s_Swerve.setX(),
-            s_Swerve));
   }
 
   /**
@@ -125,6 +124,6 @@ public class RobotContainer {
     s_Swerve.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> s_Swerve.drive(0, 0, 0, false));
+    return swerveControllerCommand.andThen(() -> s_Swerve.drive(new Translation2d(0, 0), 0, false));
   }
 }

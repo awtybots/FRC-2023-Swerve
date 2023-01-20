@@ -24,6 +24,16 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class CustomConstants {
+    public static final double rampRate = 2;
+    public static final double stickDeadband = 0.1;
+
+    public static final double lowSpeedMultiplier = 0.2;
+
+    public static final boolean fieldRelative = true;
+
+  }
+
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
