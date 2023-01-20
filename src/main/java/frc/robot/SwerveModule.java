@@ -15,7 +15,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
-// TODO Change Motor Type To Neos
 public class SwerveModule {
     public int moduleNumber;
     private double angleOffset;
