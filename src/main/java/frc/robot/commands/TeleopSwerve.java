@@ -13,7 +13,6 @@ public class TeleopSwerve extends CommandBase {
     private double rotation;
     private Translation2d translation;
     private boolean fieldRelative;
-    private boolean openLoop;
     
     private Swerve s_Swerve;
     private Joystick controller;
