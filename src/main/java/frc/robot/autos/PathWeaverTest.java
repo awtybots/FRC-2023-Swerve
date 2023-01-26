@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class PathWeaverTest extends SequentialCommandGroup {
-    String trajectoryJSON = "paths/Unnamed.wpilib.json";
+    String trajectoryJSON = "pathplanner/generatedJSON/New_New_Path.wpilib.json";
     Trajectory trajectory = new Trajectory();
 
 
