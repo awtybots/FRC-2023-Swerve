@@ -70,6 +70,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new PathWeaverTest(s_Swerve);
+    return new PathPlannerTest(s_Swerve);
   }
 }
