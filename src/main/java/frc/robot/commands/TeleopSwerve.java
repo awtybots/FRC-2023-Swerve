@@ -28,7 +28,6 @@ public class TeleopSwerve extends CommandBase {
         return (Math.abs(axisValue) < deadbandValue ? 0 : axisValue);
     }
 
-
     /**
      * Driver control
      */
