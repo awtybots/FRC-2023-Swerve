@@ -21,6 +21,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import java.time.Instant;
+import java.time.*;
 
 
 public class LimelightSubsystem extends SubsystemBase {
@@ -78,11 +80,15 @@ public class LimelightSubsystem extends SubsystemBase {
 
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
-            if (area < 1){
-            m_ledBuffer.setRGB(i, 100, 100, 100);
+            if (area > 17) {
+                m_ledBuffer.setRGB(i, 0, 200, 0);
             }
-            if (area > 1){
+            
+            if (area*10 > i){
                 m_ledBuffer.setRGB(i, 0, 0, 200);
+            }
+            else{
+                m_ledBuffer.setRGB(i, 100, 100, 100);
             }
          }
          
