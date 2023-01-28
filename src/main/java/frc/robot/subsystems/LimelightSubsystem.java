@@ -78,10 +78,10 @@ public class LimelightSubsystem extends SubsystemBase {
 
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
-            if (area < 1){
+            if (area < 0.1){
             m_ledBuffer.setRGB(i, 100, 100, 100);
             }
-            if (area > 1){
+            if (area*12 > i){
                 m_ledBuffer.setRGB(i, 0, 0, 200);
             }
          }
