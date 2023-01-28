@@ -22,36 +22,41 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class LimelightSubsystem extends SubsystemBase {
+    
+    NetworkTable table;
+    NetworkTableEntry tx;
+    NetworkTableEntry ty;
+    NetworkTableEntry ta;
+
+    double x;
+    double y;
+    double area;
+
     public LimelightSubsystem(){
+        table = NetworkTableInstance.getDefault().getTable("limelight");
+    }
 
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-        NetworkTableEntry tx = table.getEntry("tx");
-        NetworkTableEntry ty = table.getEntry("ty");
-        NetworkTableEntry ta = table.getEntry("ta");
+    public double horizontalOffset(){
+        return x;
+    }
 
-        //read values periodically
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
-
-        //post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
-
+    public void setMode(int number) {
+        table.getEntry("ledMode").setDouble(number);
     }
 
     @Override
     public void periodic() {
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-        NetworkTableEntry tx = table.getEntry("tx");
-        NetworkTableEntry ty = table.getEntry("ty");
-        NetworkTableEntry ta = table.getEntry("ta");
+        tx = table.getEntry("tx");
+        ty = table.getEntry("ty");
+        ta = table.getEntry("ta");
 
         //read values periodically
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
+        //horizontal offset
+        x = tx.getDouble(0.0);
+        //vertical offset
+        y = ty.getDouble(0.0);
+        //target area
+        area = ta.getDouble(0.0);
 
         //post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", x);
