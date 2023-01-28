@@ -97,26 +97,6 @@ public final class Constants {
         };
     }
 
-
-    public static final class Camera {
-        public static final double kMountingAngle = 0.0; // degrees up from horizontal
-        public static final double kMountingHeight =
-                Convert.inchesToMeters(6.0); // meters from ground
-        public static final Vector2 kShooterOffset =
-                new Vector2(Convert.inchesToMeters(5.0), Convert.inchesToMeters(-5.5));
-
-        public static final LimelightOrientation kOrientation = LimelightOrientation.kUpsideDown;
-
-        public static final int kPipelineDriving = 0;
-        public static final int kPipelineShooting = 1;
-
-        public enum LimelightOrientation {
-            kLandscape,
-            kUpsideDown,
-            kPortrait;
-        }
-    }
-
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = 8;
         public static final double kMaxAccelerationMetersPerSecondSquared = 8;
