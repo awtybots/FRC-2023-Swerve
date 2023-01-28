@@ -19,8 +19,6 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class forward extends SequentialCommandGroup {
     public forward(Swerve s_Swerve){
-        String trajectoryJSON = "paths/YourPath.wpilib.json";
-        Trajectory trajectory = new Trajectory();
 
         TrajectoryConfig config =
             new TrajectoryConfig(
