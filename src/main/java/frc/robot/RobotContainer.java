@@ -32,11 +32,12 @@ public class RobotContainer {
 
   /* Driver Buttons */
   private final JoystickButton zeroGyroButton = new JoystickButton(driver, XboxController.Button.kY.value);
-
   private final JoystickButton swerveSpeedToggleButton = new JoystickButton(driver, XboxController.Button.kA.value);
+  private final JoystickButton visionTrackingToggleButton = new JoystickButton(driver, XboxController.Button.kX.value);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+  private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -56,11 +57,13 @@ public class RobotContainer {
     boolean openLoop = true;
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop));
 
+
     /* Driver Buttons */
     // toggles between high speed and low speed mode
-    swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
-
+    //swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
+    swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> Limelight.periodic()));
     zeroGyroButton.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    visionTrackingToggleButton.whenPressed(new VisionTracking(Limelight, s_Swerve, fieldRelative, openLoop));
   }
 
   /**
