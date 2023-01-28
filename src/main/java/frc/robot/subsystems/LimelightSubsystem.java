@@ -83,7 +83,7 @@ public class LimelightSubsystem extends SubsystemBase {
                 m_ledBuffer.setRGB(i, 0, 200, 0);
             }
             
-            if (area*10 > i){
+            else if (area*10 > i){
                 m_ledBuffer.setRGB(i, 0, 0, 200);
             }
             else{
