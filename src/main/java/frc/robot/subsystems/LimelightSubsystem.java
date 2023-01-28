@@ -19,6 +19,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 
 public class LimelightSubsystem extends SubsystemBase {
@@ -32,13 +34,24 @@ public class LimelightSubsystem extends SubsystemBase {
     double y;
     double area;
 
+
+    AddressableLED m_led;
+    AddressableLEDBuffer m_ledBuffer;
+
     public LimelightSubsystem(){
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        m_led = new AddressableLED(9);
+        m_ledBuffer = new AddressableLEDBuffer(120);
+        m_led.setLength(m_ledBuffer.getLength());
+
+         // Set the data for led strips
+        m_led.setData(m_ledBuffer);
+        m_led.start();
     }
 
     public double horizontalOffset(){
         return x;
-    }
+    }   
 
     public void setMode(int number) {
         table.getEntry("ledMode").setDouble(number);
@@ -63,23 +76,19 @@ public class LimelightSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
 
-/*
-        //temp led stuff
-        //TODO make a subsystem
-
-        // PWM port 9
-        // Must be a PWM header, not MXP or DIO
-        m_led = new AddressableLED(9);
-
-        // Reuse buffer
-        // Default to a length of 60, start empty output
-        // Length is expensive to set, so only set it once, then just update data
-        m_ledBuffer = new AddressableLEDBuffer(60);
-        m_led.setLength(m_ledBuffer.getLength());
-
-        // Set the data
-        m_led.setData(m_ledBuffer);
-        m_led.start();
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+            // Sets the specified LED to the RGB values for red
+            if (area < 1){
+            m_ledBuffer.setRGB(i, 100, 100, 100);
+            }
+            if (area > 1){
+                m_ledBuffer.setRGB(i, 0, 0, 200);
+            }
+         }
+         
+         m_led.setData(m_ledBuffer);
         }
-*/
+        
+
+
 }
