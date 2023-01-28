@@ -57,13 +57,12 @@ public class RobotContainer {
     boolean openLoop = true;
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop));
 
-
     /* Driver Buttons */
     // toggles between high speed and low speed mode
-    //swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
-    swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> Limelight.periodic()));
+    swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    visionTrackingToggleButton.whenPressed(new VisionTracking(Limelight, s_Swerve, fieldRelative, openLoop));
+    
+    visionTrackingToggleButton.whenPressed(new VisionTracking(s_Swerve, Limelight));
   }
 
   /**
@@ -73,6 +72,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new PathWeaverTest(s_Swerve);
+    return new PathPlannerTest(s_Swerve);
   }
 }

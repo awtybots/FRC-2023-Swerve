@@ -27,6 +27,7 @@ public class Swerve extends SubsystemBase {
     public Swerve() {
         swerveHighSpeedMode = true;
 
+
         gyro = new AHRS(SPI.Port.kMXP);
         zeroGyro();
 
