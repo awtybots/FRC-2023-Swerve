@@ -17,9 +17,9 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 // import com.pathplanner.lib.PathPoint;
 import com.pathplanner.lib.PathPlannerTrajectory;
-// import com.pathplanner.lib.commands.FollowPathWithEvents;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
-// import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 public class PathPlannerTest extends SequentialCommandGroup {
     String trajectoryJSON = "pathplanner/generatedJSON/New_New_Path.wpilib.json";
@@ -31,10 +31,11 @@ public class PathPlannerTest extends SequentialCommandGroup {
 
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("marker1", new PrintCommand("Passed marker 1"));
+        eventMap.put("marker2", new PrintCommand("Passed marker 2"));
 
         // TODO: Figure out FollowPathWithEvents
         // FollowPathWithEvents followpath = new FollowPathWithEvents(
-        //     getPathFollowingCommand(trajectory),
+        //     PathPlannerTest, - get a path planner command? uhhh
         //     trajectory.getMarkers(),
         //     eventMap
         // );
@@ -54,7 +55,6 @@ public class PathPlannerTest extends SequentialCommandGroup {
                 thetaController,
                 s_Swerve::setModuleStates,
                 s_Swerve);
-
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
