@@ -61,8 +61,8 @@ public class RobotContainer {
     // toggles between high speed and low speed mode
     swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    
-    visionTrackingToggleButton.whenPressed(new VisionTracking(s_Swerve, Limelight));
+
+    visionTrackingToggleButton.whenActive(new VisionTracking(s_Swerve, Limelight, fieldRelative, openLoop));
   }
 
   /**
