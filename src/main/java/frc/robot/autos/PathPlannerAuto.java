@@ -19,7 +19,7 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 // import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
-    String trajectoryJSON = "pathplanner/generatedJSON/New_Path.wpilib.json";
+    String trajectoryJSON = "pathplanner/generatedJSON/Test1.wpilib.json";
     PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
 
 
