@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autos.PathPlannerAuto;
 //import frc.robot.autos.forward;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.VisionTracking;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class RobotContainer {
   // The robot's subsystems
   private final Swerve s_Swerve = new Swerve();
+  private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
   // The driver's controller
   private final Joystick driver = new Joystick(0);
@@ -30,6 +33,7 @@ public class RobotContainer {
   /* Driver Buttons */
   private final JoystickButton zeroGyroButton = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton swerveSpeedToggleButton = new JoystickButton(driver, XboxController.Button.kA.value);
+  private final JoystickButton visionTrackingToggleButton = new JoystickButton(driver, XboxController.Button.kX.value);
 
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -58,6 +62,7 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
     swerveSpeedToggleButton.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    visionTrackingToggleButton.whileTrue(new VisionTracking(s_Swerve, Limelight));
   }
 
   /**
