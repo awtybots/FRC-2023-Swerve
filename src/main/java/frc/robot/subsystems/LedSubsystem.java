@@ -24,12 +24,12 @@ public class LedSubsystem extends SubsystemBase {
         if(portionLED > 1) return;
         for (var i = 0; i < m_ledBuffer.getLength()*portionLED; i++) {
             m_ledBuffer.setRGB(i, r, g, b);
-            m_led.setData(m_ledBuffer);
         }
+        m_led.setData(m_ledBuffer);
     }
 
     public void visionTrackingLED(double area) {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             if (area > 17) {
                 m_ledBuffer.setRGB(i, 0, 200, 0);
             }
@@ -39,8 +39,8 @@ public class LedSubsystem extends SubsystemBase {
             else{
                 m_ledBuffer.setRGB(i, 100, 100, 100);
             }
-            m_led.setData(m_ledBuffer);
         }
+        m_led.setData(m_ledBuffer);
     }
 
     public void turnOff(){

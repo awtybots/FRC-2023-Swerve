@@ -45,6 +45,7 @@ public class RobotContainer {
   private final LedSubsystem s_Led = new LedSubsystem(120);
   private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
 
+  public static boolean isAutoTargetOn = false;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -57,6 +58,7 @@ public class RobotContainer {
   private void addAutonomousChoices() {
     autonManager.addOption("Do Nothing", new InstantCommand());
     autonManager.addOption("PathPlanner Test", new PathPlannerTest(s_Swerve));
+    autonManager.addOption("Defaut Test", new exampleAuto(s_Swerve));
   }
 
   /**
@@ -76,6 +78,7 @@ public class RobotContainer {
     zeroGyroButton.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
     visionTrackingToggleButton.whenHeld(new VisionTracking(s_Swerve, Limelight, fieldRelative, openLoop));
+    visionTrackingToggleButton.whenReleased(new InstantCommand(() ->  isAutoTargetOn = false));
   }
 
   /**

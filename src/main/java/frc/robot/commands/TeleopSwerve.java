@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -45,6 +46,7 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
+        if(RobotContainer.isAutoTargetOn) return;
         double yAxis = -controller.getRawAxis(translationAxis);
         double xAxis = -controller.getRawAxis(strafeAxis);
         double rAxis = -controller.getRawAxis(rotationAxis);
