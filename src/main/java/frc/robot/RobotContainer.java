@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.util.AutonManager;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -23,6 +24,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  //Autonomous manager import
+  private final AutonManager autonManager = new AutonManager();
+
   // The robot's subsystems
   private final Swerve s_Swerve = new Swerve();
   private final LimelightSubsystem Limelight = new LimelightSubsystem();
@@ -43,9 +47,16 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    addAutonomousChoices();
+    autonManager.displayChoices();
     // Configure the button bindings
     configureButtonBindings();
   }
+
+  private void addAutonomousChoices() {
+    autonManager.addOption("Do Nothing", new InstantCommand());
+    autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve));
+}
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -71,6 +82,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto(s_Swerve);
+    return autonManager.getSelected();
   }
 }
