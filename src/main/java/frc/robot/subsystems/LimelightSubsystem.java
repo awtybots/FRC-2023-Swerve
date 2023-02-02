@@ -31,9 +31,13 @@ public class LimelightSubsystem extends SubsystemBase {
     NetworkTableEntry ty;
     NetworkTableEntry ta;
 
+    NetworkTableEntry ry;
+
     double x;
     double y;
     double area;
+
+    double rotationY;
 
 
     AddressableLED m_led;
@@ -64,6 +68,8 @@ public class LimelightSubsystem extends SubsystemBase {
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
 
+        ry = table.getEntry("ry");
+
         //read values periodically
         //horizontal offset
         x = tx.getDouble(0.0);
@@ -72,10 +78,14 @@ public class LimelightSubsystem extends SubsystemBase {
         //target area
         area = ta.getDouble(0.0);
 
+        rotationY = ry.getDouble(0.0);
+
         //post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
+
+        SmartDashboard.putNumber("LimeLightRY", rotationY);
 
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red

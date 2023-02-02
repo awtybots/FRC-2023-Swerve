@@ -25,7 +25,7 @@ public class VisionTracking extends CommandBase {
     @Override
     public void execute() {
         translation = new Translation2d(0, 0);
-        rotation = s_Limelight.horizontalOffset();
+        rotation = -1*s_Limelight.horizontalOffset()/2;
         s_Swerve.drive(translation, rotation, fieldRelative, openLoop);
     }
     

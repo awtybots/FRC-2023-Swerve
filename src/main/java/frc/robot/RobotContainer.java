@@ -62,7 +62,7 @@ public class RobotContainer {
     swerveSpeedToggleButton.whenPressed(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
-    visionTrackingToggleButton.whenActive(new VisionTracking(s_Swerve, Limelight, fieldRelative, openLoop));
+    visionTrackingToggleButton.whenHeld(new VisionTracking(s_Swerve, Limelight, fieldRelative, openLoop));
   }
 
   /**
