@@ -15,6 +15,8 @@ import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
+import frc.lib.util.AutonManager;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -22,6 +24,9 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  private final AutonManager autonManager = new AutonManager();
+
   /* Controllers */
   private final Joystick driver = new Joystick(0);
 
@@ -37,13 +42,21 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  private final LimelightSubsystem Limelight = new LimelightSubsystem();
+  private final LedSubsystem s_Led = new LedSubsystem(120);
+  private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    addAutonomousChoices();
+    autonManager.displayChoices();
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  private void addAutonomousChoices() {
+    autonManager.addOption("Do Nothing", new InstantCommand());
+    autonManager.addOption("PathPlanner Test", new PathPlannerTest(s_Swerve));
   }
 
   /**
@@ -72,6 +85,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new PathPlannerTest(s_Swerve);
+    return autonManager.getSelected();
   }
 }
