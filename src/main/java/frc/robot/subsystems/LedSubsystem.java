@@ -40,8 +40,8 @@ public class LedSubsystem extends SubsystemBase {
             else{
                 m_ledBuffer.setRGB(i, 100, 100, 100);
             }
+            m_led.setData(m_ledBuffer);
         }
-        m_led.setData(m_ledBuffer);
     }
 
     public void turnOff(){
