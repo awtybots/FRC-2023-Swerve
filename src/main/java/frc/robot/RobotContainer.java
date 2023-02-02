@@ -9,6 +9,7 @@ import frc.robot.autos.PathPlannerAuto;
 //import frc.robot.autos.forward;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.VisionTracking;
+import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,7 +30,8 @@ public class RobotContainer {
 
   // The robot's subsystems
   private final Swerve s_Swerve = new Swerve();
-  private final LimelightSubsystem Limelight = new LimelightSubsystem();
+  private final LedSubsystem s_Led = new LedSubsystem(120);
+  private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
 
   // The driver's controller
   private final Joystick driver = new Joystick(0);
@@ -73,7 +75,7 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
     swerveSpeedToggleButton.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    visionTrackingToggleButton.whileTrue(new VisionTracking(s_Swerve, Limelight));
+    visionTrackingToggleButton.toggleOnTrue(new VisionTracking(s_Swerve, Limelight));
   }
 
   /**
