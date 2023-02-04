@@ -37,10 +37,11 @@ public class LimelightSubsystem extends SubsystemBase {
 
     double rotationY;
 
-    LedSubsystem s_LEDSubsystem;
+    //TODO: LED | LedSubsystem s_LEDSubsystem;
 
-    public LimelightSubsystem(LedSubsystem s_LEDSubsystem){
-        this.s_LEDSubsystem = s_LEDSubsystem;
+    //TODO: LED | public LimelightSubsystem(LedSubsystem s_LEDSubsystem){
+    public LimelightSubsystem(){
+        //TODO: LED | this.s_LEDSubsystem = s_LEDSubsystem;
         table = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
@@ -77,6 +78,6 @@ public class LimelightSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("LimeLightRY", rotationY);
 
-        s_LEDSubsystem.visionTrackingLED(area);
+        //TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
     }
 }
