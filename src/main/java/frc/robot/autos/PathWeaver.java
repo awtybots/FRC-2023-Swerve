@@ -16,12 +16,12 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
-public class PathPlanner extends SequentialCommandGroup {
+public class PathWeaver extends SequentialCommandGroup {
     String trajectoryJSON = "pathplanner/generatedJSON/Test1.wpilib.json";
     Trajectory trajectory = new Trajectory();
 
 
-    public PathPlanner(Swerve s_Swerve){
+    public PathWeaver(Swerve s_Swerve){
         try {
             Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
             trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
