@@ -30,9 +30,11 @@ public final class Constants {
 
     public static final double lowSpeedMultiplier = 0.2;
 
-    public static final boolean fieldRelative = true;
+    public static final boolean fieldRelative = false;
 
     public static final int LEDPort = 9;
+
+    public static final double distanceToTarget = 4;
 
   }
 
@@ -54,21 +56,26 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
     // Angular offsets of the modules relative to the chassis in radians
-    public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2;
+    // public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2;
+    // public static final double kFrontRightChassisAngularOffset = 0;
+    // public static final double kBackLeftChassisAngularOffset = Math.PI;
+    // public static final double kBackRightChassisAngularOffset = Math.PI / 2;
+
+    public static final double kFrontLeftChassisAngularOffset = 0;
     public static final double kFrontRightChassisAngularOffset = 0;
-    public static final double kBackLeftChassisAngularOffset = Math.PI;
-    public static final double kBackRightChassisAngularOffset = Math.PI / 2;
+    public static final double kBackLeftChassisAngularOffset = 0;
+    public static final double kBackRightChassisAngularOffset = 0;
 
     // SPARK MAX CAN IDs
     public static final int kFrontLeftDrivingCanId = 10;
     public static final int kRearLeftDrivingCanId = 8;
     public static final int kFrontRightDrivingCanId = 2;
-    public static final int kRearRightDrivingCanId = 5;
+    public static final int kRearRightDrivingCanId = 4;
 
     public static final int kFrontLeftTurningCanId = 11;
     public static final int kRearLeftTurningCanId = 9;
     public static final int kFrontRightTurningCanId = 3;
-    public static final int kRearRightTurningCanId = 4;
+    public static final int kRearRightTurningCanId = 5;
 
     public static final boolean kGyroReversed = true;
   }

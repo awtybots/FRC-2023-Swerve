@@ -48,6 +48,9 @@ public class LimelightSubsystem extends SubsystemBase {
     public double horizontalOffset(){
         return x;
     }   
+    public double horizontalRotation(){
+        return 1;
+    }
 
     public void setMode(int number) {
         table.getEntry("ledMode").setDouble(number);

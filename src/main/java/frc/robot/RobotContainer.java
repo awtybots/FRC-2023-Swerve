@@ -9,6 +9,7 @@ import frc.robot.autos.PathPlannerAuto;
 //import frc.robot.autos.forward;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.VisionTracking;
+import frc.robot.commands.AutomatedVisionTracking;
 import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
@@ -76,7 +77,7 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
     swerveSpeedToggleButton.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     zeroGyroButton.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    visionTrackingToggleButton.toggleOnTrue(new VisionTracking(s_Swerve, Limelight));
+    visionTrackingToggleButton.onTrue(new VisionTracking(s_Swerve, Limelight));
   }
 
   /**
