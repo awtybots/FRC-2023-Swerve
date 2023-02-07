@@ -19,7 +19,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 // import edu.wpi.first.math.geometry.Translation2d;
 // import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.util.LimelightHelpers;
 
 public class LimelightSubsystem extends SubsystemBase {
     
@@ -28,7 +27,7 @@ public class LimelightSubsystem extends SubsystemBase {
     double ty;
     double ta;
 
-    double[] limelightInfo;
+    double[] targetpose_cameraspace;
     double ry;
 
     //TODO: LED | LedSubsystem s_LEDSubsystem;
@@ -57,9 +56,8 @@ public class LimelightSubsystem extends SubsystemBase {
         ta = table.getEntry("ta").getDouble(0.0);
 
         // TODO: 3D ? (experimental)
-        limelightInfo = LimelightHelpers.getTargetPose_CameraSpace("");
-        System.out.print(limelightInfo);
-        ry = LimelightHelpers.getTargetPose_CameraSpace("")[1];
+        targetpose_cameraspace = table.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
+        ry = targetpose_cameraspace[1];
 
 
         //post to smart dashboard periodically
@@ -67,6 +65,7 @@ public class LimelightSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", ty);
         SmartDashboard.putNumber("LimelightArea", ta);
 
+        SmartDashboard.putNumberArray("targetpose_cameraspace", targetpose_cameraspace);
         SmartDashboard.putNumber("LimeLightRY", ry);
 
         //TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
