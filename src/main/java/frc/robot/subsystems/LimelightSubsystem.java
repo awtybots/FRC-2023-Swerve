@@ -19,23 +19,17 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 // import edu.wpi.first.math.geometry.Translation2d;
 // import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
+import frc.util.LimelightHelpers;
 
 public class LimelightSubsystem extends SubsystemBase {
     
     NetworkTable table;
-    NetworkTableEntry tx;
-    NetworkTableEntry ty;
-    NetworkTableEntry ta;
+    double tx;
+    double ty;
+    double ta;
 
-    NetworkTableEntry ry;
-
-    double x;
-    double y;
-    double area;
-
-    double rotationY;
+    double[] limelightInfo;
+    double ry;
 
     //TODO: LED | LedSubsystem s_LEDSubsystem;
 
@@ -46,10 +40,10 @@ public class LimelightSubsystem extends SubsystemBase {
     }
 
     public double horizontalOffset(){
-        return x;
+        return tx;
     }   
     public double horizontalRotation(){
-        return 1;
+        return ry;
     }
 
     public void setMode(int number) {
@@ -58,28 +52,22 @@ public class LimelightSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        tx = table.getEntry("tx");
-        ty = table.getEntry("ty");
-        ta = table.getEntry("ta");
+        tx = table.getEntry("tx").getDouble(0.0);
+        ty = table.getEntry("ty").getDouble(0.0);
+        ta = table.getEntry("ta").getDouble(0.0);
 
-        ry = table.getEntry("ry");
+        // TODO: 3D ? (experimental)
+        limelightInfo = LimelightHelpers.getTargetPose_CameraSpace("");
+        System.out.print(limelightInfo);
+        ry = LimelightHelpers.getTargetPose_CameraSpace("")[1];
 
-        //read values periodically
-        //horizontal offset
-        x = tx.getDouble(0.0);
-        //vertical offset
-        y = ty.getDouble(0.0);
-        //target area
-        area = ta.getDouble(0.0);
-
-        rotationY = ry.getDouble(0.0);
 
         //post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
+        SmartDashboard.putNumber("LimelightX", tx);
+        SmartDashboard.putNumber("LimelightY", ty);
+        SmartDashboard.putNumber("LimelightArea", ta);
 
-        SmartDashboard.putNumber("LimeLightRY", rotationY);
+        SmartDashboard.putNumber("LimeLightRY", ry);
 
         //TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
     }
