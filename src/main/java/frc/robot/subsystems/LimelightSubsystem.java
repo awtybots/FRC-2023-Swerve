@@ -1,9 +1,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
+import org.json.simple.JSONObject;
 
 // import com.kauailabs.navx.frc.AHRS;
 // import edu.wpi.first.wpilibj.SPI;
@@ -19,6 +21,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 // import edu.wpi.first.math.geometry.Translation2d;
 // import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.util.LimelightHelpers;
 
 public class LimelightSubsystem extends SubsystemBase {
     
@@ -27,7 +30,7 @@ public class LimelightSubsystem extends SubsystemBase {
     double ty;
     double ta;
 
-    String jsonDump;
+    double[] targetPose_CameraSpace;
     double ry;
 
     //TODO: LED | LedSubsystem s_LEDSubsystem;
@@ -51,16 +54,12 @@ public class LimelightSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        tx = table.getEntry("tx").getDouble(0.0);
-        ty = table.getEntry("ty").getDouble(0.0);
-        ta = table.getEntry("ta").getDouble(0.0);
+        tx = LimelightHelpers.getTX("");
+        ty = LimelightHelpers.getTY("");
+        ta = LimelightHelpers.getTA("");
 
         // TODO: 3D ? (experimental)
-        jsonDump = NetworkTableInstance.getDefault().getTable("limelight").getEntry("json").getString("");
-        try {
-            jsonDump
-        }
-        // ry = targetpose_cameraspace[1];
+        targetPose_CameraSpace = LimelightHelpers.getTargetPose_CameraSpace("");
 
 
         //post to smart dashboard periodically
@@ -68,10 +67,9 @@ public class LimelightSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", ty);
         SmartDashboard.putNumber("LimelightArea", ta);
 
-        SmartDashboard.putString("JsonDump", jsonDump);
-        // for(int i=0; i<targetpose_cameraspace.length; i++) {
-        //     SmartDashboard.putNumber("targetpose_cameraspace" + i, targetpose_cameraspace[i]);
-        // }
+        for(int i=0; i<targetPose_CameraSpace.length; i++) {
+            SmartDashboard.putNumber("targetpose_cameraspace" + i, targetPose_CameraSpace[i]);
+        }
         SmartDashboard.putNumber("LimeLightRY", ry);
 
         //TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
