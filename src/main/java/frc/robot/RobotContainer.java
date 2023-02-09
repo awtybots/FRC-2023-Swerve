@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.util.AutonManager;
+import frc.util.Controller;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,40 +27,29 @@ import frc.util.AutonManager;
  */
 public class RobotContainer {
   //Autonomous manager import
-  private final AutonManager autonManager = new AutonManager();
+    private final AutonManager autonManager = new AutonManager();
 
-  // The robot's subsystems
-  private final Swerve s_Swerve = new Swerve();
+    // The robot's subsystems
+    private final Swerve s_Swerve = new Swerve();
   //TODO: LED | private final LedSubsystem s_Led = new LedSubsystem(120);
   //TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
-  private final LimelightSubsystem Limelight = new LimelightSubsystem();
+    private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
-  // The driver's controller
-  private final Joystick driver = new Joystick(0);
+    // Controllers
+    private final Controller driver = new Controller(0);
+    private final Controller operator = new Controller(1);
 
-  /* Driver Buttons */
-  private final JoystickButton zeroGyroButton = new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton swerveSpeedToggleButton = new JoystickButton(driver, XboxController.Button.kA.value);
-  private final JoystickButton visionTrackingToggleButton = new JoystickButton(driver, XboxController.Button.kX.value);
-
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
-
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    addAutonomousChoices();
-    autonManager.displayChoices();
+    public RobotContainer() {
+        addAutonomousChoices();
+        autonManager.displayChoices();
     // Configure the button bindings
-    configureButtonBindings();
-  }
+        configureButtonBindings();
+    }
 
-  private void addAutonomousChoices() {
-    autonManager.addOption("Do Nothing", new InstantCommand());
-    autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve));
-}
+    private void addAutonomousChoices() {
+        autonManager.addOption("Do Nothing", new InstantCommand());
+        autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve));
+    }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -70,21 +60,26 @@ public class RobotContainer {
    * passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
+    private void configureButtonBindings() {
         // The left stick controls translation of the robot.
-        // Turning is controlled by the X axis of the right stick.s
-    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
-    swerveSpeedToggleButton.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
-    zeroGyroButton.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    visionTrackingToggleButton.onTrue(new VisionTracking(s_Swerve, Limelight));
-  }
+        // Turning is controlled by the X axis of the right stick
+        final int translationAxis = XboxController.Axis.kLeftY.value;
+        final int strafeAxis = XboxController.Axis.kLeftX.value;
+        final int rotationAxis = XboxController.Axis.kRightX.value;
+
+        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
+
+        driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
+        driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
+        driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+    }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return autonManager.getSelected();
-  }
+    public Command getAutonomousCommand() {
+        return autonManager.getSelected();
+    }
 }

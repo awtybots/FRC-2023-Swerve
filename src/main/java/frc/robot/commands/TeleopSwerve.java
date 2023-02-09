@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
-import edu.wpi.first.wpilibj.Joystick;
+import frc.util.Controller;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -13,13 +13,11 @@ public class TeleopSwerve extends CommandBase {
     private double rotation;
     private Translation2d translation;
     private boolean fieldRelative;
-    
     private Swerve s_Swerve;
-    private Joystick controller;
+    private Controller driver;
     private int translationAxis;
     private int strafeAxis;
     private int rotationAxis;
-
     private SlewRateLimiter xLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
     private SlewRateLimiter yLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
 
@@ -31,11 +29,11 @@ public class TeleopSwerve extends CommandBase {
     /**
      * Driver control
      */
-    public TeleopSwerve(Swerve s_Swerve, Joystick controller, int translationAxis, int strafeAxis, int rotationAxis) {
+    public TeleopSwerve(Swerve s_Swerve, Controller driver, int translationAxis, int strafeAxis, int rotationAxis) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
-        this.controller = controller;
+        this.driver = driver;
         this.translationAxis = translationAxis;
         this.strafeAxis = strafeAxis;
         this.rotationAxis = rotationAxis;
@@ -44,9 +42,9 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        double yAxis = -controller.getRawAxis(translationAxis);
-        double xAxis = -controller.getRawAxis(strafeAxis);
-        double rAxis = -controller.getRawAxis(rotationAxis);
+        double yAxis = -driver.getRawAxis(translationAxis);
+        double xAxis = -driver.getRawAxis(strafeAxis);
+        double rAxis = -driver.getRawAxis(rotationAxis);
         
         yAxis = applyDeadband(yAxis, Constants.CustomConstants.stickDeadband);
         xAxis = applyDeadband(xAxis, Constants.CustomConstants.stickDeadband);
