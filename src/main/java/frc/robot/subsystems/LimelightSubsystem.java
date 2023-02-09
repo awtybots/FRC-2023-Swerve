@@ -27,7 +27,7 @@ public class LimelightSubsystem extends SubsystemBase {
     double ty;
     double ta;
 
-    double[] targetpose_cameraspace;
+    String jsonDump;
     double ry;
 
     //TODO: LED | LedSubsystem s_LEDSubsystem;
@@ -56,8 +56,11 @@ public class LimelightSubsystem extends SubsystemBase {
         ta = table.getEntry("ta").getDouble(0.0);
 
         // TODO: 3D ? (experimental)
-        targetpose_cameraspace = table.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
-        ry = targetpose_cameraspace[1];
+        jsonDump = NetworkTableInstance.getDefault().getTable("limelight").getEntry("json").getString("");
+        try {
+            jsonDump
+        }
+        // ry = targetpose_cameraspace[1];
 
 
         //post to smart dashboard periodically
@@ -65,7 +68,10 @@ public class LimelightSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", ty);
         SmartDashboard.putNumber("LimelightArea", ta);
 
-        SmartDashboard.putNumberArray("targetpose_cameraspace", targetpose_cameraspace);
+        SmartDashboard.putString("JsonDump", jsonDump);
+        // for(int i=0; i<targetpose_cameraspace.length; i++) {
+        //     SmartDashboard.putNumber("targetpose_cameraspace" + i, targetpose_cameraspace[i]);
+        // }
         SmartDashboard.putNumber("LimeLightRY", ry);
 
         //TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
