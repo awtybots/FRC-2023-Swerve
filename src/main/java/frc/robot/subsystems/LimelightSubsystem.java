@@ -60,6 +60,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
         // TODO: 3D ? (experimental)
         targetPose_CameraSpace = LimelightHelpers.getTargetPose_CameraSpace("");
+        ry = targetPose_CameraSpace[1];
 
 
         //post to smart dashboard periodically

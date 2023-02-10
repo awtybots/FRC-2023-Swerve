@@ -30,7 +30,7 @@ public final class Constants {
 
     public static final double lowSpeedMultiplier = 0.2;
 
-    public static final boolean fieldRelative = false;
+    public static final boolean fieldRelative = true;
 
     public static final int LEDPort = 9;
 
@@ -63,8 +63,8 @@ public final class Constants {
 
     public static final double kFrontLeftChassisAngularOffset = 0;
     public static final double kFrontRightChassisAngularOffset = 0;
-    public static final double kBackLeftChassisAngularOffset = 0;
-    public static final double kBackRightChassisAngularOffset = 0;
+    public static final double kBackLeftChassisAngularOffset = Math.PI;
+    public static final double kBackRightChassisAngularOffset = Math.PI;
 
     // SPARK MAX CAN IDs
     public static final int kFrontLeftDrivingCanId = 10;
