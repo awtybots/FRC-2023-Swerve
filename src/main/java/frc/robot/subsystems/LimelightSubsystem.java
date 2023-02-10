@@ -21,6 +21,7 @@ import org.json.simple.JSONObject;
 // import edu.wpi.first.math.geometry.Translation2d;
 // import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.util.LimelightHelpers;
 
 public class LimelightSubsystem extends SubsystemBase {
@@ -32,6 +33,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
     double[] targetPose_CameraSpace;
     double ry;
+    double distance;
 
     //TODO: LED | LedSubsystem s_LEDSubsystem;
 
@@ -41,11 +43,22 @@ public class LimelightSubsystem extends SubsystemBase {
         table = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
-    public double horizontalOffset(){
+    public double getHorizontalOffset(){
         return tx;
     }   
-    public double horizontalRotation(){
+    public double getHorizontalRotation(){
         return ry;
+    }
+    public double getDistance(){
+        return distance;
+    }
+
+    private double distanceCalculation(double yAngle){
+        double AprilTagHeight = Constants.CustomConstants.AprilTagHeight;
+        double LimelightHeight = Constants.CustomConstants.LimelightHeight;
+        double LimelightAngle = Constants.CustomConstants.LimelightAngle;
+
+        return ((AprilTagHeight-LimelightHeight) / Math.tan(LimelightAngle + yAngle));
     }
 
     public void setMode(int number) {
@@ -60,6 +73,9 @@ public class LimelightSubsystem extends SubsystemBase {
 
         // TODO: 3D ? (experimental)
         targetPose_CameraSpace = LimelightHelpers.getTargetPose_CameraSpace("");
+
+        ry = targetPose_CameraSpace[4];
+        distance = distanceCalculation(ty);
 
 
         //post to smart dashboard periodically

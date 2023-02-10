@@ -36,6 +36,10 @@ public final class Constants {
 
     public static final double distanceToTarget = 4;
 
+    public static final double AprilTagHeight = 1;
+    public static final double LimelightHeight = 0.5;
+    public static final double LimelightAngle = 25;
+
   }
 
   public static final class DriveConstants {
