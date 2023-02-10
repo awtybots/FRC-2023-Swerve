@@ -15,7 +15,6 @@ public class AutomatedVisionTracking extends CommandBase {
     private final double beta;
     private final double alpha;
     private final double initial_distance;
-    private double new_distance;
 
     private Translation2d translation1;
     private Translation2d translation2;
@@ -24,9 +23,9 @@ public class AutomatedVisionTracking extends CommandBase {
     public AutomatedVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight){
         this.s_Swerve = s_Swerve;
         this.s_Limelight = s_Limelight;
-        this.beta = s_Limelight.horizontalOffset();
-        this.alpha = s_Limelight.horizontalRotation();
-        this.initial_distance = 1;
+        this.beta = s_Limelight.getHorizontalOffset();
+        this.alpha = s_Limelight.getHorizontalRotation();
+        this.initial_distance = s_Limelight.getDistance();
         fieldRelative = Constants.CustomConstants.fieldRelative;
     }
 
@@ -37,9 +36,9 @@ public class AutomatedVisionTracking extends CommandBase {
         rotation = -1*alpha;
         s_Swerve.drive(translation1, rotation, fieldRelative);
         s_Swerve.zeroGyro();
-        translation2 = new Translation2d(new_distance - Constants.CustomConstants.distanceToTarget, 0);
+        translation2 = new Translation2d(s_Limelight.getDistance() - Constants.CustomConstants.distanceToTarget, 0);
         s_Swerve.drive(translation2, 0, fieldRelative);
-        rotation = -1*s_Limelight.horizontalOffset()/2;
+        rotation = -1*s_Limelight.getHorizontalOffset()/2;
     }
     
 }
