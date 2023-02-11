@@ -47,8 +47,8 @@ public final class Constants {
   }
 
   public static final class ArmConstants {
-    public static final int kLeftArmMotorId = 6;
-    public static final int kRightArmMotorId = 7;
+    public static final int kLeftArmMotorId = 7;
+    public static final int kRightArmMotorId = 12;
   }
 
   public static final class ClawConstants {

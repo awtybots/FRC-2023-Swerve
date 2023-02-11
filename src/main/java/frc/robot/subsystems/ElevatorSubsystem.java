@@ -58,7 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void drive(double pct) {
         for (WPI_TalonFX motor : motors)
-            motor.set(ControlMode.PercentOutput, pct * kMaxPercentOutput);
+            motor.set(ControlMode.PercentOutput, -pct * kMaxPercentOutput);
     }
 
     public void stop() {

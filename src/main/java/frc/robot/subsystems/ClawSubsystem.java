@@ -29,7 +29,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void driveClaw(double pct) {
-        mPivotMotor.set(pct);
+        mPivotMotor.set(pct*0.1);
     }
 
     public void stopClaw() {

@@ -50,8 +50,10 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        for (CANSparkMax motor : motors)
-            motor.set(pct);
+        // for (CANSparkMax motor : motors)
+        //     motor.set(pct);
+        mLeftArmMotor.set(pct*0.1);
+        mRightArmMotor.set(-pct*0.1);
     }
 
     public void stop() {
