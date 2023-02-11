@@ -123,7 +123,7 @@ public class Swerve extends SubsystemBase {
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(XVelocity, YVelocity, rot, Rotation2d.fromDegrees(m_gyro.getYaw()))
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(XVelocity, YVelocity, rot, Rotation2d.fromDegrees(-m_gyro.getYaw()))
             : new ChassisSpeeds(XVelocity, YVelocity, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);

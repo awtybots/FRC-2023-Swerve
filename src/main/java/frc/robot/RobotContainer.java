@@ -11,10 +11,12 @@ import frc.robot.commands.RotateArm;
 //import frc.robot.autos.forward;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.VisionTracking;
+import frc.robot.commands.setIntake;
 import frc.robot.commands.DriveClaw;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 //TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
@@ -43,6 +45,7 @@ public class RobotContainer {
   private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
   private final ArmSubsystem Arm = new ArmSubsystem();
   private final ClawSubsystem Claw = new ClawSubsystem();
+  private final IntakeSubsystem Intake = new IntakeSubsystem();
 
 
   // The driver's controller
@@ -86,6 +89,8 @@ public class RobotContainer {
     Elevator.setDefaultCommand(new DriveElevator(driver, Elevator));
     Arm.setDefaultCommand(new RotateArm(driver, Arm));
     Claw.setDefaultCommand(new DriveClaw(driver, Claw));
+    Intake.setDefaultCommand(new setIntake(driver, Intake));
+
   }
 
   /**
