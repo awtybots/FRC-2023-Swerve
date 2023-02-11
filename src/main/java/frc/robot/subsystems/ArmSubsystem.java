@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -18,14 +19,14 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax mLeftArmMotor;
     private CANSparkMax mRightArmMotor;
 
-    private final AbsoluteEncoder mLeftArmEncoder;
-    private final AbsoluteEncoder mRightArmEncoder;
+    private final RelativeEncoder mLeftArmEncoder;
+    private final RelativeEncoder mRightArmEncoder;
 
     private final SparkMaxPIDController mLeftArmPIDController;
     private final SparkMaxPIDController mRightArmPIDController;
 
     private final CANSparkMax[] motors;
-    private final AbsoluteEncoder[] encoders;
+    private final RelativeEncoder[] encoders;
     private final SparkMaxPIDController[] pidControllers;
 
     public ArmSubsystem() {
@@ -35,9 +36,9 @@ public class ArmSubsystem extends SubsystemBase {
         mRightArmMotor.restoreFactoryDefaults();
         motors = new CANSparkMax[] {mLeftArmMotor, mRightArmMotor};
 
-        mLeftArmEncoder = mLeftArmMotor.getAbsoluteEncoder(Type.kDutyCycle);
-        mRightArmEncoder = mRightArmMotor.getAbsoluteEncoder(Type.kDutyCycle);
-        encoders = new AbsoluteEncoder[] {mLeftArmEncoder, mRightArmEncoder};
+        mLeftArmEncoder = mLeftArmMotor.getEncoder();
+        mRightArmEncoder = mRightArmMotor.getEncoder();
+        encoders = new RelativeEncoder[] {mLeftArmEncoder, mRightArmEncoder};
 
         mLeftArmPIDController = mRightArmMotor.getPIDController();
         mRightArmPIDController = mRightArmMotor.getPIDController();
