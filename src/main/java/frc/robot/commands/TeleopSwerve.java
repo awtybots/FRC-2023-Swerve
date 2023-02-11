@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
+import frc.util.Controller;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,10 +16,7 @@ public class TeleopSwerve extends CommandBase {
     private boolean fieldRelative;
     
     private Swerve s_Swerve;
-    private Joystick controller;
-    private int translationAxis;
-    private int strafeAxis;
-    private int rotationAxis;
+    private Controller controller;
 
     private SlewRateLimiter xLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
     private SlewRateLimiter yLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
@@ -31,22 +29,19 @@ public class TeleopSwerve extends CommandBase {
     /**
      * Driver control
      */
-    public TeleopSwerve(Swerve s_Swerve, Joystick controller, int translationAxis, int strafeAxis, int rotationAxis) {
+    public TeleopSwerve(Swerve s_Swerve, Controller controller) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
         this.controller = controller;
-        this.translationAxis = translationAxis;
-        this.strafeAxis = strafeAxis;
-        this.rotationAxis = rotationAxis;
         this.fieldRelative = Constants.CustomConstants.fieldRelative;
     }
 
     @Override
     public void execute() {
-        double yAxis = -controller.getRawAxis(translationAxis);
-        double xAxis = -controller.getRawAxis(strafeAxis);
-        double rAxis = -controller.getRawAxis(rotationAxis);
+        double yAxis = controller.getLeftStickY();
+        double xAxis = -controller.getLeftStickX();
+        double rAxis = -controller.getRightStickX();
         
         yAxis = applyDeadband(yAxis, Constants.CustomConstants.stickDeadband);
         xAxis = applyDeadband(xAxis, Constants.CustomConstants.stickDeadband);
@@ -61,6 +56,6 @@ public class TeleopSwerve extends CommandBase {
 
         translation = new Translation2d(yLimiter.calculate(yAxis), xLimiter.calculate(xAxis)).times(Constants.DriveConstants.kMaxSpeedMetersPerSecond);
         rotation = rAxis * Constants.DriveConstants.kMaxAngularSpeed;
-        s_Swerve.drive(translation, rotation, true);
+        s_Swerve.drive(translation, rotation, fieldRelative);
     }
 }

@@ -33,13 +33,24 @@ public final class Constants {
     public static final boolean fieldRelative = true;
 
     public static final int LEDPort = 9;
+  }
 
+  public static final class TalonConstants {
+    public static final int kLeftElevatorMotorId = 10;
+    public static final int kRightElevatorMotorId = 11;
+
+    public static final double kMaxPercentOutput = 1.0;
+    public static final double kRamp = 0.2;
+    public static final double kWinchDiameter = 1.0;
+    public static final double kGearRatio = 1.0 / 5.0 / 5.0 * 34.0 / 44.0;
+  }
+
+  public static final class LimeLightConstants {
     public static final double distanceToTarget = 4;
 
     public static final double AprilTagHeight = 1;
     public static final double LimelightHeight = 0.5;
     public static final double LimelightAngle = 25;
-
   }
 
   public static final class DriveConstants {

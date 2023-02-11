@@ -54,9 +54,9 @@ public class LimelightSubsystem extends SubsystemBase {
     }
 
     private double distanceCalculation(double yAngle){
-        double AprilTagHeight = Constants.CustomConstants.AprilTagHeight;
-        double LimelightHeight = Constants.CustomConstants.LimelightHeight;
-        double LimelightAngle = Constants.CustomConstants.LimelightAngle;
+        double AprilTagHeight = Constants.LimeLightConstants.AprilTagHeight;
+        double LimelightHeight = Constants.LimeLightConstants.LimelightHeight;
+        double LimelightAngle = Constants.LimeLightConstants.LimelightAngle;
 
         return ((AprilTagHeight-LimelightHeight) / Math.tan(LimelightAngle + yAngle));
     }

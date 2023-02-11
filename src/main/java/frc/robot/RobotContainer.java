@@ -6,9 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autos.PathPlannerAuto;
+import frc.robot.commands.DriveElevator;
 //import frc.robot.autos.forward;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.VisionTracking;
+import frc.robot.subsystems.ElevatorSubsystem;
 //TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.util.AutonManager;
+import frc.util.Controller;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -34,17 +37,13 @@ public class RobotContainer {
   //TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
   private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
+  private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
+
   // The driver's controller
-  private final Joystick driver = new Joystick(0);
+  private final Controller driver = new Controller(0);
+  private final Controller operator = new Controller(1);
 
-  /* Driver Buttons */
-  private final JoystickButton zeroGyroButton = new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton swerveSpeedToggleButton = new JoystickButton(driver, XboxController.Button.kA.value);
-  private final JoystickButton visionTrackingToggleButton = new JoystickButton(driver, XboxController.Button.kX.value);
-
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  public static boolean isAutoTargetOn = false;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -73,10 +72,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.s
-    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
-    swerveSpeedToggleButton.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
-    zeroGyroButton.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    visionTrackingToggleButton.onTrue(new VisionTracking(s_Swerve, Limelight));
+    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver));
+    driver.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
+    driver.buttonY.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+
+    Elevator.setDefaultCommand(new DriveElevator(driver, Elevator));
   }
 
   /**

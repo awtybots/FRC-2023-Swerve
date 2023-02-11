@@ -36,7 +36,7 @@ public class AutomatedVisionTracking extends CommandBase {
         rotation = -1*alpha;
         s_Swerve.drive(translation1, rotation, fieldRelative);
         s_Swerve.zeroGyro();
-        translation2 = new Translation2d(s_Limelight.getDistance() - Constants.CustomConstants.distanceToTarget, 0);
+        translation2 = new Translation2d(s_Limelight.getDistance() - Constants.LimeLightConstants.distanceToTarget, 0);
         s_Swerve.drive(translation2, 0, fieldRelative);
         rotation = -1*s_Limelight.getHorizontalOffset()/2;
     }

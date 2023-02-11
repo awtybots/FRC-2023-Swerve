@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.LimelightSubsystem;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.subsystems.Swerve;
@@ -23,9 +24,15 @@ public class VisionTracking extends CommandBase {
 
     @Override
     public void execute() {
+        RobotContainer.isAutoTargetOn = true;
         translation = new Translation2d(0, 0);
         rotation = -1*s_Limelight.getHorizontalOffset()/2;
         s_Swerve.drive(translation, rotation, fieldRelative);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        RobotContainer.isAutoTargetOn = false;
     }
     
 }
