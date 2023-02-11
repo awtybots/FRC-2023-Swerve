@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
 import frc.util.math.Convert;
@@ -19,9 +19,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final double kWinchDiameter;
     private final double kGearRatio;
 
-    private TalonFX mLeftElevatorMotor;
-    private TalonFX mRightElevatorMotor;
-    private final TalonFX[] motors;
+    private WPI_TalonFX mLeftElevatorMotor;
+    private WPI_TalonFX mRightElevatorMotor;
+    private final WPI_TalonFX[] motors;
 
     public ElevatorSubsystem() {
         kMaxPercentOutput = Constants.TalonConstants.kMaxPercentOutput;
@@ -31,7 +31,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         mLeftElevatorMotor = new TalonFX(Constants.TalonConstants.kLeftElevatorMotorId);
         mRightElevatorMotor = new TalonFX(Constants.TalonConstants.kRightElevatorMotorId);
-        motors = new TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
+        motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
         configMotors();
     }
 
@@ -41,7 +41,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         mLeftElevatorMotor.setInverted(TalonFXInvertType.Clockwise);
 
-        for (TalonFX motor : motors) {
+        for (WPI_TalonFX motor : motors) {
             motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
             motor.setSelectedSensorPosition(0.0);
 
@@ -56,17 +56,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        for (TalonFX motor : motors)
+        for (WPI_TalonFX motor : motors)
             motor.set(ControlMode.PercentOutput, pct * kMaxPercentOutput);
     }
 
     public void stop() {
-        for (TalonFX motor : motors) motor.set(ControlMode.PercentOutput, 0.0);
+        for (WPI_TalonFX motor : motors) motor.set(ControlMode.PercentOutput, 0.0);
     }
 
     private double getPosition() {
         double sum = 0.0;
-        for (TalonFX motor : motors) {
+        for (WPI_TalonFX motor : motors) {
             sum +=
                     Convert.encoderPosToDistance(
                             motor.getSelectedSensorPosition(),
