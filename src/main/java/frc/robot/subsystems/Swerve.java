@@ -118,15 +118,12 @@ public class Swerve extends SubsystemBase {
    */
   public void drive(Translation2d translation, double rot, boolean fieldRelative) {
 
-    double fieldRelativeXVelocity = translation.getX() * Math.cos(-m_gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.sin(-m_gyro.getYaw() * (Math.PI/180));
-    double fieldRelativeYVelocity = -translation.getX() * Math.sin(-m_gyro.getYaw() * (Math.PI/180)) + translation.getY() * Math.cos(-m_gyro.getYaw() * (Math.PI/180));
-
     double XVelocity = translation.getX();
     double YVelocity = translation.getY(); 
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeXVelocity, fieldRelativeYVelocity, rot, Rotation2d.fromDegrees(m_gyro.getAngle()))
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(XVelocity, YVelocity, rot, Rotation2d.fromDegrees(m_gyro.getYaw()))
             : new ChassisSpeeds(XVelocity, YVelocity, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
