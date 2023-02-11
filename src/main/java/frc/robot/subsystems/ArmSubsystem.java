@@ -19,15 +19,15 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax mLeftArmMotor;
     private CANSparkMax mRightArmMotor;
 
-    // private final RelativeEncoder mLeftArmEncoder;
-    // private final RelativeEncoder mRightArmEncoder;
+    private final RelativeEncoder mLeftArmEncoder;
+    private final RelativeEncoder mRightArmEncoder;
 
-    // private final SparkMaxPIDController mLeftArmPIDController;
-    // private final SparkMaxPIDController mRightArmPIDController;
+    private final SparkMaxPIDController mLeftArmPIDController;
+    private final SparkMaxPIDController mRightArmPIDController;
 
     private final CANSparkMax[] motors;
-    // private final RelativeEncoder[] encoders;
-    // private final SparkMaxPIDController[] pidControllers;
+    private final RelativeEncoder[] encoders;
+    private final SparkMaxPIDController[] pidControllers;
 
     public ArmSubsystem() {
         mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
@@ -36,24 +36,30 @@ public class ArmSubsystem extends SubsystemBase {
         mRightArmMotor.restoreFactoryDefaults();
         motors = new CANSparkMax[] {mLeftArmMotor, mRightArmMotor};
 
-        // mLeftArmEncoder = mLeftArmMotor.getEncoder();
-        // mRightArmEncoder = mRightArmMotor.getEncoder();
-        // encoders = new RelativeEncoder[] {mLeftArmEncoder, mRightArmEncoder};
+        mLeftArmEncoder = mLeftArmMotor.getEncoder();
+        mRightArmEncoder = mRightArmMotor.getEncoder();
+        encoders = new RelativeEncoder[] {mLeftArmEncoder, mRightArmEncoder};
 
-        // mLeftArmPIDController = mRightArmMotor.getPIDController();
-        // mRightArmPIDController = mRightArmMotor.getPIDController();
-        // pidControllers = new SparkMaxPIDController[]{mLeftArmPIDController, mRightArmPIDController};
+        mLeftArmPIDController = mRightArmMotor.getPIDController();
+        mRightArmPIDController = mRightArmMotor.getPIDController();
+        pidControllers = new SparkMaxPIDController[]{mLeftArmPIDController, mRightArmPIDController};
 
-        // mLeftArmPIDController.setFeedbackDevice(mLeftArmEncoder);
-        // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
+ 
+
+        //mLeftArmPIDController.setFeedbackDevice(mLeftArmEncoder);
+        //mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
 
     }
 
     public void drive(double pct) {
         // for (CANSparkMax motor : motors)
         //     motor.set(pct);
-        mLeftArmMotor.set(pct*0.1);
-        mRightArmMotor.set(-pct*0.1);
+        //mLeftArmMotor.set(pct*0.3);
+        //mRightArmMotor.set(-pct*0.3);
+        
+        mLeftArmPIDController.setReference(pct*0.6, CANSparkMax.ControlType.kSmartMotion);
+        mRightArmPIDController.setReference(-pct*0.6, CANSparkMax.ControlType.kSmartMotion);
+
     }
 
     public void stop() {
