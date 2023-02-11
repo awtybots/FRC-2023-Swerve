@@ -29,8 +29,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         kWinchDiameter = Constants.TalonConstants.kWinchDiameter;
         kGearRatio = Constants.TalonConstants.kGearRatio;
 
-        mLeftElevatorMotor = new TalonFX(Constants.TalonConstants.kLeftElevatorMotorId);
-        mRightElevatorMotor = new TalonFX(Constants.TalonConstants.kRightElevatorMotorId);
+        mLeftElevatorMotor = new WPI_TalonFX(Constants.TalonConstants.kLeftElevatorMotorId);
+        mRightElevatorMotor = new WPI_TalonFX(Constants.TalonConstants.kRightElevatorMotorId);
         motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
         configMotors();
     }
