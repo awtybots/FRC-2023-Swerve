@@ -13,19 +13,19 @@ public class ClawSubsystem extends SubsystemBase {
 
     private CANSparkMax mPivotMotor;
 
-    private final RelativeEncoder mPivotEncoder;
+    // private final RelativeEncoder mPivotEncoder;
     
-    private final SparkMaxPIDController mPivotPIDController;
+    // private final SparkMaxPIDController mPivotPIDController;
 
     public ClawSubsystem() {
         mPivotMotor = new CANSparkMax(Constants.ClawConstants.kPivotMotorId, MotorType.kBrushless);
         mPivotMotor.restoreFactoryDefaults();
 
-        mPivotEncoder = mPivotMotor.getEncoder();
+        // mPivotEncoder = mPivotMotor.getEncoder();
         
-        mPivotPIDController = mPivotMotor.getPIDController();
+        // mPivotPIDController = mPivotMotor.getPIDController();
     
-        mPivotPIDController.setFeedbackDevice(mPivotEncoder);
+        // mPivotPIDController.setFeedbackDevice(mPivotEncoder);
     }
 
     public void driveClaw(double pct) {

@@ -15,15 +15,15 @@ public class IntakeSubsystem extends SubsystemBase {
     private CANSparkMax mLeftIntakeMotor;
     private CANSparkMax mRightIntakeMotor;
 
-    private final RelativeEncoder mLeftIntakeEncoder;
-    private final RelativeEncoder mRightIntakeEncoder;
+    // private final RelativeEncoder mLeftIntakeEncoder;
+    // private final RelativeEncoder mRightIntakeEncoder;
     
-    private final SparkMaxPIDController mLeftIntakePIDController;
-    private final SparkMaxPIDController mRightIntakePIDController;
+    // private final SparkMaxPIDController mLeftIntakePIDController;
+    // private final SparkMaxPIDController mRightIntakePIDController;
 
     private final CANSparkMax[] intakeMotors;
-    private final RelativeEncoder[] intakeEncoders;
-    private final SparkMaxPIDController[] pidControllers;
+    // private final RelativeEncoder[] intakeEncoders;
+    // private final SparkMaxPIDController[] pidControllers;
 
     public IntakeSubsystem() {
         mLeftIntakeMotor = new CANSparkMax(Constants.ClawConstants.kLeftIntakeMotorId, MotorType.kBrushless);
@@ -34,16 +34,16 @@ public class IntakeSubsystem extends SubsystemBase {
 
         intakeMotors = new CANSparkMax[] {mLeftIntakeMotor, mRightIntakeMotor};
 
-        mLeftIntakeEncoder = mLeftIntakeMotor.getEncoder();
-        mRightIntakeEncoder = mRightIntakeMotor.getEncoder();
-        intakeEncoders = new RelativeEncoder[] {mLeftIntakeEncoder, mRightIntakeEncoder};
+        // mLeftIntakeEncoder = mLeftIntakeMotor.getEncoder();
+        // mRightIntakeEncoder = mRightIntakeMotor.getEncoder();
+        // intakeEncoders = new RelativeEncoder[] {mLeftIntakeEncoder, mRightIntakeEncoder};
         
-        mLeftIntakePIDController = mLeftIntakeMotor.getPIDController();
-        mRightIntakePIDController = mRightIntakeMotor.getPIDController();
-        pidControllers = new SparkMaxPIDController[]{mLeftIntakePIDController, mRightIntakePIDController};
+        // mLeftIntakePIDController = mLeftIntakeMotor.getPIDController();
+        // mRightIntakePIDController = mRightIntakeMotor.getPIDController();
+        // pidControllers = new SparkMaxPIDController[]{mLeftIntakePIDController, mRightIntakePIDController};
 
-        mLeftIntakePIDController.setFeedbackDevice(mLeftIntakeEncoder);
-        mRightIntakePIDController.setFeedbackDevice(mRightIntakeEncoder);
+        // mLeftIntakePIDController.setFeedbackDevice(mLeftIntakeEncoder);
+        // mRightIntakePIDController.setFeedbackDevice(mRightIntakeEncoder);
 
     }
 
