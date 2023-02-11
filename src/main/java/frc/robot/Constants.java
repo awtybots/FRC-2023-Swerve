@@ -49,6 +49,8 @@ public final class Constants {
   public static final class ArmConstants {
     public static final int kLeftArmMotorId = 11;
     public static final int kRightArmMotorId = 12;
+
+    
   }
 
   public static final class LimeLightConstants {
