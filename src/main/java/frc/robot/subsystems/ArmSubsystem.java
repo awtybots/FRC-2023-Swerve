@@ -58,17 +58,4 @@ public class ArmSubsystem extends SubsystemBase {
             motor.set(0);
     }
 
-    // private double getPosition() {
-    //     double sum = 0.0;
-    //     for (WPI_TalonFX motor : motors) {
-    //         sum +=
-    //                 Convert.encoderPosToDistance(
-    //                         motor.getSelectedSensorPosition(),
-    //                         kGearRatio,
-    //                         kWinchDiameter,
-    //                         Encoder.TalonFXIntegrated);
-    //     }
-    //     return sum / motors.length;
-    // }
-
 }

@@ -43,7 +43,7 @@ public final class Constants {
     public static final double kRamp = 0.2;
     public static final double kWinchDiameter = 1.0;
     //9:1
-    public static final double kGearRatio = 1.0 / 5.0 / 5.0 * 34.0 / 44.0;
+    public static final double kGearRatio = 1.0/9;
   }
 
   public static final class ArmConstants {
