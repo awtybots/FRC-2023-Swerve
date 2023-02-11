@@ -24,13 +24,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final WPI_TalonFX[] motors;
 
     public ElevatorSubsystem() {
-        kMaxPercentOutput = Constants.TalonConstants.kMaxPercentOutput;
-        kRamp = Constants.TalonConstants.kRamp;
-        kWinchDiameter = Constants.TalonConstants.kWinchDiameter;
-        kGearRatio = Constants.TalonConstants.kGearRatio;
+        kMaxPercentOutput = Constants.ElevatorConstants.kMaxPercentOutput;
+        kRamp = Constants.ElevatorConstants.kRamp;
+        kWinchDiameter = Constants.ElevatorConstants.kWinchDiameter;
+        kGearRatio = Constants.ElevatorConstants.kGearRatio;
 
-        mLeftElevatorMotor = new WPI_TalonFX(Constants.TalonConstants.kLeftElevatorMotorId);
-        mRightElevatorMotor = new WPI_TalonFX(Constants.TalonConstants.kRightElevatorMotorId);
+        mLeftElevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.kLeftElevatorMotorId);
+        mRightElevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.kRightElevatorMotorId);
         motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
         configMotors();
     }

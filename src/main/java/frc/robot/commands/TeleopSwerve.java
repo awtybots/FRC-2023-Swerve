@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve;
 import frc.util.Controller;
 import edu.wpi.first.wpilibj.Joystick;
@@ -39,6 +40,8 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
+        if(RobotContainer.isAutoTargetOn) return;
+
         double yAxis = controller.getLeftStickY();
         double xAxis = -controller.getLeftStickX();
         double rAxis = -controller.getRightStickX();

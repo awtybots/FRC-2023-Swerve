@@ -35,14 +35,20 @@ public final class Constants {
     public static final int LEDPort = 9;
   }
 
-  public static final class TalonConstants {
+  public static final class ElevatorConstants {
     public static final int kLeftElevatorMotorId = 10;
     public static final int kRightElevatorMotorId = 11;
 
     public static final double kMaxPercentOutput = 1.0;
     public static final double kRamp = 0.2;
     public static final double kWinchDiameter = 1.0;
+    //9:1
     public static final double kGearRatio = 1.0 / 5.0 / 5.0 * 34.0 / 44.0;
+  }
+
+  public static final class ArmConstants {
+    public static final int kLeftArmMotorId = 11;
+    public static final int kRightArmMotorId = 12;
   }
 
   public static final class LimeLightConstants {
