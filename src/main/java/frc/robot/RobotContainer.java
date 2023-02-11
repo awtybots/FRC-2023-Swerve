@@ -7,9 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.DriveElevator;
+import frc.robot.commands.RotateArm;
 //import frc.robot.autos.forward;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.VisionTracking;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 //TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -37,6 +39,7 @@ public class RobotContainer {
   private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
   private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
+  private final ArmSubsystem Arm = new ArmSubsystem();
 
   // The driver's controller
   private final Controller driver = new Controller(0);
@@ -77,6 +80,7 @@ public class RobotContainer {
     driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
 
     Elevator.setDefaultCommand(new DriveElevator(driver, Elevator));
+    Arm.setDefaultCommand(new RotateArm(driver, Arm));
   }
 
   /**

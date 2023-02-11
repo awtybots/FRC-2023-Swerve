@@ -49,12 +49,13 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        // for (CANSparkMax motor : motors) {}
-        //     motor.set(ControlMode.PercentOutput, pct * kMaxPercentOutput);
+        for (CANSparkMax motor : motors)
+            motor.set(pct);
     }
 
     public void stop() {
-        // for (WPI_TalonFX motor : motors) motor.set(ControlMode.PercentOutput, 0.0);
+        for (CANSparkMax motor : motors)
+            motor.set(0);
     }
 
     // private double getPosition() {
