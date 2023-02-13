@@ -50,7 +50,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private void resetToAbsolute(){
         double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.ElevatorConstants.kGearRatio);
         mLeftElevatorMotor.setSelectedSensorPosition(absolutePosition);
-        mRightElevatorMotor.setSelectedSensorPosition(absolutePosition);
+        mRightElevatorMotor.setSelectedSensorPosition(-absolutePosition);
     }
 
     public Rotation2d getCanCoder(){
