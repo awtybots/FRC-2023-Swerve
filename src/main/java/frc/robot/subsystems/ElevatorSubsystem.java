@@ -87,6 +87,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
+        SmartDashboard.putString("Elevator Absolute Angle", getCanCoder().toString());
         for (WPI_TalonFX motor : motors)
             motor.set(ControlMode.PercentOutput, -pct * kMaxPercentOutput);
     }
