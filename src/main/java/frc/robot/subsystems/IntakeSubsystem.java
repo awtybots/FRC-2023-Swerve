@@ -15,8 +15,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private CANSparkMax mLeftIntakeMotor;
     private CANSparkMax mRightIntakeMotor;
 
-    // private final RelativeEncoder mLeftIntakeEncoder;
-    // private final RelativeEncoder mRightIntakeEncoder;
+    private final RelativeEncoder mLeftIntakeEncoder;
+    private final RelativeEncoder mRightIntakeEncoder;
     
     // private final SparkMaxPIDController mLeftIntakePIDController;
     // private final SparkMaxPIDController mRightIntakePIDController;
@@ -34,8 +34,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
         intakeMotors = new CANSparkMax[] {mLeftIntakeMotor, mRightIntakeMotor};
 
-        // mLeftIntakeEncoder = mLeftIntakeMotor.getEncoder();
-        // mRightIntakeEncoder = mRightIntakeMotor.getEncoder();
+        mLeftIntakeEncoder = mLeftIntakeMotor.getEncoder();
+        mRightIntakeEncoder = mRightIntakeMotor.getEncoder();
         // intakeEncoders = new RelativeEncoder[] {mLeftIntakeEncoder, mRightIntakeEncoder};
         
         // mLeftIntakePIDController = mLeftIntakeMotor.getPIDController();
