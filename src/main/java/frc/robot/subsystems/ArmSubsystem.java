@@ -82,7 +82,7 @@ public class ArmSubsystem extends SubsystemBase {
         //     motor.set(pct);
         //mLeftArmMotor.set(pct*0.3);
         //mRightArmMotor.set(pct*-0.3);
-        armHeight += pct/100;
+        armHeight += pct/10;
         SmartDashboard.putNumber("armHeight ", armHeight);
         SmartDashboard.putNumber("armEncoderReadout1 ", mLeftArmEncoder.getPosition());
         SmartDashboard.putNumber("armEncoderReadout2 ", -mRightArmEncoder.getPosition());
