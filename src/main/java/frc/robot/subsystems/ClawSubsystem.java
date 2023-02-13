@@ -40,7 +40,6 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void driveClaw(double pct) {
         
-        mPivotMotor.set(pct*0.1);
         SmartDashboard.putNumber("wristHeight ", wristHeight);
         SmartDashboard.putNumber("wristEncoderReadout1 ", mPivotEncoder.getPosition());
         mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
