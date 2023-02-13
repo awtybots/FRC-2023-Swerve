@@ -80,7 +80,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("position", getPosition());;
+        SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
     }
 
 }
