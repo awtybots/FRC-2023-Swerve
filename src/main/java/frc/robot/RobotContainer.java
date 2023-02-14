@@ -84,7 +84,7 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver));
     driver.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     driver.buttonY.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+    driver.buttonX.toggleOnTrue(new VisionTracking(s_Swerve, Limelight));
 
     Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
     Arm.setDefaultCommand(new RotateArm(operator, Arm));
