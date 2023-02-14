@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.util.math.TalonConversions;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -30,6 +29,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final WPI_TalonFX[] motors;
 
     private final WPI_TalonSRX elevatorEncoder;
+
+    public double elevatorTargetHeight = 4000;
     
     
     public ElevatorSubsystem() {
@@ -50,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private void resetToAbsolute(){
         double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.ElevatorConstants.kGearRatio);
         mLeftElevatorMotor.setSelectedSensorPosition(absolutePosition);
-        mRightElevatorMotor.setSelectedSensorPosition(-absolutePosition);
+        mRightElevatorMotor.setSelectedSensorPosition(absolutePosition);
     }
 
     public Rotation2d getCanCoder(){
@@ -71,12 +72,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         for (WPI_TalonFX motor : motors) {
             motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-            motor.setSelectedSensorPosition(0.0);
+            //motor.setSelectedSensorPosition(0.0);
 
             motor.setNeutralMode(NeutralMode.Brake);
 
+
             
-            motor.configOpenloopRamp(kRamp);
+            motor.configOpenloopRamp(kRamp+0.1);
             motor.configClosedloopRamp(kRamp);
             motor.configPeakOutputForward(kMaxPercentOutput);
             motor.configPeakOutputReverse(-kMaxPercentOutput);
@@ -87,8 +89,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        for (WPI_TalonFX motor : motors)
-            motor.set(ControlMode.PercentOutput, -pct * kMaxPercentOutput);
+        
+        motors[0].set(ControlMode.Position, elevatorTargetHeight);
+        motors[1].set(ControlMode.Position, elevatorTargetHeight);
     }
 
     public void stop() {
@@ -110,9 +113,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putString("Elevator Absolute Angle", getCanCoder().toString());
-        SmartDashboard.putNumber("Elevator position1 ", motors[0].getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elevator position2 ", motors[1].getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elevator Absolute Angle", elevatorEncoder.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
     }
 
 }

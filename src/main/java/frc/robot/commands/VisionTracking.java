@@ -25,8 +25,9 @@ public class VisionTracking extends CommandBase {
     @Override
     public void execute() {
         RobotContainer.isAutoTargetOn = true;
+        if (s_Limelight.getHorizontalOffset() < 1) return;
         translation = new Translation2d(0, 0);
-        rotation = -1*s_Limelight.getHorizontalOffset()/2;
+        rotation = -1*s_Limelight.getHorizontalOffset()/15;
         s_Swerve.drive(translation, rotation, fieldRelative);
     }
 
