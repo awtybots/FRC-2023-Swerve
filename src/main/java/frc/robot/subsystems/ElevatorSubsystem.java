@@ -110,8 +110,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putString("Elevator Absolute Angle", getCanCoder().toString());
-        SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elevator position1 ", motors[0].getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elevator position2 ", motors[1].getSelectedSensorPosition());
     }
 
 }
