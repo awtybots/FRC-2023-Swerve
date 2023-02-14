@@ -49,13 +49,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     
     private void resetToAbsolute(){
-        double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.ElevatorConstants.kGearRatio);
+        //double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.ElevatorConstants.kGearRatio);
+        double absolutePosition = (getCanCoder());
         mLeftElevatorMotor.setSelectedSensorPosition(absolutePosition);
         mRightElevatorMotor.setSelectedSensorPosition(absolutePosition);
     }
 
-    public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(elevatorEncoder.getSelectedSensorPosition() * 360.0 / 4096.0);
+    public double getCanCoder(){
+        return elevatorEncoder.getSelectedSensorPosition();
     }
 
     private void configElevatorEncoder(){        
@@ -90,8 +91,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void drive(double pct) {
         
-        motors[0].set(ControlMode.Position, elevatorTargetHeight);
-        motors[1].set(ControlMode.Position, elevatorTargetHeight);
+        motors[0].set(ControlMode.Position, 4000);
+        motors[1].set(ControlMode.Position, 4000);//TODO ELEVATOR TARGET HEIGHT
     }
 
     public void stop() {
