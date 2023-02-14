@@ -68,7 +68,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         mLeftElevatorMotor.configFactoryDefault();
         mRightElevatorMotor.configFactoryDefault();
 
-        mLeftElevatorMotor.setInverted(TalonFXInvertType.Clockwise);
+        mRightElevatorMotor.setInverted(TalonFXInvertType.CounterClockwise);
 
         for (WPI_TalonFX motor : motors) {
             motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
