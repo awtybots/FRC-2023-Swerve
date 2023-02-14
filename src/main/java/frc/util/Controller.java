@@ -17,7 +17,7 @@ public class Controller {
     public POVButton dPadUp, dPadRight, dPadDown, dPadLeft;
 
     /** Allows using the triggers as buttons, for example <pre> mController.leftTrigger.whenPressed(new CommandToRun());*/
-    public Button leftTrigger, rightTrigger;
+    public Trigger leftTrigger, rightTrigger;
 
     /** @param port The port index on the Driver Station that the controller is plugged into. */
     public Controller(int port) {
@@ -41,8 +41,8 @@ public class Controller {
         dPadDown = new POVButton(controller, 180);
         dPadLeft = new POVButton(controller, 270);
 
-        leftTrigger = new Button(() -> getLeftTrigger() > kDeadzoneTrigger);
-        rightTrigger = new Button(() -> getRightTrigger() > kDeadzoneTrigger);
+        leftTrigger = new Trigger(() -> getLeftTrigger() > kDeadzoneTrigger);
+        rightTrigger = new Trigger(() -> getRightTrigger() > kDeadzoneTrigger);
     }
 
     /** The X (left/right) position of the right joystick on the controller from -1.0 to 1.0 */
