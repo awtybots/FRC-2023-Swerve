@@ -69,28 +69,29 @@ public class ElevatorSubsystem extends SubsystemBase {
         mLeftElevatorMotor.configFactoryDefault();
         mRightElevatorMotor.configFactoryDefault();
 
-        mRightElevatorMotor.setInverted(TalonFXInvertType.CounterClockwise);
+        mRightElevatorMotor.setInverted(TalonFXInvertType.Clockwise);
 
         for (WPI_TalonFX motor : motors) {
-            motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+            //motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
             //motor.setSelectedSensorPosition(0.0);
 
             motor.setNeutralMode(NeutralMode.Brake);
 
 
             
-            motor.configOpenloopRamp(kRamp+0.1);
+            motor.configOpenloopRamp(kRamp);
             motor.configClosedloopRamp(kRamp);
             motor.configPeakOutputForward(kMaxPercentOutput);
             motor.configPeakOutputReverse(-kMaxPercentOutput);
             motor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
+            motor.config_kP(0,0.3);
         }
 
         resetToAbsolute();
     }
 
     public void drive(double pct) {
-        
+
         motors[0].set(ControlMode.Position, 4000);
         motors[1].set(ControlMode.Position, 4000);//TODO ELEVATOR TARGET HEIGHT
     }
