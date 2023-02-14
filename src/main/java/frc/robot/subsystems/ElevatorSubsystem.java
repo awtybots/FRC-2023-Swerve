@@ -71,7 +71,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         for (WPI_TalonFX motor : motors) {
             motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-            motor.setSelectedSensorPosition(0.0);
+            //motor.setSelectedSensorPosition(0.0);
 
             motor.setNeutralMode(NeutralMode.Brake);
 
@@ -110,7 +110,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putString("Elevator Absolute Angle", getCanCoder().toString());
+        SmartDashboard.putNumber("Elevator Absolute Angle", elevatorEncoder.getSelectedSensorPosition());
         SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
         SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
     }
