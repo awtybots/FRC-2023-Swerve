@@ -30,6 +30,7 @@ public class IntakeSubsystem extends SubsystemBase {
         mRightIntakeMotor = new CANSparkMax(Constants.ClawConstants.kRightIntakeMotorId, MotorType.kBrushless);
 
         mLeftIntakeMotor.restoreFactoryDefaults();
+    
         mRightIntakeMotor.restoreFactoryDefaults();
 
         intakeMotors = new CANSparkMax[] {mLeftIntakeMotor, mRightIntakeMotor};
@@ -48,10 +49,17 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intake(double pct) {
-        for (CANSparkMax motor : intakeMotors)
-            motor.set(pct);
+ 
+        double multiplier;
+        if(pct > 0){
+            multiplier = 1;
+        } else {
+            multiplier = 0.3;
+        }
+        intakeMotors[0].set(-pct*multiplier);
+        intakeMotors[1].set(pct*multiplier);
+    
     }
-
     public void stopIntake() {
         for (CANSparkMax motor : intakeMotors)
             motor.set(0);

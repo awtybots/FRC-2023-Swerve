@@ -86,10 +86,10 @@ public class RobotContainer {
     driver.buttonY.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
 
-    Elevator.setDefaultCommand(new DriveElevator(driver, Elevator));
-    Arm.setDefaultCommand(new RotateArm(driver, Arm));
-    Claw.setDefaultCommand(new DriveClaw(driver, Claw));
-    Intake.setDefaultCommand(new setIntake(driver, Intake));
+    Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
+    Arm.setDefaultCommand(new RotateArm(operator, Arm));
+    Claw.setDefaultCommand(new DriveClaw(operator, Claw));
+    Intake.setDefaultCommand(new setIntake(operator, Intake));
 
   }
 

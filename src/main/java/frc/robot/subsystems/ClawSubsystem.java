@@ -29,11 +29,11 @@ public class ClawSubsystem extends SubsystemBase {
 
         mPivotEncoder = mPivotMotor.getEncoder();
         
-        mPivotPIDController.setP(1);
-        mPivotPIDController.setI(0);
-        mPivotPIDController.setD(0);
-        mPivotPIDController.setOutputRange(-0.2,
-        0.2);
+        mPivotPIDController.setP(0.5);
+        mPivotPIDController.setI(0.1);
+        mPivotPIDController.setD(0.15);
+        mPivotPIDController.setOutputRange(-0.5,
+        0.5);
     
         // mPivotPIDController.setFeedbackDevice(mPivotEncoder);
     }
@@ -43,7 +43,7 @@ public class ClawSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("wristHeight ", wristHeight);
         SmartDashboard.putNumber("wristEncoderReadout1 ", mPivotEncoder.getPosition());
         mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
-        wristHeight += pct/10.0;
+        wristHeight += pct/3.0;
 
     }
 
