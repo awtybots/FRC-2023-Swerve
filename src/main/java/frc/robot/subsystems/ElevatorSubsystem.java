@@ -30,6 +30,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final WPI_TalonFX[] motors;
 
     private final WPI_TalonSRX elevatorEncoder;
+
+    public double elevatorTargetHeight = 4000;
     
     
     public ElevatorSubsystem() {
@@ -75,8 +77,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             motor.setNeutralMode(NeutralMode.Brake);
 
+
             
-            motor.configOpenloopRamp(kRamp);
+            motor.configOpenloopRamp(kRamp+0.1);
             motor.configClosedloopRamp(kRamp);
             motor.configPeakOutputForward(kMaxPercentOutput);
             motor.configPeakOutputReverse(-kMaxPercentOutput);
@@ -87,8 +90,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        for (WPI_TalonFX motor : motors)
-            motor.set(ControlMode.PercentOutput, -pct * kMaxPercentOutput);
+        
+        motors[0].set(ControlMode.Position, elevatorTargetHeight);
+        motors[1].set(ControlMode.Position, elevatorTargetHeight);
     }
 
     public void stop() {
