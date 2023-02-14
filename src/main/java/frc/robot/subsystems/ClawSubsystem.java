@@ -29,11 +29,11 @@ public class ClawSubsystem extends SubsystemBase {
 
         mPivotEncoder = mPivotMotor.getEncoder();
         
-        mPivotPIDController.setP(0.5);
+        mPivotPIDController.setP(0.4);
         mPivotPIDController.setI(0.1);
         mPivotPIDController.setD(0.15);
-        mPivotPIDController.setOutputRange(-0.5,
-        0.5);
+        mPivotPIDController.setOutputRange(-0.2,
+        0.2);
     
         // mPivotPIDController.setFeedbackDevice(mPivotEncoder);
     }

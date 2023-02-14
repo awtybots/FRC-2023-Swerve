@@ -50,22 +50,33 @@ public class ElevatorSubsystem extends SubsystemBase {
     
     private void resetToAbsolute(){
         //double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.ElevatorConstants.kGearRatio);
-        double absolutePosition = (getCanCoder());
+        double absolutePosition = (getCanCoder()*5);
         mLeftElevatorMotor.setSelectedSensorPosition(absolutePosition);
         mRightElevatorMotor.setSelectedSensorPosition(absolutePosition);
     }
 
     public double getCanCoder(){
-        return elevatorEncoder.getSelectedSensorPosition();
+        return elevatorEncoder.getSelectedSensorPosition()*5;
     }
 
     private void configElevatorEncoder(){        
         elevatorEncoder.configFactoryDefault();
         elevatorEncoder.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        
+        
         // elevatorEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
     }
 
     private void configMotors() {
+        SmartDashboard.putNumber("kP", 0.04);
+        SmartDashboard.putNumber("kI", 0);
+        SmartDashboard.putNumber("kD", 0.01);
+        SmartDashboard.putNumber("kF", 0.0);
+
+        SmartDashboard.putNumber("target elivator position", 4000);
+
+
+
         mLeftElevatorMotor.configFactoryDefault();
         mRightElevatorMotor.configFactoryDefault();
 
@@ -78,22 +89,30 @@ public class ElevatorSubsystem extends SubsystemBase {
             motor.setNeutralMode(NeutralMode.Brake);
 
 
-            
             motor.configOpenloopRamp(kRamp);
             motor.configClosedloopRamp(kRamp);
             motor.configPeakOutputForward(kMaxPercentOutput);
             motor.configPeakOutputReverse(-kMaxPercentOutput);
             motor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
-            motor.config_kP(0,0.3);
+            
+ 
+
+            motor.configClosedloopRamp(0.3);
         }
 
         resetToAbsolute();
     }
 
+    public void setHeight(double height){
+        //elevatorTargetHeight;
+    }
     public void drive(double pct) {
 
-        motors[0].set(ControlMode.Position, 4000);
-        motors[1].set(ControlMode.Position, 4000);//TODO ELEVATOR TARGET HEIGHT
+        motors[0].set(ControlMode.Position, elevatorTargetHeight);
+        motors[1].set(ControlMode.Follower, elevatorTargetHeight);
+        elevatorTargetHeight += pct*1000;
+
+        //elevatorEncoder.set(ControlMode.Position, 4000);
     }
 
     public void stop() {
@@ -102,9 +121,36 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+ 
         SmartDashboard.putNumber("Elevator Absolute Angle", elevatorEncoder.getSelectedSensorPosition());
         SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
         SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
+
+
+        //3868 -> 5828  =  1960
+        //15067 -> 24873   =  9806 
+        elevatorTargetHeight = (SmartDashboard.getNumber("target elivator position", 4000));
+        SmartDashboard.updateValues();
+
+
+
+        double kP = SmartDashboard.getNumber("kP", 0.04);
+        double kI = SmartDashboard.getNumber("kI", 0);
+        double kD = SmartDashboard.getNumber("kD", 0.01);
+        double kF = SmartDashboard.getNumber("kF", 0.0);
+
+        for (WPI_TalonFX motor : motors){
+
+
+
+        motor.config_kP(0, kP);
+        motor.config_kI(0, kI);
+        motor.config_kD(0, kD);
+        motor.config_kF(0,kF);
+        }
+
+
+
     }
 
 }
