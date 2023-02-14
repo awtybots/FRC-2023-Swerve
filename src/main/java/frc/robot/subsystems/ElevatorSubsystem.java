@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.util.math.TalonConversions;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -50,7 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private void resetToAbsolute(){
         double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(), Constants.ElevatorConstants.kGearRatio);
         mLeftElevatorMotor.setSelectedSensorPosition(absolutePosition);
-        mRightElevatorMotor.setSelectedSensorPosition(-absolutePosition);
+        mRightElevatorMotor.setSelectedSensorPosition(absolutePosition);
     }
 
     public Rotation2d getCanCoder(){
