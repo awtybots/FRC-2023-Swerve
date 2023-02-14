@@ -18,8 +18,8 @@ public class setIntake extends CommandBase {
     
     @Override
     public void execute() {
-        double forward = controller.dPadRight.getAsBoolean() ? 1 : 0;
-        double reverse = controller.dPadLeft.getAsBoolean() ? 1 : 0;
+        double forward = controller.getRightTrigger();
+        double reverse = controller.getLeftTrigger();
         double rate = forward - reverse;
         s_Intake.intake(rate);
     }

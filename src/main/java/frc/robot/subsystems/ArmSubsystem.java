@@ -55,14 +55,14 @@ public class ArmSubsystem extends SubsystemBase {
         mLeftArmPIDController.setP(1);
         mLeftArmPIDController.setI(0);
         mLeftArmPIDController.setD(0);
-        mLeftArmPIDController.setOutputRange(-0.15,
-        0.15);
+        mLeftArmPIDController.setOutputRange(-1,
+        1);
 
         mRightArmPIDController.setP(1);
         mRightArmPIDController.setI(0);
         mRightArmPIDController.setD(0);
-        mRightArmPIDController.setOutputRange(-0.15,
-        0.15);
+        mRightArmPIDController.setOutputRange(-1,
+        1);
 
         pidControllers = new SparkMaxPIDController[]{mLeftArmPIDController, mRightArmPIDController};
 
@@ -80,9 +80,9 @@ public class ArmSubsystem extends SubsystemBase {
     public void drive(double pct) {
         // for (CANSparkMax motor : motors)
         //     motor.set(pct);
-        //mLeftArmMotor.set(pct*0.3);
-        //mRightArmMotor.set(pct*-0.3);
-        armHeight += pct/100;
+        mLeftArmMotor.set(pct*0.2);
+        mRightArmMotor.set(pct*-0.2);
+        armHeight += pct/10;
         SmartDashboard.putNumber("armHeight ", armHeight);
         SmartDashboard.putNumber("armEncoderReadout1 ", mLeftArmEncoder.getPosition());
         SmartDashboard.putNumber("armEncoderReadout2 ", -mRightArmEncoder.getPosition());
@@ -90,8 +90,8 @@ public class ArmSubsystem extends SubsystemBase {
 
 
         
-        mLeftArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
-        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+        //mLeftArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+        //mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
         //mLeftArmPIDController.setReference(0.1, CANSparkMax.ControlType.kSmartMotion);
         //mRightArmPIDController.setReference(-0.1, CANSparkMax.ControlType.kSmartMotion);
 
