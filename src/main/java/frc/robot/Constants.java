@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import frc.robot.commands.Positions.Intake.IntakeConeOnSidePosition;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -35,16 +36,71 @@ public final class Constants {
     public static final int LEDPort = 9;
   }
 
+  public static final class Position {
+    public static final class StowPosition {
+      public static final int ElevatorPosition = 4000;
+      public static final int ArmPosition = 0;
+      public static final int ClawPosition = 0;
+    }
+    public static final class Nodes {
+      public static final class HybridNodePosition {
+        public static final int ElevatorPosition = 0;
+        public static final int ArmPosition = 0;
+        public static final int ClawPosition = 0;
+      };
+      public static final class MidNodePosition {
+        public static final int ElevatorPosition = 0;
+        public static final int ArmPosition = 0;
+        public static final int ClawPosition = 0;
+      };
+      public static final class HighNodePosition {
+        public static final int ElevatorPosition = 0;
+        public static final int ArmPosition = 0;
+        public static final int ClawPosition = 0;
+      };
+    }
+    public static final class Intake {
+      public static final class IntakeConeOnSidePosition {
+        public static final int ElevatorPosition = 0;
+        public static final int ArmPosition = 0;
+        public static final int ClawPosition = 0;
+      }
+      public static final class IntakeFromHumanPlayerPosition {
+        public static final int ElevatorPosition = 0;
+        public static final int ArmPosition = 0;
+        public static final int ClawPosition = 0;
+      }
+      public static final class IntakeFromGroundPosition {
+        public static final int ElevatorPosition = 0;
+        public static final int ArmPosition = 0;
+        public static final int ClawPosition = 0;
+      }
+    }
+  }
+
   public static final class ElevatorConstants {
     public static final int kLeftElevatorMotorId = 20;
     public static final int kRightElevatorMotorId = 21;
     public static final int kElevatorEncoderId = 22;
 
     public static final double kMaxPercentOutput = 1.0;
-    public static final double kRamp = 0.2;
+    public static final double kRamp = 0.3;
     public static final double kWinchDiameter = 1.0;
     //9:1
     public static final double kGearRatio = 1.0/9;
+
+
+    // Heights
+    public static final int initialHeight = 4000;
+    public static final int minimumHeight = 2000;
+    public static final int maximumHeight = 210000;
+
+    // PID
+    public static final double kP = 0.04;
+    public static final double kI = 0.04;
+    public static final double kD = 0.01;
+    public static final double kF = 0.00;
+
   }
 
   public static final class ArmConstants {

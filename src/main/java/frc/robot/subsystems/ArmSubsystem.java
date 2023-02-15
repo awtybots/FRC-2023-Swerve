@@ -74,12 +74,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(encoders[0].getPosition()/360);
+    public void setRotation(int value){
+        armHeight = value;
     }
 
-    public void setPosition(double position){
-        armHeight = position;
+    public Rotation2d getCanCoder(){
+        return Rotation2d.fromDegrees(encoders[0].getPosition()/360);
     }
 
     public void drive(double pct) {

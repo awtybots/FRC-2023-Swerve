@@ -30,7 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     private final WPI_TalonSRX elevatorEncoder;
 
-    public double elevatorTargetHeight = 4000;
+    public double elevatorTargetHeight = Constants.ElevatorConstants.initialHeight;
     
     
     public ElevatorSubsystem() {
@@ -85,25 +85,21 @@ public class ElevatorSubsystem extends SubsystemBase {
             motor.configPeakOutputForward(kMaxPercentOutput);
             motor.configPeakOutputReverse(-kMaxPercentOutput);
             motor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
-            
- 
-
-            motor.configClosedloopRamp(0.3);
         }
 
         resetToAbsolute();
     }
 
-    public void setHeight(double height){
-        //elevatorTargetHeight;
+    public void setHeight(int value){
+        elevatorTargetHeight = value;
     }
-    public void drive(double pct) {
-        if(elevatorTargetHeight+pct*1000 > 200000 && pct > 0) return;
-        motors[0].set(ControlMode.Position, elevatorTargetHeight);
-        motors[1].set(ControlMode.Follower, elevatorTargetHeight);
-        elevatorTargetHeight += pct*1000;
 
-        //elevatorEncoder.set(ControlMode.Position, 4000);
+    public void drive(double pct) {
+        if(elevatorTargetHeight > Constants.ElevatorConstants.maximumHeight && pct > 0) return;
+        if(elevatorTargetHeight < Constants.ElevatorConstants.minimumHeight && pct < 0) return;
+        motors[0].set(ControlMode.Position, elevatorTargetHeight);
+        motors[1].set(ControlMode.Position, elevatorTargetHeight);
+        elevatorTargetHeight += pct*1000;
     }
 
     public void stop() {
@@ -121,13 +117,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         //15067 -> 24873   =  9806 
 
         for (WPI_TalonFX motor : motors){
-
-
-
-        motor.config_kP(0, 0.04);
-        motor.config_kI(0, 0);
-        motor.config_kD(0, 0.01);
-        motor.config_kF(0,0);
+            motor.config_kP(0, Constants.ElevatorConstants.kP);
+            motor.config_kI(0, Constants.ElevatorConstants.kI);
+            motor.config_kD(0, Constants.ElevatorConstants.kD);
+            motor.config_kF(0,Constants.ElevatorConstants.kF);
         }
 
 

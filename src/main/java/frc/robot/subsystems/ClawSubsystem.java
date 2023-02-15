@@ -38,6 +38,10 @@ public class ClawSubsystem extends SubsystemBase {
         // mPivotPIDController.setFeedbackDevice(mPivotEncoder);
     }
 
+    public void setRotation(int value){
+        wristHeight = value;
+    }
+
     public void driveClaw(double pct) {
         
         SmartDashboard.putNumber("wristHeight ", wristHeight);
