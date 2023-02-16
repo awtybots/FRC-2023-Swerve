@@ -69,7 +69,7 @@ public class RobotContainer {
   private void addAutonomousChoices() {
     autonManager.addOption("Do Nothing", new InstantCommand());
     autonManager.addOption("PathPlanner Auto", new PathPlannerAuto(s_Swerve));
-}
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
