@@ -13,6 +13,7 @@ import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.VisionTracking;
 import frc.robot.commands.setIntake;
 import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.DriveClaw;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -93,6 +94,7 @@ public class RobotContainer {
     Intake.setDefaultCommand(new setIntake(operator, Intake));
 
     operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
+    operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
 
   }
 

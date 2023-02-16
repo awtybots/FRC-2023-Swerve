@@ -27,4 +27,9 @@ public class HighNodePosition extends CommandBase {
         s_arm.setRotation(Constants.Position.Nodes.HighNodePosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Nodes.HighNodePosition.ClawPosition);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

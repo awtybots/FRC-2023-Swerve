@@ -26,4 +26,9 @@ public class HybridNodePosition extends CommandBase {
         s_arm.setRotation(Constants.Position.Nodes.HybridNodePosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Nodes.HybridNodePosition.ClawPosition);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

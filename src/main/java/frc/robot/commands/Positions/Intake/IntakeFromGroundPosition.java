@@ -27,4 +27,9 @@ public class IntakeFromGroundPosition extends CommandBase {
         s_arm.setRotation(Constants.Position.Intake.IntakeFromGroundPosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Intake.IntakeFromGroundPosition.ClawPosition);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

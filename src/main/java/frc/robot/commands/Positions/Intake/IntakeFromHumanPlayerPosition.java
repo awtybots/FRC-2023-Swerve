@@ -27,4 +27,9 @@ public class IntakeFromHumanPlayerPosition extends CommandBase {
         s_arm.setRotation(Constants.Position.Intake.IntakeFromHumanPlayerPosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Intake.IntakeFromHumanPlayerPosition.ClawPosition);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

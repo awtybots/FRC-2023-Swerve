@@ -71,7 +71,7 @@ public final class Constants {
         public static final int ClawPosition = 0;
       }
       public static final class IntakeFromGroundPosition {
-        public static final int ElevatorPosition = 0;
+        public static final int ElevatorPosition = 100000;
         public static final int ArmPosition = 0;
         public static final int ClawPosition = 0;
       }
@@ -97,7 +97,7 @@ public final class Constants {
 
     // PID
     public static final double kP = 0.04;
-    public static final double kI = 0.04;
+    public static final double kI = 0.00;
     public static final double kD = 0.01;
     public static final double kF = 0.00;
 

@@ -27,4 +27,9 @@ public class MidNodePosition extends CommandBase {
         s_arm.setRotation(Constants.Position.Nodes.MidNodePosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Nodes.MidNodePosition.ClawPosition);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

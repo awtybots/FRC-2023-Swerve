@@ -27,4 +27,9 @@ public class StowPosition extends CommandBase {
         s_arm.setRotation(Constants.Position.StowPosition.ArmPosition);
         s_claw.setRotation(Constants.Position.StowPosition.ClawPosition);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

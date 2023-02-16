@@ -29,9 +29,9 @@ public class ClawSubsystem extends SubsystemBase {
 
         mPivotEncoder = mPivotMotor.getEncoder();
         
-        mPivotPIDController.setP(0.4);
-        mPivotPIDController.setI(0.1);
-        mPivotPIDController.setD(0.15);
+        mPivotPIDController.setP(0.04);
+        mPivotPIDController.setI(0.0);
+        mPivotPIDController.setD(0.0);
         mPivotPIDController.setOutputRange(-0.2,
         0.2);
     
@@ -39,7 +39,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void setRotation(int value){
-        wristHeight = value;
+        // wristHeight = value;
     }
 
     public void driveClaw(double pct) {

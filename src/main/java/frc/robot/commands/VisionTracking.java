@@ -35,5 +35,10 @@ public class VisionTracking extends CommandBase {
     public void end(boolean interrupted) {
         RobotContainer.isAutoTargetOn = false;
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
     
 }

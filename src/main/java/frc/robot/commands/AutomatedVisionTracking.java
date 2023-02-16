@@ -40,5 +40,10 @@ public class AutomatedVisionTracking extends CommandBase {
         s_Swerve.drive(translation2, 0, fieldRelative);
         rotation = -1*s_Limelight.getHorizontalOffset()/2;
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
     
 }
