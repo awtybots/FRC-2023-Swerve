@@ -39,6 +39,8 @@ public final class Constants {
   public static final class Position {
     public static final class StowPosition {
       public static final int ElevatorPosition = 4000;
+      // public static final int ElevatorPosition = 50000;
+      // public static final int ArmPosition = -10;
       public static final int ArmPosition = 0;
       public static final int ClawPosition = 0;
     }
@@ -72,6 +74,7 @@ public final class Constants {
       }
       public static final class IntakeFromGroundPosition {
         public static final int ElevatorPosition = 100000;
+        // public static final int ArmPosition = 30;
         public static final int ArmPosition = 0;
         public static final int ClawPosition = 0;
       }
@@ -94,11 +97,12 @@ public final class Constants {
     public static final int initialHeight = 4000;
     public static final int minimumHeight = 2000;
     public static final int maximumHeight = 210000;
+    public static final double ElevatorOffset = 0.05;
 
     // PID
-    public static final double kP = 0.04;
+    public static final double kP = 0.03;
     public static final double kI = 0.00;
-    public static final double kD = 0.01;
+    public static final double kD = 0.015;
     public static final double kF = 0.00;
 
   }
@@ -113,7 +117,7 @@ public final class Constants {
     public static final int maximumHeight = 70;
 
     // PID
-    public static final double kP = 0.04;
+    public static final double kP = 0.003;
     public static final double kI = 0.00;
     public static final double kD = 0.00;
     public static final double kF = 0.00;
@@ -133,8 +137,8 @@ public final class Constants {
     public static final double distanceToTarget = 4;
 
     public static final double AprilTagHeight = 1;
-    public static final double LimelightHeight = 0.5;
-    public static final double LimelightAngle = 25;
+    public static final double LimelightHeight = 0.46;
+    public static final double LimelightAngle = 14;
   }
 
   public static final class DriveConstants {

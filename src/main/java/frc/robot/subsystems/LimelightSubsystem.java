@@ -82,6 +82,7 @@ public class LimelightSubsystem extends SubsystemBase {
         for(int i=0; i<targetPose_CameraSpace.length; i++) {
             SmartDashboard.putNumber("targetpose_cameraspace" + i, targetPose_CameraSpace[i]);
         }
+        SmartDashboard.putNumber("Limelight Distance", getDistance());
         SmartDashboard.putNumber("LimeLightRY", ry);
 
         //TODO: LED | s_LEDSubsystem.visionTrackingLED(area);

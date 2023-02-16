@@ -14,6 +14,7 @@ import frc.robot.commands.VisionTracking;
 import frc.robot.commands.setIntake;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
+import frc.robot.commands.AutomatedVisionTracking;
 import frc.robot.commands.DriveClaw;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -86,7 +87,7 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver));
     driver.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     driver.buttonY.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+    driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
     Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
     Arm.setDefaultCommand(new RotateArm(operator, Arm));

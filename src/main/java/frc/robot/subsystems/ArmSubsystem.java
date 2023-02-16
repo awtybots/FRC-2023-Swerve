@@ -74,7 +74,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public double getMaximumRotation(){
-        double value = (Math.PI - Math.acos(sElevator.getDistance()/Constants.ArmConstants.armLength) + Constants.ArmConstants.startingAngle)*90/Math.PI;
+        double value = (Math.PI - Math.acos((sElevator.getDistance()-Constants.ElevatorConstants.ElevatorOffset)/Constants.ArmConstants.armLength) + Constants.ArmConstants.startingAngle)*90/Math.PI;
         if(Double.isNaN(value)){
             value = Constants.ArmConstants.maximumHeight;
         }
