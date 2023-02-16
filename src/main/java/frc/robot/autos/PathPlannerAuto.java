@@ -21,13 +21,14 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 public class PathPlannerAuto extends SequentialCommandGroup {
     String trajectoryJSON = "Test1";
     PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
+    PIDController thetaController;
 
 
     public PathPlannerAuto(Swerve s_Swerve){
         // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
         PathPlannerTrajectory trajectory = PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
-        var thetaController =
+        thetaController =
             new PIDController(
                 Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
