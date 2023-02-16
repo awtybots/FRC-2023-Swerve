@@ -55,7 +55,7 @@ public class LimelightSubsystem extends SubsystemBase {
         double LimelightHeight = Constants.LimeLightConstants.LimelightHeight;
         double LimelightAngle = Constants.LimeLightConstants.LimelightAngle;
 
-        return ((AprilTagHeight-LimelightHeight) / Math.tan(LimelightAngle + yAngle));
+        return ((AprilTagHeight-LimelightHeight) / Math.tan((LimelightAngle + yAngle)*Math.PI/180));
     }
 
     public void setMode(int number) {
