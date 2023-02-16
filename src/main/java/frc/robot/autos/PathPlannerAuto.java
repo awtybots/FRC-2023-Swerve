@@ -5,7 +5,9 @@ import frc.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import com.pathplanner.lib.PathConstraints;
@@ -14,23 +16,27 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 // Possibly for a holonomic implementation + events? idk
-// import java.util.HashMap;
-// import com.pathplanner.lib.commands.FollowPathWithEvents;
+import java.util.HashMap;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
 // import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
     String trajectoryJSON = "Test1";
     PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
-
+    PIDController thetaController;
 
     public PathPlannerAuto(Swerve s_Swerve){
         // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
         PathPlannerTrajectory trajectory = PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
-        var thetaController =
+        thetaController =
             new PIDController(
                 Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+        HashMap<String, Command> eventMap = new HashMap<>();
+        eventMap.put("event", new PrintCommand("Passed marker 1"));
+        //eventMap.put("intakeDown", new IntakeDown()); - example on the library
 
         PPSwerveControllerCommand swerveControllerCommand =
             new PPSwerveControllerCommand(
@@ -43,10 +49,16 @@ public class PathPlannerAuto extends SequentialCommandGroup {
                 s_Swerve::setModuleStates,
                 s_Swerve);
 
+        FollowPathWithEvents command = 
+            new FollowPathWithEvents(
+                swerveControllerCommand,
+                trajectory.getMarkers(),
+                eventMap
+        );
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
-            swerveControllerCommand
+            swerveControllerCommand, command
         );
     }
 }
