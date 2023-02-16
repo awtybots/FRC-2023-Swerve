@@ -102,13 +102,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     
     public void drive(double pct) {
         resetToAbsolute();
-        if(elevatorTargetHeight < Constants.ElevatorConstants.minimumHeight && pct < 0) return;
-        if(elevatorTargetHeight > Constants.ElevatorConstants.maximumHeight && pct > 0) return;
-
-        // motors[0].set(ControlMode.Position, elevatorTargetHeight);
-        motors[1].set(ControlMode.Position, elevatorTargetHeight);
         elevatorTargetHeight += pct*1000;
-        // elevatorTargetHeight = MathUtil.clamp(elevatorTargetHeight, Constants.ElevatorConstants.minimumHeight, Constants.ElevatorConstants.maximumHeight);
+        elevatorTargetHeight = MathUtil.clamp(elevatorTargetHeight, Constants.ElevatorConstants.minimumHeight, Constants.ElevatorConstants.maximumHeight);
+
+        motors[1].set(ControlMode.Position, elevatorTargetHeight);
+        
     }
 
     public void stop() {

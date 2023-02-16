@@ -15,10 +15,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
-import frc.util.math.Convert;
-import frc.util.math.Convert.Encoder;
-
-import frc.robot.Constants.ModuleConstants;
 
 
 public class ArmSubsystem extends SubsystemBase {
@@ -26,15 +22,9 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax mLeftArmMotor;
     private CANSparkMax mRightArmMotor;
 
-    // private final RelativeEncoder mLeftArmEncoder;
     private final RelativeEncoder mRightArmEncoder;
 
-    // private final SparkMaxPIDController mLeftArmPIDController;
     private final SparkMaxPIDController mRightArmPIDController;
-
-    // private final CANSparkMax[] motors;
-    // private final RelativeEncoder[] encoders;
-    // private final SparkMaxPIDController[] pidControllers;
 
     public double armHeight = 0;
 
@@ -52,7 +42,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         mRightArmPIDController = mRightArmMotor.getPIDController();;
 
-        mRightArmPIDController.setP(1);
+        mRightArmPIDController.setP(0.04);
         mRightArmPIDController.setI(0);
         mRightArmPIDController.setD(0);
         mRightArmPIDController.setOutputRange(-1,
@@ -64,7 +54,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setRotation(int value){
-        // armHeight = value;
+        armHeight = value;
     }
 
     public Rotation2d getCanCoder(){
@@ -73,30 +63,25 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        // for (CANSparkMax motor : motors)
-        //     motor.set(pct);
-        // mLeftArmMotor.set(pct*0.1);
-        mRightArmMotor.set(pct*0.3);
+        // mRightArmMotor.set(pct*0.3);
+        armHeight += pct;
 
-        armHeight += pct/10;
         SmartDashboard.putNumber("armHeight ", armHeight);
-        // SmartDashboard.putNumber("armEncoderReadout1 ", mLeftArmEncoder.getPosition());
-        SmartDashboard.putNumber("armEncoderReadout2 ", -mRightArmEncoder.getPosition());
-
-
-        // mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+        SmartDashboard.putNumber("armEncoderReadout2 ", mRightArmEncoder.getPosition());
+        
+        
+        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
         // mRightArmPIDController.setReference(-0.1, CANSparkMax.ControlType.kSmartMotion);
 
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putString("Arm... Angle?", getCanCoder().toString());
+        SmartDashboard.putNumber("Arm... Angle?", mRightArmEncoder.getPosition());
     }
 
     public void stop() {
-       // for (CANSparkMax motor : motors)
-            //motor.set(0);
+       mRightArmMotor.set(0);
             
    }
 
