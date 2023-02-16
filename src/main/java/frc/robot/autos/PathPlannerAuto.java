@@ -57,7 +57,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
         );
 
         addCommands(
-            new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose()))
+            new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), command
         );
     }
 }
