@@ -35,7 +35,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
         HashMap<String, Command> eventMap = new HashMap<>();
-        eventMap.put("event", new PrintCommand("Passed marker 1"));
+        eventMap.put("event", new PrintCommand("Passed marker 1 dioajiofjeioajfoeiajfioeajfioejaiofjaeiofjeaoifjeaiojfioeajfioeajfioaejfoieajoifejiofeajiofeajoifeaj"));
         //eventMap.put("intakeDown", new IntakeDown()); - example on the library
 
         PPSwerveControllerCommand swerveControllerCommand =
