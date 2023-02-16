@@ -93,10 +93,17 @@ public class ElevatorSubsystem extends SubsystemBase {
         mLeftElevatorMotor.follow(mRightElevatorMotor);
     }
 
+    public double getDistance(){
+        return convertTalonToMeters(getCanCoder());
+    }
+
+    public double convertTalonToMeters(double talon){
+        return talon*1.1/198000;
+    }
+
     public void setHeight(int value){
         resetToAbsolute();
         elevatorTargetHeight = value;
-        // motors[0].set(ControlMode.Position, elevatorTargetHeight);
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
     }
     
@@ -104,7 +111,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         resetToAbsolute();
         elevatorTargetHeight += pct*1000;
         elevatorTargetHeight = MathUtil.clamp(elevatorTargetHeight, Constants.ElevatorConstants.minimumHeight, Constants.ElevatorConstants.maximumHeight);
-
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
         
     }

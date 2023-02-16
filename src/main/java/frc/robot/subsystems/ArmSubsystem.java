@@ -10,6 +10,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,17 +27,23 @@ public class ArmSubsystem extends SubsystemBase {
 
     private final SparkMaxPIDController mRightArmPIDController;
 
-    public double armHeight = 0;
+    public double armHeight;
+
+    private final ElevatorSubsystem sElevator;
 
 
 
-    public ArmSubsystem() {
+    public ArmSubsystem(ElevatorSubsystem sElevatorSubsystem) {
+        sElevator = sElevatorSubsystem;
+
         mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
         mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
         // mLeftArmMotor.restoreFactoryDefaults();
         mRightArmMotor.restoreFactoryDefaults();
         mRightArmMotor.setInverted(true);
         mLeftArmMotor.follow(mRightArmMotor, true);
+
+        armHeight = Constants.ArmConstants.initialHeight;
 
         mRightArmEncoder = mRightArmMotor.getEncoder();
 
@@ -62,8 +69,20 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    public double getAngle(double talon){
+        return talon * (Math.PI/2)/45;
+    }
+
+    public double getMaximumRotation(){
+        double value = (Math.PI - Math.acos(sElevator.getDistance()/Constants.ArmConstants.armLength) + Constants.ArmConstants.startingAngle)*90/Math.PI;
+        if(Double.isNaN(value)){
+            value = Constants.ArmConstants.maximumHeight;
+        }
+        return value;
+    }
+
     public void drive(double pct) {
-        // mRightArmMotor.set(pct*0.3);
+        armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
         armHeight += pct;
 
         SmartDashboard.putNumber("armHeight ", armHeight);
@@ -71,13 +90,13 @@ public class ArmSubsystem extends SubsystemBase {
         
         
         mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
-        // mRightArmPIDController.setReference(-0.1, CANSparkMax.ControlType.kSmartMotion);
 
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Arm... Angle?", mRightArmEncoder.getPosition());
+        SmartDashboard.putNumber("Calculated Maximum Angle", getMaximumRotation());
     }
 
     public void stop() {

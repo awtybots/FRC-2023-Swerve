@@ -19,13 +19,13 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 // import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
-    String trajectoryJSON = "pathplanner/generatedJSON/Test1.wpilib.json";
+    String trajectoryJSON = "Test1";
     PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
 
 
     public PathPlannerAuto(Swerve s_Swerve){
-        String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
-        PathPlannerTrajectory trajectory = PathPlanner.loadPath(trajectoryPath, new PathConstraints(6, 4));
+        // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
+        PathPlannerTrajectory trajectory = PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
         var thetaController =
             new PIDController(

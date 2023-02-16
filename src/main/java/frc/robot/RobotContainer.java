@@ -45,7 +45,7 @@ public class RobotContainer {
   private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
   private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
-  private final ArmSubsystem Arm = new ArmSubsystem();
+  private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
   private final ClawSubsystem Claw = new ClawSubsystem();
   private final IntakeSubsystem Intake = new IntakeSubsystem();
 
@@ -68,7 +68,7 @@ public class RobotContainer {
 
   private void addAutonomousChoices() {
     autonManager.addOption("Do Nothing", new InstantCommand());
-    autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve));
+    autonManager.addOption("PathPlanner Auto", new PathPlannerAuto(s_Swerve));
 }
 
   /**
@@ -86,7 +86,7 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver));
     driver.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
     driver.buttonY.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    driver.buttonX.toggleOnTrue(new VisionTracking(s_Swerve, Limelight));
+    driver.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
 
     Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
     Arm.setDefaultCommand(new RotateArm(operator, Arm));

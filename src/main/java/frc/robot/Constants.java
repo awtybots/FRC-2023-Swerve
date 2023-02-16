@@ -106,6 +106,20 @@ public final class Constants {
   public static final class ArmConstants {
     public static final int kLeftArmMotorId = 7;
     public static final int kRightArmMotorId = 12;
+
+    // Heights
+    public static final int initialHeight = 0;
+    public static final int minimumHeight = 0;
+    public static final int maximumHeight = 70;
+
+    // PID
+    public static final double kP = 0.04;
+    public static final double kI = 0.00;
+    public static final double kD = 0.00;
+    public static final double kF = 0.00;
+
+    public static final double armLength = 0.54; //0.54 m
+    public static final double startingAngle = 0;
   }
 
   public static final class ClawConstants {

@@ -25,20 +25,25 @@ public class VisionTracking extends CommandBase {
     @Override
     public void execute() {
         RobotContainer.isAutoTargetOn = true;
-        if (s_Limelight.getHorizontalOffset() < 1) return;
         translation = new Translation2d(0, 0);
-        rotation = -1*s_Limelight.getHorizontalOffset()/15;
+        if (Math.abs(s_Limelight.getHorizontalOffset()) < 1) {
+            rotation = 0;
+            s_Swerve.drive(translation, rotation, fieldRelative);
+            return;
+        }
+        rotation = -s_Limelight.getHorizontalOffset()/15;
         s_Swerve.drive(translation, rotation, fieldRelative);
+        rotation = 0;
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        RobotContainer.isAutoTargetOn = false;
-    }
+    // @Override
+    // public void end(boolean interrupted) {
+    //     RobotContainer.isAutoTargetOn = false;
+    // }
 
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
+    // @Override
+    // public boolean isFinished() {
+    //     return true;
+    // }
     
 }

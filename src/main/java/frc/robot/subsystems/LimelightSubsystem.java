@@ -1,11 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
-import org.json.simple.JSONObject;
 
 // import com.kauailabs.navx.frc.AHRS;
 // import edu.wpi.first.wpilibj.SPI;
@@ -73,8 +70,6 @@ public class LimelightSubsystem extends SubsystemBase {
 
         // TODO: 3D ? (experimental)
         targetPose_CameraSpace = LimelightHelpers.getTargetPose_CameraSpace("");
-        ry = targetPose_CameraSpace[1];
-
         ry = targetPose_CameraSpace[4];
         distance = distanceCalculation(ty);
 
