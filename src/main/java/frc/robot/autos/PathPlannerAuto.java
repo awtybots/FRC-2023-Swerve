@@ -1,6 +1,10 @@
 package frc.robot.autos;
 
 import frc.robot.Constants;
+import frc.robot.commands.Positions.StowPosition;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -24,7 +28,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
     PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
     PIDController thetaController;
 
-    public PathPlannerAuto(Swerve s_Swerve){
+    public PathPlannerAuto(Swerve s_Swerve, ElevatorSubsystem s_elevatorSubsystem, ArmSubsystem s_arArmSubsystem, ClawSubsystem s_ClawSubsystem){
         // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
         PathPlannerTrajectory trajectory = PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
@@ -34,7 +38,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
         HashMap<String, Command> eventMap = new HashMap<>();
-        eventMap.put("event", new PrintCommand("Passed marker 1 dioajiofjeioajfoeiajfioeajfioejaiofjaeiofjeaoifjeaiojfioeajfioeajfioaejfoieajoifejiofeajiofeajoifeaj"));
+        eventMap.put("event", new StowPosition(s_elevatorSubsystem, s_arArmSubsystem, s_ClawSubsystem));
         //eventMap.put("intakeDown", new IntakeDown()); - example on the library
 
         PPSwerveControllerCommand swerveControllerCommand =

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autos.PathPlannerAuto;
+import frc.robot.autos.forward;
 import frc.robot.commands.DriveElevator;
 import frc.robot.commands.RotateArm;
 //import frc.robot.autos.forward;
@@ -69,7 +70,7 @@ public class RobotContainer {
 
   private void addAutonomousChoices() {
     autonManager.addOption("Do Nothing", new InstantCommand());
-    autonManager.addOption("PathPlanner Auto", new PathPlannerAuto(s_Swerve));
+    autonManager.addOption("PathPlanner Auto", new PathPlannerAuto(s_Swerve, Elevator, Arm, Claw));
   }
 
   /**
