@@ -125,12 +125,18 @@ public final class Constants {
 
         public static final double armLength = 0.54; // 0.54 m
         public static final double startingAngle = 0;
+
+        public static final double rampRate = 0.6;
     }
 
     public static final class ClawConstants {
         public static final int kPivotMotorId = 6;
         public static final int kLeftIntakeMotorId = 15;
         public static final int kRightIntakeMotorId = 16;
+
+        public static final int initialHeight = 0;
+        public static final int minimumHeight = -50;
+        public static final int maximumHeight = 50;
     }
 
     public static final class PistonConstants {

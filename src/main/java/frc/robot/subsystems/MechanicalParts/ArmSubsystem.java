@@ -44,6 +44,7 @@ public class ArmSubsystem extends SubsystemBase {
         mRightArmPIDController.setI(0);
         mRightArmPIDController.setD(0);
         mRightArmPIDController.setOutputRange(-1, 1);
+        mRightArmMotor.setOpenLoopRampRate(Constants.ArmConstants.rampRate);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
 
