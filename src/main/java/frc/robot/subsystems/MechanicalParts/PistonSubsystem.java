@@ -9,7 +9,6 @@ import frc.robot.Constants;
 public class PistonSubsystem extends SubsystemBase {
 
   private final DoubleSolenoid piston;
-  private boolean pistonState = false;
 
   public PistonSubsystem() {
     piston =
@@ -21,11 +20,9 @@ public class PistonSubsystem extends SubsystemBase {
 
   public void Open() {
     piston.set(Value.kForward);
-    pistonState = false;
   }
 
   public void Close() {
     piston.set(Value.kReverse);
-    pistonState = true;
   }
 }
