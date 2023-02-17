@@ -2,10 +2,12 @@ package frc.util;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.Constants.CustomConstants;
 
 public class Controller {
+
   private final XboxController controller;
-  private final double kDeadzoneStick = 0.1;
+  private final double kDeadzoneStick = CustomConstants.stickDeadband;
   private final double kDeadzoneTrigger = 0.0;
 
   public final JoystickButton buttonA, buttonX, buttonY, buttonB;

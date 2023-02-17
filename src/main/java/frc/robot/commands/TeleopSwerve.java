@@ -13,9 +13,8 @@ public class TeleopSwerve extends CommandBase {
   private double rotation;
   private Translation2d translation;
   private boolean fieldRelative;
-
   private Swerve s_Swerve;
-  private Controller controller;
+  private Controller driver;
 
   private SlewRateLimiter xLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
   private SlewRateLimiter yLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
@@ -25,11 +24,12 @@ public class TeleopSwerve extends CommandBase {
   }
 
   /** Driver control */
-  public TeleopSwerve(Swerve s_Swerve, Controller controller) {
+  public TeleopSwerve(
+      Swerve s_Swerve, Controller driver, int translationAxis, int strafeAxis, int rotationAxis) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
 
-    this.controller = controller;
+    this.driver = driver;
     this.fieldRelative = Constants.CustomConstants.fieldRelative;
   }
 
@@ -37,9 +37,9 @@ public class TeleopSwerve extends CommandBase {
   public void execute() {
     if (RobotContainer.isAutoTargetOn) return;
 
-    double yAxis = controller.getLeftStickY();
-    double xAxis = -controller.getLeftStickX();
-    double rAxis = -controller.getRightStickX();
+    double yAxis = driver.getLeftStickY();
+    double xAxis = -driver.getLeftStickX();
+    double rAxis = -driver.getRightStickX();
 
     yAxis = applyDeadband(yAxis, Constants.CustomConstants.stickDeadband);
     xAxis = applyDeadband(xAxis, Constants.CustomConstants.stickDeadband);
