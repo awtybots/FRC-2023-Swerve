@@ -37,7 +37,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
 
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("event", new StowPosition(s_elevatorSubsystem, s_arArmSubsystem, s_ClawSubsystem));
-        // eventMap.put("intakeDown", new IntakeDown()); - example on the library
+        eventMap.put("stopEvent", new Balance(s_Swerve));
 
         PPSwerveControllerCommand swerveControllerCommand =
                 new PPSwerveControllerCommand(
