@@ -75,7 +75,6 @@ public class LedSubsystem extends SubsystemBase {
     public void ivans_patterns(patterens_eneum PATEnum) {
         switch (PATEnum) {
             case awtybots:
-                System.out.print("setting to groovy awtybots patttern");
                 
                 boolean tmr = timer();
                 if(tmr = true){
@@ -89,7 +88,6 @@ public class LedSubsystem extends SubsystemBase {
                 }
                 break;
             case percentagedefault:
-                System.out.print("setting to groovy percentage color");
                 setLED_RGB_PERCENTAGE(0.5, 65, 105, 225);
             break;
             case awtybotsenhanced:
@@ -105,7 +103,6 @@ public class LedSubsystem extends SubsystemBase {
                 }
                 break;
             default:
-                System.out.print("setting to regular color");
                 setLED_RGB_ALL(65, 105, 225);
                 break;
         }
