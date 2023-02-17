@@ -1,7 +1,4 @@
-/**
- *  Thank you GOFIRST-Robotics!
- */ 
-
+/** Thank you GOFIRST-Robotics! */
 package frc.robot.autos;
 
 import edu.wpi.first.math.geometry.Translation2d;
@@ -19,7 +16,7 @@ public class Balance extends CommandBase {
     private double error;
     private double currentAngle;
     private double drivePower;
-  
+
     // Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance
     public Balance(Swerve s_Swerve) {
         addRequirements(s_Swerve);
@@ -28,10 +25,10 @@ public class Balance extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-     public void initialize() {}
+    public void initialize() {}
 
     @Override
-    public void execute() {  
+    public void execute() {
 
         this.currentAngle = s_Swerve.getPitch();
 
@@ -40,18 +37,17 @@ public class Balance extends CommandBase {
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {
-        drivePower *= Constants.Balance.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
+            drivePower *= Constants.Balance.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
         }
 
         // Limit the max power
         if (Math.abs(drivePower) > 0.4) {
-        drivePower = Math.copySign(0.4, drivePower);
+            drivePower = Math.copySign(0.4, drivePower);
         }
 
-        translation =
-                new Translation2d(drivePower,0);
+        translation = new Translation2d(drivePower, 0);
         s_Swerve.drive(translation, rotation, true);
-        
+
         // Debugging Print Statments
         System.out.println("Current Angle: " + currentAngle);
         System.out.println("Error " + error);
@@ -60,13 +56,15 @@ public class Balance extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-    }
+    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES; // End the command when we are within the specified threshold of being 'flat' (gyroscope pitch of 0 degrees)
+        return Math.abs(error)
+                < Constants.Balance
+                        .BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES; // End the command when we are within the
+        // specified threshold of being 'flat' (gyroscope
+        // pitch of 0 degrees)
     }
-
 }
