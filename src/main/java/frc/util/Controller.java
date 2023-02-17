@@ -1,27 +1,27 @@
 package frc.util;
 
-import frc.robot.Constants.CustomConstants;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.Constants.CustomConstants;
 
 public class Controller {
-  
+
   private final XboxController controller;
   private final double kDeadzoneStick = CustomConstants.stickDeadband;
   private final double kDeadzoneTrigger = 0.0;
-  
+
   public final JoystickButton buttonA, buttonX, buttonY, buttonB;
   public final JoystickButton buttonBack, buttonStart;
   public final JoystickButton leftBumper, rightBumper;
   public final JoystickButton leftStickClick, rightStickClick;
-  
+
   // D-Pad
   public POVButton dPadUp, dPadRight, dPadDown, dPadLeft;
-  
+
   /** Allows using the triggers as buttons, for example <pre> mController.leftTrigger.whenPressed(new CommandToRun());*/
   public Trigger leftTrigger, rightTrigger;
-  
-   /**
+
+  /**
    * @param port The port index on the Driver Station that the controller is plugged into.
    */
   public Controller(int port) {
@@ -48,7 +48,7 @@ public class Controller {
     leftTrigger = new Trigger(() -> getLeftTrigger() > kDeadzoneTrigger);
     rightTrigger = new Trigger(() -> getRightTrigger() > kDeadzoneTrigger);
   }
-  
+
   /** The X (left/right) position of the right joystick on the controller from -1.0 to 1.0 */
   public double getRightStickX() {
     return deadzone(controller.getRightX(), kDeadzoneStick);
@@ -73,18 +73,17 @@ public class Controller {
   public double getLeftTrigger() {
     return deadzone(controller.getLeftTriggerAxis(), kDeadzoneTrigger);
   }
-  
-    /** How much the right trigger on the controller is pressed from 0.0 to 1.0 */
+
+  /** How much the right trigger on the controller is pressed from 0.0 to 1.0 */
   public double getRightTrigger() {
     return deadzone(controller.getRightTriggerAxis(), kDeadzoneTrigger);
   }
-  
+
   // --- Utilities --- //
   private JoystickButton createButton(int buttonID) {
     return new JoystickButton(this.controller, buttonID);
   }
 
-  
   private double deadzone(double x, double dz) {
     if (Math.abs(x) > dz) return (x - dz * Math.signum(x)) / (1.0 - dz);
     else return 0.0;

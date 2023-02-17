@@ -62,13 +62,13 @@ public class RobotContainer {
     autonManager.displayChoices();
 
     // Configure the button bindings
-        configureButtonBindings();
-    }
+    configureButtonBindings();
+  }
 
-    private void addAutonomousChoices() {
-        autonManager.addOption("Do Nothing", new InstantCommand());
-        autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve, Elevator, Arm, Claw));
-    }
+  private void addAutonomousChoices() {
+    autonManager.addOption("Do Nothing", new InstantCommand());
+    autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve, Elevator, Arm, Claw));
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -76,21 +76,21 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
    * {@link JoystickButton}.
    */
-  
-      private void configureButtonBindings() {
-        // The left stick controls translation of the robot.
-        // Turning is controlled by the X axis of the right stick.
+  private void configureButtonBindings() {
+    // The left stick controls translation of the robot.
+    // Turning is controlled by the X axis of the right stick.
 
     final int translationAxis = XboxController.Axis.kLeftY.value;
     final int strafeAxis = XboxController.Axis.kLeftX.value;
     final int rotationAxis = XboxController.Axis.kRightX.value;
 
-    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
-        
+    s_Swerve.setDefaultCommand(
+        new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
+
     driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
     driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
     driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
-  
+
     Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
     Arm.setDefaultCommand(new RotateArm(operator, Arm));
     Claw.setDefaultCommand(new DriveClaw(operator, Claw));
@@ -98,14 +98,14 @@ public class RobotContainer {
 
     operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
     operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
-}
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-    public Command getAutonomousCommand() {
-        return autonManager.getSelected();
-    }
+  public Command getAutonomousCommand() {
+    return autonManager.getSelected();
+  }
 }
