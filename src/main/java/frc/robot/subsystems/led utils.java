@@ -88,9 +88,21 @@ public class LedSubsystem extends SubsystemBase {
                     setLED_RGB_ALL(207, 181, 59);
                 }
                 break;
-                case percentagedefault:
+            case percentagedefault:
                 System.out.print("setting to groovy percentage color");
                 setLED_RGB_PERCENTAGE(0.5, 65, 105, 225);
+            break;
+            case awtybotsenhanced:
+                boolean tmrb = timer();
+                if(tmrb = true){
+                    //green
+                    setLED_RGB_Cross_etching(34, 139, 34, 207, 181, 59);
+                
+                }
+                else{
+                    //gold
+                    setLED_RGB_Cross_etching(207, 181, 59, 34, 139, 34);
+                }
                 break;
             default:
                 System.out.print("setting to regular color");
@@ -114,6 +126,7 @@ public class LedSubsystem extends SubsystemBase {
 }
 public enum patterens_eneum{
     awtybots,
-    percentagedefault,
+    awtybotsenhanced,
+    percentagedefault
     
 }
