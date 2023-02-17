@@ -44,6 +44,17 @@ public class LedSubsystem extends SubsystemBase {
         }
         m_led.setData(m_ledBuffer);
     }
+    // i have no idea what to call this but to put it in a few words it colors pair numbers with one color and colors the odd numbers with another color
+    public void setLED_RGB_Cross_etching(int r, int g , int b, int rb , int gb ,int bb){
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+            if(i%2==0) {
+                m_ledBuffer.setRGB(i, r, g, b);
+            } else {
+                m_ledBuffer.setRGB(i, rb, gb, bb);
+            }
+        }
+        m_led.setData(m_ledBuffer);
+    }
 
     public void setLED_RGB_ALL(int r, int g, int b)
     {
