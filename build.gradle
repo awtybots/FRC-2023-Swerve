@@ -141,3 +141,7 @@ spotless {
         endWithNewline()
     }
 }
+
+afterEvaluate {
+    tasks.getByName('spotlessCheck').dependsOn(tasks.getByName('spotlessApply'))
+}
