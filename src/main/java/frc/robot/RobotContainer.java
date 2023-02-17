@@ -78,8 +78,8 @@ public class RobotContainer {
     // The left stick controls translation of the robot.
     // Turning is controlled by the X axis of the right stick.s
     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, driver));
-    driver.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
-    driver.buttonY.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
+    driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
     driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
     Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
