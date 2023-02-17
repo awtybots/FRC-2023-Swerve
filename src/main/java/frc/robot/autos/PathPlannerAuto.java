@@ -24,11 +24,11 @@ public class PathPlannerAuto extends SequentialCommandGroup {
   PIDController thetaController;
 
   public PathPlannerAuto(
-      Swerve s_Swerve,
-      ElevatorSubsystem s_elevatorSubsystem,
-      ArmSubsystem s_arArmSubsystem,
-      ClawSubsystem s_ClawSubsystem) {
-    // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
+    Swerve s_Swerve,
+    ElevatorSubsystem s_elevatorSubsystem,
+    ArmSubsystem s_arArmSubsystem,
+    ClawSubsystem s_ClawSubsystem) {
+// String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
     PathPlannerTrajectory trajectory =
         PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
