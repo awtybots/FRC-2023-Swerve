@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.Swerve.Swerve;
 
 public class VisionTracking extends CommandBase {
 

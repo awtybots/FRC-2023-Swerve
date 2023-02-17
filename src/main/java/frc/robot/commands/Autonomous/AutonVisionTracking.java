@@ -1,4 +1,4 @@
-package frc.robot.autos;
+package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -15,8 +15,8 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Swerve.Swerve;
 import java.util.List;
 
-public class forward extends SequentialCommandGroup {
-  public forward(Swerve s_Swerve) {
+public class AutonVisionTracking extends SequentialCommandGroup {
+  public AutonVisionTracking(Swerve s_Swerve) {
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -28,8 +28,7 @@ public class forward extends SequentialCommandGroup {
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
             new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(0, 1)),
+            List.of(new Translation2d()),
             // End 1 meters straight ahead of where we started, facing forward
             new Pose2d(0, 1, new Rotation2d(0)),
             config);

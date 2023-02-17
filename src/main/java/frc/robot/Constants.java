@@ -133,6 +133,11 @@ public final class Constants {
     public static final int kRightIntakeMotorId = 16;
   }
 
+  public static final class PistonConstants {
+    public static final int kTraverseSolenoidF = 0;
+    public static final int kTraverseSolenoidR = 15;
+  }
+
   public static final class LimeLightConstants {
     public static final double distanceToTarget = 4;
 

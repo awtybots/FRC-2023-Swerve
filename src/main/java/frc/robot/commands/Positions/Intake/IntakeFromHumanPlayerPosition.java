@@ -2,9 +2,9 @@ package frc.robot.commands.Positions.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
+import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 
 public class IntakeFromHumanPlayerPosition extends CommandBase {
 

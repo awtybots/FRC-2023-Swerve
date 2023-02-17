@@ -10,21 +10,22 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.AutomatedVisionTracking;
-import frc.robot.commands.DriveClaw;
-import frc.robot.commands.DriveElevator;
+import frc.robot.commands.DriveParts.DriveClaw;
+import frc.robot.commands.DriveParts.DriveElevator;
+import frc.robot.commands.DriveParts.RotateArm;
+import frc.robot.commands.DriveParts.TeleopSwerve;
+import frc.robot.commands.DriveParts.ToggleIntakeMode;
+import frc.robot.commands.DriveParts.setIntake;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.commands.RotateArm;
-// import frc.robot.autos.forward;
-import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.setIntake;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
+import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.PistonSubsystem;
+import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
 
@@ -48,6 +49,7 @@ public class RobotContainer {
   private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
   private final ClawSubsystem Claw = new ClawSubsystem();
   private final IntakeSubsystem Intake = new IntakeSubsystem();
+  private final PistonSubsystem Piston = new PistonSubsystem();
 
   // The driver's controller
   private final Controller driver = new Controller(0);
@@ -89,6 +91,8 @@ public class RobotContainer {
 
     operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
     operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
+    operator.dPadRight.onTrue(new ToggleIntakeMode(Piston, true));
+    operator.dPadLeft.onTrue(new ToggleIntakeMode(Piston, false));
   }
 
   /**

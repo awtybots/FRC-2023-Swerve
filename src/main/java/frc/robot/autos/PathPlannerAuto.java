@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
+import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
+import frc.robot.subsystems.Swerve.Swerve;
 import java.util.HashMap;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
@@ -24,11 +24,11 @@ public class PathPlannerAuto extends SequentialCommandGroup {
   PIDController thetaController;
 
   public PathPlannerAuto(
-    Swerve s_Swerve,
-    ElevatorSubsystem s_elevatorSubsystem,
-    ArmSubsystem s_arArmSubsystem,
-    ClawSubsystem s_ClawSubsystem) {
-// String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
+      Swerve s_Swerve,
+      ElevatorSubsystem s_elevatorSubsystem,
+      ArmSubsystem s_arArmSubsystem,
+      ClawSubsystem s_ClawSubsystem) {
+    // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
     PathPlannerTrajectory trajectory =
         PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 

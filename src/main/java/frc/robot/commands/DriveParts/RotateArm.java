@@ -1,7 +1,7 @@
-package frc.robot.commands;
+package frc.robot.commands.DriveParts;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.util.Controller;
 
 public class RotateArm extends CommandBase {
