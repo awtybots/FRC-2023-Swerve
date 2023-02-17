@@ -19,41 +19,41 @@ import frc.robot.subsystems.Swerve.Swerve;
 import java.util.HashMap;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
-  String trajectoryJSON = "Test1";
-  PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
-  PIDController thetaController;
+    String trajectoryJSON = "Test1";
+    PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
+    PIDController thetaController;
 
-  public PathPlannerAuto(
-      Swerve s_Swerve,
-      ElevatorSubsystem s_elevatorSubsystem,
-      ArmSubsystem s_arArmSubsystem,
-      ClawSubsystem s_ClawSubsystem) {
-    // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
-    PathPlannerTrajectory trajectory =
-        PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
+    public PathPlannerAuto(
+            Swerve s_Swerve,
+            ElevatorSubsystem s_elevatorSubsystem,
+            ArmSubsystem s_arArmSubsystem,
+            ClawSubsystem s_ClawSubsystem) {
+        // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
+        PathPlannerTrajectory trajectory =
+                PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
-    thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+        thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    HashMap<String, Command> eventMap = new HashMap<>();
-    eventMap.put("event", new StowPosition(s_elevatorSubsystem, s_arArmSubsystem, s_ClawSubsystem));
-    // eventMap.put("intakeDown", new IntakeDown()); - example on the library
+        HashMap<String, Command> eventMap = new HashMap<>();
+        eventMap.put("event", new StowPosition(s_elevatorSubsystem, s_arArmSubsystem, s_ClawSubsystem));
+        // eventMap.put("intakeDown", new IntakeDown()); - example on the library
 
-    PPSwerveControllerCommand swerveControllerCommand =
-        new PPSwerveControllerCommand(
-            trajectory,
-            s_Swerve::getPose,
-            Constants.DriveConstants.kDriveKinematics,
-            new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-            new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-            thetaController,
-            s_Swerve::setModuleStates,
-            s_Swerve);
+        PPSwerveControllerCommand swerveControllerCommand =
+                new PPSwerveControllerCommand(
+                        trajectory,
+                        s_Swerve::getPose,
+                        Constants.DriveConstants.kDriveKinematics,
+                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+                        thetaController,
+                        s_Swerve::setModuleStates,
+                        s_Swerve);
 
-    FollowPathWithEvents command =
-        new FollowPathWithEvents(swerveControllerCommand, trajectory.getMarkers(), eventMap);
+        FollowPathWithEvents command =
+                new FollowPathWithEvents(swerveControllerCommand, trajectory.getMarkers(), eventMap);
 
-    addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), command);
-  }
+        addCommands(
+                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), command);
+    }
 }

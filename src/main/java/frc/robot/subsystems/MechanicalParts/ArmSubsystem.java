@@ -12,88 +12,88 @@ import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private CANSparkMax mLeftArmMotor;
-  private CANSparkMax mRightArmMotor;
+    private CANSparkMax mLeftArmMotor;
+    private CANSparkMax mRightArmMotor;
 
-  private final RelativeEncoder mRightArmEncoder;
+    private final RelativeEncoder mRightArmEncoder;
 
-  private final SparkMaxPIDController mRightArmPIDController;
+    private final SparkMaxPIDController mRightArmPIDController;
 
-  public double armHeight;
+    public double armHeight;
 
-  private final ElevatorSubsystem sElevator;
+    private final ElevatorSubsystem sElevator;
 
-  public ArmSubsystem(ElevatorSubsystem sElevatorSubsystem) {
-    sElevator = sElevatorSubsystem;
+    public ArmSubsystem(ElevatorSubsystem sElevatorSubsystem) {
+        sElevator = sElevatorSubsystem;
 
-    mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
-    mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
-    // mLeftArmMotor.restoreFactoryDefaults();
-    mRightArmMotor.restoreFactoryDefaults();
-    mRightArmMotor.setInverted(true);
-    mLeftArmMotor.follow(mRightArmMotor, true);
+        mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
+        mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
+        // mLeftArmMotor.restoreFactoryDefaults();
+        mRightArmMotor.restoreFactoryDefaults();
+        mRightArmMotor.setInverted(true);
+        mLeftArmMotor.follow(mRightArmMotor, true);
 
-    armHeight = Constants.ArmConstants.initialHeight;
+        armHeight = Constants.ArmConstants.initialHeight;
 
-    mRightArmEncoder = mRightArmMotor.getEncoder();
+        mRightArmEncoder = mRightArmMotor.getEncoder();
 
-    mRightArmPIDController = mRightArmMotor.getPIDController();
-    ;
+        mRightArmPIDController = mRightArmMotor.getPIDController();
+        ;
 
-    mRightArmPIDController.setP(0.04);
-    mRightArmPIDController.setI(0);
-    mRightArmPIDController.setD(0);
-    mRightArmPIDController.setOutputRange(-1, 1);
+        mRightArmPIDController.setP(0.04);
+        mRightArmPIDController.setI(0);
+        mRightArmPIDController.setD(0);
+        mRightArmPIDController.setOutputRange(-1, 1);
 
-    // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
+        // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
 
-  }
-
-  public void setRotation(int value) {
-    armHeight = value;
-  }
-
-  public Rotation2d getCanCoder() {
-    return Rotation2d.fromDegrees(mRightArmEncoder.getPosition() / 360);
-  }
-
-  public double getAngle(double talon) {
-    return talon * (Math.PI / 2) / 45;
-  }
-
-  public double getMaximumRotation() {
-    double value =
-        (Math.PI
-                - Math.acos(
-                    (sElevator.getDistance() - Constants.ElevatorConstants.ElevatorOffset)
-                        / Constants.ArmConstants.armLength)
-                + Constants.ArmConstants.startingAngle)
-            * 90
-            / Math.PI;
-    if (Double.isNaN(value)) {
-      value = Constants.ArmConstants.maximumHeight;
     }
-    return value;
-  }
 
-  public void drive(double pct) {
-    armHeight =
-        MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
-    armHeight += pct;
+    public void setRotation(int value) {
+        armHeight = value;
+    }
 
-    SmartDashboard.putNumber("armHeight ", armHeight);
-    SmartDashboard.putNumber("armEncoderReadout2 ", mRightArmEncoder.getPosition());
+    public Rotation2d getCanCoder() {
+        return Rotation2d.fromDegrees(mRightArmEncoder.getPosition() / 360);
+    }
 
-    mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
-  }
+    public double getAngle(double talon) {
+        return talon * (Math.PI / 2) / 45;
+    }
 
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("Arm... Angle?", mRightArmEncoder.getPosition());
-    SmartDashboard.putNumber("Calculated Maximum Angle", getMaximumRotation());
-  }
+    public double getMaximumRotation() {
+        double value =
+                (Math.PI
+                                - Math.acos(
+                                        (sElevator.getDistance() - Constants.ElevatorConstants.ElevatorOffset)
+                                                / Constants.ArmConstants.armLength)
+                                + Constants.ArmConstants.startingAngle)
+                        * 90
+                        / Math.PI;
+        if (Double.isNaN(value)) {
+            value = Constants.ArmConstants.maximumHeight;
+        }
+        return value;
+    }
 
-  public void stop() {
-    mRightArmMotor.set(0);
-  }
+    public void drive(double pct) {
+        armHeight =
+                MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
+        armHeight += pct;
+
+        SmartDashboard.putNumber("armHeight ", armHeight);
+        SmartDashboard.putNumber("armEncoderReadout2 ", mRightArmEncoder.getPosition());
+
+        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Arm... Angle?", mRightArmEncoder.getPosition());
+        SmartDashboard.putNumber("Calculated Maximum Angle", getMaximumRotation());
+    }
+
+    public void stop() {
+        mRightArmMotor.set(0);
+    }
 }

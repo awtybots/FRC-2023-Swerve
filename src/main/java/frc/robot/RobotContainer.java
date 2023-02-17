@@ -37,79 +37,79 @@ import frc.util.Controller;
  */
 public class RobotContainer {
 
-  // Autonomous manager import
-  private final AutonManager autonManager = new AutonManager();
+    // Autonomous manager import
+    private final AutonManager autonManager = new AutonManager();
 
-  // The robot's subsystems
-  private final Swerve s_Swerve = new Swerve();
-  // TODO: LED | private final LedSubsystem s_Led = new LedSubsystem(120);
-  // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
-  private final LimelightSubsystem Limelight = new LimelightSubsystem();
+    // The robot's subsystems
+    private final Swerve s_Swerve = new Swerve();
+    // TODO: LED | private final LedSubsystem s_Led = new LedSubsystem(120);
+    // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
+    private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
-  private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
-  private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
-  private final ClawSubsystem Claw = new ClawSubsystem();
-  private final IntakeSubsystem Intake = new IntakeSubsystem();
-  private final PistonSubsystem Piston = new PistonSubsystem();
+    private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
+    private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
+    private final ClawSubsystem Claw = new ClawSubsystem();
+    private final IntakeSubsystem Intake = new IntakeSubsystem();
+    private final PistonSubsystem Piston = new PistonSubsystem();
 
-  // The driver's controller
-  private final Controller driver = new Controller(0);
-  private final Controller operator = new Controller(1);
+    // The driver's controller
+    private final Controller driver = new Controller(0);
+    private final Controller operator = new Controller(1);
 
-  public static boolean isAutoTargetOn = false;
+    public static boolean isAutoTargetOn = false;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    addAutonomousChoices();
-    autonManager.displayChoices();
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer() {
+        addAutonomousChoices();
+        autonManager.displayChoices();
 
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+        // Configure the button bindings
+        configureButtonBindings();
+    }
 
-  private void addAutonomousChoices() {
-    autonManager.addOption("Do Nothing", new InstantCommand());
-    autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve, Elevator, Arm, Claw));
-  }
+    private void addAutonomousChoices() {
+        autonManager.addOption("Do Nothing", new InstantCommand());
+        autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve, Elevator, Arm, Claw));
+    }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
-   * {@link JoystickButton}.
-   */
-  private void configureButtonBindings() {
-    // The left stick controls translation of the robot.
-    // Turning is controlled by the X axis of the right stick.
+    /**
+     * Use this method to define your button->command mappings. Buttons can be created by
+     * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
+     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
+     * {@link JoystickButton}.
+     */
+    private void configureButtonBindings() {
+        // The left stick controls translation of the robot.
+        // Turning is controlled by the X axis of the right stick.
 
-    final int translationAxis = XboxController.Axis.kLeftY.value;
-    final int strafeAxis = XboxController.Axis.kLeftX.value;
-    final int rotationAxis = XboxController.Axis.kRightX.value;
+        final int translationAxis = XboxController.Axis.kLeftY.value;
+        final int strafeAxis = XboxController.Axis.kLeftX.value;
+        final int rotationAxis = XboxController.Axis.kRightX.value;
 
-    s_Swerve.setDefaultCommand(
-        new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
+        s_Swerve.setDefaultCommand(
+                new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
 
-    driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
-    driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-    driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
+        driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
+        driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
+        driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
-    Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-    Arm.setDefaultCommand(new RotateArm(operator, Arm));
-    Claw.setDefaultCommand(new DriveClaw(operator, Claw));
-    Intake.setDefaultCommand(new setIntake(operator, Intake));
+        Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
+        Arm.setDefaultCommand(new RotateArm(operator, Arm));
+        Claw.setDefaultCommand(new DriveClaw(operator, Claw));
+        Intake.setDefaultCommand(new setIntake(operator, Intake));
 
-    operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
-    operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
-    operator.dPadRight.onTrue(new ToggleIntakeMode(Piston, true));
-    operator.dPadLeft.onTrue(new ToggleIntakeMode(Piston, false));
-  }
+        operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
+        operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
+        operator.dPadRight.onTrue(new ToggleIntakeMode(Piston, true));
+        operator.dPadLeft.onTrue(new ToggleIntakeMode(Piston, false));
+    }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return autonManager.getSelected();
-  }
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        return autonManager.getSelected();
+    }
 }
