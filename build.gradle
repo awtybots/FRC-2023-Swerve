@@ -107,6 +107,8 @@ spotless {
         }
         toggleOffOn()
         googleJavaFormat()
+        indentWithTabs(2)
+        indentWithSpaces(4)
         removeUnusedImports()
         trimTrailingWhitespace()
         endWithNewline()
@@ -140,4 +142,8 @@ spotless {
         indentWithSpaces(2)
         endWithNewline()
     }
+}
+
+afterEvaluate {
+    tasks.getByName('spotlessCheck').dependsOn(tasks.getByName('spotlessApply'))
 }

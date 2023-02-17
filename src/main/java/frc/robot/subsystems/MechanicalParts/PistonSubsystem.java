@@ -8,21 +8,21 @@ import frc.robot.Constants;
 
 public class PistonSubsystem extends SubsystemBase {
 
-  private final DoubleSolenoid piston;
+    private final DoubleSolenoid piston;
 
-  public PistonSubsystem() {
-    piston =
-        new DoubleSolenoid(
-            PneumaticsModuleType.REVPH,
-            Constants.PistonConstants.kTraverseSolenoidF,
-            Constants.PistonConstants.kTraverseSolenoidR);
-  }
+    public PistonSubsystem() {
+        piston =
+                new DoubleSolenoid(
+                        PneumaticsModuleType.REVPH,
+                        Constants.PistonConstants.kTraverseSolenoidF,
+                        Constants.PistonConstants.kTraverseSolenoidR);
+    }
 
-  public void Open() {
-    piston.set(Value.kForward);
-  }
+    public void Open() {
+        piston.set(Value.kForward);
+    }
 
-  public void Close() {
-    piston.set(Value.kReverse);
-  }
+    public void Close() {
+        piston.set(Value.kReverse);
+    }
 }

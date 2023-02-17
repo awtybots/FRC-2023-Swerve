@@ -15,38 +15,38 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class PathWeaver extends SequentialCommandGroup {
-  String trajectoryJSON = "pathplanner/generatedJSON/Test1.wpilib.json";
-  Trajectory trajectory = new Trajectory();
+    String trajectoryJSON = "pathplanner/generatedJSON/Test1.wpilib.json";
+    Trajectory trajectory = new Trajectory();
 
-  public PathWeaver(Swerve s_Swerve) {
-    try {
-      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-    } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    public PathWeaver(Swerve s_Swerve) {
+        try {
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+            trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+        } catch (IOException ex) {
+            DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+        }
+
+        var thetaController =
+                new ProfiledPIDController(
+                        Constants.AutoConstants.kPThetaController,
+                        0,
+                        0,
+                        Constants.AutoConstants.kThetaControllerConstraints);
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+        SwerveControllerCommand swerveControllerCommand =
+                new SwerveControllerCommand(
+                        trajectory,
+                        s_Swerve::getPose,
+                        Constants.DriveConstants.kDriveKinematics,
+                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+                        thetaController,
+                        s_Swerve::setModuleStates,
+                        s_Swerve);
+
+        addCommands(
+                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
+                swerveControllerCommand);
     }
-
-    var thetaController =
-        new ProfiledPIDController(
-            Constants.AutoConstants.kPThetaController,
-            0,
-            0,
-            Constants.AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            trajectory,
-            s_Swerve::getPose,
-            Constants.DriveConstants.kDriveKinematics,
-            new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-            new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-            thetaController,
-            s_Swerve::setModuleStates,
-            s_Swerve);
-
-    addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
-        swerveControllerCommand);
-  }
 }

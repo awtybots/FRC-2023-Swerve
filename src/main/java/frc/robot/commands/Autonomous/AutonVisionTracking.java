@@ -16,44 +16,44 @@ import frc.robot.subsystems.Swerve.Swerve;
 import java.util.List;
 
 public class AutonVisionTracking extends SequentialCommandGroup {
-  public AutonVisionTracking(Swerve s_Swerve) {
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(Constants.DriveConstants.kDriveKinematics);
+    public AutonVisionTracking(Swerve s_Swerve) {
+        TrajectoryConfig config =
+                new TrajectoryConfig(
+                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                        .setKinematics(Constants.DriveConstants.kDriveKinematics);
 
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            List.of(new Translation2d()),
-            // End 1 meters straight ahead of where we started, facing forward
-            new Pose2d(0, 1, new Rotation2d(0)),
-            config);
+        // An example trajectory to follow.  All units in meters.
+        Trajectory exampleTrajectory =
+                TrajectoryGenerator.generateTrajectory(
+                        // Start at the origin facing the +X direction
+                        new Pose2d(0, 0, new Rotation2d(0)),
+                        List.of(new Translation2d()),
+                        // End 1 meters straight ahead of where we started, facing forward
+                        new Pose2d(0, 1, new Rotation2d(0)),
+                        config);
 
-    var thetaController =
-        new ProfiledPIDController(
-            Constants.AutoConstants.kPThetaController,
-            0,
-            0,
-            Constants.AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+        var thetaController =
+                new ProfiledPIDController(
+                        Constants.AutoConstants.kPThetaController,
+                        0,
+                        0,
+                        Constants.AutoConstants.kThetaControllerConstraints);
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            exampleTrajectory,
-            s_Swerve::getPose,
-            Constants.DriveConstants.kDriveKinematics,
-            new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-            new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-            thetaController,
-            s_Swerve::setModuleStates,
-            s_Swerve);
+        SwerveControllerCommand swerveControllerCommand =
+                new SwerveControllerCommand(
+                        exampleTrajectory,
+                        s_Swerve::getPose,
+                        Constants.DriveConstants.kDriveKinematics,
+                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+                        thetaController,
+                        s_Swerve::setModuleStates,
+                        s_Swerve);
 
-    addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-        swerveControllerCommand);
-  }
+        addCommands(
+                new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+                swerveControllerCommand);
+    }
 }
