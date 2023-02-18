@@ -50,10 +50,12 @@ public final class Constants {
                 public static final int ArmPosition = 38;
                 public static final int ClawPosition = 15;
             }
+
             public static final class TransitionHighNodePosition {
                 public static final int ArmPosition = 35;
                 public static final int ClawPosition = 0;
             }
+
             public static final class HighNodePosition {
                 public static final int ElevatorPosition = 215000;
                 public static final int ArmPosition = 58;
