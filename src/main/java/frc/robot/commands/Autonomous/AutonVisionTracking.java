@@ -5,14 +5,11 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -78,10 +75,7 @@ public class AutonVisionTracking extends SequentialCommandGroup {
         PIDController xController = new PIDController(Constants.AutoConstants.kPXController, 0, 0);
         PIDController yController = new PIDController(Constants.AutoConstants.kPYController, 0, 0);
         PIDController thetaController =
-                new PIDController(
-                        Constants.AutoConstants.kPThetaController,
-                        0,
-                        0);
+                new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
         PPSwerveControllerCommand swerveControllerCommand1 =
