@@ -4,13 +4,12 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -29,25 +28,31 @@ public class AutonVisionTracking extends SequentialCommandGroup {
 
         // An example trajectory to follow.  All units in meters.
 
-        double firstYTranslation = initial_distance * Math.sin(Math.toRadians(beta))
-        + Math.abs(initial_distance * Math.cos(Math.toRadians(beta)) *
-        Math.tan(Math.toRadians(alpha)));
+        double firstYTranslation =
+                initial_distance * Math.sin(Math.toRadians(beta))
+                        + Math.abs(
+                                initial_distance
+                                        * Math.cos(Math.toRadians(beta))
+                                        * Math.tan(Math.toRadians(alpha)));
 
-        PathPlannerTrajectory trajectory1 = PathPlanner.generatePath(
-                new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
-                new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
-                new PathPoint(new Translation2d(0, firstYTranslation),
-        Rotation2d.fromDegrees(-alpha))
-        );
+        PathPlannerTrajectory trajectory1 =
+                PathPlanner.generatePath(
+                        new PathConstraints(
+                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
+                        new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
+                        new PathPoint(new Translation2d(0, firstYTranslation), Rotation2d.fromDegrees(-alpha)));
 
-        PathPlannerTrajectory trajectory2 = PathPlanner.generatePath(
-                new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
-                new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
-                new PathPoint(new Translation2d(s_Limelight.getDistance() - Constants.LimeLightConstants.distanceToTarget, 0),
-        Rotation2d.fromDegrees(0))
-        );
+        PathPlannerTrajectory trajectory2 =
+                PathPlanner.generatePath(
+                        new PathConstraints(
+                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
+                        new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
+                        new PathPoint(
+                                new Translation2d(
+                                        s_Limelight.getDistance() - Constants.LimeLightConstants.distanceToTarget, 0),
+                                Rotation2d.fromDegrees(0)));
 
         // PathPlannerTrajectory exampleTrajectory =
         //         PathPlanner.generatePath(
@@ -69,16 +74,12 @@ public class AutonVisionTracking extends SequentialCommandGroup {
 
         PIDController xController = new PIDController(Constants.AutoConstants.kPXController, 0, 0);
         PIDController yController = new PIDController(Constants.AutoConstants.kPYController, 0, 0);
-        ProfiledPIDController thetaController =
-                new ProfiledPIDController(
-                        Constants.AutoConstants.kPThetaController,
-                        0,
-                        0,
-                        Constants.AutoConstants.kThetaControllerConstraints);
+        PIDController thetaController =
+                new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        SwerveControllerCommand swerveControllerCommand1 =
-                new SwerveControllerCommand(
+        PPSwerveControllerCommand swerveControllerCommand1 =
+                new PPSwerveControllerCommand(
                         trajectory1,
                         s_Swerve::getPose,
                         Constants.DriveConstants.kDriveKinematics,
@@ -88,8 +89,8 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                         s_Swerve::setModuleStates,
                         s_Swerve);
 
-        SwerveControllerCommand swerveControllerCommand2 =
-                new SwerveControllerCommand(
+        PPSwerveControllerCommand swerveControllerCommand2 =
+                new PPSwerveControllerCommand(
                         trajectory1,
                         s_Swerve::getPose,
                         Constants.DriveConstants.kDriveKinematics,

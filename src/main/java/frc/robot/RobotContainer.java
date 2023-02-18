@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -54,11 +57,18 @@ public class RobotContainer {
         configureButtonBindings();
     }
 
+    PathPlannerTrajectory trajectory = PathPlanner.loadPath("Test1", new PathConstraints(6, 4));
+
+    // ! HashMap<String, Command> test1EventMap = new HashMap<>();
+
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing", new InstantCommand());
         autonManager.addOption("Vision Tracking", new AutonVisionTracking(s_Swerve, Limelight));
-        // autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve, Elevator, Arm,
-        // Claw));
+        // ! test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
+        // ! test1EventMap.put("stopEvent", new Balance(s_Swerve));
+        // ! autonManager.addOption(
+        // ! "PathPlanner Test",
+        // ! new PathPlannerAuto(trajectory, s_Swerve, test1EventMap));
     }
 
     /**
