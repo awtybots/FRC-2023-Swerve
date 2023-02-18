@@ -19,19 +19,19 @@ public class LedSubsystem extends SubsystemBase {
         m_led.setData(m_ledBuffer);
         m_led.start();
     }
-
-    public void turnOn(double portionLED, int r, int g, int b, int r2, int g2, int b2) {
-        if (portionLED > 1) return;
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            if(i < m_ledBuffer.getLength()*portionLED) {
-                m_ledBuffer.setRGB(i, r, g, b);
-            } else {
-                m_ledBuffer.setRGB(i, r2, g2, b2);
-            }
+    /** Method to turn on a certain percentage of the lights of a LED strip to a certain color. */
+    public void turnOn(double portionLED, int r, int g, int b) {
+        assert portionLED <= 1;
+        for (var i = 0; i <= m_ledBuffer.getLength() * portionLED; i++) {
+            m_ledBuffer.setRGB(i, r, g, b);
         }
         m_led.setData(m_ledBuffer);
     }
 
+    /**
+     * Method to change the amount of lights a LED strip has as green based on the area of the screen
+     * that a target takes up in the Limelight Apriltag detection system.
+     */
     public void visionTrackingLED(double area) {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             if (area > 17) {
@@ -43,6 +43,10 @@ public class LedSubsystem extends SubsystemBase {
             }
         }
         m_led.setData(m_ledBuffer);
+    }
+
+    public void ledPatterns() {
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {}
     }
 
     public void turnOff() {
