@@ -4,6 +4,8 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -75,16 +77,15 @@ public class AutonVisionTracking extends SequentialCommandGroup {
 
         PIDController xController = new PIDController(Constants.AutoConstants.kPXController, 0, 0);
         PIDController yController = new PIDController(Constants.AutoConstants.kPYController, 0, 0);
-        ProfiledPIDController thetaController =
-                new ProfiledPIDController(
+        PIDController thetaController =
+                new PIDController(
                         Constants.AutoConstants.kPThetaController,
                         0,
-                        0,
-                        Constants.AutoConstants.kThetaControllerConstraints);
+                        0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        SwerveControllerCommand swerveControllerCommand1 =
-                new SwerveControllerCommand(
+        PPSwerveControllerCommand swerveControllerCommand1 =
+                new PPSwerveControllerCommand(
                         trajectory1,
                         s_Swerve::getPose,
                         Constants.DriveConstants.kDriveKinematics,
@@ -94,8 +95,8 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                         s_Swerve::setModuleStates,
                         s_Swerve);
 
-        SwerveControllerCommand swerveControllerCommand2 =
-                new SwerveControllerCommand(
+        PPSwerveControllerCommand swerveControllerCommand2 =
+                new PPSwerveControllerCommand(
                         trajectory1,
                         s_Swerve::getPose,
                         Constants.DriveConstants.kDriveKinematics,
