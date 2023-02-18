@@ -16,24 +16,17 @@ import frc.robot.subsystems.Swerve.Swerve;
 
 public class AutonVisionTracking extends SequentialCommandGroup {
     public AutonVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight) {
-        double beta = s_Limelight.getHorizontalOffset();
-        double alpha = s_Limelight.getHorizontalRotation();
+
+        double beta = Math.toRadians(s_Limelight.getHorizontalOffset());
+        double alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
         double initial_distance = s_Limelight.getDistance();
 
-        // TrajectoryConfig config =
-        //         new TrajectoryConfig(
-        //                         Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        //                         Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-        //                 .setKinematics(Constants.DriveConstants.kDriveKinematics);
+        double hypotenuse = Math.sqrt(2*Math.pow(initial_distance, 2) * (1-Math.cos(alpha + beta)));
+        double theta = Math.asin((initial_distance * Math.sin(alpha + beta)) / hypotenuse);
+        double delta = Math.PI/2 - beta - theta;
 
-        // An example trajectory to follow.  All units in meters.
-
-        double firstYTranslation =
-                initial_distance * Math.sin(Math.toRadians(beta))
-                        + Math.abs(
-                                initial_distance
-                                        * Math.cos(Math.toRadians(beta))
-                                        * Math.tan(Math.toRadians(alpha)));
+        double displacementX = hypotenuse * Math.sin(delta);
+        double displacementY = hypotenuse * Math.cos(delta);
 
         PathPlannerTrajectory trajectory1 =
                 PathPlanner.generatePath(
@@ -41,7 +34,7 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                                 Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
                         new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
-                        new PathPoint(new Translation2d(0, firstYTranslation), Rotation2d.fromDegrees(-alpha)));
+                        new PathPoint(new Translation2d(displacementX, displacementY), Rotation2d.fromDegrees(-alpha)));
 
         PathPlannerTrajectory trajectory2 =
                 PathPlanner.generatePath(
