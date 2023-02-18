@@ -95,6 +95,33 @@ public class Swerve extends SubsystemBase {
     }
 
     /**
+     * Returns the currently-estimated yaw of the robot.
+     *
+     * @return The yaw.
+     */
+    public double getYaw() {
+        return m_gyro.getYaw();
+    }
+
+    /**
+     * Returns the currently-estimated roll of the robot.
+     *
+     * @return The roll.
+     */
+    public double getRoll() {
+        return m_gyro.getRoll();
+    }
+
+    /**
+     * Returns the currently-estimated pitch of the robot.
+     *
+     * @return The pitch.
+     */
+    public double getPitch() {
+        return m_gyro.getPitch();
+    }
+
+    /**
      * Resets the odometry to the specified pose.
      *
      * @param pose The pose to which to set the odometry.
