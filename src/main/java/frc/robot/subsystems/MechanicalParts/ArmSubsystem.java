@@ -69,7 +69,7 @@ public class ArmSubsystem extends SubsystemBase {
                                 + Math.toRadians(Constants.ArmConstants.startingAngle))
                         * (90 / Math.PI);
         if (Double.isNaN(value)) {
-            value = Constants.ArmConstants.maximumHeight;
+            value = Constants.ArmConstants.maximumHeight+Math.toRadians(Constants.ArmConstants.startingAngle) * (90 / Math.PI);
         }
         return value;
     }

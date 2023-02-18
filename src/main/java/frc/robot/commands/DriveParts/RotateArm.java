@@ -16,9 +16,10 @@ public class RotateArm extends CommandBase {
 
     @Override
     public void execute() {
-        double forward = controller.rightTrigger.getAsBoolean() ? 1 : 0;
-        double reverse = controller.leftTrigger.getAsBoolean() ? 1 : 0;
-        double rate = forward - reverse;
+        // double forward = controller.rightTrigger.getAsBoolean() ? 1 : 0;
+        // double reverse = controller.leftTrigger.getAsBoolean() ? 1 : 0;
+        // double rate = forward - reverse;
+        double rate = -controller.getRightStickY();
 
         s_arm.drive(rate);
     }

@@ -16,12 +16,10 @@ public class DriveElevator extends CommandBase {
 
     @Override
     public void execute() {
-        // double forward = controller.dPadUp.getAsBoolean() ? 1 : 0;
-        // double reverse = controller.dPadDown.getAsBoolean() ? 1 : 0;
+        // double forward = controller.rightBumper.getAsBoolean() ? 1 : 0;
+        // double reverse = controller.leftBumper.getAsBoolean() ? 1 : 0;
         // double rate = forward - reverse;
-        double forward = controller.rightBumper.getAsBoolean() ? 1 : 0;
-        double reverse = controller.leftBumper.getAsBoolean() ? 1 : 0;
-        double rate = forward - reverse;
+        double rate = controller.getLeftStickY();
         s_elevator.drive(rate);
     }
 

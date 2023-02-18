@@ -28,12 +28,14 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                 TrajectoryGenerator.generateTrajectory(
                         // Start at the origin facing the +X direction
                         new Pose2d(0, 0, new Rotation2d(0)),
-                        List.of(new Translation2d()),
+                        List.of(new Translation2d(1, 0)),
                         // End 1 meters straight ahead of where we started, facing forward
-                        new Pose2d(0, 1, new Rotation2d(0)),
+                        new Pose2d(0, 1, new Rotation2d(Math.toRadians(40))),
                         config);
 
-        var thetaController =
+        PIDController xController = new PIDController(Constants.AutoConstants.kPXController, 0, 0);
+        PIDController yController = new PIDController(Constants.AutoConstants.kPYController, 0, 0);
+        ProfiledPIDController thetaController =
                 new ProfiledPIDController(
                         Constants.AutoConstants.kPThetaController,
                         0,
@@ -46,8 +48,8 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                         exampleTrajectory,
                         s_Swerve::getPose,
                         Constants.DriveConstants.kDriveKinematics,
-                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+                        xController,
+                        yController,
                         thetaController,
                         s_Swerve::setModuleStates,
                         s_Swerve);

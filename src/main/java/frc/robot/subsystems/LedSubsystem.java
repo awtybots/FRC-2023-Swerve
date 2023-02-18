@@ -20,10 +20,14 @@ public class LedSubsystem extends SubsystemBase {
         m_led.start();
     }
 
-    public void turnOn(double portionLED, int r, int g, int b) {
+    public void turnOn(double portionLED, int r, int g, int b, int r2, int g2, int b2) {
         if (portionLED > 1) return;
-        for (var i = 0; i < m_ledBuffer.getLength() * portionLED; i++) {
-            m_ledBuffer.setRGB(i, r, g, b);
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+            if(i < m_ledBuffer.getLength()*portionLED) {
+                m_ledBuffer.setRGB(i, r, g, b);
+            } else {
+                m_ledBuffer.setRGB(i, r2, g2, b2);
+            }
         }
         m_led.setData(m_ledBuffer);
     }

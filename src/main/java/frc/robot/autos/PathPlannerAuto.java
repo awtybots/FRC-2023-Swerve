@@ -24,10 +24,10 @@ public class PathPlannerAuto extends SequentialCommandGroup {
     PIDController thetaController;
 
     /**
-     * Sequential command group that (for now only) run the {@code Test1} path 
-     * using the PathPlanner library. TODO: PathPlanner Auto | Make it so you 
-     * can pass the HashMap of events and the trajectoryJSON name.
-     * 
+     * Sequential command group that (for now only) run the {@code Test1} path using the PathPlanner
+     * library. TODO: PathPlanner Auto | Make it so you can pass the HashMap of events and the
+     * trajectoryJSON name.
+     *
      * @param Swerve Swerve subsystem.
      * @param ElevatorSubsystem Elevator subsystem.
      * @param ArmSubsystem Arm subsystem.

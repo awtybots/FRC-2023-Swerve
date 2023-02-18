@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.PathPlannerAuto;
-import frc.robot.commands.Autonomous.AutonVisionTracking;
 import frc.robot.commands.DriveParts.DriveClaw;
 import frc.robot.commands.DriveParts.DriveElevator;
 import frc.robot.commands.DriveParts.RotateArm;
@@ -17,6 +16,8 @@ import frc.robot.commands.DriveParts.TeleopSwerve;
 import frc.robot.commands.DriveParts.ToggleIntakeMode;
 import frc.robot.commands.DriveParts.setIntake;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
+import frc.robot.commands.Positions.Nodes.HighNodePosition;
+import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -94,14 +95,16 @@ public class RobotContainer {
         // driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve));
 
         // Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-        Elevator.setDefaultCommand(new DriveElevator(driver, Elevator));
-        Arm.setDefaultCommand(new RotateArm(driver, Arm));
+        Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
+        Arm.setDefaultCommand(new RotateArm(operator, Arm));
         Claw.setDefaultCommand(new DriveClaw(operator, Claw));
         Intake.setDefaultCommand(new setIntake(operator, Intake));
         Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
         operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
         operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
+        operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
+        operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
     }
 
     /**
