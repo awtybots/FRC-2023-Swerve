@@ -41,6 +41,14 @@ public class AutonVisionTracking extends SequentialCommandGroup {
         Rotation2d.fromDegrees(-alpha))
         );
 
+        PathPlannerTrajectory trajectory2 = PathPlanner.generatePath(
+                new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
+                new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
+                new PathPoint(new Translation2d(s_Limelight.getDistance() - Constants.LimeLightConstants.distanceToTarget, 0),
+        Rotation2d.fromDegrees(0))
+        );
+
         // PathPlannerTrajectory exampleTrajectory =
         //         PathPlanner.generatePath(
         //                 new PathConstraints(
@@ -69,7 +77,18 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                         Constants.AutoConstants.kThetaControllerConstraints);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        SwerveControllerCommand swerveControllerCommand =
+        SwerveControllerCommand swerveControllerCommand1 =
+                new SwerveControllerCommand(
+                        trajectory1,
+                        s_Swerve::getPose,
+                        Constants.DriveConstants.kDriveKinematics,
+                        xController,
+                        yController,
+                        thetaController,
+                        s_Swerve::setModuleStates,
+                        s_Swerve);
+
+        SwerveControllerCommand swerveControllerCommand2 =
                 new SwerveControllerCommand(
                         trajectory1,
                         s_Swerve::getPose,
@@ -82,6 +101,8 @@ public class AutonVisionTracking extends SequentialCommandGroup {
 
         addCommands(
                 new InstantCommand(() -> s_Swerve.resetOdometry(trajectory1.getInitialPose())),
-                swerveControllerCommand);
+                swerveControllerCommand1,
+                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory2.getInitialPose())),
+                swerveControllerCommand2);
     }
 }
