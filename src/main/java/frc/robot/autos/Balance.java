@@ -17,7 +17,11 @@ public class Balance extends CommandBase {
     private double currentAngle;
     private double drivePower;
 
-    // Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance
+    /**
+     * Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance.
+     *
+     * @param Swerve
+     */
     public Balance(Swerve s_Swerve) {
         addRequirements(s_Swerve);
         this.s_Swerve = s_Swerve;

@@ -23,12 +23,21 @@ public class PathPlannerAuto extends SequentialCommandGroup {
     PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
     PIDController thetaController;
 
+    /**
+     * Sequential command group that (for now only) run the {@code Test1} path 
+     * using the PathPlanner library. TODO: PathPlanner Auto | Make it so you 
+     * can pass the HashMap of events and the trajectoryJSON name.
+     * 
+     * @param Swerve Swerve subsystem.
+     * @param ElevatorSubsystem Elevator subsystem.
+     * @param ArmSubsystem Arm subsystem.
+     * @param ClawSubsystem Claw subsystem.
+     */
     public PathPlannerAuto(
             Swerve s_Swerve,
             ElevatorSubsystem s_elevatorSubsystem,
             ArmSubsystem s_arArmSubsystem,
             ClawSubsystem s_ClawSubsystem) {
-        // String trajectoryPath = Filesystem.getDeployDirectory().toPath().toString();
         PathPlannerTrajectory trajectory =
                 PathPlanner.loadPath(trajectoryJSON, new PathConstraints(6, 4));
 
