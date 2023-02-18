@@ -53,7 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
         if (pct > 0) {
             multiplier = 1;
         } else {
-            multiplier = 0.3;
+            multiplier = 1;
         }
         intakeMotors[0].set(-pct * multiplier);
         intakeMotors[1].set(pct * multiplier);

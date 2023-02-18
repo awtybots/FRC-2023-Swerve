@@ -91,17 +91,17 @@ public class RobotContainer {
 
         driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve));
+        // driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve));
 
-        Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-        Arm.setDefaultCommand(new RotateArm(operator, Arm));
+        // Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
+        Elevator.setDefaultCommand(new DriveElevator(driver, Elevator));
+        Arm.setDefaultCommand(new RotateArm(driver, Arm));
         Claw.setDefaultCommand(new DriveClaw(operator, Claw));
         Intake.setDefaultCommand(new setIntake(operator, Intake));
+        Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
         operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
         operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
-        operator.dPadRight.onTrue(new ToggleIntakeMode(Piston, true));
-        operator.dPadLeft.onTrue(new ToggleIntakeMode(Piston, false));
     }
 
     /**

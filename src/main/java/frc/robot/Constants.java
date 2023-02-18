@@ -45,21 +45,18 @@ public final class Constants {
                 public static final int ArmPosition = 0;
                 public static final int ClawPosition = 0;
             }
-            ;
 
             public static final class MidNodePosition {
                 public static final int ElevatorPosition = 0;
                 public static final int ArmPosition = 0;
                 public static final int ClawPosition = 0;
             }
-            ;
 
             public static final class HighNodePosition {
                 public static final int ElevatorPosition = 0;
                 public static final int ArmPosition = 0;
                 public static final int ClawPosition = 0;
             }
-            ;
         }
 
         public static final class Intake {
@@ -98,7 +95,7 @@ public final class Constants {
         // Heights
         public static final int initialHeight = 4000;
         public static final int minimumHeight = 2000;
-        public static final int maximumHeight = 210000;
+        public static final int maximumHeight = 220000;
         public static final double ElevatorOffset = 0.05;
 
         // PID
@@ -124,7 +121,7 @@ public final class Constants {
         public static final double kF = 0.00;
 
         public static final double armLength = 0.54; // 0.54 m
-        public static final double startingAngle = 0;
+        public static final double startingAngle = 40;
 
         public static final double rampRate = 0.6;
     }
@@ -135,8 +132,12 @@ public final class Constants {
         public static final int kRightIntakeMotorId = 16;
 
         public static final int initialHeight = 0;
-        public static final int minimumHeight = -50;
-        public static final int maximumHeight = 50;
+        public static final int minimumHeight = -100;
+        public static final int maximumHeight = 100;
+
+        public static final double kP = 0.04;
+        public static final double kI = 0.00;
+        public static final double kD = 0.00;
     }
 
     public static final class PistonConstants {

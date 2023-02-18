@@ -38,13 +38,11 @@ public class ArmSubsystem extends SubsystemBase {
         mRightArmEncoder = mRightArmMotor.getEncoder();
 
         mRightArmPIDController = mRightArmMotor.getPIDController();
-        ;
 
         mRightArmPIDController.setP(0.04);
         mRightArmPIDController.setI(0);
         mRightArmPIDController.setD(0);
         mRightArmPIDController.setOutputRange(-1, 1);
-        mRightArmMotor.setOpenLoopRampRate(Constants.ArmConstants.rampRate);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
 
@@ -68,9 +66,8 @@ public class ArmSubsystem extends SubsystemBase {
                                 - Math.acos(
                                         (sElevator.getDistance() - Constants.ElevatorConstants.ElevatorOffset)
                                                 / Constants.ArmConstants.armLength)
-                                + Constants.ArmConstants.startingAngle)
-                        * 90
-                        / Math.PI;
+                                + Math.toRadians(Constants.ArmConstants.startingAngle))
+                        * (90 / Math.PI);
         if (Double.isNaN(value)) {
             value = Constants.ArmConstants.maximumHeight;
         }

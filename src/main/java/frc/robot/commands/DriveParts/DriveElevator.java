@@ -19,7 +19,9 @@ public class DriveElevator extends CommandBase {
         // double forward = controller.dPadUp.getAsBoolean() ? 1 : 0;
         // double reverse = controller.dPadDown.getAsBoolean() ? 1 : 0;
         // double rate = forward - reverse;
-        double rate = controller.getLeftStickY();
+        double forward = controller.rightBumper.getAsBoolean() ? 1 : 0;
+        double reverse = controller.leftBumper.getAsBoolean() ? 1 : 0;
+        double rate = forward - reverse;
         s_elevator.drive(rate);
     }
 
