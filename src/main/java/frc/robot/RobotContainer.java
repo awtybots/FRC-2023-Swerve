@@ -16,21 +16,15 @@ import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.DriveParts.DriveClaw;
 import frc.robot.commands.DriveParts.DriveElevator;
 import frc.robot.commands.DriveParts.RotateArm;
+import frc.robot.commands.Autonomous.AutonVisionTracking;
 import frc.robot.commands.DriveParts.TeleopSwerve;
-import frc.robot.commands.DriveParts.ToggleIntakeMode;
-import frc.robot.commands.DriveParts.setIntake;
-import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
-import frc.robot.commands.Positions.Nodes.HighNodePosition;
-import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
-import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
-import frc.robot.subsystems.MechanicalParts.PistonSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
+import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.util.AutonManager;
 import frc.util.Controller;
 import java.util.HashMap;
@@ -55,12 +49,12 @@ public class RobotContainer {
     private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
     private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
     private final ClawSubsystem Claw = new ClawSubsystem();
-    private final IntakeSubsystem Intake = new IntakeSubsystem();
-    private final PistonSubsystem Piston = new PistonSubsystem();
+    // ! private final IntakeSubsystem Intake = new IntakeSubsystem();
+    // ! private final PistonSubsystem Piston = new PistonSubsystem();
 
     // The driver's controller
     private final Controller driver = new Controller(0);
-    private final Controller operator = new Controller(1);
+    // ! private final Controller operator = new Controller(1);
 
     public static boolean isAutoTargetOn = false;
 
@@ -105,19 +99,19 @@ public class RobotContainer {
 
         driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        // driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve));
+        driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve, Limelight));
 
-        // Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-        Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-        Arm.setDefaultCommand(new RotateArm(operator, Arm));
-        Claw.setDefaultCommand(new DriveClaw(operator, Claw));
-        Intake.setDefaultCommand(new setIntake(operator, Intake));
-        Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
+        // ! Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
+        // ! Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
+        // ! Arm.setDefaultCommand(new RotateArm(operator, Arm));
+        // ! Claw.setDefaultCommand(new DriveClaw(operator, Claw));
+        // ! Intake.setDefaultCommand(new setIntake(operator, Intake));
+        // ! Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
-        operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
-        operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
-        operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
-        operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
+        // ! operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
+        // ! operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
+        // ! operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
+        // ! operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
     }
 
     /**
