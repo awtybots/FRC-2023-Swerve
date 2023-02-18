@@ -46,9 +46,9 @@ public class RobotContainer {
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
-    private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
-    private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
-    private final ClawSubsystem Claw = new ClawSubsystem();
+    // ! private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
+    // ! private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
+    // ! private final ClawSubsystem Claw = new ClawSubsystem();
     // ! private final IntakeSubsystem Intake = new IntakeSubsystem();
     // ! private final PistonSubsystem Piston = new PistonSubsystem();
 
@@ -69,15 +69,15 @@ public class RobotContainer {
 
     PathPlannerTrajectory trajectory = PathPlanner.loadPath("Test1", new PathConstraints(6, 4));
 
-    HashMap<String, Command> test1EventMap = new HashMap<>();
+    // ! HashMap<String, Command> test1EventMap = new HashMap<>();
 
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing", new InstantCommand());
-        test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
-        test1EventMap.put("stopEvent", new Balance(s_Swerve));
-        autonManager.addOption(
-                "PathPlanner Test",
-                new PathPlannerAuto(trajectory, s_Swerve, Elevator, Arm, Claw, test1EventMap));
+        // ! test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
+        // ! test1EventMap.put("stopEvent", new Balance(s_Swerve));
+        // ! autonManager.addOption(
+                // ! "PathPlanner Test",
+                // ! new PathPlannerAuto(trajectory, s_Swerve, test1EventMap));
     }
 
     /**

@@ -32,9 +32,6 @@ public class PathPlannerAuto extends SequentialCommandGroup {
     public PathPlannerAuto(
             PathPlannerTrajectory trajectory,
             Swerve s_Swerve,
-            ElevatorSubsystem s_elevatorSubsystem,
-            ArmSubsystem s_arArmSubsystem,
-            ClawSubsystem s_ClawSubsystem,
             HashMap<String, Command> eventMap) {
 
         thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
@@ -56,5 +53,27 @@ public class PathPlannerAuto extends SequentialCommandGroup {
 
         addCommands(
                 new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), command);
+    }
+    
+    public PathPlannerAuto(
+            PathPlannerTrajectory trajectory,
+            Swerve s_Swerve) {
+
+        thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+        PPSwerveControllerCommand swerveControllerCommand =
+                new PPSwerveControllerCommand(
+                        trajectory,
+                        s_Swerve::getPose,
+                        Constants.DriveConstants.kDriveKinematics,
+                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+                        thetaController,
+                        s_Swerve::setModuleStates,
+                        s_Swerve);
+
+        addCommands(
+                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), swerveControllerCommand);
     }
 }
