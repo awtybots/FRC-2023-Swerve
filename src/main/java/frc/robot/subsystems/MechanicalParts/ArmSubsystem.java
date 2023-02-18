@@ -42,7 +42,7 @@ public class ArmSubsystem extends SubsystemBase {
         mRightArmPIDController.setP(0.04);
         mRightArmPIDController.setI(0);
         mRightArmPIDController.setD(0);
-        mRightArmPIDController.setOutputRange(-1, 1);
+        mRightArmPIDController.setOutputRange(-0.5, 0.5);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
 
