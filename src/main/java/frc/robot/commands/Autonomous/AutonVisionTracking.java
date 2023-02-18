@@ -101,8 +101,8 @@ public class AutonVisionTracking extends SequentialCommandGroup {
 
         addCommands(
                 new InstantCommand(() -> s_Swerve.resetOdometry(trajectory1.getInitialPose())),
-                swerveControllerCommand1,
-                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory2.getInitialPose())),
-                swerveControllerCommand2);
+                swerveControllerCommand1);
+                // new InstantCommand(() -> s_Swerve.resetOdometry(trajectory2.getInitialPose())),
+                // swerveControllerCommand2);
     }
 }

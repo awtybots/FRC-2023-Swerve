@@ -151,8 +151,8 @@ public final class Constants {
     public static final class LimeLightConstants {
         public static final double distanceToTarget = 4;
 
-        public static final double AprilTagHeight = 1;
-        public static final double LimelightHeight = 0.46;
+        public static final double AprilTagHeight = 0.945;
+        public static final double LimelightHeight = 0.415;
         public static final double LimelightAngle = 14;
     }
 

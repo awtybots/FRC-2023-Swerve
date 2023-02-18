@@ -56,6 +56,7 @@ public class RobotContainer {
 
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing", new InstantCommand());
+        autonManager.addOption("Vision Tracking", new AutonVisionTracking(s_Swerve, Limelight));
         // autonManager.addOption("PathPlanner Test", new PathPlannerAuto(s_Swerve, Elevator, Arm,
         // Claw));
     }
