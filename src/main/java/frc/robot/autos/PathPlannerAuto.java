@@ -2,16 +2,12 @@ package frc.robot.autos;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
-// import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
-import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 import java.util.HashMap;
 
@@ -30,9 +26,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
      * @param ClawSubsystem Claw subsystem.
      */
     public PathPlannerAuto(
-            PathPlannerTrajectory trajectory,
-            Swerve s_Swerve,
-            HashMap<String, Command> eventMap) {
+            PathPlannerTrajectory trajectory, Swerve s_Swerve, HashMap<String, Command> eventMap) {
 
         thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
@@ -54,10 +48,8 @@ public class PathPlannerAuto extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), command);
     }
-    
-    public PathPlannerAuto(
-            PathPlannerTrajectory trajectory,
-            Swerve s_Swerve) {
+
+    public PathPlannerAuto(PathPlannerTrajectory trajectory, Swerve s_Swerve) {
 
         thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
@@ -74,6 +66,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
                         s_Swerve);
 
         addCommands(
-                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), swerveControllerCommand);
+                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
+                swerveControllerCommand);
     }
 }

@@ -19,7 +19,7 @@ public class LedSubsystem extends SubsystemBase {
         m_led.setData(m_ledBuffer);
         m_led.start();
     }
-    
+
     /** Method to turn on a certain percentage of the lights of a LED strip to a certain color. */
     public void turnOn(double portionLED, int r, int g, int b, int r2, int g2, int b2) {
         assert portionLED <= 1;

@@ -29,25 +29,31 @@ public class AutonVisionTracking extends SequentialCommandGroup {
 
         // An example trajectory to follow.  All units in meters.
 
-        double firstYTranslation = initial_distance * Math.sin(Math.toRadians(beta))
-        + Math.abs(initial_distance * Math.cos(Math.toRadians(beta)) *
-        Math.tan(Math.toRadians(alpha)));
+        double firstYTranslation =
+                initial_distance * Math.sin(Math.toRadians(beta))
+                        + Math.abs(
+                                initial_distance
+                                        * Math.cos(Math.toRadians(beta))
+                                        * Math.tan(Math.toRadians(alpha)));
 
-        PathPlannerTrajectory trajectory1 = PathPlanner.generatePath(
-                new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
-                new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
-                new PathPoint(new Translation2d(0, firstYTranslation),
-        Rotation2d.fromDegrees(-alpha))
-        );
+        PathPlannerTrajectory trajectory1 =
+                PathPlanner.generatePath(
+                        new PathConstraints(
+                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
+                        new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
+                        new PathPoint(new Translation2d(0, firstYTranslation), Rotation2d.fromDegrees(-alpha)));
 
-        PathPlannerTrajectory trajectory2 = PathPlanner.generatePath(
-                new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
-                new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
-                new PathPoint(new Translation2d(s_Limelight.getDistance() - Constants.LimeLightConstants.distanceToTarget, 0),
-        Rotation2d.fromDegrees(0))
-        );
+        PathPlannerTrajectory trajectory2 =
+                PathPlanner.generatePath(
+                        new PathConstraints(
+                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
+                        new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
+                        new PathPoint(
+                                new Translation2d(
+                                        s_Limelight.getDistance() - Constants.LimeLightConstants.distanceToTarget, 0),
+                                Rotation2d.fromDegrees(0)));
 
         // PathPlannerTrajectory exampleTrajectory =
         //         PathPlanner.generatePath(

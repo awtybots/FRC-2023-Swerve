@@ -11,23 +11,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.autos.Balance;
-import frc.robot.autos.PathPlannerAuto;
-import frc.robot.commands.DriveParts.DriveClaw;
-import frc.robot.commands.DriveParts.DriveElevator;
-import frc.robot.commands.DriveParts.RotateArm;
 import frc.robot.commands.Autonomous.AutonVisionTracking;
 import frc.robot.commands.DriveParts.TeleopSwerve;
-import frc.robot.commands.Positions.StowPosition;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.util.AutonManager;
 import frc.util.Controller;
-import java.util.HashMap;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -76,8 +66,8 @@ public class RobotContainer {
         // ! test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
         // ! test1EventMap.put("stopEvent", new Balance(s_Swerve));
         // ! autonManager.addOption(
-                // ! "PathPlanner Test",
-                // ! new PathPlannerAuto(trajectory, s_Swerve, test1EventMap));
+        // ! "PathPlanner Test",
+        // ! new PathPlannerAuto(trajectory, s_Swerve, test1EventMap));
     }
 
     /**
