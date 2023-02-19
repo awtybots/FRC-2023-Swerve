@@ -19,17 +19,11 @@ public class Balance extends CommandBase {
 
     /**
      * Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance.
-     *
-     * @param Swerve
      */
     public Balance(Swerve s_Swerve) {
         addRequirements(s_Swerve);
         this.s_Swerve = s_Swerve;
     }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {}
 
     @Override
     public void execute() {
@@ -61,6 +55,10 @@ public class Balance extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {}
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {}
 
     // Returns true when the command should end.
     @Override

@@ -11,33 +11,27 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.autos.Balance;
+import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.Autonomous.AutonVisionTracking;
-import frc.robot.commands.DriveParts.DriveClaw;
-import frc.robot.commands.DriveParts.DriveElevator;
-import frc.robot.commands.DriveParts.RotateArm;
-import frc.robot.commands.DriveParts.TeleopSwerve;
-import frc.robot.commands.DriveParts.ToggleIntakeMode;
-import frc.robot.commands.DriveParts.setIntake;
-import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
+import frc.robot.commands.Positions.StowPosition;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
-import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
-import frc.robot.subsystems.MechanicalParts.PistonSubsystem;
+import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
+import java.util.HashMap;
 
-/*
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
+/**
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
 
@@ -62,8 +56,13 @@ public class RobotContainer {
 
     public static boolean isAutoTargetOn = false;
 
+    private final PathPlannerTrajectory test1Trajectory =
+            PathPlanner.loadPath("Test1", new PathConstraints(6, 4));
+    private final HashMap<String, Command> test1EventMap = new HashMap<>();
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        eventMaps();
         addAutonomousChoices();
         autonManager.displayChoices();
 
@@ -71,18 +70,16 @@ public class RobotContainer {
         configureButtonBindings();
     }
 
-    PathPlannerTrajectory trajectory = PathPlanner.loadPath("Test1", new PathConstraints(6, 4));
-
-    // ! HashMap<String, Command> test1EventMap = new HashMap<>();
+    private void eventMaps() {
+        test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
+        test1EventMap.put("stopEvent", new Balance(s_Swerve));
+    }
 
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing", new InstantCommand());
         autonManager.addOption("Vision Tracking", new AutonVisionTracking(s_Swerve, Limelight));
-        // ! test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
-        // ! test1EventMap.put("stopEvent", new Balance(s_Swerve));
-        // ! autonManager.addOption(
-        // ! "PathPlanner Test",
-        // ! new PathPlannerAuto(trajectory, s_Swerve, test1EventMap));
+        autonManager.addOption(
+                "PathPlanner Test", new PathPlannerAuto(test1Trajectory, s_Swerve, test1EventMap));
     }
 
     /**

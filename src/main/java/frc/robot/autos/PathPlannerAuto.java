@@ -12,26 +12,23 @@ import frc.robot.subsystems.Swerve.Swerve;
 import java.util.HashMap;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
-    PathPlannerTrajectory trajectory = new PathPlannerTrajectory();
-    PIDController thetaController;
+    private final PIDController thetaController =
+            new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
 
     /**
-     * Sequential command group that (for now only) run the {@code Test1} path using the PathPlanner
-     * library. TODO: PathPlanner Auto | Make it so you can pass the HashMap of events and the
-     * trajectoryJSON name.
+     * Sequential command group that runs a given PathPlanner path with an event Hashmap triggering
+     * commands.
      *
+     * @param PathPlannerTrajectory The loaded PathPlanner trajectory.
      * @param Swerve Swerve subsystem.
-     * @param ElevatorSubsystem Elevator subsystem.
-     * @param ArmSubsystem Arm subsystem.
-     * @param ClawSubsystem Claw subsystem.
+     * @param HashMap<String,Command> Hashmap of events along the loaded trajectory.
      */
     public PathPlannerAuto(
             PathPlannerTrajectory trajectory, Swerve s_Swerve, HashMap<String, Command> eventMap) {
 
-        thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        PPSwerveControllerCommand swerveControllerCommand =
+        final PPSwerveControllerCommand swerveControllerCommand =
                 new PPSwerveControllerCommand(
                         trajectory,
                         s_Swerve::getPose,
@@ -42,7 +39,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
                         s_Swerve::setModuleStates,
                         s_Swerve);
 
-        FollowPathWithEvents command =
+        final FollowPathWithEvents command =
                 new FollowPathWithEvents(swerveControllerCommand, trajectory.getMarkers(), eventMap);
 
         addCommands(
@@ -51,10 +48,9 @@ public class PathPlannerAuto extends SequentialCommandGroup {
 
     public PathPlannerAuto(PathPlannerTrajectory trajectory, Swerve s_Swerve) {
 
-        thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        PPSwerveControllerCommand swerveControllerCommand =
+        final PPSwerveControllerCommand swerveControllerCommand =
                 new PPSwerveControllerCommand(
                         trajectory,
                         s_Swerve::getPose,
