@@ -112,6 +112,7 @@ public class RobotContainer {
         Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
         operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
+        driver.rightBumper.onTrue(new StowPosition(Elevator, Arm, Claw));
         operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
         operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
 
