@@ -30,6 +30,11 @@ public class ArmSubsystem extends SubsystemBase {
         mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
         // mLeftArmMotor.restoreFactoryDefaults();
         mRightArmMotor.restoreFactoryDefaults();
+
+        // Current limit
+        mLeftArmMotor.setSmartCurrentLimit(Constants.ArmConstants.kCurrentLimit);
+        mRightArmMotor.setSmartCurrentLimit(Constants.ArmConstants.kCurrentLimit);
+
         mRightArmMotor.setInverted(true);
         mLeftArmMotor.follow(mRightArmMotor, true);
 

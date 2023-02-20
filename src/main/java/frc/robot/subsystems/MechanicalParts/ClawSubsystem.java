@@ -23,6 +23,9 @@ public class ClawSubsystem extends SubsystemBase {
         mPivotMotor = new CANSparkMax(Constants.ClawConstants.kPivotMotorId, MotorType.kBrushless);
         mPivotMotor.restoreFactoryDefaults();
 
+        mPivotMotor.setSmartCurrentLimit(Constants.ClawConstants.kClawCurrentLimit);
+
+
         mPivotPIDController = mPivotMotor.getPIDController();
 
         mPivotEncoder = mPivotMotor.getEncoder();

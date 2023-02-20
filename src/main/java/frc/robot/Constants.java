@@ -71,7 +71,7 @@ public final class Constants {
             }
 
             public static final class IntakeFromHumanPlayerPosition {
-                public static final int ElevatorPosition = 150000;
+                public static final int ElevatorPosition = 105000;
                 public static final int ArmPosition = 25;
                 public static final int ClawPosition = 15;
             }
@@ -112,6 +112,8 @@ public final class Constants {
         public static final int kLeftArmMotorId = 7;
         public static final int kRightArmMotorId = 12;
 
+        public static final int kCurrentLimit = 40;
+
         // Heights
         public static final int initialHeight = 0;
         public static final int minimumHeight = 0;
@@ -133,6 +135,9 @@ public final class Constants {
         public static final int kPivotMotorId = 6;
         public static final int kLeftIntakeMotorId = 15;
         public static final int kRightIntakeMotorId = 16;
+
+        public static final int kClawCurrentLimit = 40;
+        public static final int kIntakeCurrentLimit = 20;
 
         public static final int initialHeight = 0;
         public static final int minimumHeight = -15;

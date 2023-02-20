@@ -1,5 +1,5 @@
 /** Thank you GOFIRST-Robotics! */
-package frc.robot.commands;
+package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -52,7 +52,8 @@ public class Balance extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+    }
 
     // Called when the command is initially scheduled.
     @Override

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.Autonomous.AutonVisionTracking;
-import frc.robot.commands.Balance;
+import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
@@ -102,21 +102,21 @@ public class RobotContainer {
 
         driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
+        // driver.buttonB.onTrue(new Balance(s_Swerve));
         // driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve, Limelight));
 
         Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
         Arm.setDefaultCommand(new RotateArm(operator, Arm));
         Claw.setDefaultCommand(new DriveClaw(operator, Claw));
-        Intake.setDefaultCommand(new setIntake(operator, Intake));
+        // Intake.setDefaultCommand(new setIntake(operator, Intake));
         Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
         operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
         operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
         operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
-        
+
         operator.dPadDown.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
         operator.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(Elevator, Arm, Claw));
-
     }
 
     /**

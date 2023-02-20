@@ -28,8 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
                 new CANSparkMax(Constants.ClawConstants.kRightIntakeMotorId, MotorType.kBrushless);
 
         mLeftIntakeMotor.restoreFactoryDefaults();
-
         mRightIntakeMotor.restoreFactoryDefaults();
+
+        // Current limit
+        mLeftIntakeMotor.setSmartCurrentLimit(Constants.ClawConstants.kIntakeCurrentLimit);
+        mRightIntakeMotor.setSmartCurrentLimit(Constants.ClawConstants.kIntakeCurrentLimit);
 
         intakeMotors = new CANSparkMax[] {mLeftIntakeMotor, mRightIntakeMotor};
 
