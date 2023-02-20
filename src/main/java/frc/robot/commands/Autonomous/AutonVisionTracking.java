@@ -21,9 +21,9 @@ public class AutonVisionTracking extends SequentialCommandGroup {
         double alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
         double initial_distance = s_Limelight.getDistance();
 
-        double hypotenuse = Math.sqrt(2*Math.pow(initial_distance, 2) * (1-Math.cos(alpha + beta)));
+        double hypotenuse = Math.sqrt(2 * Math.pow(initial_distance, 2) * (1 - Math.cos(alpha + beta)));
         double theta = Math.asin((initial_distance * Math.sin(alpha + beta)) / hypotenuse);
-        double delta = Math.PI/2 - beta - theta;
+        double delta = Math.PI / 2 - beta - theta;
 
         double displacementX = hypotenuse * Math.sin(delta);
         double displacementY = hypotenuse * Math.cos(delta);
@@ -34,8 +34,9 @@ public class AutonVisionTracking extends SequentialCommandGroup {
                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                                 Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared),
                         new PathPoint(new Translation2d(0, 0), Rotation2d.fromDegrees(0)),
-                        new PathPoint(new Translation2d(displacementX, displacementY), Rotation2d.fromDegrees(-alpha)));
-
+                        new PathPoint(
+                                new Translation2d(displacementX, displacementY), Rotation2d.fromDegrees(-alpha)));
+        // ? Why trajectory 2?
         PathPlannerTrajectory trajectory2 =
                 PathPlanner.generatePath(
                         new PathConstraints(
@@ -96,7 +97,7 @@ public class AutonVisionTracking extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> s_Swerve.resetOdometry(trajectory1.getInitialPose())),
                 swerveControllerCommand1);
-                // new InstantCommand(() -> s_Swerve.resetOdometry(trajectory2.getInitialPose())),
-                // swerveControllerCommand2);
+        // new InstantCommand(() -> s_Swerve.resetOdometry(trajectory2.getInitialPose())),
+        // swerveControllerCommand2);
     }
 }

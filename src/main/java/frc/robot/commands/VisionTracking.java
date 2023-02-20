@@ -36,10 +36,12 @@ public class VisionTracking extends CommandBase {
         rotation = 0;
     }
 
-    // @Override
-    // public void end(boolean interrupted) {
-    //     RobotContainer.isAutoTargetOn = false;
-    // }
+    // ? Why was this commented out? It just makes it impossible to regain Teleop control if commented
+    // out.
+    @Override
+    public void end(boolean interrupted) {
+        RobotContainer.isAutoTargetOn = false;
+    }
 
     // @Override
     // public boolean isFinished() {
