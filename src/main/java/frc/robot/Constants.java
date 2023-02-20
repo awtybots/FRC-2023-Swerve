@@ -71,9 +71,9 @@ public final class Constants {
             }
 
             public static final class IntakeFromHumanPlayerPosition {
-                public static final int ElevatorPosition = 0;
-                public static final int ArmPosition = 0;
-                public static final int ClawPosition = 0;
+                public static final int ElevatorPosition = 150000;
+                public static final int ArmPosition = 25;
+                public static final int ClawPosition = 15;
             }
 
             public static final class IntakeFromGroundPosition {

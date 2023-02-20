@@ -20,6 +20,7 @@ import frc.robot.commands.DriveParts.ToggleIntakeMode;
 import frc.robot.commands.DriveParts.setIntake;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
+import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;
@@ -113,9 +114,12 @@ public class RobotContainer {
         Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
         operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
-        operator.buttonX.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
         operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
         operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
+        
+        operator.dPadDown.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
+        operator.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(Elevator, Arm, Claw));
+
     }
 
     /**
