@@ -25,7 +25,6 @@ public class ClawSubsystem extends SubsystemBase {
 
         mPivotMotor.setSmartCurrentLimit(Constants.ClawConstants.kClawCurrentLimit);
 
-
         mPivotPIDController = mPivotMotor.getPIDController();
 
         mPivotEncoder = mPivotMotor.getEncoder();
