@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.Autonomous.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.DriveParts.*;
@@ -100,7 +101,7 @@ public class RobotContainer {
     }
 
     private void addAutonomousChoices() {
-        autonManager.addOption("Do Nothing", new InstantCommand());
+        autonManager.addOption("Do Nothing.", new InstantCommand());
         // autonManager.addOption(
         //         "PathPlanner Test1",
         //         autoBuilder.fullAuto(
@@ -172,6 +173,13 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return autonManager.getSelected();
+        // return autonManager.getSelected();
+        // return autoBuilder.fullAuto(
+        //     PathPlanner.loadPathGroup(
+        //             "Straight",
+        //             new PathConstraints(
+        //                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+        //                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)));
+        return new PathPlannerAuto(null, s_Swerve, test1EventMap);
     }
 }

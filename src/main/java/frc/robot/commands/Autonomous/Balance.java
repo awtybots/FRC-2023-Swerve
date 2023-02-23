@@ -29,7 +29,6 @@ public class Balance extends CommandBase {
 
         currentAngle = s_Swerve.getRoll();
 
-
         error = Constants.Balance.BEAM_BALANCED_GOAL_DEGREES - currentAngle;
         drivePower = -Math.min(Constants.Balance.BEAM_BALANACED_DRIVE_KP * error, 1);
 

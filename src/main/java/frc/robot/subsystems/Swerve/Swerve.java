@@ -52,7 +52,7 @@ public class Swerve extends SubsystemBase {
 
     /** Creates a new DriveSubsystem. */
     public Swerve() {
-        swerveHighSpeedMode = false;
+        swerveHighSpeedMode = true;
 
         m_gyro = new AHRS(SPI.Port.kMXP);
         zeroGyro();
