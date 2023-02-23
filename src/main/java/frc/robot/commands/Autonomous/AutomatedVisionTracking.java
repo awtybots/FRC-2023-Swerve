@@ -15,10 +15,6 @@ public class AutomatedVisionTracking extends CommandBase {
     private double beta;
     private double alpha;
 
-    private Translation2d translation1;
-    private Translation2d translation2;
-    private double rotation;
-
     private double threshold = 10;
     private double rotateSpeed = 3;
     private double driveSpeed = 4;
