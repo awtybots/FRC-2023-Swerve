@@ -28,7 +28,7 @@ public class PathPlannerAuto extends SequentialCommandGroup {
 
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-        final PPSwerveControllerCommand swerveControllerCommand =
+        PPSwerveControllerCommand swerveControllerCommand =
                 new PPSwerveControllerCommand(
                         trajectory,
                         s_Swerve::getPose,
@@ -36,34 +36,35 @@ public class PathPlannerAuto extends SequentialCommandGroup {
                         new PIDController(Constants.AutoConstants.kPXController, 0, 0),
                         new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                         thetaController,
-                        s_Swerve::setModuleStates, 
+                        s_Swerve::setModuleStates,
                         true,
                         s_Swerve);
 
-        final FollowPathWithEvents command =
+        FollowPathWithEvents command =
                 new FollowPathWithEvents(swerveControllerCommand, trajectory.getMarkers(), eventMap);
 
         addCommands(
-                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialHolonomicPose())), command);
+                new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())), command);
     }
 
-//     public PathPlannerAuto(PathPlannerTrajectory trajectory, Swerve s_Swerve) {
+    //     public PathPlannerAuto(PathPlannerTrajectory trajectory, Swerve s_Swerve) {
 
-//         thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    //         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-//         final PPSwerveControllerCommand swerveControllerCommand =
-//                 new PPSwerveControllerCommand(
-//                         trajectory,
-//                         s_Swerve::getPose,
-//                         Constants.DriveConstants.kDriveKinematics,
-//                         new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-//                         new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-//                         thetaController,
-//                         s_Swerve::setModuleStates,
-//                         s_Swerve);
+    //         final PPSwerveControllerCommand swerveControllerCommand =
+    //                 new PPSwerveControllerCommand(
+    //                         trajectory,
+    //                         s_Swerve::getPose,
+    //                         Constants.DriveConstants.kDriveKinematics,
+    //                         new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+    //                         new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+    //                         thetaController,
+    //                         s_Swerve::setModuleStates,
+    //                         s_Swerve);
 
-//         addCommands(
-//                 new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
-//                 swerveControllerCommand);
-//     }
+    //         addCommands(
+    //                 new InstantCommand(() ->
+    // s_Swerve.resetOdometry(trajectory.getInitialHolonomicPose())),
+    //                 swerveControllerCommand);
+    //     }
 }

@@ -6,14 +6,13 @@ package frc.robot;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.Autonomous.AutomatedVisionTracking;
-import frc.robot.commands.Autonomous.AutonVisionTracking;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -58,9 +57,32 @@ public class RobotContainer {
 
     public static boolean isAutoTargetOn = false;
 
-    private final PathPlannerTrajectory test1Trajectory =
-            PathPlanner.loadPath("Straight", new PathConstraints(1, 0.5));
+    // private final PathPlannerTrajectory test1Trajectory =
+    //         PathPlanner.loadPath("Straight", new PathConstraints(6, 4));
+    // ! Delete the above if autoBuilder works
     private final HashMap<String, Command> test1EventMap = new HashMap<>();
+
+    public final SwerveAutoBuilder autoBuilder =
+            new SwerveAutoBuilder(
+                    // Pose2d supplier
+                    s_Swerve::getPose,
+                    // Pose2d consumer, used to reset odometry at the beginning of auto
+                    s_Swerve::resetOdometry,
+                    // SwerveDriveKinematics
+                    Constants.DriveConstants.kDriveKinematics,
+                    // PID constants to correct for translation error (used to create the X and Y PID
+                    // controllers)
+                    new PIDConstants(Constants.AutoConstants.kPXYController, 0.0, 0.0),
+                    // PID constants to correct for rotation error (used to create the rotation controller)
+                    new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0),
+                    // Module states consumer used to output to the drive subsystem
+                    s_Swerve::setModuleStates,
+                    test1EventMap,
+                    // TODO: Change the useAllianceColor to true? Not sure how it detects the color.
+                    // Should the path be automatically mirrored depending on alliance color. Optional,
+                    // defaults to true
+                    false,
+                    s_Swerve);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -79,9 +101,32 @@ public class RobotContainer {
 
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing", new InstantCommand());
-        autonManager.addOption("Vision Tracking", new AutonVisionTracking(s_Swerve, Limelight));
+        // autonManager.addOption(
+        //         "PathPlanner Test1",
+        //         autoBuilder.fullAuto(
+        //                 PathPlanner.loadPathGroup(
+        //                         "Test1",
+        //                         new PathConstraints(
+        //                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+        //
+        // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+        // autonManager.addOption(
+        //         "PathPlanner Test1Red",
+        //         autoBuilder.fullAuto(
+        //                 PathPlanner.loadPathGroup(
+        //                         "Test1Red",
+        //                         new PathConstraints(
+        //                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+        //
+        // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
         autonManager.addOption(
-                "PathPlanner Test", new PathPlannerAuto(test1Trajectory, s_Swerve, test1EventMap)); //
+                "PathPlanner Straight",
+                autoBuilder.fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "Straight",
+                                new PathConstraints(
+                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 
     /**
