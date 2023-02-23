@@ -32,7 +32,7 @@ public final class Constants {
 
     public static final class Balance {
         public static final double BEAM_BALANCED_GOAL_DEGREES = 0;
-        public static final double BEAM_BALANACED_DRIVE_KP = 0;
+        public static final double BEAM_BALANACED_DRIVE_KP = 1;
         public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 1.35;
         public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
     }
@@ -154,10 +154,8 @@ public final class Constants {
     }
 
     public static final class LimeLightConstants {
-        public static final double distanceToTarget = 4;
-
-        public static final double AprilTagHeight = 0.945;
-        public static final double LimelightHeight = 0.415;
+        public static final double AprilTagHeight = 0.50;
+        public static final double LimelightHeight = 0.46;
         public static final double LimelightAngle = 14;
     }
 

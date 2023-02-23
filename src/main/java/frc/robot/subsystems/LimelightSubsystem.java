@@ -47,17 +47,8 @@ public class LimelightSubsystem extends SubsystemBase {
         return ry;
     }
 
-    public double getDistance() {
-        return distance;
-    }
-
-    private double distanceCalculation(double yAngle) {
-        double AprilTagHeight = Constants.LimeLightConstants.AprilTagHeight;
-        double LimelightHeight = Constants.LimeLightConstants.LimelightHeight;
-        double LimelightAngle = Constants.LimeLightConstants.LimelightAngle;
-
-        return (AprilTagHeight - LimelightHeight)
-                / (Math.toRadians(LimelightAngle * Math.tan((LimelightAngle + yAngle) * Math.PI / 180)));
+    public double getArea() {
+        return ta;
     }
 
     public void setMode(int number) {
@@ -73,7 +64,6 @@ public class LimelightSubsystem extends SubsystemBase {
         // TODO: 3D ? (experimental)
         targetPose_CameraSpace = LimelightHelpers.getTargetPose_CameraSpace("");
         ry = targetPose_CameraSpace[4];
-        distance = distanceCalculation(ty);
 
         // post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", tx);
@@ -83,7 +73,6 @@ public class LimelightSubsystem extends SubsystemBase {
         for (int i = 0; i < targetPose_CameraSpace.length; i++) {
             SmartDashboard.putNumber("targetpose_cameraspace" + i, targetPose_CameraSpace[i]);
         }
-        SmartDashboard.putNumber("Limelight Distance", getDistance());
         SmartDashboard.putNumber("LimeLightRY", ry);
 
         // TODO: LED | s_LEDSubsystem.visionTrackingLED(area);

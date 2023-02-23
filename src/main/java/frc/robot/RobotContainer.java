@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.PathPlannerAuto;
+import frc.robot.commands.Autonomous.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.AutonVisionTracking;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.DriveParts.*;
@@ -58,7 +59,7 @@ public class RobotContainer {
     public static boolean isAutoTargetOn = false;
 
     private final PathPlannerTrajectory test1Trajectory =
-            PathPlanner.loadPath("Test1", new PathConstraints(6, 4));
+            PathPlanner.loadPath("Straight", new PathConstraints(1, 0.5));
     private final HashMap<String, Command> test1EventMap = new HashMap<>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -72,15 +73,15 @@ public class RobotContainer {
     }
 
     private void eventMaps() {
-        test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
-        test1EventMap.put("stopEvent", new Balance(s_Swerve));
+        // test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
+        // test1EventMap.put("stopEvent", new Balance(s_Swerve));
     }
 
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing", new InstantCommand());
         autonManager.addOption("Vision Tracking", new AutonVisionTracking(s_Swerve, Limelight));
         autonManager.addOption(
-                "PathPlanner Test", new PathPlannerAuto(test1Trajectory, s_Swerve, test1EventMap));
+                "PathPlanner Test", new PathPlannerAuto(test1Trajectory, s_Swerve, test1EventMap)); //
     }
 
     /**
@@ -102,8 +103,8 @@ public class RobotContainer {
 
         driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        // driver.buttonB.onTrue(new Balance(s_Swerve));
-        // driver.buttonX.onTrue(new AutonVisionTracking(s_Swerve, Limelight));
+        driver.buttonB.onTrue(new Balance(s_Swerve));
+        driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
         Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
         Arm.setDefaultCommand(new RotateArm(operator, Arm));

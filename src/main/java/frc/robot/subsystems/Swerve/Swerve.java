@@ -74,6 +74,7 @@ public class Swerve extends SubsystemBase {
     public void periodic() {
         // Update the odometry in the periodic block
         SmartDashboard.putNumber("Gyroscope Angle", m_gyro.getAngle());
+        SmartDashboard.putNumber("Roll dsaidsjakjldksa", m_gyro.getRoll());
 
         m_odometry.update(
                 Rotation2d.fromDegrees(m_gyro.getAngle()),

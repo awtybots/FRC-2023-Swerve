@@ -2,6 +2,7 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -26,7 +27,8 @@ public class Balance extends CommandBase {
     @Override
     public void execute() {
 
-        this.currentAngle = s_Swerve.getPitch();
+        currentAngle = s_Swerve.getRoll();
+
 
         error = Constants.Balance.BEAM_BALANCED_GOAL_DEGREES - currentAngle;
         drivePower = -Math.min(Constants.Balance.BEAM_BALANACED_DRIVE_KP * error, 1);
@@ -40,6 +42,9 @@ public class Balance extends CommandBase {
         if (Math.abs(drivePower) > 0.4) {
             drivePower = Math.copySign(0.4, drivePower);
         }
+
+        SmartDashboard.putNumber("AUTON DRIVER POWER", drivePower);
+        SmartDashboard.putNumber("ANGLE THINGY", currentAngle);
 
         translation = new Translation2d(drivePower, 0);
         s_Swerve.drive(translation, rotation, true);
