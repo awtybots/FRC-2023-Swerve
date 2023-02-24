@@ -55,6 +55,7 @@ public class Swerve extends SubsystemBase {
         swerveHighSpeedMode = true;
 
         m_gyro = new AHRS(SPI.Port.kMXP);
+
         zeroGyro();
 
         // Odometry class for tracking robot pose
@@ -77,7 +78,7 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("Roll dsaidsjakjldksa", m_gyro.getRoll());
 
         m_odometry.update(
-                Rotation2d.fromDegrees(m_gyro.getAngle()),
+                Rotation2d.fromDegrees(-m_gyro.getAngle()),
                 new SwerveModulePosition[] {
                     m_frontLeft.getPosition(),
                     m_frontRight.getPosition(),
@@ -129,7 +130,7 @@ public class Swerve extends SubsystemBase {
      */
     public void resetOdometry(Pose2d pose) {
         m_odometry.resetPosition(
-                Rotation2d.fromDegrees(m_gyro.getAngle()),
+                Rotation2d.fromDegrees(-m_gyro.getAngle()),
                 new SwerveModulePosition[] {
                     m_frontLeft.getPosition(),
                     m_frontRight.getPosition(),

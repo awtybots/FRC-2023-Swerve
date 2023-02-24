@@ -13,8 +13,7 @@ import frc.robot.subsystems.Swerve.Swerve;
 import java.util.HashMap;
 
 public class PathPlannerAuto extends SequentialCommandGroup {
-    private final PIDController thetaController =
-            new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
+    private final PIDController thetaController;
 
     /**
      * Sequential command group that runs a given PathPlanner path with an event Hashmap triggering
@@ -26,6 +25,8 @@ public class PathPlannerAuto extends SequentialCommandGroup {
      */
     public PathPlannerAuto(
             PathPlannerTrajectory trajectory, Swerve s_Swerve, HashMap<String, Command> eventMap) {
+
+        thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
 
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
