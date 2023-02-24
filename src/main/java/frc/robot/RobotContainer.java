@@ -180,6 +180,7 @@ public class RobotContainer {
         //             new PathConstraints(
         //                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
         //                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)));
-        return new PathPlannerAuto(null, s_Swerve, test1EventMap);
+        return new PathPlannerAuto(
+        PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, test1EventMap);
     }
 }
