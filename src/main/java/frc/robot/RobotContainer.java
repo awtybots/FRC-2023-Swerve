@@ -160,7 +160,7 @@ public class RobotContainer {
         Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
         Arm.setDefaultCommand(new RotateArm(operator, Arm));
         Claw.setDefaultCommand(new DriveClaw(operator, Claw));
-        // Intake.setDefaultCommand(new setIntake(operator, Intake));
+        Intake.setDefaultCommand(new setIntake(operator, Intake));
         Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
 
         operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));

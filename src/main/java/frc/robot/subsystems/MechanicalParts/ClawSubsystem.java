@@ -38,7 +38,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void setRotation(int value) {
-        // wristHeight = value;
+        wristHeight = value;
     }
 
     public void driveClaw(double pct) {

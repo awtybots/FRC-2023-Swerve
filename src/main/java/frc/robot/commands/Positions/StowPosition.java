@@ -31,8 +31,9 @@ public class StowPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(
-                        s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                < 10000;
+        // return Math.abs(
+        //                 s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
+        //         < 10000;
+        return true;
     }
 }
