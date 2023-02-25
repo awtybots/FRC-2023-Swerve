@@ -18,7 +18,7 @@ public class PistonSubsystem extends SubsystemBase {
                         Constants.PistonConstants.kTraverseSolenoidR);
     }
 
-    public void Open() {
+    public void open() {
         piston.set(Value.kForward);
     }
 

@@ -281,4 +281,11 @@ public final class Constants {
     public static final class NeoMotorConstants {
         public static final double kFreeSpeedRpm = 5676;
     }
+
+    public static final class IntakeConstants {
+        // Time in milliseconds that it should take to eject a cube / cone
+        public static final long IntakeEjectionTime = 500;
+        // Time in milliseconds that it should take to intake a cube / cone
+        public static final long IntakeTime = 500;
+    }
 }

@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 
@@ -20,11 +19,11 @@ public class VisionTracking extends CommandBase {
         this.s_Swerve = s_Swerve;
         this.s_Limelight = s_Limelight;
         fieldRelative = Constants.CustomConstants.fieldRelative;
+        addRequirements(s_Swerve);
     }
 
     @Override
     public void execute() {
-        RobotContainer.isAutoTargetOn = true;
         translation = new Translation2d(0, 0);
         if (Math.abs(s_Limelight.getHorizontalOffset()) < 1) {
             rotation = 0;
@@ -39,9 +38,7 @@ public class VisionTracking extends CommandBase {
     // ? Why was this commented out? It just makes it impossible to regain Teleop control if commented
     // out.
     @Override
-    public void end(boolean interrupted) {
-        RobotContainer.isAutoTargetOn = false;
-    }
+    public void end(boolean interrupted) {}
 
     // @Override
     // public boolean isFinished() {

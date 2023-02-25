@@ -62,6 +62,24 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotors[1].set(pct * multiplier);
     }
 
+    public void intake(double pct, long time) {
+
+        double multiplier;
+        if (pct > 0) {
+            multiplier = 1;
+        } else {
+            multiplier = 1;
+        }
+        intakeMotors[0].set(-pct * multiplier);
+        intakeMotors[1].set(pct * multiplier);
+
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+    }
+
     public void stopIntake() {
         for (CANSparkMax motor : intakeMotors) motor.set(0);
     }

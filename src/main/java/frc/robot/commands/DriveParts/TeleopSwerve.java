@@ -4,7 +4,6 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.Controller;
 
@@ -35,7 +34,6 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        if (RobotContainer.isAutoTargetOn) return;
 
         double yAxis = driver.getLeftStickY();
         double xAxis = -driver.getLeftStickX();

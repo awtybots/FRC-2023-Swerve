@@ -19,7 +19,7 @@ public class ToggleIntakeMode extends CommandBase {
         if (controller.dPadLeft.getAsBoolean()) {
             sPiston.Close();
         } else if (controller.dPadRight.getAsBoolean()) {
-            sPiston.Open();
+            sPiston.open();
         }
     }
 

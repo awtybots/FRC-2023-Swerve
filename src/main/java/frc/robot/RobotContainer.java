@@ -46,21 +46,16 @@ public class RobotContainer {
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
-    private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
-    private final ArmSubsystem Arm = new ArmSubsystem(Elevator);
-    private final ClawSubsystem Claw = new ClawSubsystem();
-    private final IntakeSubsystem Intake = new IntakeSubsystem();
-    private final PistonSubsystem Piston = new PistonSubsystem();
+    private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
+    private final ArmSubsystem s_Arm = new ArmSubsystem(s_Elevator);
+    private final ClawSubsystem s_Claw = new ClawSubsystem();
+    private final IntakeSubsystem s_Intake = new IntakeSubsystem();
+    private final PistonSubsystem s_Piston = new PistonSubsystem();
 
-    // The driver's controller
-    private final Controller driver = new Controller(0);
-    private final Controller operator = new Controller(1);
+    // The controllers
+    private final Controller driverController = new Controller(0);
+    private final Controller operatorController = new Controller(1);
 
-    public static boolean isAutoTargetOn = false;
-
-    // private final PathPlannerTrajectory test1Trajectory =
-    //         PathPlanner.loadPath("Straight", new PathConstraints(6, 4));
-    // ! Delete the above if autoBuilder works
     private final HashMap<String, Command> test1EventMap = new HashMap<>();
 
     public final SwerveAutoBuilder autoBuilder =
@@ -79,15 +74,14 @@ public class RobotContainer {
                     // Module states consumer used to output to the drive subsystem
                     s_Swerve::setModuleStates,
                     test1EventMap,
-                    // TODO: Change the useAllianceColor to true? Not sure how it detects the color.
-                    // Should the path be automatically mirrored depending on alliance color. Optional,
-                    // defaults to true
+                    // ? Should the path be automatically mirrored depending on alliance color
+                    // TODO: make sure that the drive team understands that the alliance color thing matters
                     false,
                     s_Swerve);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-        eventMaps();
+        eventAssignemnt();
         addAutonomousChoices();
         autonManager.displayChoices();
 
@@ -95,16 +89,21 @@ public class RobotContainer {
         configureButtonBindings();
     }
 
-    private void eventMaps() {
-        test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
-        test1EventMap.put("PickUp", new IntakeFromGroundPosition(Elevator, Arm, Claw));
-        test1EventMap.put("PickupStow", new StowPosition(Elevator, Arm, Claw));
+    /**
+     * Use this method to define the command or command groups to be run at each event marker key. New
+     * event markers can be created in PathPlanner.
+     */
+    private void eventAssignemnt() {
+        test1EventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        test1EventMap.put("PickUp", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        test1EventMap.put("PickupStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         test1EventMap.put("stopEvent", new Balance(s_Swerve));
-        test1EventMap.put("Place", new MidNodePosition(Elevator, Arm, Claw));
-        test1EventMap.put("PlaceStow", new StowPosition(Elevator, Arm, Claw));
+        test1EventMap.put("Place", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        test1EventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         test1EventMap.put("Balance", new Balance(s_Swerve));
     }
 
+    /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing.", new InstantCommand());
         // autonManager.addOption(
@@ -150,26 +149,26 @@ public class RobotContainer {
         final int rotationAxis = XboxController.Axis.kRightX.value;
 
         s_Swerve.setDefaultCommand(
-                new TeleopSwerve(s_Swerve, driver, translationAxis, strafeAxis, rotationAxis));
+                new TeleopSwerve(s_Swerve, driverController, translationAxis, strafeAxis, rotationAxis));
 
-        driver.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
-        driver.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        driver.buttonB.onTrue(new Balance(s_Swerve));
-        driver.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
+        driverController.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
+        driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
+        driverController.buttonB.onTrue(new Balance(s_Swerve));
+        driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
-        Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-        Arm.setDefaultCommand(new RotateArm(operator, Arm));
-        Claw.setDefaultCommand(new DriveClaw(operator, Claw));
-        Intake.setDefaultCommand(new setIntake(operator, Intake));
-        Piston.setDefaultCommand(new ToggleIntakeMode(operator, Piston));
+        s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
+        s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
+        s_Claw.setDefaultCommand(new DriveClaw(operatorController, s_Claw));
+        s_Intake.setDefaultCommand(new setIntake(operatorController, s_Intake));
+        s_Piston.setDefaultCommand(new ToggleIntakeMode(operatorController, s_Piston));
 
-        operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
-        driver.rightBumper.onTrue(new StowPosition(Elevator, Arm, Claw));
-        operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
-        operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
+        operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
+        driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
-        operator.dPadDown.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
-        operator.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(Elevator, Arm, Claw));
+        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
     }
 
     /**
