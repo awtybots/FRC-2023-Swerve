@@ -28,7 +28,7 @@ public class AutomatedVisionTracking extends CommandBase {
         this.s_Limelight = s_Limelight;
         this.beta = Math.toRadians(s_Limelight.getHorizontalOffset());
         this.alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-        
+
         this.rotation = 0;
         this.translation = new Translation2d(0, 0);
 
@@ -49,7 +49,8 @@ public class AutomatedVisionTracking extends CommandBase {
         if (s_Limelight.getArea() < 0.1) return;
         if (Math.abs(Math.toDegrees(beta) - offset) > rotateThreshold) {
             rotation = -getSign(beta) * rotateSpeed;
-        } if (Math.abs(Math.toDegrees(alpha)) > driveThreshold) {
+        }
+        if (Math.abs(Math.toDegrees(alpha)) > driveThreshold) {
             translation = new Translation2d(0, getSign(alpha) * driveSpeed);
         }
         s_Swerve.drive(translation, rotation, false);
@@ -57,7 +58,8 @@ public class AutomatedVisionTracking extends CommandBase {
 
     // @Override
     public boolean isFinished() {
-        return s_Limelight.getArea() < 0.1 || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
-                && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
+        return s_Limelight.getArea() < 0.1
+                || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
+                        && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
     }
 }

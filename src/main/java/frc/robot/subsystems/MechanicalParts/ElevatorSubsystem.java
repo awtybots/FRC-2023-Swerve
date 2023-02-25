@@ -22,7 +22,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     private final WPI_TalonFX mLeftElevatorMotor;
     private final WPI_TalonFX mRightElevatorMotor;
-    private final WPI_TalonFX[] motors;
+    public final WPI_TalonFX[] motors;
 
     private final WPI_TalonSRX elevatorEncoder;
 

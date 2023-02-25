@@ -96,8 +96,13 @@ public class RobotContainer {
     }
 
     private void eventMaps() {
-        // test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
-        // test1EventMap.put("stopEvent", new Balance(s_Swerve));
+        test1EventMap.put("event", new StowPosition(Elevator, Arm, Claw));
+        test1EventMap.put("PickUp", new IntakeFromGroundPosition(Elevator, Arm, Claw));
+        test1EventMap.put("PickupStow", new StowPosition(Elevator, Arm, Claw));
+        test1EventMap.put("stopEvent", new Balance(s_Swerve));
+        test1EventMap.put("Place", new MidNodePosition(Elevator, Arm, Claw));
+        test1EventMap.put("PlaceStow", new StowPosition(Elevator, Arm, Claw));
+        test1EventMap.put("Balance", new Balance(s_Swerve));
     }
 
     private void addAutonomousChoices() {
@@ -181,6 +186,6 @@ public class RobotContainer {
         //                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
         //                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)));
         return new PathPlannerAuto(
-        PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, test1EventMap);
+                PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, test1EventMap);
     }
 }
