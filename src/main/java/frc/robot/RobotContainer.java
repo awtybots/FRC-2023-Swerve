@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.autos.PathPlannerAuto;
 import frc.robot.commands.Autonomous.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.DriveParts.*;
@@ -56,7 +55,7 @@ public class RobotContainer {
     private final Controller driverController = new Controller(0);
     private final Controller operatorController = new Controller(1);
 
-    private final HashMap<String, Command> test1EventMap = new HashMap<>();
+    private final HashMap<String, Command> eventMap = new HashMap<>();
 
     public final SwerveAutoBuilder autoBuilder =
             new SwerveAutoBuilder(
@@ -73,10 +72,9 @@ public class RobotContainer {
                     new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0),
                     // Module states consumer used to output to the drive subsystem
                     s_Swerve::setModuleStates,
-                    test1EventMap,
-                    // ? Should the path be automatically mirrored depending on alliance color
+                    eventMap,
                     // TODO: make sure that the drive team understands that the alliance color thing matters
-                    false,
+                    true,
                     s_Swerve);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -94,36 +92,26 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignemnt() {
-        test1EventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        test1EventMap.put("PickUp", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        test1EventMap.put("PickupStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        test1EventMap.put("stopEvent", new Balance(s_Swerve));
-        test1EventMap.put("Place", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
-        test1EventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        test1EventMap.put("Balance", new Balance(s_Swerve));
+        eventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("PickUp", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("PickupStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("stopEvent", new Balance(s_Swerve));
+        eventMap.put("Place", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Balance", new Balance(s_Swerve));
     }
 
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing.", new InstantCommand());
-        // autonManager.addOption(
-        //         "PathPlanner Test1",
-        //         autoBuilder.fullAuto(
-        //                 PathPlanner.loadPathGroup(
-        //                         "Test1",
-        //                         new PathConstraints(
-        //                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        //
-        // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
-        // autonManager.addOption(
-        //         "PathPlanner Test1Red",
-        //         autoBuilder.fullAuto(
-        //                 PathPlanner.loadPathGroup(
-        //                         "Test1Red",
-        //                         new PathConstraints(
-        //                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        //
-        // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+        autonManager.addOption(
+                "PathPlanner Test1",
+                autoBuilder.fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "Test1",
+                                new PathConstraints(
+                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
         autonManager.addOption(
                 "PathPlanner Straight",
                 autoBuilder.fullAuto(
@@ -177,14 +165,9 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // return autonManager.getSelected();
-        // return autoBuilder.fullAuto(
-        //     PathPlanner.loadPathGroup(
-        //             "Straight",
-        //             new PathConstraints(
-        //                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        //                     Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)));
-        return new PathPlannerAuto(
-                PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, test1EventMap);
+        return autonManager.getSelected();
+
+        // return new PathPlannerAuto(
+        //         PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, eventMap);
     }
 }

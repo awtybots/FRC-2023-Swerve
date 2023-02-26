@@ -21,8 +21,9 @@ public class PathPlannerAuto extends SequentialCommandGroup {
      * @param PathPlannerTrajectory The loaded PathPlanner trajectory.
      * @param Swerve Swerve subsystem.
      * @param HashMap<String,Command> Hashmap of events along the loaded trajectory.
+     * @deprecated
      */
-    public PathPlannerAuto(
+    public @Deprecated PathPlannerAuto(
             PathPlannerTrajectory trajectory, Swerve s_Swerve, HashMap<String, Command> eventMap) {
 
         thetaController = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
