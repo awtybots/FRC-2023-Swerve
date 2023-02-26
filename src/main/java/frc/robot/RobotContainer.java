@@ -94,11 +94,11 @@ public class RobotContainer {
     private void eventAssignemnt() {
         // eventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
         // eventMap.put("PickUp", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        // eventMap.put("PickupStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("PickupStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         // eventMap.put("stopEvent", new Balance(s_Swerve));
-        // eventMap.put("Place", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Place", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
         // eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        // eventMap.put("Balance", new Balance(s_Swerve));
+        eventMap.put("Balance", new Balance(s_Swerve));
     }
 
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
@@ -168,7 +168,7 @@ public class RobotContainer {
         // return autonManager.getSelected();
         return autoBuilder.fullAuto(
                 PathPlanner.loadPathGroup(
-                        "RightPlacePickupPlaceBalance",
+                        "RightPlacePickupPlaceBalance2",
                         new PathConstraints(
                                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                                 Constants.AutoConstants

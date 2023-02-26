@@ -26,20 +26,23 @@ public class Balance extends CommandBase {
 
     @Override
     public void execute() {
+        System.out.println("\n");
 
         currentAngle = s_Swerve.getRoll();
 
         error = Constants.Balance.BEAM_BALANCED_GOAL_DEGREES - currentAngle;
-        drivePower = -Math.min(Constants.Balance.BEAM_BALANACED_DRIVE_KP * error, 1);
+
+        drivePower = -Math.min(Constants.Balance.BEAM_BALANACED_DRIVE_KP * error, 3.7);
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {
             drivePower *= Constants.Balance.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
         }
+        System.out.println("PreDrive: " + drivePower);
 
         // Limit the max power
-        if (Math.abs(drivePower) > 0.4) {
-            drivePower = Math.copySign(0.4, drivePower);
+        if (Math.abs(drivePower) > 2) {
+            drivePower = Math.copySign(2, drivePower);
         }
 
         SmartDashboard.putNumber("AUTON DRIVER POWER", drivePower);
