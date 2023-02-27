@@ -38,6 +38,11 @@ public final class Constants {
     }
 
     public static final class Position {
+
+        public static final int ElevatorThreshold = 5000;
+        public static final int ArmThreshold = 10;
+        public static final int ClawThreshold = 10;
+
         public static final class StowPosition {
             public static final int ElevatorPosition = 4000;
             public static final int ArmPosition = 0;

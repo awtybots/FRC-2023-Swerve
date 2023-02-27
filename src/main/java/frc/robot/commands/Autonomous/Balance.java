@@ -37,14 +37,14 @@ public class Balance extends CommandBase {
         //     }
 
         // }
-        
-        if (Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES*5){
+
+        if (Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES * 5) {
             decrease += 0.05;
-            //return;
+            // return;
         }
-        if (Math.abs(error) > 10){
+        if (Math.abs(error) > 10) {
             decrease = 1;
-            //return;
+            // return;
         }
         System.out.println("\n");
 
@@ -68,7 +68,7 @@ public class Balance extends CommandBase {
         SmartDashboard.putNumber("AUTON DRIVER POWER", drivePower);
         SmartDashboard.putNumber("ANGLE THINGY", currentAngle);
 
-        translation = new Translation2d((drivePower/decrease), 0);
+        translation = new Translation2d((drivePower / decrease), 0);
         s_Swerve.drive(translation, rotation, true);
 
         // Debugging Print Statments
@@ -88,10 +88,9 @@ public class Balance extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //return finished; // End the command when we are within the
+        // return finished; // End the command when we are within the
         // specified threshold of being 'flat' (gyroscope
         // pitch of 0 degrees)
         return false;
-
     }
 }

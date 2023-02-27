@@ -15,7 +15,7 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax mLeftArmMotor;
     private CANSparkMax mRightArmMotor;
 
-    private final RelativeEncoder mRightArmEncoder;
+    public final RelativeEncoder mRightArmEncoder;
 
     private final SparkMaxPIDController mRightArmPIDController;
 
@@ -29,6 +29,7 @@ public class ArmSubsystem extends SubsystemBase {
         mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
         mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
         // mLeftArmMotor.restoreFactoryDefaults();
+
         mRightArmMotor.restoreFactoryDefaults();
 
         // Current limit

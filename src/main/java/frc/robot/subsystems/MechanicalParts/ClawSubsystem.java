@@ -13,7 +13,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     private CANSparkMax mPivotMotor;
 
-    private final RelativeEncoder mPivotEncoder;
+    public final RelativeEncoder mPivotEncoder;
 
     private final SparkMaxPIDController mPivotPIDController;
     public double wristHeight;

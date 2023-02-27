@@ -100,8 +100,9 @@ public class RobotContainer {
         // eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("Balance", new Balance(s_Swerve));
     }
-    // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches from Right wall (y: 0.76).
-    // The 
+    // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
+    // from Right wall (y: 0.76).
+    // The
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing.", new InstantCommand());

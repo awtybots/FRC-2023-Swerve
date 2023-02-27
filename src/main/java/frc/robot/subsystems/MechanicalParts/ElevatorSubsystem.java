@@ -117,7 +117,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
-        
+
         SmartDashboard.putNumber(
                 "Elevator Absolute Angle", elevatorEncoder.getSelectedSensorPosition());
         SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
