@@ -17,6 +17,7 @@ public class Balance extends CommandBase {
     private double error;
     private double currentAngle;
     private double drivePower;
+    private double decrease = 1;
 
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
     public Balance(Swerve s_Swerve) {
@@ -26,6 +27,25 @@ public class Balance extends CommandBase {
 
     @Override
     public void execute() {
+        // if (Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES) {
+        //     long time = 500;
+        //     try {
+        //         Thread.sleep(time);
+        //     }
+        //     catch (InterruptedException e1) {
+        //         e1.printStackTrace();
+        //     }
+
+        // }
+        
+        if (Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES*5){
+            decrease += 0.05;
+            //return;
+        }
+        if (Math.abs(error) > 10){
+            decrease = 1;
+            //return;
+        }
         System.out.println("\n");
 
         currentAngle = s_Swerve.getRoll();
@@ -41,14 +61,14 @@ public class Balance extends CommandBase {
         System.out.println("PreDrive: " + drivePower);
 
         // Limit the max power
-        if (Math.abs(drivePower) > 2) {
-            drivePower = Math.copySign(2, drivePower);
+        if (Math.abs(drivePower) > 0.6) {
+            drivePower = Math.copySign(0.6, drivePower);
         }
 
         SmartDashboard.putNumber("AUTON DRIVER POWER", drivePower);
         SmartDashboard.putNumber("ANGLE THINGY", currentAngle);
 
-        translation = new Translation2d(drivePower, 0);
+        translation = new Translation2d((drivePower/decrease), 0);
         s_Swerve.drive(translation, rotation, true);
 
         // Debugging Print Statments
@@ -68,10 +88,10 @@ public class Balance extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(error)
-                < Constants.Balance
-                        .BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES; // End the command when we are within the
+        //return finished; // End the command when we are within the
         // specified threshold of being 'flat' (gyroscope
         // pitch of 0 degrees)
+        return false;
+
     }
 }
