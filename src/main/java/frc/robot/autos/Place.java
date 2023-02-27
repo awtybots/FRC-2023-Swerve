@@ -25,7 +25,7 @@ public class Place extends SequentialCommandGroup {
             addCommands(
                     new HighNodePosition(s_Elevator, s_Arm, s_Claw),
                     new InstantCommand(() -> s_Piston.open()),
-                    new InstantCommand(() -> s_Intake.intake(100, IntakeConstants.IntakeEjectionTime)),
+                    new InstantCommand(() -> s_Intake.intake(1, IntakeConstants.IntakeEjectionTime)),
                     new InstantCommand(() -> s_Intake.stopIntake()));
         } else {
             addCommands(new InstantCommand());

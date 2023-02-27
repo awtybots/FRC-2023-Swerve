@@ -107,7 +107,6 @@ public class ElevatorSubsystem extends SubsystemBase {
                         elevatorTargetHeight,
                         Constants.ElevatorConstants.minimumHeight,
                         Constants.ElevatorConstants.maximumHeight);
-        motors[1].set(ControlMode.Position, elevatorTargetHeight);
     }
 
     public void stop() {

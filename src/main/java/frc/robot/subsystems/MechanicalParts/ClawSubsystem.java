@@ -47,10 +47,14 @@ public class ClawSubsystem extends SubsystemBase {
                         wristHeight,
                         Constants.ClawConstants.minimumHeight,
                         Constants.ClawConstants.maximumHeight);
+        wristHeight += pct / 3.0;
+    }
+
+    @Override
+    public void periodic() {
+        mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
         SmartDashboard.putNumber("wristHeight ", wristHeight);
         SmartDashboard.putNumber("wristEncoderReadout1 ", mPivotEncoder.getPosition());
-        mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
-        wristHeight += pct / 3.0;
     }
 
     public void stopClaw() {
