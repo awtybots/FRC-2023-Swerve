@@ -107,21 +107,13 @@ public class RobotContainer {
     private void addAutonomousChoices() {
         autonManager.addOption("Do Nothing.", new InstantCommand());
         autonManager.addOption(
-                "PathPlanner Test1",
+                "PathPlanner RightPlacePickupPlaceBalance2",
                 autoBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Test1",
-                                new PathConstraints(
-                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
-        autonManager.addOption(
-                "PathPlanner Straight",
-                autoBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Straight",
-                                new PathConstraints(
-                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+                PathPlanner.loadPathGroup(
+                        "RightPlacePickupPlaceBalance2",
+                        new PathConstraints(
+                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 
     /**
@@ -167,14 +159,14 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // return autonManager.getSelected();
-        return autoBuilder.fullAuto(
-                PathPlanner.loadPathGroup(
-                        "RightPlacePickupPlaceBalance2",
-                        new PathConstraints(
-                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                Constants.AutoConstants
-                                        .kMaxAccelerationMetersPerSecondSquared))); // return new PathPlannerAuto(
+        return autonManager.getSelected();
+        // return autoBuilder.fullAuto(
+        //         PathPlanner.loadPathGroup(
+        //                 "RightPlacePickupPlaceBalance2",
+        //                 new PathConstraints(
+        //                         Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+        //                         Constants.AutoConstants
+        //                                 .kMaxAccelerationMetersPerSecondSquared))); // return new PathPlannerAuto(
         //         PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, eventMap);
     }
 }
