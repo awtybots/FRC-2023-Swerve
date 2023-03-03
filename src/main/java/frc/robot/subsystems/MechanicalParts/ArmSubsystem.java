@@ -90,6 +90,10 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("armEncoderReadout2 ", mRightArmEncoder.getPosition());
     }
 
+    public boolean isFinished() {
+        return Math.abs(mRightArmEncoder.getPosition() - armHeight) < Constants.Position.ArmThreshold; 
+    }
+
     @Override
     public void periodic() {
         mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);

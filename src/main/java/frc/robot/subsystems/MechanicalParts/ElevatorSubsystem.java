@@ -17,8 +17,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final double kRamp;
 
     // ? Is this going to be used?
-    private final double kWinchDiameter;
-    private final double kGearRatio;
 
     private final WPI_TalonFX mLeftElevatorMotor;
     private final WPI_TalonFX mRightElevatorMotor;
@@ -31,8 +29,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     public ElevatorSubsystem() {
         kMaxPercentOutput = Constants.ElevatorConstants.kMaxPercentOutput;
         kRamp = Constants.ElevatorConstants.kRamp;
-        kWinchDiameter = Constants.ElevatorConstants.kWinchDiameter;
-        kGearRatio = Constants.ElevatorConstants.kGearRatio;
 
         elevatorEncoder = new WPI_TalonSRX(Constants.ElevatorConstants.kElevatorEncoderId);
         configElevatorEncoder();
@@ -95,6 +91,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public double convertMetersToTalon(double meters) {
         return meters * 198000 / 1.1;
+    }
+    
+    public boolean isFinished() {
+        return Math.abs(motors[1].getSelectedSensorPosition() - elevatorTargetHeight) < Constants.Position.ElevatorThreshold;
     }
 
     public void setHeight(double value) {

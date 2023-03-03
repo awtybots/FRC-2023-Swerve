@@ -50,6 +50,10 @@ public class ClawSubsystem extends SubsystemBase {
         wristHeight += pct / 3.0;
     }
 
+    public boolean isFinished() {
+        return Math.abs(mPivotEncoder.getPosition() - wristHeight) < Constants.Position.ClawThreshold;
+    }
+
     @Override
     public void periodic() {
         mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
