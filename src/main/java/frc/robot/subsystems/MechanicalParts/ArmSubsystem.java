@@ -92,7 +92,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
         SmartDashboard.putNumber("Arm... Angle?", mRightArmEncoder.getPosition());
         SmartDashboard.putNumber("Calculated Maximum Angle", getMaximumRotation());
     }

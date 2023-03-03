@@ -17,7 +17,7 @@ import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
-import frc.robot.commands.Positions.Nodes.HighNodePosition;
+import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
 // TODO: LED | import frc.robot.subsystems.LedSubsystem;

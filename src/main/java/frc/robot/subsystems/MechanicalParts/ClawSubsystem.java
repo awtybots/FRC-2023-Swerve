@@ -52,7 +52,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
+        mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
         SmartDashboard.putNumber("wristHeight ", wristHeight);
         SmartDashboard.putNumber("wristEncoderReadout1 ", mPivotEncoder.getPosition());
     }
