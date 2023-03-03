@@ -109,13 +109,12 @@ public class RobotContainer {
         autonManager.addOption(
                 "PathPlanner RightPlacePickupPlaceBalance2",
                 autoBuilder.fullAuto(
-                PathPlanner.loadPathGroup(
-                        "RightPlacePickupPlaceBalance2",
-                        new PathConstraints(
-                                // Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                1,
-                                1))));
-                                // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+                        PathPlanner.loadPathGroup(
+                                "RightPlacePickupPlaceBalance2",
+                                new PathConstraints(
+                                        // Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                        1, 1))));
+        // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 
     /**
@@ -168,7 +167,8 @@ public class RobotContainer {
         //                 new PathConstraints(
         //                         Constants.AutoConstants.kMaxSpeedMetersPerSecond,
         //                         Constants.AutoConstants
-        //                                 .kMaxAccelerationMetersPerSecondSquared))); // return new PathPlannerAuto(
+        //                                 .kMaxAccelerationMetersPerSecondSquared))); // return new
+        // PathPlannerAuto(
         //         PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, eventMap);
     }
 }

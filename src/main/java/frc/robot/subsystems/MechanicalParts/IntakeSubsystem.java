@@ -33,13 +33,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
         mIntakeEncoder = mIntakeMotor.getEncoder();
 
-
         mLeftIntakeMotor =
                 new CANSparkMax(Constants.ClawConstants.kLeftIntakeMotorId, MotorType.kBrushless);
         mRightIntakeMotor =
                 new CANSparkMax(Constants.ClawConstants.kRightIntakeMotorId, MotorType.kBrushless);
 
-                
         mLeftIntakeMotor.restoreFactoryDefaults();
         mRightIntakeMotor.restoreFactoryDefaults();
 

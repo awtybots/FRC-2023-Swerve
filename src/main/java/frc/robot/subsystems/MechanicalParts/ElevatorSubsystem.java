@@ -52,7 +52,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public double getCanCoder() {
-        return elevatorEncoder.getSelectedSensorPosition() * 5;
+        return elevatorEncoder.getSelectedSensorPosition() * 5; // ? Why is there a <<* 5>> ?!? explain!
     }
 
     private void configElevatorEncoder() {
@@ -93,7 +93,11 @@ public class ElevatorSubsystem extends SubsystemBase {
         return talon * 1.1 / 198000;
     }
 
-    public void setHeight(int value) {
+    public double convertMetersToTalon(double meters) {
+        return meters * 198000 / 1.1;
+    }
+
+    public void setHeight(double value) {
         resetToAbsolute();
         elevatorTargetHeight = value;
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
