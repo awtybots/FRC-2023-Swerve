@@ -16,10 +16,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final double kMaxPercentOutput;
     private final double kRamp;
 
-    // ? Is this going to be used?
-    private final double kWinchDiameter;
-    private final double kGearRatio;
-
     private final WPI_TalonFX mLeftElevatorMotor;
     private final WPI_TalonFX mRightElevatorMotor;
     public final WPI_TalonFX[] motors;
