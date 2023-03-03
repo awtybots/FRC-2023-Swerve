@@ -8,8 +8,12 @@ import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
+    private CANSparkMax mIntakeMotor;
+
     private CANSparkMax mLeftIntakeMotor;
     private CANSparkMax mRightIntakeMotor;
+
+    private final RelativeEncoder mIntakeEncoder;
 
     private final RelativeEncoder mLeftIntakeEncoder;
     private final RelativeEncoder mRightIntakeEncoder;
@@ -22,11 +26,20 @@ public class IntakeSubsystem extends SubsystemBase {
     // private final SparkMaxPIDController[] pidControllers;
 
     public IntakeSubsystem() {
+        mIntakeMotor = new CANSparkMax(0, MotorType.kBrushless);
+        mIntakeMotor.restoreFactoryDefaults();
+
+        mIntakeMotor.setSmartCurrentLimit(Constants.ClawConstants.kIntakeCurrentLimit);
+
+        mIntakeEncoder = mIntakeMotor.getEncoder();
+
+
         mLeftIntakeMotor =
                 new CANSparkMax(Constants.ClawConstants.kLeftIntakeMotorId, MotorType.kBrushless);
         mRightIntakeMotor =
                 new CANSparkMax(Constants.ClawConstants.kRightIntakeMotorId, MotorType.kBrushless);
 
+                
         mLeftIntakeMotor.restoreFactoryDefaults();
         mRightIntakeMotor.restoreFactoryDefaults();
 
@@ -51,13 +64,15 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intake(double pct) {
-
         double multiplier;
         if (pct > 0) {
             multiplier = 1;
         } else {
             multiplier = 1;
         }
+
+        mIntakeMotor.set(pct * multiplier);
+
         intakeMotors[0].set(-pct * multiplier);
         intakeMotors[1].set(pct * multiplier);
     }
@@ -70,6 +85,9 @@ public class IntakeSubsystem extends SubsystemBase {
         } else {
             multiplier = 1;
         }
+
+        mIntakeMotor.set(pct * multiplier);
+
         intakeMotors[0].set(-pct * multiplier);
         intakeMotors[1].set(pct * multiplier);
 
@@ -81,6 +99,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void stopIntake() {
+        mIntakeMotor.set(0);
         for (CANSparkMax motor : intakeMotors) motor.set(0);
     }
 }

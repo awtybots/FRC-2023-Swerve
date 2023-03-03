@@ -24,19 +24,19 @@ public class HighNodePosition extends CommandBase {
 
     @Override
     public void execute() {
-        s_arm.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ArmPosition);
-        s_claw.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ClawPosition);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
+        // s_arm.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ArmPosition);
+        // s_claw.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ClawPosition);
+        // try {
+        //     Thread.sleep(500);
+        // } catch (InterruptedException e1) {
+        //     e1.printStackTrace();
+        // }
         s_elevator.setHeight(Constants.Position.Nodes.HighNodePosition.ElevatorPosition);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     Thread.sleep(500);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
         s_arm.setRotation(Constants.Position.Nodes.HighNodePosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Nodes.HighNodePosition.ClawPosition);
     }

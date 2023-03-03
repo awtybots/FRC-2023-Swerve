@@ -112,8 +112,10 @@ public class RobotContainer {
                 PathPlanner.loadPathGroup(
                         "RightPlacePickupPlaceBalance2",
                         new PathConstraints(
-                                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+                                // Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                1,
+                                1))));
+                                // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 
     /**
