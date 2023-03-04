@@ -35,8 +35,23 @@ public class AutomatedVisionTracking extends CommandBase {
 
         this.offset = 7.5;
         this.ReflectiveOffset = 80;
-        // this.offset = 0;
     }
+
+    public AutomatedVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight, boolean isCone) {
+        addRequirements(s_Swerve);
+        this.s_Swerve = s_Swerve;
+        this.s_Limelight = s_Limelight;
+        this.beta = Math.toRadians(s_Limelight.getHorizontalOffset());
+        this.alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
+
+        this.rotation = 0;
+        this.translation = new Translation2d(0, 0);
+
+        this.offset = 7.5;
+        this.ReflectiveOffset = 80;
+        s_Limelight.setPipeline(isCone ? 1 : 0);
+    }
+    
 
     private int getSign(double num) {
         if (num >= 0) return 1;
