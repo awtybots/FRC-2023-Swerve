@@ -123,11 +123,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void periodic() {
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
 
-        SmartDashboard.putNumber(
-                "Elevator Absolute Angle", elevatorEncoder.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
-
         if (elevatorTargetHeight - motors[1].getSelectedSensorPosition() < 1000
                 && motors[1].getSelectedSensorPosition() < 6000)
             motors[1].set(ControlMode.PercentOutput, 0);

@@ -65,9 +65,6 @@ public class Balance extends CommandBase {
             drivePower = Math.copySign(0.6, drivePower);
         }
 
-        SmartDashboard.putNumber("AUTON DRIVER POWER", drivePower);
-        SmartDashboard.putNumber("ANGLE THINGY", currentAngle);
-
         translation = new Translation2d((drivePower / decrease), 0);
         s_Swerve.drive(translation, rotation, true);
 
