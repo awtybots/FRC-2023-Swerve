@@ -43,17 +43,26 @@ public class AutomatedVisionTracking extends CommandBase {
 
     @Override
     public void execute() {
-        double rotation = 0;
-        beta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-        if (s_Limelight.getArea() < 0.1) return;
-        if (Math.abs(Math.toDegrees(beta) - offset) > rotateThreshold) {
-            rotation = -getSign(beta) * rotateSpeed;
+        long pipelineId = s_Limelight.getPipeline();
+
+        // April Tage
+        if(pipelineId == 0) {
+            double rotation = 0;
+            beta = Math.toRadians(s_Limelight.getHorizontalOffset());
+            alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
+            if (s_Limelight.getArea() < 0.1) return;
+            if (Math.abs(Math.toDegrees(beta) - offset) > rotateThreshold) {
+                rotation = -getSign(beta) * rotateSpeed;
+            }
+            if (Math.abs(Math.toDegrees(alpha)) > driveThreshold) {
+                translation = new Translation2d(0, getSign(alpha) * driveSpeed);
+            }
+            s_Swerve.drive(translation, rotation, false);
+        } 
+        // Reflective Tape
+        else {
+
         }
-        if (Math.abs(Math.toDegrees(alpha)) > driveThreshold) {
-            translation = new Translation2d(0, getSign(alpha) * driveSpeed);
-        }
-        s_Swerve.drive(translation, rotation, false);
     }
 
     // @Override

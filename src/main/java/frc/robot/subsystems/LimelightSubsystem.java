@@ -54,8 +54,27 @@ public class LimelightSubsystem extends SubsystemBase {
         table.getEntry("ledMode").setDouble(number);
     }
 
+    public void setPipeline(int number){
+        if(number > 1) return;
+        table.getEntry("pipeline").setInteger(number);
+    }
+
+    public long getPipeline(){
+        return table.getEntry("pipeline").getInteger(getPipeline());
+    }
+
+
+    // Reflective
+
+
     @Override
     public void periodic() {
+        // Reflective
+
+    //     double[] leftData = table.getEntry("left").getDoubleArray();
+    // double[] rightData = table.getEntry("right").getDoubleArray();
+
+
         tx = LimelightHelpers.getTX("");
         ty = LimelightHelpers.getTY("");
         ta = LimelightHelpers.getTA("");
