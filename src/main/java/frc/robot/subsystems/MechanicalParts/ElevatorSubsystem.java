@@ -92,9 +92,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     public double convertMetersToTalon(double meters) {
         return meters * 198000 / 1.1;
     }
-    
+
     public boolean isFinished() {
-        return Math.abs(motors[1].getSelectedSensorPosition() - elevatorTargetHeight) < Constants.Position.ElevatorThreshold;
+        return Math.abs(motors[1].getSelectedSensorPosition() - elevatorTargetHeight)
+                < Constants.Position.ElevatorThreshold;
     }
 
     public void setHeight(double value) {

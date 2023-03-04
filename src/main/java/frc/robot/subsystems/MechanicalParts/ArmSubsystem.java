@@ -91,7 +91,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public boolean isFinished() {
-        return Math.abs(mRightArmEncoder.getPosition() - armHeight) < Constants.Position.ArmThreshold; 
+        return Math.abs(mRightArmEncoder.getPosition() - armHeight) < Constants.Position.ArmThreshold;
     }
 
     @Override
