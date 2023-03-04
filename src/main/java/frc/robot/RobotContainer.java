@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Autonomous.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.Balance;
+import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
@@ -93,10 +93,12 @@ public class RobotContainer {
      */
     private void eventAssignemnt() {
         // eventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("MidNode", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        
         // eventMap.put("stopEvent", new Balance(s_Swerve));
-        eventMap.put("Place", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
         // eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("Balance", new Balance(s_Swerve));
     }
@@ -137,7 +139,7 @@ public class RobotContainer {
         driverController.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
         driverController.buttonB.onTrue(new Balance(s_Swerve));
-        driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
+        driverController.buttonX.onTrue(new PlaceSetup(s_Swerve, Limelight));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(

@@ -1,4 +1,4 @@
-package frc.robot.commands.Autonomous;
+package frc.robot.commands.Autonomous.ScoringPositionning;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;

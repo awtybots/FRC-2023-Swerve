@@ -120,6 +120,10 @@ public class Swerve extends SubsystemBase {
         return m_gyro.getPitch();
     }
 
+    public double getOutputCurrent() {
+        return m_frontLeft.outputCurrent;
+    }
+
     /**
      * Resets the odometry to the specified pose.
      *
