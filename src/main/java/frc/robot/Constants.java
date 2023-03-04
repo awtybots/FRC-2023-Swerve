@@ -131,6 +131,8 @@ public final class Constants {
         public static final int kLeftIntakeMotorId = 15;
         public static final int kRightIntakeMotorId = 16;
 
+        public static final double kMaxPercentOutput = 0.5;
+
         public static final int kClawCurrentLimit = 40;
         public static final int kIntakeCurrentLimit = 20;
 
