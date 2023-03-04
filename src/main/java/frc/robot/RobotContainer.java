@@ -140,7 +140,6 @@ public class RobotContainer {
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(0);}));
-
         // Reflective Tape Mode
         driverController.rightTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(1);}));
 

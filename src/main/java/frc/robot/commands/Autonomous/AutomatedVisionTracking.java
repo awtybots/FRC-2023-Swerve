@@ -47,10 +47,10 @@ public class AutomatedVisionTracking extends CommandBase {
 
         // April Tage
         if(pipelineId == 0) {
+            if (!s_Limelight.hasTarget()) return;
             double rotation = 0;
             beta = Math.toRadians(s_Limelight.getHorizontalOffset());
             alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-            if (s_Limelight.getArea() < 0.1) return;
             if (Math.abs(Math.toDegrees(beta) - offset) > rotateThreshold) {
                 rotation = -getSign(beta) * rotateSpeed;
             }
@@ -61,13 +61,23 @@ public class AutomatedVisionTracking extends CommandBase {
         } 
         // Reflective Tape
         else {
-
+            if (!s_Limelight.hasTarget()) return;
+            double rotation = 0;
+            beta = Math.toRadians(s_Limelight.getHorizontalOffset());
+            alpha = Math.toRadians(s_Limelight.getSkew());
+            if (Math.abs(Math.toDegrees(beta) - offset) > rotateThreshold) {
+                rotation = -getSign(beta) * rotateSpeed;
+            }
+            if (Math.abs(Math.toDegrees(alpha)) > driveThreshold) {
+                translation = new Translation2d(0, getSign(alpha) * driveSpeed);
+            }
+            s_Swerve.drive(translation, rotation, false);
         }
     }
 
     // @Override
     public boolean isFinished() {
-        return s_Limelight.getArea() < 0.1
+        return s_Limelight.hasTarget() 
                 || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
                         && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
     }

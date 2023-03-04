@@ -25,6 +25,14 @@ public class LimelightSubsystem extends SubsystemBase {
     double tx;
     double ty;
     double ta;
+    boolean tv;
+
+    double ts;
+
+    double ltx;
+    double lty;
+    double utx;
+    double uty;
 
     double[] targetPose_CameraSpace;
     double ry;
@@ -42,12 +50,33 @@ public class LimelightSubsystem extends SubsystemBase {
         return tx;
     }
 
+    public double getLowerHorizontalOffset() {
+        return ltx;
+    }
+    public double getLowerVerticalOffset() {
+        return lty;
+    }
+    public double getUpperHorizontalOffset() {
+        return utx;
+    }
+    public double getUpperVerticalOffset() {
+        return uty;
+    }
+
     public double getHorizontalRotation() {
         return ry;
     }
 
+    public double getSkew() {
+        return ts;
+    }
+
     public double getArea() {
         return ta;
+    }
+
+    public boolean hasTarget() {
+        return tv;
     }
 
     public void setMode(int number) {
@@ -60,7 +89,7 @@ public class LimelightSubsystem extends SubsystemBase {
     }
 
     public long getPipeline(){
-        return table.getEntry("pipeline").getInteger(getPipeline());
+        return table.getEntry("pipeline").getInteger(10);
     }
 
 
@@ -71,13 +100,16 @@ public class LimelightSubsystem extends SubsystemBase {
     public void periodic() {
         // Reflective
 
-    //     double[] leftData = table.getEntry("left").getDoubleArray();
-    // double[] rightData = table.getEntry("right").getDoubleArray();
-
-
         tx = LimelightHelpers.getTX("");
         ty = LimelightHelpers.getTY("");
         ta = LimelightHelpers.getTA("");
+        ts = table.getEntry("ts").getDouble(0);
+        tv = LimelightHelpers.getTV("");
+
+        ltx = table.getEntry("tx0").getDouble(0);
+        lty = table.getEntry("ty0").getDouble(0);
+        utx = table.getEntry("tx1").getDouble(0);
+        uty = table.getEntry("ty1").getDouble(0);
 
         // TODO: 3D ? (experimental)
         targetPose_CameraSpace = LimelightHelpers.getTargetPose_CameraSpace("");
@@ -86,12 +118,15 @@ public class LimelightSubsystem extends SubsystemBase {
         // post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", tx);
         SmartDashboard.putNumber("LimelightY", ty);
+        SmartDashboard.putNumber("LimelightSkew", ts);
         SmartDashboard.putNumber("LimelightArea", ta);
 
-        for (int i = 0; i < targetPose_CameraSpace.length; i++) {
-            SmartDashboard.putNumber("targetpose_cameraspace" + i, targetPose_CameraSpace[i]);
-        }
-        SmartDashboard.putNumber("LimeLightRY", ry);
+        SmartDashboard.putNumber("ltx", ltx);
+        SmartDashboard.putNumber("lty", lty);
+        SmartDashboard.putNumber("utx", utx);
+        SmartDashboard.putNumber("uty", uty);
+
+        SmartDashboard.putNumber("Get Pipeline", getPipeline());
 
         // TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
     }
