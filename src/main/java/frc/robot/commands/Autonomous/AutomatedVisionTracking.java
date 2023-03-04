@@ -8,7 +8,7 @@ import frc.robot.subsystems.Swerve.Swerve;
 public class AutomatedVisionTracking extends CommandBase {
 
     private final Swerve s_Swerve;
-    LimelightSubsystem s_Limelight;
+    private final LimelightSubsystem s_Limelight;
 
     private double beta;
     private double alpha;
@@ -46,7 +46,7 @@ public class AutomatedVisionTracking extends CommandBase {
         long pipelineId = s_Limelight.getPipeline();
 
         // April Tage
-        if(pipelineId == 0) {
+        if (pipelineId == 0) {
             if (!s_Limelight.hasTarget()) return;
             double rotation = 0;
             beta = Math.toRadians(s_Limelight.getHorizontalOffset());
@@ -77,7 +77,7 @@ public class AutomatedVisionTracking extends CommandBase {
 
     // @Override
     public boolean isFinished() {
-        return s_Limelight.hasTarget() 
+        return s_Limelight.hasTarget()
                 || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
                         && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
     }

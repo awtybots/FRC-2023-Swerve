@@ -53,12 +53,15 @@ public class LimelightSubsystem extends SubsystemBase {
     public double getLowerHorizontalOffset() {
         return ltx;
     }
+
     public double getLowerVerticalOffset() {
         return lty;
     }
+
     public double getUpperHorizontalOffset() {
         return utx;
     }
+
     public double getUpperVerticalOffset() {
         return uty;
     }
@@ -88,7 +91,7 @@ public class LimelightSubsystem extends SubsystemBase {
         table.getEntry("pipeline").setInteger(number);
     }
 
-    public long getPipeline(){
+    public long getPipeline() {
         return table.getEntry("pipeline").getInteger(10);
     }
 
