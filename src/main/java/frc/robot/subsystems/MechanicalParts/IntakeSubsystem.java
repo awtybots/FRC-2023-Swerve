@@ -4,17 +4,14 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
     private WPI_TalonFX mIntakeMotor;
-    private double IntakePct;
 
     public IntakeSubsystem() {
-        IntakePct = 0;
         mIntakeMotor = new WPI_TalonFX(Constants.ElevatorConstants.kLeftElevatorMotorId);
         configMotors();
     }
@@ -28,11 +25,11 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intake(double pct) {
-        IntakePct = pct;
+        mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
     }
 
     public void intake(double pct, long time) {
-        IntakePct = pct;
+        mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
         try {
             Thread.sleep(time);
         } catch (InterruptedException e1) {
@@ -46,6 +43,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        mIntakeMotor.set(IntakePct);
     }
 }
