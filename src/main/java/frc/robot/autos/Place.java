@@ -3,7 +3,7 @@ package frc.robot.autos;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.commands.Positions.Nodes.HighNodePosition;
+import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;

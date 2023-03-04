@@ -94,7 +94,7 @@ public final class Constants {
         public static final int kRightElevatorMotorId = 21;
         public static final int kElevatorEncoderId = 22;
 
-        public static final double kMaxPercentOutput = 0.4;
+        public static final double kMaxPercentOutput = 0.6;
         public static final double kRamp = 0.3;
         public static final double kWinchDiameter = 1.0;
         // 9:1
