@@ -1,93 +1,51 @@
 package frc.robot.subsystems.MechanicalParts;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-    private CANSparkMax mIntakeMotor;
-
-    private CANSparkMax mLeftIntakeMotor;
-    private CANSparkMax mRightIntakeMotor;
-
-    private final RelativeEncoder mIntakeEncoder;
-
-    private final RelativeEncoder mLeftIntakeEncoder;
-    private final RelativeEncoder mRightIntakeEncoder;
-
-    // private final SparkMaxPIDController mLeftIntakePIDController;
-    // private final SparkMaxPIDController mRightIntakePIDController;
-
-    private final CANSparkMax[] intakeMotors;
-    // private final RelativeEncoder[] intakeEncoders;
-    // private final SparkMaxPIDController[] pidControllers;
+    private WPI_TalonFX mIntakeMotor;
+    private double IntakePct;
 
     public IntakeSubsystem() {
-        mIntakeMotor = new CANSparkMax(0, MotorType.kBrushless);
-        mIntakeMotor.restoreFactoryDefaults();
+        IntakePct = 0;
+        mIntakeMotor = new WPI_TalonFX(Constants.ElevatorConstants.kLeftElevatorMotorId);
+        configMotors();
+    }
 
-        mIntakeMotor.setSmartCurrentLimit(Constants.ClawConstants.kIntakeCurrentLimit);
-
-        mIntakeEncoder = mIntakeMotor.getEncoder();
-
-        mLeftIntakeMotor =
-                new CANSparkMax(Constants.ClawConstants.kLeftIntakeMotorId, MotorType.kBrushless);
-        mRightIntakeMotor =
-                new CANSparkMax(Constants.ClawConstants.kRightIntakeMotorId, MotorType.kBrushless);
-
-        mLeftIntakeMotor.restoreFactoryDefaults();
-        mRightIntakeMotor.restoreFactoryDefaults();
-
-        // Current limit
-        mLeftIntakeMotor.setSmartCurrentLimit(Constants.ClawConstants.kIntakeCurrentLimit);
-        mRightIntakeMotor.setSmartCurrentLimit(Constants.ClawConstants.kIntakeCurrentLimit);
-
-        intakeMotors = new CANSparkMax[] {mLeftIntakeMotor, mRightIntakeMotor};
-
-        mLeftIntakeEncoder = mLeftIntakeMotor.getEncoder();
-        mRightIntakeEncoder = mRightIntakeMotor.getEncoder();
-        // intakeEncoders = new RelativeEncoder[] {mLeftIntakeEncoder, mRightIntakeEncoder};
-
-        // mLeftIntakePIDController = mLeftIntakeMotor.getPIDController();
-        // mRightIntakePIDController = mRightIntakeMotor.getPIDController();
-        // pidControllers = new SparkMaxPIDController[]{mLeftIntakePIDController,
-        // mRightIntakePIDController};
-
-        // mLeftIntakePIDController.setFeedbackDevice(mLeftIntakeEncoder);
-        // mRightIntakePIDController.setFeedbackDevice(mRightIntakeEncoder);
-
+    private void configMotors() {
+        mIntakeMotor.configFactoryDefault();
+        mIntakeMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+        mIntakeMotor.setNeutralMode(NeutralMode.Brake);
+        mIntakeMotor.configPeakOutputForward(Constants.ClawConstants.kMaxPercentOutput);
+        mIntakeMotor.configPeakOutputReverse(-Constants.ClawConstants.kMaxPercentOutput);
     }
 
     public void intake(double pct) {
-        double multiplier;
-        if (pct > 0) {
-            multiplier = 1;
-        } else {
-            multiplier = 1;
-        }
-
-        mIntakeMotor.set(pct * multiplier);
-
-        intakeMotors[0].set(-pct * multiplier);
-        intakeMotors[1].set(pct * multiplier);
+        IntakePct+= pct/10;
+        IntakePct =
+                MathUtil.clamp(
+                        IntakePct,
+                        -Constants.ClawConstants.kMaxPercentOutput,
+                        Constants.ClawConstants.kMaxPercentOutput);
     }
 
     public void intake(double pct, long time) {
-
-        double multiplier;
-        if (pct > 0) {
-            multiplier = 1;
-        } else {
-            multiplier = 1;
-        }
-
-        mIntakeMotor.set(pct * multiplier);
-
-        intakeMotors[0].set(-pct * multiplier);
-        intakeMotors[1].set(pct * multiplier);
+        IntakePct+= pct/10;
+        IntakePct =
+                MathUtil.clamp(
+                        IntakePct,
+                        -Constants.ClawConstants.kMaxPercentOutput,
+                        Constants.ClawConstants.kMaxPercentOutput);
 
         try {
             Thread.sleep(time);
@@ -98,6 +56,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void stopIntake() {
         mIntakeMotor.set(0);
-        for (CANSparkMax motor : intakeMotors) motor.set(0);
+    }
+
+    @Override
+    public void periodic() {
+        mIntakeMotor.set(IntakePct);
     }
 }
