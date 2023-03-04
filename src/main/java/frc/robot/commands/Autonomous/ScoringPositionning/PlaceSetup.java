@@ -7,6 +7,10 @@ import frc.robot.subsystems.Swerve.Swerve;
 public class PlaceSetup extends SequentialCommandGroup {
 
     public PlaceSetup(Swerve s_Swerve, LimelightSubsystem s_Limelight) {
-        addCommands(new AutomatedVisionTracking(s_Swerve, s_Limelight), new DistancePosition(s_Swerve));
+        addCommands(new AutomatedVisionTracking(s_Swerve, s_Limelight), new DistancePosition(s_Swerve, s_Limelight));
+    }
+
+    public PlaceSetup(Swerve s_Swerve, LimelightSubsystem s_Limelight, boolean isCone) {
+        addCommands(new AutomatedVisionTracking(s_Swerve, s_Limelight, isCone), new DistancePosition(s_Swerve, s_Limelight));
     }
 }
