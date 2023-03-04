@@ -111,7 +111,8 @@ public class RobotContainer {
                         PathPlanner.loadPathGroup(
                                 "RightPlacePickupPlace",
                                 new PathConstraints(
-                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
         autonManager.addOption("Do Nothing.", new InstantCommand());
         // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
@@ -139,10 +140,18 @@ public class RobotContainer {
         driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
         // April Tag Mode
-        driverController.leftTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(0);}));
+        driverController.leftTrigger.onTrue(
+                new InstantCommand(
+                        () -> {
+                            Limelight.setPipeline(0);
+                        }));
 
         // Reflective Tape Mode
-        driverController.rightTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(1);}));
+        driverController.rightTrigger.onTrue(
+                new InstantCommand(
+                        () -> {
+                            Limelight.setPipeline(1);
+                        }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));

@@ -46,7 +46,7 @@ public class AutomatedVisionTracking extends CommandBase {
         long pipelineId = s_Limelight.getPipeline();
 
         // April Tage
-        if(pipelineId == 0) {
+        if (pipelineId == 0) {
             double rotation = 0;
             beta = Math.toRadians(s_Limelight.getHorizontalOffset());
             alpha = Math.toRadians(s_Limelight.getHorizontalRotation());
@@ -58,7 +58,7 @@ public class AutomatedVisionTracking extends CommandBase {
                 translation = new Translation2d(0, getSign(alpha) * driveSpeed);
             }
             s_Swerve.drive(translation, rotation, false);
-        } 
+        }
         // Reflective Tape
         else {
 
