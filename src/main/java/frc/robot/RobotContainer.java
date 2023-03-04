@@ -97,7 +97,7 @@ public class RobotContainer {
         eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("MidNode", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
-        
+
         // eventMap.put("stopEvent", new Balance(s_Swerve));
         // eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("Balance", new Balance(s_Swerve));
