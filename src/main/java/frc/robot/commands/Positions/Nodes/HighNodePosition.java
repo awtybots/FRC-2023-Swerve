@@ -28,16 +28,14 @@ public class HighNodePosition extends CommandBase {
             s_elevator.setHeight(0.6);
             try {
                 Thread.sleep(500);
-            }
-            catch (InterruptedException e1) {
+            } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
             s_arm.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ArmPosition);
             s_claw.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ClawPosition);
             try {
                 Thread.sleep(500);
-            }
-            catch (InterruptedException e1) {
+            } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
         } else {
@@ -45,8 +43,7 @@ public class HighNodePosition extends CommandBase {
             s_claw.setRotation(Constants.Position.Nodes.TransitionHighNodePosition.ClawPosition);
             try {
                 Thread.sleep(500);
-            }
-            catch (InterruptedException e1) {
+            } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
         }
