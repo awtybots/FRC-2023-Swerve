@@ -3,10 +3,6 @@ package frc.robot.subsystems.MechanicalParts;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -31,7 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intake(double pct) {
-        IntakePct+= pct/10;
+        IntakePct += pct / 10;
         IntakePct =
                 MathUtil.clamp(
                         IntakePct,
@@ -40,7 +36,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intake(double pct, long time) {
-        IntakePct+= pct/10;
+        IntakePct += pct / 10;
         IntakePct =
                 MathUtil.clamp(
                         IntakePct,
