@@ -93,10 +93,10 @@ public class RobotContainer {
      */
     private void eventAssignemnt() {
         // eventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        // eventMap.put("PickUp", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("PickupStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         // eventMap.put("stopEvent", new Balance(s_Swerve));
-        eventMap.put("Place", new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Place", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
         // eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("Balance", new Balance(s_Swerve));
     }
@@ -105,15 +105,14 @@ public class RobotContainer {
     // The
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
-        autonManager.addOption("Do Nothing.", new InstantCommand());
-        autonManager.addOption(
-                "PathPlanner RightPlacePickupPlaceBalance2",
+        autonManager.addDefaultOption(
+                "PathPlanner Test",
                 autoBuilder.fullAuto(
                         PathPlanner.loadPathGroup(
-                                "RightPlacePickupPlaceBalance2",
+                                "RightPlacePickupPlace",
                                 new PathConstraints(
-                                        // Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                        1, 1))));
+                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+        autonManager.addOption("Do Nothing.", new InstantCommand());
         // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 
@@ -138,6 +137,9 @@ public class RobotContainer {
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
         driverController.buttonB.onTrue(new Balance(s_Swerve));
         driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
+
+        driverController.leftTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(0);}));
+        driverController.rightTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(1);}));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
