@@ -44,6 +44,7 @@ public class LimelightSubsystem extends SubsystemBase {
     public LimelightSubsystem() {
         // TODO: LED | this.s_LEDSubsystem = s_LEDSubsystem;
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        table.getEntry("pipeline").setInteger(0);
     }
 
     public double getHorizontalOffset() {
