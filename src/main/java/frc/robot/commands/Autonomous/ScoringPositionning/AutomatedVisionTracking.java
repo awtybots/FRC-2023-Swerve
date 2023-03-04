@@ -1,4 +1,4 @@
-package frc.robot.commands.Autonomous;
+package frc.robot.commands.Autonomous.ScoringPositionning;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -21,6 +21,7 @@ public class AutomatedVisionTracking extends CommandBase {
     private double rotation;
     private Translation2d translation;
     private double offset;
+    private double ReflectiveOffset;
 
     public AutomatedVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight) {
         addRequirements(s_Swerve);
@@ -33,6 +34,7 @@ public class AutomatedVisionTracking extends CommandBase {
         this.translation = new Translation2d(0, 0);
 
         this.offset = 7.5;
+        this.ReflectiveOffset = 80;
         // this.offset = 0;
     }
 
@@ -61,24 +63,42 @@ public class AutomatedVisionTracking extends CommandBase {
         }
         // Reflective Tape
         else {
-            if (!s_Limelight.hasTarget()) return;
-            double rotation = 0;
+            rotation = 0;
+            translation = new Translation2d(0, 0);
+            if (!s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
+                s_Limelight.setPipeline(2);
+            } else if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
+                alpha = Math.toRadians(s_Limelight.getSkew());
+                if (Math.abs(Math.toDegrees(alpha) - ReflectiveOffset) > driveThreshold) {
+                    translation = new Translation2d(0, getSign(alpha - Math.toRadians(45)) * driveSpeed);
+                }
+            }
             beta = Math.toRadians(s_Limelight.getHorizontalOffset());
-            alpha = Math.toRadians(s_Limelight.getSkew());
             if (Math.abs(Math.toDegrees(beta) - offset) > rotateThreshold) {
                 rotation = -getSign(beta) * rotateSpeed;
-            }
-            if (Math.abs(Math.toDegrees(alpha)) > driveThreshold) {
-                translation = new Translation2d(0, getSign(alpha) * driveSpeed);
             }
             s_Swerve.drive(translation, rotation, false);
         }
     }
 
-    // @Override
+    @Override
+    public void end(boolean interrupted) {
+        if (s_Limelight.getPipeline() == 2) {
+            s_Limelight.setPipeline(1);
+        }
+    }
+
+    @Override
     public boolean isFinished() {
-        return s_Limelight.hasTarget()
-                || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
-                        && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
+        if(s_Limelight.getPipeline() == 0) {
+            return !s_Limelight.hasTarget()
+                    || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
+                            && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
+        } else if (s_Limelight.getPipeline() == 1) {
+            return (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
+                            && Math.abs(Math.toDegrees(alpha) - ReflectiveOffset) < driveThreshold);
+        } else {
+            return !s_Limelight.hasTarget() || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold);
+        }
     }
 }

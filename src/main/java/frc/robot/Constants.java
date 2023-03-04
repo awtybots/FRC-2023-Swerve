@@ -56,12 +56,8 @@ public final class Constants {
                 public static final int ClawPosition = 15;
             }
 
-            public static final class TransitionHighNodePosition {
-                public static final int ArmPosition = 35;
-                public static final int ClawPosition = 0;
-            }
-
             public static final class HighNodePosition {
+                public static final int TransitionArmRotation = 28;
                 public static final int ElevatorPosition = 215000;
                 public static final int ArmPosition = 58;
                 public static final int ClawPosition = 16;
@@ -69,12 +65,6 @@ public final class Constants {
         }
 
         public static final class Intake {
-            public static final class IntakeConeOnSidePosition {
-                public static final int ElevatorPosition = 0;
-                public static final int ArmPosition = 0;
-                public static final int ClawPosition = 0;
-            }
-
             public static final class IntakeFromHumanPlayerPosition {
                 public static final int ElevatorPosition = 105000;
                 public static final int ArmPosition = 25;

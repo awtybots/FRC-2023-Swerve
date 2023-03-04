@@ -18,7 +18,7 @@ public class FirstPosition extends CommandBase {
 
     @Override
     public void execute() {
-        s_arm.setRotation(28);
+        s_arm.setRotation(Constants.Position.Nodes.HighNodePosition.TransitionArmRotation);
         s_elevator.setHeight(Constants.Position.Nodes.HighNodePosition.ElevatorPosition);
     }
 
