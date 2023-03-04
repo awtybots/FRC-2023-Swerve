@@ -138,7 +138,10 @@ public class RobotContainer {
         driverController.buttonB.onTrue(new Balance(s_Swerve));
         driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
 
+        // April Tag Mode
         driverController.leftTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(0);}));
+
+        // Reflective Tape Mode
         driverController.rightTrigger.onTrue(new InstantCommand(() -> {Limelight.setPipeline(1);}));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
