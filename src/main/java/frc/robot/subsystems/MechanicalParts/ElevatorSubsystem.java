@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -122,11 +121,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
-
-        SmartDashboard.putNumber(
-                "Elevator Absolute Angle", elevatorEncoder.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elivator position1 ", motors[0].getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elivator position2 ", motors[1].getSelectedSensorPosition());
 
         if (elevatorTargetHeight - motors[1].getSelectedSensorPosition() < 1000
                 && motors[1].getSelectedSensorPosition() < 6000)

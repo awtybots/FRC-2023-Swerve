@@ -12,10 +12,7 @@ public class SecondPosition extends CommandBase {
     private final ArmSubsystem s_arm;
     private final ClawSubsystem s_claw;
 
-    public SecondPosition(
-            ElevatorSubsystem s_Elevator,
-            ArmSubsystem s_Arm,
-            ClawSubsystem s_Claw) {
+    public SecondPosition(ElevatorSubsystem s_Elevator, ArmSubsystem s_Arm, ClawSubsystem s_Claw) {
         addRequirements(s_Elevator, s_Arm, s_Claw);
         this.s_elevator = s_Elevator;
         this.s_arm = s_Arm;

@@ -58,7 +58,7 @@ public class AutomatedVisionTracking extends CommandBase {
                 translation = new Translation2d(0, getSign(alpha) * driveSpeed);
             }
             s_Swerve.drive(translation, rotation, false);
-        } 
+        }
         // Reflective Tape
         else {
             if (!s_Limelight.hasTarget()) return;

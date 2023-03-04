@@ -83,8 +83,8 @@ public class LimelightSubsystem extends SubsystemBase {
         table.getEntry("ledMode").setDouble(number);
     }
 
-    public void setPipeline(int number){
-        if(number > 1) return;
+    public void setPipeline(int number) {
+        if (number > 1) return;
         table.getEntry("pipeline").setInteger(number);
     }
 
@@ -92,9 +92,7 @@ public class LimelightSubsystem extends SubsystemBase {
         return table.getEntry("pipeline").getInteger(10);
     }
 
-
     // Reflective
-
 
     @Override
     public void periodic() {

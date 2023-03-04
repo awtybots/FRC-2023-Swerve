@@ -10,9 +10,7 @@ public class FirstPosition extends CommandBase {
     private final ArmSubsystem s_arm;
     private final ElevatorSubsystem s_elevator;
 
-    public FirstPosition(
-            ArmSubsystem s_armSubsystem,
-            ElevatorSubsystem s_elevatorSubsystem) {
+    public FirstPosition(ArmSubsystem s_armSubsystem, ElevatorSubsystem s_elevatorSubsystem) {
         addRequirements(s_armSubsystem, s_elevatorSubsystem);
         this.s_arm = s_armSubsystem;
         this.s_elevator = s_elevatorSubsystem;
@@ -27,8 +25,9 @@ public class FirstPosition extends CommandBase {
     @Override
     public boolean isFinished() {
         return Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold && Math.abs(
-                            s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                    < Constants.Position.ElevatorThreshold * 10;
+                        < Constants.Position.ArmThreshold
+                && Math.abs(
+                                s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
+                        < Constants.Position.ElevatorThreshold * 10;
     }
 }

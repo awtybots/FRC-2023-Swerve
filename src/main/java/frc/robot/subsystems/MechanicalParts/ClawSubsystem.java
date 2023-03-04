@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -57,8 +56,6 @@ public class ClawSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition);
-        SmartDashboard.putNumber("wristHeight ", wristHeight);
-        SmartDashboard.putNumber("wristEncoderReadout1 ", mPivotEncoder.getPosition());
     }
 
     public void stopClaw() {
