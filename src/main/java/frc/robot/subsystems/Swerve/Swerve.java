@@ -14,10 +14,15 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 public class Swerve extends SubsystemBase {
+
+    private final Field2d m_field = new Field2d();
+
     // Create MAXSwerveModules
     private final MAXSwerveModule m_frontLeft =
             new MAXSwerveModule(
@@ -51,6 +56,9 @@ public class Swerve extends SubsystemBase {
 
     /** Creates a new DriveSubsystem. */
     public Swerve() {
+
+        SmartDashboard.putData("Field", m_field);
+
         swerveHighSpeedMode = true;
 
         m_gyro = new AHRS(SPI.Port.kMXP);
@@ -82,6 +90,8 @@ public class Swerve extends SubsystemBase {
                     m_rearLeft.getPosition(),
                     m_rearRight.getPosition()
                 });
+
+        m_field.setRobotPose(m_odometry.getPoseMeters());
     }
 
     /**

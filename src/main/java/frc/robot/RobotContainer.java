@@ -174,15 +174,12 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        /*  * Autons needed: TwoScoreLeft, TwoScoreRight
+         * One score, straight to ramp from three sides,
+         * One score, pickup second piece, ramp (come from other side),
+         * One score, no ramp
+         * One score, pickup piece, no ramp
+         */
         return autonManager.getSelected();
-        // return autoBuilder.fullAuto(
-        //         PathPlanner.loadPathGroup(
-        //                 "RightPlacePickupPlaceBalance2",
-        //                 new PathConstraints(
-        //                         Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-        //                         Constants.AutoConstants
-        //                                 .kMaxAccelerationMetersPerSecondSquared))); // return new
-        // PathPlannerAuto(
-        //         PathPlanner.loadPath("Straight", new PathConstraints(6, 4)), s_Swerve, eventMap);
     }
 }
