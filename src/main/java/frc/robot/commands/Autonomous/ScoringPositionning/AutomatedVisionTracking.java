@@ -105,15 +105,16 @@ public class AutomatedVisionTracking extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(s_Limelight.getPipeline() == 0) {
+        if (s_Limelight.getPipeline() == 0) {
             return !s_Limelight.hasTarget()
                     || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
                             && Math.abs(Math.toDegrees(alpha)) < driveThreshold);
         } else if (s_Limelight.getPipeline() == 1) {
             return (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold
-                            && Math.abs(Math.toDegrees(alpha) - ReflectiveOffset) < driveThreshold);
+                    && Math.abs(Math.toDegrees(alpha) - ReflectiveOffset) < driveThreshold);
         } else {
-            return !s_Limelight.hasTarget() || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold);
+            return !s_Limelight.hasTarget()
+                    || (Math.abs(Math.toDegrees(beta) - offset) < rotateThreshold);
         }
     }
 }
