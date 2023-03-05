@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -15,9 +16,9 @@ import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 import frc.robot.subsystems.MechanicalParts.PistonSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 
-public class Place extends SequentialCommandGroup {
+public class Pickup extends SequentialCommandGroup {
 
-    public Place(
+    public Pickup(
             Swerve s_Swerve,
             LimelightSubsystem s_Limelight,
             ClawSubsystem s_Claw,
@@ -31,11 +32,8 @@ public class Place extends SequentialCommandGroup {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
-                new PlaceSetup(s_Swerve, s_Limelight, isCone),
-                    nodeId == 0 ?  
-                        new MidNodePosition(s_Elevator, s_Arm, s_Claw) :
-                        new HighNodePosition(s_Elevator, s_Arm, s_Claw),
-                new InstantCommand(() -> s_Intake.intake(isCone ? 1 : 0, true)),
+                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw),
+                new Intake(s_Intake, isCone),
                 new StowPosition(s_Elevator, s_Arm, s_Claw)
                 );
     }

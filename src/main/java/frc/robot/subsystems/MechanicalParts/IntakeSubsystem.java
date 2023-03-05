@@ -9,6 +9,8 @@ import frc.robot.Constants;
 public class IntakeSubsystem extends SubsystemBase {
 
     private WPI_TalonFX mIntakeMotor;
+    private boolean kKeep;
+    private double kIntakePct;
 
     public IntakeSubsystem() {
         mIntakeMotor = new WPI_TalonFX(Constants.ClawConstants.kIntakeMotorId);
@@ -23,17 +25,17 @@ public class IntakeSubsystem extends SubsystemBase {
         mIntakeMotor.configPeakOutputReverse(-Constants.ClawConstants.kMaxPercentOutput);
     }
 
-    public void intake(double pct) {
-        mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
+    public void intake(double pct, boolean keep) {
+        kKeep = keep;
+        if(keep){
+            kIntakePct = pct;
+        } else {
+            mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
+        }
     }
 
-    public void intake(double pct, long time) {
-        mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
+    public double getOutputCurrent(){
+        return mIntakeMotor.getMotorOutputVoltage();
     }
 
     public void stopIntake() {
@@ -42,5 +44,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if(kKeep){
+            mIntakeMotor.set(kIntakePct);
+        }
     }
 }

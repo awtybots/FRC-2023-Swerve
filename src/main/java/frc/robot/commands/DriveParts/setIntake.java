@@ -19,7 +19,7 @@ public class setIntake extends CommandBase {
         int forward = controller.getRightTrigger() > 0.2 ? 1 : 0;
         int reverse = controller.getLeftTrigger() > 0.2 ? 1 : 0;
         double rate = forward - reverse;
-        s_Intake.intake(rate);
+        s_Intake.intake(rate, false);
     }
 
     @Override
