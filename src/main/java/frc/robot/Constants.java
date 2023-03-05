@@ -45,7 +45,7 @@ public final class Constants {
 
         public static final class StowPosition {
             public static final int ElevatorPosition = 4000;
-            public static final int ArmPosition = 0;
+            public static final int ArmPosition = 20;
             public static final int ClawPosition = 0;
         }
 
@@ -53,14 +53,14 @@ public final class Constants {
             public static final class MidNodePosition {
                 public static final int ElevatorPosition = 75000;
                 public static final int ArmPosition = 38;
-                public static final int ClawPosition = 15;
+                public static final int ClawPosition = 0;
             }
 
             public static final class HighNodePosition {
                 public static final int TransitionArmRotation = 28;
                 public static final int ElevatorPosition = 215000;
                 public static final int ArmPosition = 58;
-                public static final int ClawPosition = 16;
+                public static final int ClawPosition = 0;
             }
         }
 
@@ -68,13 +68,13 @@ public final class Constants {
             public static final class IntakeFromHumanPlayerPosition {
                 public static final int ElevatorPosition = 105000;
                 public static final int ArmPosition = 25;
-                public static final int ClawPosition = 15;
+                public static final int ClawPosition = 0;
             }
 
             public static final class IntakeFromGroundPosition {
                 public static final int ElevatorPosition = 85000;
                 public static final int ArmPosition = 88;
-                public static final int ClawPosition = 6;
+                public static final int ClawPosition = 0;
             }
         }
     }
@@ -84,7 +84,7 @@ public final class Constants {
         public static final int kRightElevatorMotorId = 21;
         public static final int kElevatorEncoderId = 22;
 
-        public static final double kMaxPercentOutput = 0.6;
+        public static final double kMaxPercentOutput = 0.3;
         public static final double kRamp = 0.3;
         public static final double kWinchDiameter = 1.0;
         // 9:1
@@ -121,15 +121,14 @@ public final class Constants {
         public static final double kF = 0.00;
 
         public static final double armLength = 0.54; // 0.54 m
-        public static final double startingAngle = 35;
+        public static final double startingAngle = 47;
 
         public static final double rampRate = 0.6;
     }
 
     public static final class ClawConstants {
         public static final int kPivotMotorId = 6;
-        public static final int kLeftIntakeMotorId = 15;
-        public static final int kRightIntakeMotorId = 16;
+        public static final int kIntakeMotorId = 15;
 
         public static final double kMaxPercentOutput = 0.5;
 

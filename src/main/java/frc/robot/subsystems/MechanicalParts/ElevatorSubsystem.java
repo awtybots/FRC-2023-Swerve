@@ -47,7 +47,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public double getCanCoder() {
-        return elevatorEncoder.getSelectedSensorPosition() * 5; // ? Why is there a <<* 5>> ?!? explain!
+        return (elevatorEncoder.getSelectedSensorPosition()-750) * 5; // ? Why is there a <<* 5>> ?!? explain!
     }
 
     private void configElevatorEncoder() {
@@ -122,7 +122,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void periodic() {
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
 
-        if (elevatorTargetHeight - motors[1].getSelectedSensorPosition() < 1000
+        if (elevatorTargetHeight - motors[1].getSelectedSensorPosition() < 3000
                 && motors[1].getSelectedSensorPosition() < 6000)
             motors[1].set(ControlMode.PercentOutput, 0);
 

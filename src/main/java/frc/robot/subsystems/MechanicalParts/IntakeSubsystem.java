@@ -12,7 +12,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private WPI_TalonFX mIntakeMotor;
 
     public IntakeSubsystem() {
-        mIntakeMotor = new WPI_TalonFX(Constants.ElevatorConstants.kLeftElevatorMotorId);
+        mIntakeMotor = new WPI_TalonFX(Constants.ClawConstants.kIntakeMotorId);
         configMotors();
     }
 
