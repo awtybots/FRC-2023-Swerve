@@ -41,10 +41,10 @@ public class Balance extends CommandBase {
             decrease += 0.05;
             // return;
         }
-        if (Math.abs(error) > 15) {
-            decrease = 1;
-            // return;
-        }
+        // if (Math.abs(error) > 15) {
+        //     decrease = 1;
+        //     // return;
+        // }
         System.out.println("\n");
 
         currentAngle = s_Swerve.getRoll();

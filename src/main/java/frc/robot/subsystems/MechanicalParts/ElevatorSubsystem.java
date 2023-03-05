@@ -47,7 +47,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public double getCanCoder() {
-        return (elevatorEncoder.getSelectedSensorPosition()-750) * 5; // ? Why is there a <<* 5>> ?!? explain!
+        return (elevatorEncoder.getSelectedSensorPosition() - 750)
+                * 5; // ? Why is there a <<* 5>> ?!? explain!
     }
 
     private void configElevatorEncoder() {

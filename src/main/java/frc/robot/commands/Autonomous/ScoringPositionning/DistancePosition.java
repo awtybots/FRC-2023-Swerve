@@ -18,11 +18,15 @@ public class DistancePosition extends CommandBase {
 
     @Override
     public void execute() {
-        s_Swerve.drive(new Translation2d(1, 0), 0, false);
+        s_Swerve.drive(new Translation2d(0.5, 0), 0, false);
     }
 
     // @Override
     public boolean isFinished() {
-        return !s_Limelight.hasTarget() || s_Swerve.getOutputCurrent() > 5;
+        return !s_Limelight.hasTarget() || s_Swerve.getOutputCurrent() > 40;
+    }
+
+    public void end() {
+        s_Swerve.drive(new Translation2d(0, 0), 0, true);
     }
 }

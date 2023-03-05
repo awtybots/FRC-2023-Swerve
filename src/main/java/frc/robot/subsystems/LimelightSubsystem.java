@@ -44,7 +44,7 @@ public class LimelightSubsystem extends SubsystemBase {
     public LimelightSubsystem() {
         // TODO: LED | this.s_LEDSubsystem = s_LEDSubsystem;
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        table.getEntry("pipeline").setInteger(0);
+        ;
     }
 
     public double getHorizontalOffset() {
@@ -88,12 +88,11 @@ public class LimelightSubsystem extends SubsystemBase {
     }
 
     public void setPipeline(int number) {
-        if (number > 1) return;
-        table.getEntry("pipeline").setInteger(number);
+        table.getEntry("pipeline").setDouble(number);
     }
 
     public long getPipeline() {
-        return table.getEntry("pipeline").getInteger(10);
+        return table.getEntry("pipeline").getInteger(0);
     }
 
     // Reflective
@@ -122,11 +121,7 @@ public class LimelightSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", ty);
         SmartDashboard.putNumber("LimelightSkew", ts);
         SmartDashboard.putNumber("LimelightArea", ta);
-
-        SmartDashboard.putNumber("ltx", ltx);
-        SmartDashboard.putNumber("lty", lty);
-        SmartDashboard.putNumber("utx", utx);
-        SmartDashboard.putNumber("uty", uty);
+        SmartDashboard.putNumber("LimelightRY", ry);
 
         SmartDashboard.putNumber("Get Pipeline", getPipeline());
 

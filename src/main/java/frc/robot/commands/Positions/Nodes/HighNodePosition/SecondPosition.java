@@ -32,8 +32,8 @@ public class SecondPosition extends CommandBase {
                                 s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
                         < Constants.Position.ElevatorThreshold
                 && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
-                && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Constants.Position.ClawThreshold;
+                        < Constants.Position.ArmThreshold;
+        // && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
+        //         < Constants.Position.ClawThreshold;
     }
 }

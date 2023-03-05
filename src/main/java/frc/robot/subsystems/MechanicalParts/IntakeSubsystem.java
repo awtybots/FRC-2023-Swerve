@@ -27,14 +27,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void intake(double pct, boolean keep) {
         kKeep = keep;
-        if(keep){
+        if (keep) {
             kIntakePct = pct;
         } else {
             mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
         }
     }
 
-    public double getOutputCurrent(){
+    public double getOutputCurrent() {
         return mIntakeMotor.getMotorOutputVoltage();
     }
 
@@ -44,7 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(kKeep){
+        if (kKeep) {
             mIntakeMotor.set(kIntakePct);
         }
     }

@@ -57,6 +57,7 @@ public class Swerve extends SubsystemBase {
     /** Creates a new DriveSubsystem. */
     public Swerve() {
 
+        SmartDashboard.putNumber("Output Swerve Current", getOutputCurrent());
         SmartDashboard.putData("Field", m_field);
 
         swerveHighSpeedMode = true;
@@ -81,7 +82,6 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic() {
         // Update the odometry in the periodic block
-
         m_odometry.update(
                 Rotation2d.fromDegrees(-m_gyro.getAngle()),
                 new SwerveModulePosition[] {
@@ -131,7 +131,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public double getOutputCurrent() {
-        return m_frontLeft.outputCurrent;
+        return m_frontLeft.getOutputCurrent();
     }
 
     /**

@@ -45,7 +45,7 @@ public final class Constants {
 
         public static final class StowPosition {
             public static final int ElevatorPosition = 4000;
-            public static final int ArmPosition = 20;
+            public static final int ArmPosition = 10;
             public static final int ClawPosition = 0;
         }
 
@@ -258,8 +258,8 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 2; //4
-        public static final double kMaxAccelerationMetersPerSecondSquared = 2; //2
+        public static final double kMaxSpeedMetersPerSecond = 3; // 4
+        public static final double kMaxAccelerationMetersPerSecondSquared = 2; // 2
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
