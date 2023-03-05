@@ -23,6 +23,6 @@ public class DistancePosition extends CommandBase {
 
     // @Override
     public boolean isFinished() {
-        return !s_Limelight.hasTarget() || s_Swerve.getOutputCurrent() > 10;
+        return !s_Limelight.hasTarget() || s_Swerve.getOutputCurrent() > 5;
     }
 }

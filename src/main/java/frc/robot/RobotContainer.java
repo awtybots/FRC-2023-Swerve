@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Place;
+import frc.robot.commands.Autonomous.oldBalance;
 import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -93,13 +94,9 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignemnt() {
-        // eventMap.put("event", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, s_Piston, 0, true));
-
-        // eventMap.put("stopEvent", new Balance(s_Swerve));
-        // eventMap.put("PlaceStow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        //! eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        //! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        //! eventMap.put("Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, s_Piston, 0, true));
         eventMap.put("Balance", new Balance(s_Swerve));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
@@ -111,7 +108,7 @@ public class RobotContainer {
                 "PathPlanner Test",
                 autoBuilder.fullAuto(
                         PathPlanner.loadPathGroup(
-                                "RightPlacePickupPlace",
+                                "LeftPlacePickupPlaceBalance",
                                 new PathConstraints(
                                         Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                                         Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
@@ -139,7 +136,7 @@ public class RobotContainer {
         driverController.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
         driverController.buttonB.onTrue(new Balance(s_Swerve));
-        driverController.buttonX.onTrue(new PlaceSetup(s_Swerve, Limelight));
+        driverController.buttonX.onTrue(new PlaceSetup(s_Swerve, Limelight, false));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(
