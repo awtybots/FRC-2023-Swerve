@@ -15,95 +15,95 @@ public class AutomatedVisionTracking extends CommandBase {
     private double reflectiveBeta;
     private double reflectiveAlpha;
 
-    // ! add to constants
-    private double rotateThreshold = 2;
-    private double driveThreshold = 3;
-    private double rotateSpeed = 0.5;
-    private double reflectiveThreshold = 3;
-    private double driveSpeed = 0.5;
-    private double rotation;
-    private Translation2d translation;
-    private double offset;
-    private double ReflectiveOffset;
-    boolean fieldRelative = false;
+    private final double kRotateThreshold = 2; // degrees
+    private final double kDriveThreshold = 3; // degrees
+    private final double kRotateSpeed = 0.5;
+    private final double kReflectiveThreshold = 3; // degrees
+    private final double kDriveSpeed = 0.5;
+    private final double kReflectiveOffset = 84; // degrees
+    private final double kAprilOffset = 7.5; // degrees
 
     public AutomatedVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight) {
-        addRequirements(s_Swerve);
-        this.s_Swerve = s_Swerve;
-        this.s_Limelight = s_Limelight;
-
-        this.aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        this.aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-        this.reflectiveBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        this.reflectiveAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-
-        this.offset = 7.5;
-        this.ReflectiveOffset = 84;
+        this(s_Swerve, s_Limelight, false);
     }
 
     public AutomatedVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight, boolean isCone) {
         addRequirements(s_Swerve);
         this.s_Swerve = s_Swerve;
         this.s_Limelight = s_Limelight;
-        
-        this.aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        this.aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-        this.reflectiveBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        this.reflectiveAlpha = Math.toRadians(s_Limelight.getSkew());
 
-        this.offset = 7.5;
-        this.ReflectiveOffset = 84;
         s_Limelight.setPipeline(isCone ? 1 : 0);
     }
 
-    private int getSign(double num) {
-        if (num >= 0) return 1;
-        else return -1;
+    @Override
+    public void initialize() {
+        this.aprilBeta = s_Limelight.getHorizontalOffset();
+        this.aprilAlpha = s_Limelight.getHorizontalRotation();
+        this.reflectiveBeta = s_Limelight.getHorizontalOffset();
+        this.reflectiveAlpha = s_Limelight.getSkew();
+    }
+
+    private double getSign(double num) {
+        return Math.signum(num);
+    }
+
+    private boolean withinThreshold(double value, double threshold) {
+        return Math.abs(value) < threshold;
     }
 
     private void AprilTagLogic() {
         if (!s_Limelight.hasTarget()) return;
-        rotation = 0;
-        aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
+
+        double rotation = 0;
+        var translation = new Translation2d();
+
         // Rotate until beta is right
-        if (Math.abs(Math.toDegrees(aprilBeta) - offset) > rotateThreshold) {
-            rotation = -getSign(aprilBeta) * rotateSpeed;
+        if (withinThreshold(aprilBeta - kAprilOffset, kRotateThreshold)) {
+            rotation = -getSign(aprilBeta) * kRotateSpeed;
         }
+
         // Strafe until Alpha is right
-        if (Math.abs(Math.toDegrees(aprilAlpha)) > driveThreshold) {
-            translation = new Translation2d(0, getSign(aprilAlpha) * driveSpeed);
+        if (withinThreshold(aprilAlpha, kDriveThreshold)) {
+            translation = new Translation2d(0, getSign(aprilAlpha) * kDriveSpeed);
         }
-        s_Swerve.drive(translation, rotation, fieldRelative);
+
+        s_Swerve.drive(translation, rotation, false);
     }
 
     private void ReflectiveTapeLogic() {
-        rotation = 0;
-        reflectiveBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
         // Sets pipeline to number 2 (one reflective tape) if there is no target
         if (!s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
             s_Limelight.setPipeline(2);
-        // Strafe until Alpha is right
-        } else if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
-            reflectiveAlpha = Math.toRadians(s_Limelight.getSkew());
-            if (Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) > reflectiveThreshold) {
-                translation = new Translation2d(0, -getSign(reflectiveAlpha - Math.toRadians(45)) *
-        driveSpeed);}
         }
-        // Rotate until beta is right
-        if (Math.abs(Math.toDegrees(reflectiveBeta) - offset) > reflectiveThreshold) {
-            rotation = -getSign(reflectiveBeta) * rotateSpeed;
+
+        double rotation = 0;
+        var translation = new Translation2d();
+
+        if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
+            // Strafe until Alpha is right
+            if (withinThreshold(reflectiveBeta - kReflectiveOffset, kReflectiveThreshold)) {
+                translation = new Translation2d(0, -getSign(reflectiveBeta - 45) * kDriveSpeed);
+            }
+
+            // Rotate until beta is right
+            if (withinThreshold(reflectiveBeta - kAprilOffset, kReflectiveThreshold)) {
+                rotation = -getSign(reflectiveBeta) * kRotateSpeed;
+            }
         }
-        s_Swerve.drive(translation, rotation, fieldRelative);
+
+        s_Swerve.drive(translation, rotation, false);
     }
 
     @Override
     public void execute() {
-        long pipelineId = s_Limelight.getPipeline();
-        translation = new Translation2d(0, 0);
+        int pipelineId = s_Limelight.getPipeline();
         if (pipelineId == 0) {
+            this.aprilBeta = s_Limelight.getHorizontalOffset();
+            this.aprilAlpha = s_Limelight.getHorizontalRotation();
             AprilTagLogic();
         } else {
+            this.reflectiveBeta = s_Limelight.getHorizontalOffset();
+            this.reflectiveAlpha = s_Limelight.getSkew();
             ReflectiveTapeLogic();
         }
     }
@@ -120,14 +120,14 @@ public class AutomatedVisionTracking extends CommandBase {
     public boolean isFinished() {
         if (s_Limelight.getPipeline() == 0) {
             return !s_Limelight.hasTarget()
-            || Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold
-                    && Math.abs(Math.toDegrees(aprilAlpha)) < driveThreshold;
+                    || withinThreshold(aprilBeta - kAprilOffset, kRotateThreshold)
+                            && withinThreshold(aprilAlpha, kDriveThreshold);
         } else if (s_Limelight.getPipeline() == 1) {
-            return (Math.abs(Math.toDegrees(reflectiveBeta) - offset) < reflectiveThreshold
-                    && Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) < reflectiveThreshold);
+            return withinThreshold(reflectiveBeta - kAprilOffset, kReflectiveThreshold)
+                    && withinThreshold(reflectiveAlpha - kReflectiveOffset, kReflectiveThreshold);
         } else {
             return !s_Limelight.hasTarget()
-                    || (Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold);
+                    || withinThreshold(aprilBeta - kAprilOffset, kRotateThreshold);
         }
     }
 }

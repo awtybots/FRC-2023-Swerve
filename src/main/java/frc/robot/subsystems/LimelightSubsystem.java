@@ -91,8 +91,8 @@ public class LimelightSubsystem extends SubsystemBase {
         table.getEntry("pipeline").setDouble(number);
     }
 
-    public long getPipeline() {
-        return table.getEntry("pipeline").getInteger(0);
+    public int getPipeline() {
+        return (int) table.getEntry("pipeline").getInteger(0);
     }
 
     // Reflective
