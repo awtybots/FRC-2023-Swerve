@@ -85,9 +85,9 @@ public class AutomatedVisionTracking extends CommandBase {
             s_Limelight.setPipeline(2);
         // Strafe until Alpha is right
         } else if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
-            reflectiveBeta = Math.toRadians(s_Limelight.getSkew());
-            if (Math.abs(Math.toDegrees(reflectiveBeta) - ReflectiveOffset) > reflectiveThreshold) {
-                translation = new Translation2d(0, -getSign(reflectiveBeta - Math.toRadians(45)) *
+            reflectiveAlpha = Math.toRadians(s_Limelight.getSkew());
+            if (Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) > reflectiveThreshold) {
+                translation = new Translation2d(0, -getSign(reflectiveAlpha - Math.toRadians(45)) *
         driveSpeed);}
         }
         // Rotate until beta is right
@@ -123,8 +123,8 @@ public class AutomatedVisionTracking extends CommandBase {
             || Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold
                     && Math.abs(Math.toDegrees(aprilAlpha)) < driveThreshold;
         } else if (s_Limelight.getPipeline() == 1) {
-            return (Math.abs(Math.toDegrees(aprilBeta) - offset) < reflectiveThreshold
-                    && Math.abs(Math.toDegrees(aprilAlpha) - ReflectiveOffset) < reflectiveThreshold);
+            return (Math.abs(Math.toDegrees(reflectiveBeta) - offset) < reflectiveThreshold
+                    && Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) < reflectiveThreshold);
         } else {
             return !s_Limelight.hasTarget()
                     || (Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold);
