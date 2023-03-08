@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 public class Swerve extends SubsystemBase {
@@ -131,7 +132,33 @@ public class Swerve extends SubsystemBase {
     }
 
     public double getOutputCurrent() {
-        return m_frontLeft.getOutputCurrent();
+        double maxOutputCurrent = Double.MIN_VALUE;
+
+        double frontLeftOutputCurrent = m_frontLeft.getOutputCurrent();
+        if (frontLeftOutputCurrent > maxOutputCurrent) {
+            maxOutputCurrent = frontLeftOutputCurrent;
+        }
+
+        double frontRightOutputCurrent = m_frontRight.getOutputCurrent();
+        if (frontRightOutputCurrent > maxOutputCurrent) {
+            maxOutputCurrent = frontRightOutputCurrent;
+        }
+
+        double rearLeftOutputCurrent = m_rearLeft.getOutputCurrent();
+        if (rearLeftOutputCurrent > maxOutputCurrent) {
+            maxOutputCurrent = rearLeftOutputCurrent;
+        }
+
+        double rearRightOutputCurrent = m_rearRight.getOutputCurrent();
+        if (rearRightOutputCurrent > maxOutputCurrent) {
+            maxOutputCurrent = rearRightOutputCurrent;
+        }
+
+        return maxOutputCurrent;
+    }
+
+    public boolean isStalled() {
+        return (getOutputCurrent() > Constants.DriveConstants.stallCurrentLimit);
     }
 
     /**

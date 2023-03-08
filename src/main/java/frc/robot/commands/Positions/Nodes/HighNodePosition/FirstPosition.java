@@ -12,7 +12,10 @@ public class FirstPosition extends CommandBase {
     private final ElevatorSubsystem s_elevator;
     private final LimelightSubsystem Limelight;
 
-    public FirstPosition(ArmSubsystem s_armSubsystem, ElevatorSubsystem s_elevatorSubsystem, LimelightSubsystem s_Limelight) {
+    public FirstPosition(
+            ArmSubsystem s_armSubsystem,
+            ElevatorSubsystem s_elevatorSubsystem,
+            LimelightSubsystem s_Limelight) {
         addRequirements(s_armSubsystem, s_elevatorSubsystem);
         this.s_arm = s_armSubsystem;
         this.s_elevator = s_elevatorSubsystem;
@@ -22,7 +25,7 @@ public class FirstPosition extends CommandBase {
     @Override
     public void execute() {
         boolean isCone = Limelight.getPipeline() != 0;
-        if(isCone){
+        if (isCone) {
             s_arm.setRotation(Constants.Position.Nodes.Cone.HighNodePosition.TransitionArmRotation);
             s_elevator.setHeight(Constants.Position.Nodes.Cone.HighNodePosition.ElevatorPosition);
         } else {

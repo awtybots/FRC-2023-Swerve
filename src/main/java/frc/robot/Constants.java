@@ -56,6 +56,7 @@ public final class Constants {
                     public static final double ArmPosition = 16.07;
                     public static final double ClawPosition = 11.714;
                 }
+
                 public static final class HighNodePosition {
                     public static final int TransitionArmRotation = 28;
                     public static final int ElevatorPosition = 66000;
@@ -70,6 +71,7 @@ public final class Constants {
                     public static final double ArmPosition = 35.4;
                     public static final double ClawPosition = -14.3;
                 }
+
                 public static final class HighNodePosition {
                     public static final int TransitionArmRotation = 28;
                     public static final int ElevatorPosition = 214000;
@@ -77,7 +79,6 @@ public final class Constants {
                     public static final double ClawPosition = -4.43;
                 }
             }
-
         }
 
         public static final class Intake {
@@ -95,13 +96,13 @@ public final class Constants {
                     public static final double ArmPosition = 94.86;
                     public static final double ClawPosition = -15.45;
                 }
+
                 public static final class IntakeFromHumanPlayerPosition {
                     public static final int ElevatorPosition = 211000;
                     public static final double ArmPosition = 36.4;
                     public static final double ClawPosition = -15.3;
                 }
             }
-
         }
     }
 
@@ -222,6 +223,11 @@ public final class Constants {
         public static final int kRearRightTurningCanId = 5;
 
         public static final boolean kGyroReversed = true;
+
+        public static final double stallCurrentLimit =
+                40; // If the current for any of the motors exceeds this limit, isSTall returns true
+        // !! TODO check if the motor has been still for a set time as well. Currently it will think its
+        // stalling when it starts accelerating.
     }
 
     public static final class ModuleConstants {

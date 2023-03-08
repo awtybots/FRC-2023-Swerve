@@ -29,12 +29,14 @@ public class IntakeFromGroundPosition extends CommandBase {
     @Override
     public void execute() {
         boolean isCone = Limelight.getPipeline() != 0;
-        if(isCone){
-            s_elevator.setHeight(Constants.Position.Intake.Cone.IntakeFromGroundPosition.ElevatorPosition);
+        if (isCone) {
+            s_elevator.setHeight(
+                    Constants.Position.Intake.Cone.IntakeFromGroundPosition.ElevatorPosition);
             s_arm.setRotation(Constants.Position.Intake.Cone.IntakeFromGroundPosition.ArmPosition);
             s_claw.setRotation(Constants.Position.Intake.Cone.IntakeFromGroundPosition.ClawPosition);
         } else {
-            s_elevator.setHeight(Constants.Position.Intake.Cube.IntakeFromGroundPosition.ElevatorPosition);
+            s_elevator.setHeight(
+                    Constants.Position.Intake.Cube.IntakeFromGroundPosition.ElevatorPosition);
             s_arm.setRotation(Constants.Position.Intake.Cube.IntakeFromGroundPosition.ArmPosition);
             s_claw.setRotation(Constants.Position.Intake.Cube.IntakeFromGroundPosition.ClawPosition);
         }

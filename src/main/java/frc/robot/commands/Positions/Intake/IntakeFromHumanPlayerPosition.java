@@ -29,8 +29,9 @@ public class IntakeFromHumanPlayerPosition extends CommandBase {
     @Override
     public void execute() {
         boolean isCone = Limelight.getPipeline() != 0;
-        if(isCone){
-            s_elevator.setHeight(Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ElevatorPosition);
+        if (isCone) {
+            s_elevator.setHeight(
+                    Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ElevatorPosition);
             s_arm.setRotation(Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ArmPosition);
             s_claw.setRotation(Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ClawPosition);
         }
