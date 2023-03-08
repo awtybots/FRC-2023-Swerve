@@ -14,7 +14,11 @@ public class SecondPosition extends CommandBase {
     private final ClawSubsystem s_claw;
     private final LimelightSubsystem Limelight;
 
-    public SecondPosition(ElevatorSubsystem s_Elevator, ArmSubsystem s_Arm, ClawSubsystem s_Claw, LimelightSubsystem s_Limelight) {
+    public SecondPosition(
+            ElevatorSubsystem s_Elevator,
+            ArmSubsystem s_Arm,
+            ClawSubsystem s_Claw,
+            LimelightSubsystem s_Limelight) {
         addRequirements(s_Elevator, s_Arm, s_Claw);
         this.s_elevator = s_Elevator;
         this.s_arm = s_Arm;
@@ -25,7 +29,7 @@ public class SecondPosition extends CommandBase {
     @Override
     public void execute() {
         boolean isCone = Limelight.getPipeline() != 0;
-        if(isCone){
+        if (isCone) {
             s_elevator.setHeight(Constants.Position.Nodes.Cone.HighNodePosition.ElevatorPosition);
             s_arm.setRotation(Constants.Position.Nodes.Cone.HighNodePosition.ArmPosition);
             s_claw.setRotation(Constants.Position.Nodes.Cone.HighNodePosition.ClawPosition);

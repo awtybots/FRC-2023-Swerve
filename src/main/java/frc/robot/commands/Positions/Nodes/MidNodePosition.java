@@ -29,7 +29,7 @@ public class MidNodePosition extends CommandBase {
     @Override
     public void execute() {
         boolean isCone = Limelight.getPipeline() != 0;
-        if(isCone){
+        if (isCone) {
             s_elevator.setHeight(Constants.Position.Nodes.Cone.MidNodePosition.ElevatorPosition);
             s_arm.setRotation(Constants.Position.Nodes.Cone.MidNodePosition.ArmPosition);
             s_claw.setRotation(Constants.Position.Nodes.Cone.MidNodePosition.ClawPosition);

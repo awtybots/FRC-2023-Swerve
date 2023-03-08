@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
-import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.DriveParts.*;
@@ -168,8 +167,10 @@ public class RobotContainer {
         operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw, Limelight));
-        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw, Limelight));
+        operatorController.dPadDown.onTrue(
+                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw, Limelight));
+        operatorController.dPadUp.onTrue(
+                new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw, Limelight));
     }
 
     /**
