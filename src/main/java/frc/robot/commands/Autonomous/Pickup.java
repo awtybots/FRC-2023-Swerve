@@ -8,26 +8,20 @@ import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
-import frc.robot.subsystems.MechanicalParts.PistonSubsystem;
-import frc.robot.subsystems.Swerve.Swerve;
 
 public class Pickup extends SequentialCommandGroup {
 
     public Pickup(
-            Swerve s_Swerve,
-            LimelightSubsystem s_Limelight,
             ClawSubsystem s_Claw,
             ArmSubsystem s_Arm,
             ElevatorSubsystem s_Elevator,
             IntakeSubsystem s_Intake,
-            PistonSubsystem s_Piston,
-            int nodeId,
-            boolean isCone) {
-        addRequirements(s_Swerve, s_Limelight, s_Claw, s_Arm, s_Elevator, s_Intake);
+            LimelightSubsystem s_Limelight) {
+        // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
-                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw),
-                new Intake(s_Intake, isCone),
+                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw, s_Limelight),
+                new Intake(s_Intake, s_Limelight.getPipeline() != 0),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }
 }

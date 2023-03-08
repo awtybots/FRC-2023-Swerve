@@ -6,6 +6,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -53,7 +54,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    public void setRotation(int value) {
+    public void setRotation(double value) {
         armHeight = value;
     }
 
@@ -82,8 +83,8 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        armHeight =
-                MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
+        armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, 100);
+        // MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
         armHeight += pct;
     }
 
@@ -94,6 +95,7 @@ public class ArmSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+        SmartDashboard.putNumber("Arm encoder readout", mRightArmEncoder.getPosition());
     }
 
     public void stop() {

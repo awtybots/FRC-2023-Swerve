@@ -3,6 +3,7 @@ package frc.robot.subsystems.MechanicalParts;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,14 +29,14 @@ public class IntakeSubsystem extends SubsystemBase {
     public void intake(double pct, boolean keep) {
         kKeep = keep;
         if (keep) {
-            kIntakePct = pct;
+            kIntakePct = pct * Constants.ClawConstants.kMaxPercentOutput;
         } else {
             mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
         }
     }
 
     public double getOutputCurrent() {
-        return mIntakeMotor.getMotorOutputVoltage();
+        return mIntakeMotor.getSupplyCurrent();
     }
 
     public void stopIntake() {
@@ -44,6 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Claw Current", getOutputCurrent());
         if (kKeep) {
             mIntakeMotor.set(kIntakePct);
         }

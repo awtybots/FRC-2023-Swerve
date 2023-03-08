@@ -18,12 +18,14 @@ public class Intake extends CommandBase {
 
     @Override
     public void execute() {
-        s_Intake.intake(isCone ? 1 : -1, true);
+        s_Intake.intake(isCone ? -1 : 1, true);
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        s_Intake.intake(0, false);
+    }
 
     // Called when the command is initially scheduled.
     @Override
@@ -32,6 +34,6 @@ public class Intake extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return s_Intake.getOutputCurrent() > 10;
+        return s_Intake.getOutputCurrent() > 15;
     }
 }

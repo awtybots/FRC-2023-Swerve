@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -121,6 +122,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber(
+                "Elevator encoder readout", mRightElevatorMotor.getSelectedSensorPosition());
+
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
 
         if (elevatorTargetHeight - motors[1].getSelectedSensorPosition() < 3000
@@ -135,6 +139,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         mRightElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI);
         mRightElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD);
         mRightElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF);
+
         // }
 
     }

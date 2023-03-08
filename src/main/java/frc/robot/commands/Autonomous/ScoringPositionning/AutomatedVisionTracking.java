@@ -45,7 +45,7 @@ public class AutomatedVisionTracking extends CommandBase {
         addRequirements(s_Swerve);
         this.s_Swerve = s_Swerve;
         this.s_Limelight = s_Limelight;
-        
+
         this.aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
         this.aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
         this.reflectiveBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
@@ -83,12 +83,13 @@ public class AutomatedVisionTracking extends CommandBase {
         // Sets pipeline to number 2 (one reflective tape) if there is no target
         if (!s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
             s_Limelight.setPipeline(2);
-        // Strafe until Alpha is right
+            // Strafe until Alpha is right
         } else if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
             reflectiveBeta = Math.toRadians(s_Limelight.getSkew());
             if (Math.abs(Math.toDegrees(reflectiveBeta) - ReflectiveOffset) > reflectiveThreshold) {
-                translation = new Translation2d(0, -getSign(reflectiveBeta - Math.toRadians(45)) *
-        driveSpeed);}
+                translation =
+                        new Translation2d(0, -getSign(reflectiveBeta - Math.toRadians(45)) * driveSpeed);
+            }
         }
         // Rotate until beta is right
         if (Math.abs(Math.toDegrees(reflectiveBeta) - offset) > reflectiveThreshold) {
@@ -120,8 +121,8 @@ public class AutomatedVisionTracking extends CommandBase {
     public boolean isFinished() {
         if (s_Limelight.getPipeline() == 0) {
             return !s_Limelight.hasTarget()
-            || Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold
-                    && Math.abs(Math.toDegrees(aprilAlpha)) < driveThreshold;
+                    || Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold
+                            && Math.abs(Math.toDegrees(aprilAlpha)) < driveThreshold;
         } else if (s_Limelight.getPipeline() == 1) {
             return (Math.abs(Math.toDegrees(aprilBeta) - offset) < reflectiveThreshold
                     && Math.abs(Math.toDegrees(aprilAlpha) - ReflectiveOffset) < reflectiveThreshold);

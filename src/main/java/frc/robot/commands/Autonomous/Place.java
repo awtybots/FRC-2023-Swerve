@@ -30,8 +30,8 @@ public class Place extends SequentialCommandGroup {
         addCommands(
                 // new PlaceSetup(s_Swerve, s_Limelight, isCone),
                 nodeId == 0
-                        ? new MidNodePosition(s_Elevator, s_Arm, s_Claw)
-                        : new HighNodePosition(s_Elevator, s_Arm, s_Claw),
+                        ? new MidNodePosition(s_Elevator, s_Arm, s_Claw, s_Limelight)
+                        : new HighNodePosition(s_Elevator, s_Arm, s_Claw, s_Limelight),
                 new InstantCommand(() -> s_Intake.intake(isCone ? 1 : 0, true)),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }

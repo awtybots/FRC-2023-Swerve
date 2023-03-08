@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
+import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.DriveParts.*;
@@ -144,7 +145,7 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setPipeline(0);
-                            System.out.println(Limelight.getPipeline());
+                            System.out.println(Limelight.getPipeline() == 1);
                         }));
 
         // Reflective Tape Mode
@@ -152,7 +153,7 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setPipeline(1);
-                            System.out.println(Limelight.getPipeline());
+                            System.out.println(Limelight.getPipeline() == 1);
                         }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
@@ -163,11 +164,12 @@ public class RobotContainer {
 
         operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
         driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
+        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
 
-        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
+        // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw, Limelight));
+        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw, Limelight));
     }
 
     /**
