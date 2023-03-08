@@ -34,6 +34,10 @@ public class Intake extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return s_Intake.getOutputCurrent() > 15;
+        if(isCone){
+            return s_Intake.getOutputCurrent() > 25;
+        } else {
+            return s_Intake.getOutputCurrent() > 15;
+        }
     }
 }

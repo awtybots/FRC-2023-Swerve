@@ -96,9 +96,9 @@ public final class Constants {
                     public static final double ClawPosition = -15.45;
                 }
                 public static final class IntakeFromHumanPlayerPosition {
-                    public static final int ElevatorPosition = 211000;
-                    public static final double ArmPosition = 36.4;
-                    public static final double ClawPosition = -15.3;
+                    public static final int ElevatorPosition = 116700;
+                    public static final double ArmPosition = 36.6;
+                    public static final double ClawPosition = 2.26;
                 }
             }
 
@@ -110,7 +110,7 @@ public final class Constants {
         public static final int kRightElevatorMotorId = 21;
         public static final int kElevatorEncoderId = 22;
 
-        public static final double kMaxPercentOutput = 0.5;
+        public static final double kMaxPercentOutput = 0.6;
         public static final double kRamp = 0.3;
         public static final double kWinchDiameter = 1.0;
         // 9:1
