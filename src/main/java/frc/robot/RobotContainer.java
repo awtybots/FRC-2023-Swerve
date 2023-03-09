@@ -98,6 +98,8 @@ public class RobotContainer {
         autonManager.displayChoices();
         // Configure the button bindings
         configureButtonBindings();
+        s_Led_Left.turnOn(0, 255, 0);
+        s_Led_Right.turnOn(0, 255, 0);
     }
 
     /**
@@ -174,8 +176,8 @@ public class RobotContainer {
                             Limelight.setPipeline(0);
                             setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led_Left.turnOn(1, 0, 1);
-                            s_Led_Right.turnOn(1, 0, 1);
+                            s_Led_Left.turnOn(255, 0, 255);
+                            s_Led_Right.turnOn(255, 0, 255);
                         }));
 
         // Reflective Tape Mode
