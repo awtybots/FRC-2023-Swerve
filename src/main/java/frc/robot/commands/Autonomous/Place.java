@@ -1,5 +1,7 @@
 package frc.robot.commands.Autonomous;
 
+import java.time.Instant;
+
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
@@ -29,10 +31,11 @@ public class Place extends SequentialCommandGroup {
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 // new PlaceSetup(s_Swerve, s_Limelight, isCone),
+                new InstantCommand(() -> s_Limelight.setPipeline(1)),
                 nodeId == 0
                         ? new MidNodePosition(s_Elevator, s_Arm, s_Claw, s_Limelight)
                         : new HighNodePosition(s_Elevator, s_Arm, s_Claw, s_Limelight),
-                new runIntake(s_Intake).withTimeout(1),
+                new runIntake(s_Intake, s_Limelight).withTimeout(1),
                 new InstantCommand(() -> s_Intake.intake(0, false)),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }

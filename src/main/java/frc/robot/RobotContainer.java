@@ -104,7 +104,7 @@ public class RobotContainer {
         eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
 
         eventMap.put("Balance", new Balance(s_Swerve));
-        eventMap.put("runIntake", new runIntake(s_Intake));
+        eventMap.put("runIntake", new runIntake(s_Intake, Limelight));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
     // from Right wall (y: 0.76).

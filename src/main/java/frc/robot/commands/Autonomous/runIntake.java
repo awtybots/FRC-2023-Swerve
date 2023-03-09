@@ -12,13 +12,15 @@ import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 public class runIntake extends CommandBase{
     
     private final IntakeSubsystem s_intake;
+    private final LimelightSubsystem Limelight;
 
     public runIntake(
 
-            IntakeSubsystem IntakeSubsystem) {
+            IntakeSubsystem IntakeSubsystem,
+            LimelightSubsystem s_LimelightSubsystem) {
         addRequirements(IntakeSubsystem);
-
         this.s_intake = IntakeSubsystem;
+        this.Limelight = s_LimelightSubsystem;
 
     }
 
@@ -27,7 +29,8 @@ public class runIntake extends CommandBase{
     }
     @Override
     public void execute() {
-        s_intake.intake(-1, true);
+        boolean isCone = Limelight.getPipeline() != 0;
+        s_intake.intake(isCone ? 1.5 : -1.5, true);
         }
 
     @Override
