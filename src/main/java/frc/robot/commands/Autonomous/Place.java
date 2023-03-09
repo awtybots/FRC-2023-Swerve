@@ -31,7 +31,6 @@ public class Place extends SequentialCommandGroup {
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 // new PlaceSetup(s_Swerve, s_Limelight, isCone),
-                new InstantCommand(() -> s_Limelight.setPipeline(1)),
                 nodeId == 0
                         ? new MidNodePosition(s_Elevator, s_Arm, s_Claw, s_Limelight)
                         : new HighNodePosition(s_Elevator, s_Arm, s_Claw, s_Limelight),

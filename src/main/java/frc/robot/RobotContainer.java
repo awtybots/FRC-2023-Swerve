@@ -29,6 +29,7 @@ import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -60,6 +61,8 @@ public class RobotContainer {
 
     private final HashMap<String, Command> eventMap = new HashMap<>();
 
+    private final String[] autonChoices = new String[]{"LeftPlaceBalance", "LeftPlacePickup", "LeftPlacePickupBalance", "LeftPlacePickupPlace", "LeftPlacePickupPlaceBalance", "MiddlePlaceBalance", "RightPlaceBalance", "RightPlacePickup", "RightPlacePickupBalance", "RightPlacePickupPlace", "RightPlacePickupPlaceBalance"};
+
     public final SwerveAutoBuilder autoBuilder =
             new SwerveAutoBuilder(
                     // Pose2d supplier
@@ -82,10 +85,9 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-        eventAssignemnt();
+        eventAssignment();
         addAutonomousChoices();
         autonManager.displayChoices();
-
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -94,7 +96,7 @@ public class RobotContainer {
      * Use this method to define the command or command groups to be run at each event marker key. New
      * event markers can be created in PathPlanner.
      */
-    private void eventAssignemnt() {
+    private void eventAssignment() {
         // ! eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         // ! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put(
@@ -111,15 +113,17 @@ public class RobotContainer {
     // The
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
-        autonManager.addDefaultOption(
-                "PathPlanner Test",
+        autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
+        for(var i = 0; i < autonChoices.length; i++){
+            autonManager.addOption(
+                autonChoices[i],
                 autoBuilder.fullAuto(
                         PathPlanner.loadPathGroup(
-                                "MiddlePlaceBalance",
+                            autonChoices[i],
                                 new PathConstraints(
                                         Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                                         Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
-        autonManager.addOption("Do Nothing.", new InstantCommand());
+        }
         // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 

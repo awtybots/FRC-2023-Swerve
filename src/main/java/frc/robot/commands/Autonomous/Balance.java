@@ -45,7 +45,6 @@ public class Balance extends CommandBase {
         //     decrease = 1;
         //     // return;
         // }
-        System.out.println("\n");
 
         currentAngle = s_Swerve.getRoll();
 
@@ -57,7 +56,6 @@ public class Balance extends CommandBase {
         if (drivePower < 0) {
             drivePower *= Constants.Balance.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
         }
-        System.out.println("PreDrive: " + drivePower);
 
         // Limit the max power
         if (Math.abs(drivePower) > 0.6) {
@@ -66,11 +64,6 @@ public class Balance extends CommandBase {
 
         translation = new Translation2d((drivePower / decrease), 0);
         s_Swerve.drive(translation, rotation, false);
-
-        // Debugging Print Statments
-        System.out.println("Current Angle: " + currentAngle);
-        System.out.println("Error " + error);
-        System.out.println("Drive Power: " + drivePower);
     }
 
     // Called once the command ends or is interrupted.
