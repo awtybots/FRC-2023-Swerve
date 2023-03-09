@@ -20,6 +20,8 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
     public static final class CustomConstants {
+        public static final boolean isCone = false;
+
         public static final double rampRate = 2;
         public static final double stickDeadband = 0.1;
 

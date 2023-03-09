@@ -2,6 +2,7 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
@@ -21,7 +22,7 @@ public class Pickup extends SequentialCommandGroup {
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw),
-                new Intake(s_Intake, s_Limelight.getPipeline() != 0),
+                new Intake(s_Intake, RobotContainer.getIsCone()),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }
 }

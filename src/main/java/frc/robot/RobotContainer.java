@@ -33,9 +33,7 @@ import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
 
-import java.time.Instant;
 import java.util.HashMap;
-import java.util.List;
 
 
 /**
@@ -61,7 +59,7 @@ public class RobotContainer {
     private final IntakeSubsystem s_Intake = new IntakeSubsystem();
     private final PistonSubsystem s_Piston = new PistonSubsystem();
 
-    private static Boolean isCone = false;
+    private static Boolean isCone = Constants.CustomConstants.isCone;
 
     // The controllers
     private final Controller driverController = new Controller(0);

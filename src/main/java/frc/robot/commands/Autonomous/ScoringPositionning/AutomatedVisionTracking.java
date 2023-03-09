@@ -67,10 +67,10 @@ public class AutomatedVisionTracking extends CommandBase {
         aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
         aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
         // Rotate until beta is right
+        // Strafe until Alpha is right
         if (Math.abs(Math.toDegrees(aprilBeta) - offset) > rotateThreshold) {
             rotation = -getSign(aprilBeta) * rotateSpeed;
         }
-        // Strafe until Alpha is right
         if (Math.abs(Math.toDegrees(aprilAlpha)) > driveThreshold
                 && Constants.CustomConstants.VisionTrackingStrafe) {
             translation = new Translation2d(0, getSign(aprilAlpha) * driveSpeed);
