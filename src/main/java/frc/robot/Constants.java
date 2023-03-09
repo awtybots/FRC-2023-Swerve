@@ -29,7 +29,8 @@ public final class Constants {
 
         public static final boolean fieldRelative = true;
 
-        public static final int LEDPort = 9;
+        public static final int LeftLEDPort = 9;
+        public static final int RightLEDPort = 8;
 
         public static final boolean VisionTrackingStrafe = true;
     }

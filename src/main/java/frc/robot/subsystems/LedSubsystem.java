@@ -11,13 +11,20 @@ public class LedSubsystem extends SubsystemBase {
     AddressableLEDBuffer m_ledBuffer;
     int length;
 
-    public LedSubsystem(int length) {
+    public LedSubsystem(int LEDPort, int length) {
         this.length = length;
-        m_led = new AddressableLED(Constants.CustomConstants.LEDPort);
+        m_led = new AddressableLED(LEDPort);
         m_ledBuffer = new AddressableLEDBuffer(length);
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);
         m_led.start();
+    }
+
+    public void turnOn(int r, int g, int b) {
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+            m_ledBuffer.setRGB(i, r, g, b);
+        }
+        m_led.setData(m_ledBuffer);
     }
 
     /** Method to turn on a certain percentage of the lights of a LED strip to a certain color. */

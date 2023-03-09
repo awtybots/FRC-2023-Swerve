@@ -26,7 +26,7 @@ import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
-// TODO: LED | import frc.robot.subsystems.LedSubsystem;
+import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -49,7 +49,8 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    // TODO: LED | private final LedSubsystem s_Led = new LedSubsystem(120);
+    private final LedSubsystem s_Led_Left = new LedSubsystem(Constants.CustomConstants.LeftLEDPort, 50);
+    private final LedSubsystem s_Led_Right = new LedSubsystem(Constants.CustomConstants.RightLEDPort, 50);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
@@ -173,6 +174,8 @@ public class RobotContainer {
                             Limelight.setPipeline(0);
                             setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
+                            s_Led_Left.turnOn(1, 0, 1);
+                            s_Led_Right.turnOn(1, 0, 1);
                         }));
 
         // Reflective Tape Mode
@@ -182,6 +185,8 @@ public class RobotContainer {
                             Limelight.setPipeline(1);
                             setIsCone(true);
                             System.out.println(Limelight.getPipeline() == 1);
+                            s_Led_Left.turnOn(255, 255, 0);
+                            s_Led_Right.turnOn(255, 255, 0);
                         }));
 
 
