@@ -2,9 +2,9 @@ package frc.robot.commands.Autonomous.ScoringPositionning;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
-import frc.robot.Constants;
 
 public class AutomatedVisionTracking extends CommandBase {
 
@@ -72,7 +72,8 @@ public class AutomatedVisionTracking extends CommandBase {
             rotation = -getSign(aprilBeta) * rotateSpeed;
         }
         // Strafe until Alpha is right
-        if (Math.abs(Math.toDegrees(aprilAlpha)) > driveThreshold && Constants.CustomConstants.VisionTrackingStrafe) {
+        if (Math.abs(Math.toDegrees(aprilAlpha)) > driveThreshold
+                && Constants.CustomConstants.VisionTrackingStrafe) {
             translation = new Translation2d(0, getSign(aprilAlpha) * driveSpeed);
         }
         s_Swerve.drive(translation, rotation, fieldRelative);
@@ -87,7 +88,8 @@ public class AutomatedVisionTracking extends CommandBase {
             // Strafe until Alpha is right
         } else if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
             reflectiveBeta = Math.toRadians(s_Limelight.getSkew());
-            if (Math.abs(Math.toDegrees(reflectiveBeta) - ReflectiveOffset) > reflectiveThreshold && Constants.CustomConstants.VisionTrackingStrafe) {
+            if (Math.abs(Math.toDegrees(reflectiveBeta) - ReflectiveOffset) > reflectiveThreshold
+                    && Constants.CustomConstants.VisionTrackingStrafe) {
                 translation =
                         new Translation2d(0, -getSign(reflectiveBeta - Math.toRadians(45)) * driveSpeed);
             }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Place;
+import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -28,6 +29,7 @@ import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
 import java.util.HashMap;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -98,7 +100,11 @@ public class RobotContainer {
         eventMap.put(
                 "Place",
                 new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, s_Piston, 1, true));
+        eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
+
         eventMap.put("Balance", new Balance(s_Swerve));
+        eventMap.put("runIntake", new runIntake(s_Intake));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
     // from Right wall (y: 0.76).
