@@ -111,9 +111,9 @@ public final class Constants {
     }
 
     public static final class ElevatorConstants {
-        public static final int kLeftElevatorMotorId = 20;
-        public static final int kRightElevatorMotorId = 21;
-        public static final int kElevatorEncoderId = 22;
+        public static final int kLeftElevatorMotorId = 20; //!
+        public static final int kRightElevatorMotorId = 21; //!
+        public static final int kElevatorEncoderId = 22; //!
 
         public static final double kMaxPercentOutput = 0.6;
         public static final double kRamp = 0.3;
@@ -159,7 +159,7 @@ public final class Constants {
 
     public static final class ClawConstants {
         public static final int kPivotMotorId = 6;
-        public static final int kIntakeMotorId = 15;
+        public static final int kIntakeMotorId = 15; //!
 
         public static final double kMaxPercentOutput = 0.5;
 
@@ -223,8 +223,8 @@ public final class Constants {
 
         public static final int kFrontLeftTurningCanId = 11;
         public static final int kRearLeftTurningCanId = 9;
-        public static final int kFrontRightTurningCanId = 3;
-        public static final int kRearRightTurningCanId = 5;
+        public static final int kFrontRightTurningCanId = 3; 
+        public static final int kRearRightTurningCanId = 5; 
 
         public static final boolean kGyroReversed = true;
 

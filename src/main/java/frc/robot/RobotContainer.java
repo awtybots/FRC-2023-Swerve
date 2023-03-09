@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Place;
+import frc.robot.commands.Autonomous.VisionTracking;
 import frc.robot.commands.Autonomous.runIntake;
-import frc.robot.commands.Autonomous.ScoringPositionning.PlaceSetup;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
@@ -164,7 +164,7 @@ public class RobotContainer {
         driverController.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
         driverController.buttonB.onTrue(new Balance(s_Swerve));
-        driverController.buttonX.onTrue(new PlaceSetup(s_Swerve, Limelight));
+        driverController.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(
