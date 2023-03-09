@@ -1,5 +1,6 @@
 package frc.robot.commands.Positions.Nodes.HighNodePosition;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.LimelightSubsystem;

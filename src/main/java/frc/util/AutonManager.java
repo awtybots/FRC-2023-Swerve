@@ -1,10 +1,15 @@
 package frc.util;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.LimelightSubsystem;
+
+import java.nio.channels.Pipe;
 import java.util.HashMap;
 
 public class AutonManager {
@@ -15,7 +20,7 @@ public class AutonManager {
 
     private final String autonSelectorKey = "AutonChooser";
 
-    public AutonManager() {
+    public AutonManager(LimelightSubsystem s_Limelight) {
         autonSequences = new HashMap<String, Command>();
         dashboardSelector = new SendableChooser<String>();
         defaultCommand = null;

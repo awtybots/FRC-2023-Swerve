@@ -8,7 +8,11 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -41,7 +45,7 @@ import java.util.List;
 public class RobotContainer {
 
     // Autonomous manager import
-    private final AutonManager autonManager = new AutonManager();
+    private final AutonManager autonManager;
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
@@ -85,6 +89,7 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        autonManager = new AutonManager(Limelight);
         eventAssignment();
         addAutonomousChoices();
         autonManager.displayChoices();
@@ -189,6 +194,17 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        SendableChooser isConeChooser = new SendableChooser();
+        isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
+        isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
+        SmartDashboard.putData("PipelineChooser", isConeChooser);
+        final String isConeDashboardSelection =
+                NetworkTableInstance.getDefault()
+                        .getTable("SmartDashboard")
+                        .getSubTable("PipelineChooser")
+                        .getEntry("active")
+                        .getString("Cube");
+        Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
         return autonManager.getSelected();
     }
 }

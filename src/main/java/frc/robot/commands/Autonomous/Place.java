@@ -28,7 +28,6 @@ public class Place extends SequentialCommandGroup {
             int nodeId,
             boolean isCone) {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_Arm, s_Elevator, s_Intake);
-        // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 // new PlaceSetup(s_Swerve, s_Limelight, isCone),
                 nodeId == 0
