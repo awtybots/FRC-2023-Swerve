@@ -32,6 +32,8 @@ import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
+
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +60,8 @@ public class RobotContainer {
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem();
     private final PistonSubsystem s_Piston = new PistonSubsystem();
+
+    private static Boolean isCone = false;
 
     // The controllers
     private final Controller driverController = new Controller(0);
@@ -108,7 +112,7 @@ public class RobotContainer {
                 "Place",
                 new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, s_Piston, 1, true));
         eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
+        eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
         eventMap.put("Balance", new Balance(s_Swerve));
         eventMap.put("runIntake", new runIntake(s_Intake, Limelight));
@@ -138,6 +142,16 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
      * {@link JoystickButton}.
      */
+
+    public void setIsCone(boolean value) {
+        isCone = value;
+    }
+
+    public static boolean getIsCone() {
+        return isCone;
+    }
+
+
     private void configureButtonBindings() {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
@@ -159,6 +173,7 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setPipeline(0);
+                            setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
                         }));
 
@@ -167,8 +182,10 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setPipeline(1);
+                            setIsCone(true);
                             System.out.println(Limelight.getPipeline() == 1);
                         }));
+
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
@@ -178,14 +195,14 @@ public class RobotContainer {
 
         operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
         driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
-        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw, Limelight));
+        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(
-                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw, Limelight));
+                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadUp.onTrue(
-                new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw, Limelight));
+                new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
     }
 
     /**
@@ -194,7 +211,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        SendableChooser isConeChooser = new SendableChooser();
+        SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
         isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
         isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
         SmartDashboard.putData("PipelineChooser", isConeChooser);
@@ -205,6 +222,7 @@ public class RobotContainer {
                         .getEntry("active")
                         .getString("Cube");
         Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
+        setIsCone(isConeDashboardSelection == "Cone");
         return autonManager.getSelected();
     }
 }

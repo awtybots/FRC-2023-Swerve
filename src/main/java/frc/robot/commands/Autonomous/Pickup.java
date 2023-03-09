@@ -20,7 +20,7 @@ public class Pickup extends SequentialCommandGroup {
         // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
-                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw, s_Limelight),
+                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw),
                 new Intake(s_Intake, s_Limelight.getPipeline() != 0),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }
