@@ -1,5 +1,5 @@
 //posibly the worst LED subsystem known to man, i don't garrentee anything works here :[
-//credit to ChatGPT for telling me to use Thread.sleep for a .5 second delay
+//credit to ChatGPT for telling me to use wplibtimestamp for a .5 second delay
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
