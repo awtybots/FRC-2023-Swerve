@@ -49,8 +49,8 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    private final LedSubsystem s_Led_Left = new LedSubsystem(Constants.CustomConstants.LeftLEDPort, 50);
-    private final LedSubsystem s_Led_Right = new LedSubsystem(Constants.CustomConstants.RightLEDPort, 50);
+    // private final LedSubsystem s_Led_Left = new LedSubsystem(Constants.CustomConstants.LeftLEDPort, 50);
+    // private final LedSubsystem s_Led_Right = new LedSubsystem(Constants.CustomConstants.RightLEDPort, 50);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
@@ -58,7 +58,6 @@ public class RobotContainer {
     private final ArmSubsystem s_Arm = new ArmSubsystem(s_Elevator);
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem();
-    private final PistonSubsystem s_Piston = new PistonSubsystem();
 
     private static Boolean isCone = Constants.CustomConstants.isCone;
 
@@ -98,8 +97,8 @@ public class RobotContainer {
         autonManager.displayChoices();
         // Configure the button bindings
         configureButtonBindings();
-        s_Led_Left.turnOn(0, 255, 0);
-        s_Led_Right.turnOn(0, 255, 0);
+        // s_Led_Left.turnOn(0, 255, 0);
+        // s_Led_Right.turnOn(0, 255, 0);
     }
 
     /**
@@ -111,7 +110,7 @@ public class RobotContainer {
         // ! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put(
                 "Place",
-                new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, s_Piston, 1, true));
+                new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, true));
         eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
@@ -176,8 +175,8 @@ public class RobotContainer {
                             Limelight.setPipeline(0);
                             setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led_Left.turnOn(255, 0, 255);
-                            s_Led_Right.turnOn(255, 0, 255);
+                            // s_Led_Left.turnOn(255, 0, 255);
+                            // s_Led_Right.turnOn(255, 0, 255);
                         }));
 
         // Reflective Tape Mode
@@ -187,8 +186,8 @@ public class RobotContainer {
                             Limelight.setPipeline(1);
                             setIsCone(true);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led_Left.turnOn(255, 255, 0);
-                            s_Led_Right.turnOn(255, 255, 0);
+                            // s_Led_Left.turnOn(255, 255, 0);
+                            // s_Led_Right.turnOn(255, 255, 0);
                         }));
 
 
@@ -196,7 +195,6 @@ public class RobotContainer {
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
         s_Claw.setDefaultCommand(new DriveClaw(operatorController, s_Claw));
         s_Intake.setDefaultCommand(new setIntake(operatorController, s_Intake));
-        s_Piston.setDefaultCommand(new ToggleIntakeMode(operatorController, s_Piston));
 
         operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
         driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));

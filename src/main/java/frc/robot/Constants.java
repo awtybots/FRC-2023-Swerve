@@ -29,8 +29,8 @@ public final class Constants {
 
         public static final boolean fieldRelative = true;
 
-        public static final int LeftLEDPort = 9;
-        public static final int RightLEDPort = 8;
+        public static final int LeftLEDPort = 0;
+        public static final int RightLEDPort = 1;
 
         public static final boolean VisionTrackingStrafe = true;
     }
@@ -211,10 +211,10 @@ public final class Constants {
         // public static final double kBackLeftChassisAngularOffset = Math.PI;
         // public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
-        public static final double kFrontLeftChassisAngularOffset = 0;
+        public static final double kFrontLeftChassisAngularOffset = Math.PI;
         public static final double kFrontRightChassisAngularOffset = 0;
         public static final double kBackLeftChassisAngularOffset = Math.PI;
-        public static final double kBackRightChassisAngularOffset = Math.PI;
+        public static final double kBackRightChassisAngularOffset = 0;
 
         // SPARK MAX CAN IDs
         public static final int kFrontLeftDrivingCanId = 10;

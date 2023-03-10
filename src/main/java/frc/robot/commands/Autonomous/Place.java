@@ -12,7 +12,6 @@ import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
-import frc.robot.subsystems.MechanicalParts.PistonSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 
 public class Place extends SequentialCommandGroup {
@@ -24,7 +23,6 @@ public class Place extends SequentialCommandGroup {
             ArmSubsystem s_Arm,
             ElevatorSubsystem s_Elevator,
             IntakeSubsystem s_Intake,
-            PistonSubsystem s_Piston,
             int nodeId,
             boolean isCone) {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_Arm, s_Elevator, s_Intake);
