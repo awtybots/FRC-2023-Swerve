@@ -11,9 +11,7 @@ public class FirstPosition extends CommandBase {
     private final ArmSubsystem s_arm;
     private final ElevatorSubsystem s_elevator;
 
-    public FirstPosition(
-            ArmSubsystem s_armSubsystem,
-            ElevatorSubsystem s_elevatorSubsystem) {
+    public FirstPosition(ArmSubsystem s_armSubsystem, ElevatorSubsystem s_elevatorSubsystem) {
         addRequirements(s_armSubsystem, s_elevatorSubsystem);
         this.s_arm = s_armSubsystem;
         this.s_elevator = s_elevatorSubsystem;

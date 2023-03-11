@@ -3,7 +3,6 @@ package frc.robot.commands.Positions.Nodes.HighNodePosition;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
@@ -14,10 +13,7 @@ public class SecondPosition extends CommandBase {
     private final ArmSubsystem s_arm;
     private final ClawSubsystem s_claw;
 
-    public SecondPosition(
-            ElevatorSubsystem s_Elevator,
-            ArmSubsystem s_Arm,
-            ClawSubsystem s_Claw) {
+    public SecondPosition(ElevatorSubsystem s_Elevator, ArmSubsystem s_Arm, ClawSubsystem s_Claw) {
         addRequirements(s_Elevator, s_Arm, s_Claw);
         this.s_elevator = s_Elevator;
         this.s_arm = s_Arm;

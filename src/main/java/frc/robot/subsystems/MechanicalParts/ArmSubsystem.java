@@ -66,21 +66,23 @@ public class ArmSubsystem extends SubsystemBase {
         return talon * (Math.PI / 2) / 45;
     }
 
-    public double getMaximumRotation() {
-        double value =
-                (Math.PI
-                                - Math.acos(
-                                        (sElevator.getDistance() - Constants.ElevatorConstants.ElevatorOffset)
-                                                / Constants.ArmConstants.armLength)
-                                + Math.toRadians(Constants.ArmConstants.startingAngle))
-                        * (90 / Math.PI);
-        if (Double.isNaN(value)) {
-            value =
-                    Constants.ArmConstants.maximumHeight
-                            + Math.toRadians(Constants.ArmConstants.startingAngle) * (90 / Math.PI);
-        }
-        return value;
-    }
+    // public double getMaximumRotation() {
+    //     double value =
+    //             (Math.PI
+    //                             - Math.acos(
+    //                                     (sElevator.getDistance() -
+    // Constants.ElevatorConstants.ElevatorOffset)
+    //                                             / Constants.ArmConstants.armLength)
+    //                             + Math.toRadians(Constants.ArmConstants.startingAngle))
+    //                     * (90 / Math.PI);
+    //     if (Double.isNaN(value)) {
+    //         value =
+    //                 Constants.ArmConstants.maximumHeight
+    //                         + Math.toRadians(Constants.ArmConstants.startingAngle) * (90 /
+    // Math.PI);
+    //     }
+    //     return value;
+    // }
 
     public void drive(double pct) {
         armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, 100);

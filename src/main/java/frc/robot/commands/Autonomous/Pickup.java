@@ -1,8 +1,8 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;

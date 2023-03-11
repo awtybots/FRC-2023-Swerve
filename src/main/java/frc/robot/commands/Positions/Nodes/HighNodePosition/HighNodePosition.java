@@ -7,14 +7,9 @@ import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 
 public class HighNodePosition extends SequentialCommandGroup {
 
-
-    public HighNodePosition(
-            ElevatorSubsystem s_Elevator,
-            ArmSubsystem s_Arm,
-            ClawSubsystem s_Claw) {
+    public HighNodePosition(ElevatorSubsystem s_Elevator, ArmSubsystem s_Arm, ClawSubsystem s_Claw) {
         addRequirements(s_Elevator, s_Arm, s_Claw);
         addCommands(
-                new FirstPosition(s_Arm, s_Elevator),
-                new SecondPosition(s_Elevator, s_Arm, s_Claw));
+                new FirstPosition(s_Arm, s_Elevator), new SecondPosition(s_Elevator, s_Arm, s_Claw));
     }
 }

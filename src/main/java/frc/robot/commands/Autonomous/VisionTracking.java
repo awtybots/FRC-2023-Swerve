@@ -51,7 +51,6 @@ public class VisionTracking extends CommandBase {
 
     @Override
     public boolean isFinished() {
-            return !s_Limelight.hasTarget()
-                    || Math.abs(Math.toDegrees(Beta) - offset) < rotateThreshold; 
-        }
+        return !s_Limelight.hasTarget() || Math.abs(Math.toDegrees(Beta) - offset) < rotateThreshold;
     }
+}

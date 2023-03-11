@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,41 +21,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final WPI_TalonFX mRightElevatorMotor;
     public final WPI_TalonFX[] motors;
 
-    private final WPI_TalonSRX elevatorEncoder;
-
     public double elevatorTargetHeight = Constants.ElevatorConstants.initialHeight;
 
     public ElevatorSubsystem() {
         kMaxPercentOutput = Constants.ElevatorConstants.kMaxPercentOutput;
         kRamp = Constants.ElevatorConstants.kRamp;
 
-        elevatorEncoder = new WPI_TalonSRX(Constants.ElevatorConstants.kElevatorEncoderId);
-        configElevatorEncoder();
-
         mLeftElevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.kLeftElevatorMotorId);
         mRightElevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.kRightElevatorMotorId);
         motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
         configMotors();
-    }
-
-    private void resetToAbsolute() {
-        // double absolutePosition = TalonConversions.degreesToFalcon(getCanCoder().getDegrees(),
-        // Constants.ElevatorConstants.kGearRatio);
-        double absolutePosition = (getCanCoder());
-        // mLeftElevatorMotor.setSelectedSensorPosition(absolutePosition);
-        mRightElevatorMotor.setSelectedSensorPosition(absolutePosition);
-    }
-
-    public double getCanCoder() {
-        return (elevatorEncoder.getSelectedSensorPosition() - 750)
-                * 5; // ? Why is there a <<* 5>> ?!? explain!
-    }
-
-    private void configElevatorEncoder() {
-        elevatorEncoder.configFactoryDefault();
-        elevatorEncoder.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-
-        // elevatorEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
     }
 
     private void configMotors() {
@@ -66,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         // for (WPI_TalonFX motor : motors) {
         mRightElevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-        // mRightElevatorMotor.setSelectedSensorPosition(0.0);
+        mRightElevatorMotor.setSelectedSensorPosition(4000);
 
         mLeftElevatorMotor.setNeutralMode(NeutralMode.Brake);
         mRightElevatorMotor.setNeutralMode(NeutralMode.Brake);
@@ -78,13 +52,12 @@ public class ElevatorSubsystem extends SubsystemBase {
         mRightElevatorMotor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
         // }
 
-        resetToAbsolute();
         mLeftElevatorMotor.follow(mRightElevatorMotor);
     }
 
-    public double getDistance() {
-        return convertTalonToMeters(getCanCoder());
-    }
+    // public double getDistance() {
+    //     return convertTalonToMeters(getCanCoder());
+    // }
 
     public double convertTalonToMeters(double talon) {
         return talon * 1.1 / 198000;
@@ -100,13 +73,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void setHeight(double value) {
-        resetToAbsolute();
         elevatorTargetHeight = value;
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
     }
 
     public void drive(double pct) {
-        resetToAbsolute();
         elevatorTargetHeight += pct * 1000;
         elevatorTargetHeight =
                 MathUtil.clamp(

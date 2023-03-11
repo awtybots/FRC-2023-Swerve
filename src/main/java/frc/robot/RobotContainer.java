@@ -8,7 +8,6 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -32,9 +31,7 @@ import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.AutonManager;
 import frc.util.Controller;
-
 import java.util.HashMap;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -49,8 +46,7 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    // private final LedSubsystem s_Led_Left = new LedSubsystem(Constants.CustomConstants.LeftLEDPort, 50);
-    // private final LedSubsystem s_Led_Right = new LedSubsystem(Constants.CustomConstants.RightLEDPort, 50);
+    private final LedSubsystem s_Led = new LedSubsystem(Constants.CustomConstants.LEDPort, 75);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
@@ -67,7 +63,20 @@ public class RobotContainer {
 
     private final HashMap<String, Command> eventMap = new HashMap<>();
 
-    private final String[] autonChoices = new String[]{"LeftPlaceBalance", "LeftPlacePickup", "LeftPlacePickupBalance", "LeftPlacePickupPlace", "LeftPlacePickupPlaceBalance", "MiddlePlaceBalance", "RightPlaceBalance", "RightPlacePickup", "RightPlacePickupBalance", "RightPlacePickupPlace", "RightPlacePickupPlaceBalance"};
+    private final String[] autonChoices =
+            new String[] {
+                "LeftPlaceBalance",
+                "LeftPlacePickup",
+                "LeftPlacePickupBalance",
+                "LeftPlacePickupPlace",
+                "LeftPlacePickupPlaceBalance",
+                "MiddlePlaceBalance",
+                "RightPlaceBalance",
+                "RightPlacePickup",
+                "RightPlacePickupBalance",
+                "RightPlacePickupPlace",
+                "RightPlacePickupPlaceBalance"
+            };
 
     public final SwerveAutoBuilder autoBuilder =
             new SwerveAutoBuilder(
@@ -97,8 +106,7 @@ public class RobotContainer {
         autonManager.displayChoices();
         // Configure the button bindings
         configureButtonBindings();
-        // s_Led_Left.turnOn(0, 255, 0);
-        // s_Led_Right.turnOn(0, 255, 0);
+        s_Led.turnOn(0, 255, 0);
     }
 
     /**
@@ -109,8 +117,7 @@ public class RobotContainer {
         // ! eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         // ! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put(
-                "Place",
-                new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, true));
+                "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, true));
         eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
@@ -123,15 +130,15 @@ public class RobotContainer {
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
-        for(var i = 0; i < autonChoices.length; i++){
+        for (var i = 0; i < autonChoices.length; i++) {
             autonManager.addOption(
-                autonChoices[i],
-                autoBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                            autonChoices[i],
-                                new PathConstraints(
-                                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+                    autonChoices[i],
+                    autoBuilder.fullAuto(
+                            PathPlanner.loadPathGroup(
+                                    autonChoices[i],
+                                    new PathConstraints(
+                                            Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                                            Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
         }
         // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
@@ -142,7 +149,6 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
      * {@link JoystickButton}.
      */
-
     public void setIsCone(boolean value) {
         isCone = value;
     }
@@ -150,7 +156,6 @@ public class RobotContainer {
     public static boolean getIsCone() {
         return isCone;
     }
-
 
     private void configureButtonBindings() {
         // The left stick controls translation of the robot.
@@ -175,8 +180,7 @@ public class RobotContainer {
                             Limelight.setPipeline(0);
                             setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
-                            // s_Led_Left.turnOn(255, 0, 255);
-                            // s_Led_Right.turnOn(255, 0, 255);
+                            s_Led.turnOn(255, 0, 255);
                         }));
 
         // Reflective Tape Mode
@@ -186,10 +190,8 @@ public class RobotContainer {
                             Limelight.setPipeline(1);
                             setIsCone(true);
                             System.out.println(Limelight.getPipeline() == 1);
-                            // s_Led_Left.turnOn(255, 255, 0);
-                            // s_Led_Right.turnOn(255, 255, 0);
+                            s_Led.turnOn(255, 255, 0);
                         }));
-
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
@@ -202,10 +204,8 @@ public class RobotContainer {
         operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadDown.onTrue(
-                new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadUp.onTrue(
-                new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
     }
 
     /**
