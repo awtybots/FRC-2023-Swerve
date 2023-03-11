@@ -25,10 +25,11 @@ import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
+import frc.robot.subsystems.ledutils;
+import frc.robot.subsystems.ledutils.patterens_eneum;
 import frc.util.AutonManager;
 import frc.util.Controller;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    private final LedSubsystem s_Led = new LedSubsystem(Constants.CustomConstants.LEDPort, 75);
+    private final ledutils s_Led = new ledutils(Constants.CustomConstants.LEDPort, 75);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
@@ -106,7 +107,7 @@ public class RobotContainer {
         autonManager.displayChoices();
         // Configure the button bindings
         configureButtonBindings();
-        s_Led.turnOn(0, 255, 0);
+        s_Led.ivans_patterns(patterens_eneum.awtybots);
     }
 
     /**
@@ -180,7 +181,8 @@ public class RobotContainer {
                             Limelight.setPipeline(0);
                             setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led.turnOn(255, 0, 255);
+                            s_Led.ivans_patterns(patterens_eneum.cube);
+                            ;
                         }));
 
         // Reflective Tape Mode
@@ -190,7 +192,8 @@ public class RobotContainer {
                             Limelight.setPipeline(1);
                             setIsCone(true);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led.turnOn(255, 255, 0);
+                            s_Led.ivans_patterns(patterens_eneum.cone);
+                            ;
                         }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
