@@ -132,7 +132,7 @@ public final class Constants {
         public static final double kP = 0.025; // = 0.025;
         public static final double kI = 0; // = 0.00;
         public static final double kD = 0.015; // 0.015;
-        public static final double kF = 0;
+        public static final double kF = 0.0002;
     }
 
     public static final class ArmConstants {
