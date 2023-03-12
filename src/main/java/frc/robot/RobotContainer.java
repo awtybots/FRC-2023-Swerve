@@ -21,6 +21,7 @@ import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
+import frc.robot.commands.Positions.Intake.IntakeFromSlidingHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
@@ -177,9 +178,8 @@ public class RobotContainer {
         driverController.leftTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            Limelight.setPipeline(0);
+                            Limelight.setMode(1);
                             setIsCone(false);
-                            System.out.println(Limelight.getPipeline() == 1);
                             // s_Led.ivans_patterns(patterens_eneum.cube);
                             ;
                         }));
@@ -188,9 +188,8 @@ public class RobotContainer {
         driverController.rightTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            Limelight.setPipeline(1);
+                            Limelight.setMode(3);
                             setIsCone(true);
-                            System.out.println(Limelight.getPipeline() == 1);
                             // s_Led.ivans_patterns(patterens_eneum.cone);
                             ;
                         }));
@@ -210,6 +209,7 @@ public class RobotContainer {
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadRight.onTrue(new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
     }
 
     /**
@@ -232,5 +232,10 @@ public class RobotContainer {
         // setIsCone(isConeDashboardSelection != "Cube");
         setIsCone(false);
         return autonManager.getSelected();
+    }
+
+    public void idleLimelight() {
+        Limelight.setPipeline(7);
+        Limelight.setMode(0); // pipeline default
     }
 }

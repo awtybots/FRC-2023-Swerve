@@ -29,7 +29,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         mLeftElevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.kLeftElevatorMotorId);
         mRightElevatorMotor = new WPI_TalonFX(Constants.ElevatorConstants.kRightElevatorMotorId);
-        motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
+        //! motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
+        motors = new WPI_TalonFX[] {mRightElevatorMotor, mLeftElevatorMotor}; //!
         configMotors();
     }
 
@@ -39,20 +40,28 @@ public class ElevatorSubsystem extends SubsystemBase {
         mRightElevatorMotor.setInverted(TalonFXInvertType.Clockwise);
 
         // for (WPI_TalonFX motor : motors) {
-        mRightElevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-        mRightElevatorMotor.setSelectedSensorPosition(4000);
+        //! mRightElevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+        //! mRightElevatorMotor.setSelectedSensorPosition(4000);
+        mLeftElevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor); //!
+        mLeftElevatorMotor.setSelectedSensorPosition(4000); //!
 
         mLeftElevatorMotor.setNeutralMode(NeutralMode.Brake);
         mRightElevatorMotor.setNeutralMode(NeutralMode.Brake);
 
-        mRightElevatorMotor.configOpenloopRamp(kRamp);
-        mRightElevatorMotor.configClosedloopRamp(kRamp);
-        mRightElevatorMotor.configPeakOutputForward(kMaxPercentOutput);
-        mRightElevatorMotor.configPeakOutputReverse(-kMaxPercentOutput);
-        mRightElevatorMotor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
-        // }
+        //! mRightElevatorMotor.configOpenloopRamp(kRamp);
+        //! mRightElevatorMotor.configClosedloopRamp(kRamp);
+        //! mRightElevatorMotor.configPeakOutputForward(kMaxPercentOutput);
+        //! mRightElevatorMotor.configPeakOutputReverse(-kMaxPercentOutput);
+        //! mRightElevatorMotor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
+        //! }
+        mLeftElevatorMotor.configOpenloopRamp(kRamp); //!
+        mLeftElevatorMotor.configClosedloopRamp(kRamp); //!
+        mLeftElevatorMotor.configPeakOutputForward(kMaxPercentOutput); //!
+        mLeftElevatorMotor.configPeakOutputReverse(-kMaxPercentOutput); //!
+        mLeftElevatorMotor.configClosedLoopPeakOutput(0, kMaxPercentOutput); //!
 
-        mLeftElevatorMotor.follow(mRightElevatorMotor);
+        //! mLeftElevatorMotor.follow(mRightElevatorMotor);
+        mRightElevatorMotor.follow(mLeftElevatorMotor); //!
     }
 
     // public double getDistance() {
@@ -93,7 +102,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber(
-                "Elevator encoder readout", mRightElevatorMotor.getSelectedSensorPosition());
+                "Elevator Left", mLeftElevatorMotor.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Elevator Right", mRightElevatorMotor.getSelectedSensorPosition());
 
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
 
@@ -105,10 +115,14 @@ public class ElevatorSubsystem extends SubsystemBase {
         // 15067 -> 24873   =  9806
 
         // for (WPI_TalonFX motor : motors){
-        mRightElevatorMotor.config_kP(0, Constants.ElevatorConstants.kP);
-        mRightElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI);
-        mRightElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD);
-        mRightElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF);
+        //! mRightElevatorMotor.config_kP(0, Constants.ElevatorConstants.kP);
+        //! mRightElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI);
+        //! mRightElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD);
+        //! mRightElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF);
+        mLeftElevatorMotor.config_kP(0, Constants.ElevatorConstants.kP); //!
+        mLeftElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI); //!
+        mLeftElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD); //!
+        mLeftElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF); //!
 
         // }
 
