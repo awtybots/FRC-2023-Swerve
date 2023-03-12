@@ -74,7 +74,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void setHeight(double value) {
         elevatorTargetHeight = value;
-        motors[1].set(ControlMode.Position, elevatorTargetHeight);
     }
 
     public void drive(double pct) {
@@ -98,7 +97,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
 
-        if (elevatorTargetHeight - motors[1].getSelectedSensorPosition() < 3000
+        if ((elevatorTargetHeight - motors[1].getSelectedSensorPosition()) < 3000
                 && motors[1].getSelectedSensorPosition() < 6000)
             motors[1].set(ControlMode.PercentOutput, 0);
 

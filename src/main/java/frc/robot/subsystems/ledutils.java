@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ledutils extends SubsystemBase {
 
     AddressableLED m_led;
     AddressableLED m_led_b;
     AddressableLEDBuffer m_ledBuffer;
-    AddressableLEDBuffer m_ledBuffer_b;
     int length;
 
     public enum patterens_eneum {
@@ -27,26 +27,19 @@ public class ledutils extends SubsystemBase {
 
     public ledutils(int LEDPort, int length) {
         this.length = length;
-        m_led = new AddressableLED(LEDPort);
-        m_led_b = new AddressableLED(LEDPort);
+        m_led = new AddressableLED(Constants.CustomConstants.LEDPort);
         m_ledBuffer = new AddressableLEDBuffer(length);
-        m_ledBuffer_b = new AddressableLEDBuffer(length);
         m_led.setLength(m_ledBuffer.getLength());
-        m_led_b.setLength(m_ledBuffer_b.getLength());
         m_led.setData(m_ledBuffer);
-        m_led_b.setData(m_ledBuffer_b);
         m_led.start();
-        m_led_b.start();
     }
 
     public void setLED_RGB_PERCENTAGE(double portionLED, int r, int g, int b) {
         if (portionLED > 1) return;
         for (var i = 0; i < m_ledBuffer.getLength() * portionLED; i++) {
             m_ledBuffer.setRGB(i, r, g, b);
-            m_ledBuffer_b.setRGB(i, r, g, b);
         }
         m_led.setData(m_ledBuffer);
-        m_led_b.setData(m_ledBuffer_b);
     }
 
     public void setLED_RGB_PERCENTAGE_Strip_spicific(
@@ -57,13 +50,10 @@ public class ledutils extends SubsystemBase {
                 m_ledBuffer.setRGB(i, r, g, b);
             }
         } else {
-            for (var i = 0; i < m_ledBuffer.getLength() * portionLED; i++) {
-                m_ledBuffer_b.setRGB(i, rb, gb, bb);
-            }
+            for (var i = 0; i < m_ledBuffer.getLength() * portionLED; i++) {}
         }
 
         m_led.setData(m_ledBuffer);
-        m_led_b.setData(m_ledBuffer_b);
     }
     // sets rest of bar to a secondary color
     public void setLED_RGB_PERCENTAGE_CLR_REST(
@@ -76,15 +66,8 @@ public class ledutils extends SubsystemBase {
                 m_ledBuffer.setRGB(i, rb, gb, bb);
             }
         }
-        for (var i = 0; i < m_ledBuffer_b.getLength(); i++) {
-            if (i < m_ledBuffer_b.getLength() * portionLED) {
-                m_ledBuffer_b.setRGB(i, r, g, b);
-            } else {
-                m_ledBuffer_b.setRGB(i, rb, gb, bb);
-            }
-        }
+
         m_led.setData(m_ledBuffer);
-        m_led_b.setData(m_ledBuffer_b);
     }
     // i have no idea what to call this but to put it in a few words it colors pair numbers with one
     // color and colors the odd numbers with another color
@@ -105,30 +88,13 @@ public class ledutils extends SubsystemBase {
             y++;
         }
         y = 0;
-        for (var i = 0; i < m_ledBuffer_b.getLength(); i += ledsperzone) {
-            if (y % 2 == 0) {
-                for (var z = 0; z < ledsperzone; z++) {
-                    m_ledBuffer_b.setRGB(i + z, r, g, b);
-                }
-            } else {
-                for (var z = 0; z < ledsperzone; z++) {
-                    m_ledBuffer_b.setRGB(i + z, rb, gb, bb);
-                }
-            }
-            y++;
-        }
         m_led.setData(m_ledBuffer);
-        m_led_b.setData(m_ledBuffer_b);
     }
 
     public void KILL_LED_ALL() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             m_ledBuffer.setRGB(i, 0, 0, 0);
             m_led.setData(m_ledBuffer);
-        }
-        for (var i = 0; i < m_ledBuffer_b.getLength(); i++) {
-            m_ledBuffer.setRGB(i, 0, 0, 0);
-            m_led_b.setData(m_ledBuffer);
         }
     }
 

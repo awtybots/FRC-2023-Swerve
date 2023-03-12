@@ -20,7 +20,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
     public static final class CustomConstants {
-        public static final boolean isCone = false;
+        public static final boolean isCone = true;
 
         public static final double rampRate = 2;
         public static final double stickDeadband = 0.1;
@@ -56,31 +56,31 @@ public final class Constants {
         public static final class Nodes {
             public static final class Cube {
                 public static final class MidNodePosition {
-                    public static final int ElevatorPosition = 33700;
+                    public static final int ElevatorPosition = 23700;
                     public static final double ArmPosition = 16.07 * Constants.ArmConstants.armConversion;
                     public static final double ClawPosition = 11.714 * Constants.ClawConstants.clawConversion;
                 }
 
                 public static final class HighNodePosition {
                     public static final int TransitionArmRotation = 28;
-                    public static final int ElevatorPosition = 66000;
-                    public static final double ArmPosition = 26.3 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = 11.4 * Constants.ClawConstants.clawConversion;
+                    public static final int ElevatorPosition = 50000;
+                    public static final double ArmPosition = 47.28;
+                    public static final double ClawPosition = 4.92;
                 }
             }
 
             public static final class Cone {
                 public static final class MidNodePosition {
-                    public static final int ElevatorPosition = 185000;
-                    public static final double ArmPosition = 35.4 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = -14.3 * Constants.ClawConstants.clawConversion;
+                    public static final int ElevatorPosition = 114600;
+                    public static final double ArmPosition = 23.69;
+                    public static final double ClawPosition = -6.214;
                 }
 
                 public static final class HighNodePosition {
                     public static final int TransitionArmRotation = 28;
-                    public static final int ElevatorPosition = 214000;
-                    public static final double ArmPosition = 35.4 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = -4.43 * Constants.ClawConstants.clawConversion;
+                    public static final int ElevatorPosition = 194000;
+                    public static final double ArmPosition = 46.78;
+                    public static final double ClawPosition = -1;
                 }
             }
         }
@@ -88,23 +88,23 @@ public final class Constants {
         public static final class Intake {
             public static final class Cube {
                 public static final class IntakeFromGroundPosition {
-                    public static final int ElevatorPosition = 83655;
-                    public static final double ArmPosition = 85 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = -14 * Constants.ClawConstants.clawConversion;
+                    public static final int ElevatorPosition = 80000;
+                    public static final double ArmPosition = 100.074;
+                    public static final double ClawPosition = -5.11;
                 }
             }
 
             public static final class Cone {
                 public static final class IntakeFromGroundPosition {
-                    public static final int ElevatorPosition = 148759;
-                    public static final double ArmPosition = 94.86 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = -15.45 * Constants.ClawConstants.clawConversion;
+                    public static final int ElevatorPosition = 109000;
+                    public static final double ArmPosition = 100.38;
+                    public static final double ClawPosition = -5.52;
                 }
 
                 public static final class IntakeFromHumanPlayerPosition {
-                    public static final int ElevatorPosition = 116700;
+                    public static final int ElevatorPosition = 86700;
                     public static final double ArmPosition = 36.6 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = 2.26 * Constants.ClawConstants.clawConversion;
+                    public static final double ClawPosition = 1.64;
                 }
             }
         }
@@ -116,7 +116,7 @@ public final class Constants {
         public static final int kElevatorEncoderId = 22; // !
 
         public static final double kMaxPercentOutput = 0.6;
-        public static final double kRamp = 0.3;
+        public static final double kRamp = 0.5;
         public static final double kWinchDiameter = 1.0;
         // 9:1
         public static final double kGearRatio = 1.0 / 9;
@@ -124,7 +124,7 @@ public final class Constants {
         // Heights
         public static final int initialHeight = 4000;
         public static final int minimumHeight = 2000;
-        public static final int maximumHeight = 220000;
+        public static final int maximumHeight = 195000;
         public static final double ElevatorOffset = 0.05;
 
         // PID
@@ -148,9 +148,9 @@ public final class Constants {
         public static final int maximumHeight = (int) (70 * armConversion);
 
         // PID
-        public static final double kP = 0.001;
+        public static final double kP = 0.002;
         public static final double kI = 0.00;
-        public static final double kD = 0.00;
+        public static final double kD = 0.000;
         public static final double kF = 0.00;
 
         public static final double armLength = 0.54; // 0.54 m

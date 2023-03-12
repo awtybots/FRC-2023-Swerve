@@ -87,7 +87,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void drive(double pct) {
         armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, 100);
         // MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
-        armHeight += pct;
+        armHeight += pct * Constants.ArmConstants.armConversion;
     }
 
     public boolean isFinished() {

@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Place;
-import frc.robot.commands.Autonomous.VisionTracking;
 import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -28,8 +27,8 @@ import frc.robot.commands.Positions.StowPosition;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
-import frc.robot.subsystems.ledutils;
-import frc.robot.subsystems.ledutils.patterens_eneum;
+// import frc.robot.subsystems.ledutils;
+// import frc.robot.subsystems.ledutils.patterens_eneum;
 import frc.util.AutonManager;
 import frc.util.Controller;
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    private final ledutils s_Led = new ledutils(Constants.CustomConstants.LEDPort, 75);
+    // private final ledutils s_Led = new ledutils(Constants.CustomConstants.LEDPort, 75);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
@@ -107,7 +106,7 @@ public class RobotContainer {
         autonManager.displayChoices();
         // Configure the button bindings
         configureButtonBindings();
-        s_Led.ivans_patterns(patterens_eneum.awtybots);
+        // s_Led.ivans_patterns(patterens_eneum.awtybots);
     }
 
     /**
@@ -118,7 +117,7 @@ public class RobotContainer {
         // ! eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         // ! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put(
-                "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, true));
+                "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 0, false));
         eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
 
@@ -171,8 +170,8 @@ public class RobotContainer {
 
         driverController.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        driverController.buttonB.onTrue(new Balance(s_Swerve));
-        driverController.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+        // ! driverController.buttonB.onTrue(new Balance(s_Swerve));
+        // ! driverController.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(
@@ -181,7 +180,7 @@ public class RobotContainer {
                             Limelight.setPipeline(0);
                             setIsCone(false);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led.ivans_patterns(patterens_eneum.cube);
+                            // s_Led.ivans_patterns(patterens_eneum.cube);
                             ;
                         }));
 
@@ -192,7 +191,7 @@ public class RobotContainer {
                             Limelight.setPipeline(1);
                             setIsCone(true);
                             System.out.println(Limelight.getPipeline() == 1);
-                            s_Led.ivans_patterns(patterens_eneum.cone);
+                            // s_Led.ivans_patterns(patterens_eneum.cone);
                             ;
                         }));
 
@@ -205,6 +204,8 @@ public class RobotContainer {
         driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw));
         operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
+        // operatorController.buttonY.onTrue(new Place(s_Swerve, Limelight, s_Claw,s_Arm, s_Elevator,
+        // s_Intake, 1, true ));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
@@ -228,7 +229,8 @@ public class RobotContainer {
                         .getEntry("active")
                         .getString("Cube");
         Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
-        setIsCone(isConeDashboardSelection == "Cone");
+        // setIsCone(isConeDashboardSelection != "Cube");
+        setIsCone(false);
         return autonManager.getSelected();
     }
 }

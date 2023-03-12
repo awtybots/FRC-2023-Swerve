@@ -23,6 +23,8 @@ public class ClawSubsystem extends SubsystemBase {
         mPivotMotor = new CANSparkMax(Constants.ClawConstants.kPivotMotorId, MotorType.kBrushless);
         mPivotMotor.restoreFactoryDefaults();
 
+        mPivotMotor.setInverted(true);
+
         mPivotMotor.setSmartCurrentLimit(Constants.ClawConstants.kClawCurrentLimit);
 
         mPivotPIDController = mPivotMotor.getPIDController();
@@ -47,7 +49,7 @@ public class ClawSubsystem extends SubsystemBase {
                         wristHeight,
                         Constants.ClawConstants.minimumHeight,
                         Constants.ClawConstants.maximumHeight);
-        wristHeight += pct / 3.0;
+        wristHeight += (pct / 4.5) * Constants.ClawConstants.clawConversion;
     }
 
     public boolean isFinished() {
