@@ -109,6 +109,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         // s_Led.ivans_patterns(patterens_eneum.awtybots);
+        SmartDashboard.putBoolean("EmergencyButton", false);
     }
 
     /**
@@ -161,7 +162,7 @@ public class RobotContainer {
     public static boolean getResetPosMode() {
         return resetPosMode;
     }
-    private static void setResetPosMode(boolean mode) {
+    public static void setResetPosMode(boolean mode) {
         resetPosMode = mode;
     }
 
@@ -218,8 +219,6 @@ public class RobotContainer {
         // s_Intake, 1, true ));
 
         // Emergency mode
-        operatorController.buttonStart.onTrue(new InstantCommand(() -> setResetPosMode(true)));
-        operatorController.buttonStart.onFalse(new InstantCommand(() -> setResetPosMode(true)));
         operatorController.buttonBack.onTrue(new InstantCommand(() -> {
             if(getResetPosMode()) {
                 s_Elevator.resetEncoderValue();

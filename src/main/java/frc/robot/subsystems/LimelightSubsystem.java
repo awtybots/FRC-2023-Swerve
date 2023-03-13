@@ -99,7 +99,6 @@ public class LimelightSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // Reflective
-
         tx = LimelightHelpers.getTX("");
         ty = LimelightHelpers.getTY("");
         ta = LimelightHelpers.getTA("");
