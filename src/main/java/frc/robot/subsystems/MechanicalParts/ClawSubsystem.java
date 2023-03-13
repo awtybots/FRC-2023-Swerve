@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class ClawSubsystem extends SubsystemBase {
 
@@ -43,12 +44,19 @@ public class ClawSubsystem extends SubsystemBase {
         wristHeight = value;
     }
 
+    public void resetEncoderValue() {
+        wristHeight = 0;
+        mPivotEncoder.setPosition(wristHeight);
+    }
+
     public void driveClaw(double pct) {
-        wristHeight =
-                MathUtil.clamp(
-                        wristHeight,
-                        Constants.ClawConstants.minimumHeight,
-                        Constants.ClawConstants.maximumHeight);
+        if(!RobotContainer.getResetPosMode()){
+            wristHeight =
+                    MathUtil.clamp(
+                            wristHeight,
+                            Constants.ClawConstants.minimumHeight,
+                            Constants.ClawConstants.maximumHeight);
+        }
         wristHeight += (pct / 4.5) * Constants.ClawConstants.clawConversion;
     }
 

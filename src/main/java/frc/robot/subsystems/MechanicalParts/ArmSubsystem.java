@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -84,8 +85,15 @@ public class ArmSubsystem extends SubsystemBase {
     //     return value;
     // }
 
+    public void resetEncoderValue() {
+        armHeight = 0;
+        mRightArmEncoder.setPosition(armHeight);
+    }
+
     public void drive(double pct) {
-        armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, 100);
+        if(!RobotContainer.getResetPosMode()){
+            armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, 100);
+        } 
         // MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
         armHeight += pct * Constants.ArmConstants.armConversion;
     }

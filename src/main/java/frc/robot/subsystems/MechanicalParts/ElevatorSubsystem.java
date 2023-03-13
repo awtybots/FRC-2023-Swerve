@@ -9,6 +9,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
@@ -85,13 +86,20 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorTargetHeight = value;
     }
 
+    public void resetEncoderValue() {
+        elevatorTargetHeight = Constants.ElevatorConstants.initialHeight;
+        motors[1].setSelectedSensorPosition(elevatorTargetHeight);
+    }
+
     public void drive(double pct) {
         elevatorTargetHeight += pct * 1000;
-        elevatorTargetHeight =
-                MathUtil.clamp(
-                        elevatorTargetHeight,
-                        Constants.ElevatorConstants.minimumHeight,
-                        Constants.ElevatorConstants.maximumHeight);
+        if(!RobotContainer.getResetPosMode()){
+            elevatorTargetHeight =
+                    MathUtil.clamp(
+                            elevatorTargetHeight,
+                            Constants.ElevatorConstants.minimumHeight,
+                            Constants.ElevatorConstants.maximumHeight);
+        }
     }
 
     public void stop() {
@@ -108,7 +116,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         motors[1].set(ControlMode.Position, elevatorTargetHeight);
 
         if ((elevatorTargetHeight - motors[1].getSelectedSensorPosition()) < 3000
-                && motors[1].getSelectedSensorPosition() < 6000)
+                && motors[1].getSelectedSensorPosition() < 6000 && !RobotContainer.getResetPosMode())
             motors[1].set(ControlMode.PercentOutput, 0);
 
         // 3868 -> 5828  =  1960

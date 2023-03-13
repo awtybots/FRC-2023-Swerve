@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
         }
 
        if(hasAuto){
-        RobotContainer.autonResetGyro();
+        m_robotContainer.autonResetGyro();
        }
     }
 

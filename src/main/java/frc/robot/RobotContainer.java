@@ -46,7 +46,7 @@ public class RobotContainer {
     private final AutonManager autonManager;
 
     // The robot's subsystems
-    private final static Swerve s_Swerve = new Swerve();
+    private final Swerve s_Swerve = new Swerve();
     // private final ledutils s_Led = new ledutils(Constants.CustomConstants.LEDPort, 75);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
@@ -57,6 +57,7 @@ public class RobotContainer {
     private final IntakeSubsystem s_Intake = new IntakeSubsystem();
 
     private static Boolean isCone = Constants.CustomConstants.isCone;
+    private static Boolean resetPosMode = false;
 
     // The controllers
     private final Controller driverController = new Controller(0);
@@ -153,12 +154,18 @@ public class RobotContainer {
     public void setIsCone(boolean value) {
         isCone = value;
     }
-
     public static boolean getIsCone() {
         return isCone;
     }
 
-    public static void autonResetGyro() {
+    public static boolean getResetPosMode() {
+        return resetPosMode;
+    }
+    private static void setResetPosMode(boolean mode) {
+        resetPosMode = mode;
+    }
+
+    public void autonResetGyro() {
         s_Swerve.zeroGyro(180);
     }
 
@@ -209,6 +216,17 @@ public class RobotContainer {
         operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
         // operatorController.buttonY.onTrue(new Place(s_Swerve, Limelight, s_Claw,s_Arm, s_Elevator,
         // s_Intake, 1, true ));
+
+        // Emergency mode
+        operatorController.buttonStart.onTrue(new InstantCommand(() -> setResetPosMode(true)));
+        operatorController.buttonStart.onFalse(new InstantCommand(() -> setResetPosMode(true)));
+        operatorController.buttonBack.onTrue(new InstantCommand(() -> {
+            if(getResetPosMode()) {
+                s_Elevator.resetEncoderValue();
+                s_Arm.resetEncoderValue();
+                s_Claw.resetEncoderValue();
+            };
+        }));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
