@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.server.PathPlannerServer;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,6 +33,8 @@ public class Robot extends TimedRobot {
         hasAuto = false;
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
+        PathPlannerServer.startServer(5811);
+        // TODO: REMOVE BEFORE MATCH
         m_robotContainer = new RobotContainer();
     }
 
