@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -59,12 +58,8 @@ public class ArmSubsystem extends SubsystemBase {
         armHeight = value;
     }
 
-    public Rotation2d getCanCoder() {
-        return Rotation2d.fromDegrees(mRightArmEncoder.getPosition() / 360);
-    }
-
-    public double getAngle(double talon) {
-        return talon * (Math.PI / 2) / 45;
+    public double getAngle() {
+        return -mRightArmEncoder.getPosition() / (216) * 360 + Constants.ArmConstants.startingAngle;
     }
 
     // public double getMaximumRotation() {
@@ -106,6 +101,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void periodic() {
         mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
         SmartDashboard.putNumber("Arm encoder readout", mRightArmEncoder.getPosition());
+        SmartDashboard.putNumber("Arm angle", this.getAngle());
     }
 
     public void stop() {

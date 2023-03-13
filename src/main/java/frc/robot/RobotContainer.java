@@ -8,9 +8,7 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -18,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
-import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
@@ -26,7 +23,6 @@ import frc.robot.commands.Positions.Intake.IntakeFromSlidingHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -49,7 +45,7 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    //! private final LedSubsystem s_Led = new LedSubsystem(0, 120);
+    // ! private final LedSubsystem s_Led = new LedSubsystem(0, 120);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
@@ -154,6 +150,7 @@ public class RobotContainer {
     public void setIsCone(boolean value) {
         isCone = value;
     }
+
     public static boolean getIsCone() {
         return isCone;
     }
@@ -161,14 +158,16 @@ public class RobotContainer {
     public static boolean getResetPosMode() {
         return resetPosMode;
     }
+
     public static void setResetPosMode(boolean mode) {
         resetPosMode = mode;
     }
 
-    public static double getAngleOffset(){
+    public static double getAngleOffset() {
         return angleOffset;
     }
-    public static void setAngleOffset(double offset){
+
+    public static void setAngleOffset(double offset) {
         angleOffset = offset;
     }
 
@@ -249,20 +248,22 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
-        isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
-        isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
-        SmartDashboard.putData("PipelineChooser", isConeChooser);
-        final String isConeDashboardSelection =
-                NetworkTableInstance.getDefault()
-                        .getTable("SmartDashboard")
-                        .getSubTable("PipelineChooser")
-                        .getEntry("active")
-                        .getString("Cube");
-        Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
-        // setIsCone(isConeDashboardSelection != "Cube");
-        setIsCone(false);
-        return autonManager.getSelected();
+        // SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
+        // isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
+        // isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
+        // SmartDashboard.putData("PipelineChooser", isConeChooser);
+        // final String isConeDashboardSelection =
+        //         NetworkTableInstance.getDefault()
+        //                 .getTable("SmartDashboard")
+        //                 .getSubTable("PipelineChooser")
+        //                 .getEntry("active")
+        //                 .getString("Cube");
+        // Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
+        // // setIsCone(isConeDashboardSelection != "Cube");
+        // setIsCone(false);
+        // return autonManager.getSelected();
+        return autoBuilder.fullAuto(
+                PathPlanner.loadPathGroup("GyroTest", new PathConstraints(1, 0.5))); // ! Test
     }
 
     public void idleLimelight() {
