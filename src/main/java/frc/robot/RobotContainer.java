@@ -121,9 +121,10 @@ public class RobotContainer {
         // ! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put(
                 "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 0, false));
+                eventMap.put(
+                    "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, false));
         eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
         eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
-
         eventMap.put("Balance", new Balance(s_Swerve));
         eventMap.put("runIntake", new runIntake(s_Intake, Limelight));
     }

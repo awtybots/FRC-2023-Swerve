@@ -22,7 +22,7 @@ public class Pickup extends SequentialCommandGroup {
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw),
-                new Intake(s_Intake, RobotContainer.getIsCone()),
+                new Intake(s_Intake, RobotContainer.getIsCone()).withTimeout(1.5),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }
 }

@@ -37,7 +37,7 @@ public class Intake extends CommandBase {
         if (isCone) {
             return s_Intake.getOutputCurrent() > 25;
         } else {
-            return s_Intake.getOutputCurrent() > 15;
+            return s_Intake.getOutputCurrent() > 25;
         }
     }
 }
