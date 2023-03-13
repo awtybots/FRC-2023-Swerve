@@ -49,7 +49,7 @@ public class RobotContainer {
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
-    private final ArmSubsystem s_Arm = new ArmSubsystem(s_Elevator);
+    private final ArmSubsystem s_Arm = new ArmSubsystem();
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem();
 

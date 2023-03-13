@@ -5,6 +5,7 @@ public final class Convert {
     // #region encoders
 
     public static enum Encoder {
+        RevRelativeEncoder(1.0),
         VersaPlanetaryIntegrated(1024.0),
         TalonFXIntegrated(2048.0),
         CTREMagEncoder(4096.0);

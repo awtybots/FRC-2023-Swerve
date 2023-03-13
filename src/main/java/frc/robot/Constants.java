@@ -169,7 +169,7 @@ public final class Constants {
 
         public static final double armLength = 0.54; // 0.54 m
         public static final double startingAngle =
-                140; // this is for the wrist and is not indicative of the mass
+                130;
 
         public static final double rampRate = 0.6;
     }
@@ -192,6 +192,9 @@ public final class Constants {
         public static final double kP = 0.04;
         public static final double kI = 0.0001; // !
         public static final double kD = 0.00;
+
+        public static final double startingAngle =
+                64; // ! ONLY FROM TOP OF WRIST NOT INDICATIVE OF MASS
     }
 
     public static final class PistonConstants {

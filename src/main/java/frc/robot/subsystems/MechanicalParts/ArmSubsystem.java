@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.util.math.Convert;
+import frc.util.math.Convert.Encoder;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -20,11 +22,9 @@ public class ArmSubsystem extends SubsystemBase {
     private final SparkMaxPIDController mRightArmPIDController;
 
     public double armHeight;
+    private final double kArmGearRatio = 1.0 / 216.0;
 
-    private final ElevatorSubsystem sElevator;
-
-    public ArmSubsystem(ElevatorSubsystem sElevatorSubsystem) {
-        sElevator = sElevatorSubsystem;
+    public ArmSubsystem() {
 
         mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
         mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
@@ -59,26 +59,12 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public double getAngle() {
-        return -mRightArmEncoder.getPosition() / (216) * 360 + Constants.ArmConstants.startingAngle;
+        final double rawRevs = mRightArmEncoder.getPosition();
+        final double theta =
+                Convert.encoderPosToAngle(rawRevs, kArmGearRatio, Encoder.RevRelativeEncoder);
+        System.out.println(theta);
+        return Constants.ArmConstants.startingAngle - theta;
     }
-
-    // public double getMaximumRotation() {
-    //     double value =
-    //             (Math.PI
-    //                             - Math.acos(
-    //                                     (sElevator.getDistance() -
-    // Constants.ElevatorConstants.ElevatorOffset)
-    //                                             / Constants.ArmConstants.armLength)
-    //                             + Math.toRadians(Constants.ArmConstants.startingAngle))
-    //                     * (90 / Math.PI);
-    //     if (Double.isNaN(value)) {
-    //         value =
-    //                 Constants.ArmConstants.maximumHeight
-    //                         + Math.toRadians(Constants.ArmConstants.startingAngle) * (90 /
-    // Math.PI);
-    //     }
-    //     return value;
-    // }
 
     public void resetEncoderValue() {
         armHeight = 0;
