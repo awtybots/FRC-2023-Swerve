@@ -63,7 +63,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         hasAuto = true;
-
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         /*
@@ -93,6 +92,7 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
+        // Prevents running this command in the middle of game when we reboot
         if (hasAuto) {
             m_robotContainer.autonResetGyro();
         }

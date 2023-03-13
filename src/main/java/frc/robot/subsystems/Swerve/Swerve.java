@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 public class Swerve extends SubsystemBase {
@@ -192,11 +193,13 @@ public class Swerve extends SubsystemBase {
         double XVelocity = translation.getX();
         double YVelocity = translation.getY();
 
+        double turnAngle = m_gyro.getYaw() > 0 ? (m_gyro.getYaw() - RobotContainer.getAngleOffset()) : (m_gyro.getYaw() + RobotContainer.getAngleOffset());
+
         var swerveModuleStates =
                 DriveConstants.kDriveKinematics.toSwerveModuleStates(
                         fieldRelative
                                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                        XVelocity, YVelocity, rot, Rotation2d.fromDegrees(-getYaw()))
+                                        XVelocity, YVelocity, rot, Rotation2d.fromDegrees(-turnAngle))
                                 : new ChassisSpeeds(XVelocity, YVelocity, rot));
         SwerveDriveKinematics.desaturateWheelSpeeds(
                 swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
@@ -239,12 +242,12 @@ public class Swerve extends SubsystemBase {
     /** Zeroes the heading of the robot. */
     public void zeroGyro() {
         m_gyro.zeroYaw();
-        m_gyro.setAngleAdjustment(0);
+        RobotContainer.setAngleOffset(0);
     }
 
     public void zeroGyro(double angle) {
         m_gyro.zeroYaw();
-        m_gyro.setAngleAdjustment(angle);
+        RobotContainer.setAngleOffset(angle);
     }
 
     /**
