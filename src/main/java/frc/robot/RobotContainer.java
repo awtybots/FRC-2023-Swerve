@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
+import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.DriveParts.*;
@@ -117,16 +118,12 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignment() {
-        // ! eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        // ! eventMap.put("Pickup", new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put("Pickup", new Pickup(s_Claw, s_Arm, s_Elevator, s_Intake));
         eventMap.put(
                 "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 0, false));
-                eventMap.put(
-                    "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, false));
-        eventMap.put("Stow", new StowPosition(s_Elevator, s_Arm, s_Claw));
-        eventMap.put("HighNode", new HighNodePosition(s_Elevator, s_Arm, s_Claw));
+        eventMap.put(
+                "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, false));
         eventMap.put("Balance", new Balance(s_Swerve));
-        eventMap.put("runIntake", new runIntake(s_Intake, Limelight));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
     // from Right wall (y: 0.76).
@@ -156,6 +153,7 @@ public class RobotContainer {
     public void setIsCone(boolean value) {
         isCone = value;
     }
+
     public static boolean getIsCone() {
         return isCone;
     }
@@ -163,6 +161,7 @@ public class RobotContainer {
     public static boolean getResetPosMode() {
         return resetPosMode;
     }
+
     public static void setResetPosMode(boolean mode) {
         resetPosMode = mode;
     }
@@ -220,18 +219,22 @@ public class RobotContainer {
         // s_Intake, 1, true ));
 
         // Emergency mode
-        operatorController.buttonBack.onTrue(new InstantCommand(() -> {
-            if(getResetPosMode()) {
-                s_Elevator.resetEncoderValue();
-                s_Arm.resetEncoderValue();
-                s_Claw.resetEncoderValue();
-            };
-        }));
+        operatorController.buttonBack.onTrue(
+                new InstantCommand(
+                        () -> {
+                            if (getResetPosMode()) {
+                                s_Elevator.resetEncoderValue();
+                                s_Arm.resetEncoderValue();
+                                s_Claw.resetEncoderValue();
+                            }
+                            ;
+                        }));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadRight.onTrue(new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadRight.onTrue(
+                new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
     }
 
     /**

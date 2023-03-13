@@ -29,13 +29,17 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
         if (isCone) {
             s_elevator.setHeight(
                     Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ClawPosition);
+            s_arm.setRotation(
+                    Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ArmPosition);
+            s_claw.setRotation(
+                    Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ClawPosition);
         } else {
             s_elevator.setHeight(
                     Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ClawPosition);
+            s_arm.setRotation(
+                    Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ArmPosition);
+            s_claw.setRotation(
+                    Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ClawPosition);
         }
     }
 

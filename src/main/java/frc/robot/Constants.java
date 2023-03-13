@@ -92,6 +92,7 @@ public final class Constants {
                     public static final double ArmPosition = 100.074;
                     public static final double ClawPosition = -5.11;
                 }
+
                 public static final class IntakeFromSlidingHumanPlayerPosition {
                     public static final int ElevatorPosition = 9393;
                     public static final double ArmPosition = 17.59;
@@ -111,6 +112,7 @@ public final class Constants {
                     public static final double ArmPosition = 36.6 * Constants.ArmConstants.armConversion;
                     public static final double ClawPosition = 1.64;
                 }
+
                 public static final class IntakeFromSlidingHumanPlayerPosition {
                     public static final int ElevatorPosition = 7510;
                     public static final double ArmPosition = 16.81;
@@ -185,7 +187,7 @@ public final class Constants {
         public static final int maximumHeight = (int) (35 * Constants.ClawConstants.clawConversion);
 
         public static final double kP = 0.04;
-        public static final double kI = 0.0001; //!
+        public static final double kI = 0.0001; // !
         public static final double kD = 0.00;
     }
 

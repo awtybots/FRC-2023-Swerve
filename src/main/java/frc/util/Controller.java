@@ -40,7 +40,6 @@ public class Controller {
         leftStickClick = createButton(XboxController.Button.kLeftStick.value);
         rightStickClick = createButton(XboxController.Button.kRightStick.value);
 
-
         dPadUp = new POVButton(controller, 0);
         dPadRight = new POVButton(controller, 90);
         dPadDown = new POVButton(controller, 180);

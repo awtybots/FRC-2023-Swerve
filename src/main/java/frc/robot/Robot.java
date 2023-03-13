@@ -93,9 +93,9 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
-       if(hasAuto){
-        m_robotContainer.autonResetGyro();
-       }
+        if (hasAuto) {
+            m_robotContainer.autonResetGyro();
+        }
     }
 
     /** This function is called periodically during operator control. */
