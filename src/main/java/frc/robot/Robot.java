@@ -19,12 +19,15 @@ public class Robot extends TimedRobot {
 
     private RobotContainer m_robotContainer;
 
+    private boolean hasAuto;
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
      */
     @Override
     public void robotInit() {
+        hasAuto = false;
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
@@ -58,6 +61,8 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        hasAuto = true;
+
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         /*
@@ -86,6 +91,10 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+
+       if(hasAuto){
+        RobotContainer.autonResetGyro();
+       }
     }
 
     /** This function is called periodically during operator control. */

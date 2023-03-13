@@ -110,7 +110,8 @@ public class Swerve extends SubsystemBase {
      * @return The yaw.
      */
     public double getYaw() {
-        return m_gyro.getYaw();
+        double angle = m_gyro.getAngle();
+        return angle < 180 ? angle : -(360 - angle);
     }
 
     /**
@@ -195,7 +196,7 @@ public class Swerve extends SubsystemBase {
                 DriveConstants.kDriveKinematics.toSwerveModuleStates(
                         fieldRelative
                                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                        XVelocity, YVelocity, rot, Rotation2d.fromDegrees(-m_gyro.getYaw()))
+                                        XVelocity, YVelocity, rot, Rotation2d.fromDegrees(-getYaw()))
                                 : new ChassisSpeeds(XVelocity, YVelocity, rot));
         SwerveDriveKinematics.desaturateWheelSpeeds(
                 swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
@@ -238,6 +239,12 @@ public class Swerve extends SubsystemBase {
     /** Zeroes the heading of the robot. */
     public void zeroGyro() {
         m_gyro.zeroYaw();
+        m_gyro.setAngleAdjustment(0);
+    }
+
+    public void zeroGyro(double angle) {
+        m_gyro.zeroYaw();
+        m_gyro.setAngleAdjustment(angle);
     }
 
     /**

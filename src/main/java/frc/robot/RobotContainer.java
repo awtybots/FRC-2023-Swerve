@@ -46,7 +46,7 @@ public class RobotContainer {
     private final AutonManager autonManager;
 
     // The robot's subsystems
-    private final Swerve s_Swerve = new Swerve();
+    private final static Swerve s_Swerve = new Swerve();
     // private final ledutils s_Led = new ledutils(Constants.CustomConstants.LEDPort, 75);
     // TODO: LED | private final LimelightSubsystem Limelight = new LimelightSubsystem(s_Led);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
@@ -156,6 +156,10 @@ public class RobotContainer {
 
     public static boolean getIsCone() {
         return isCone;
+    }
+
+    public static void autonResetGyro() {
+        s_Swerve.zeroGyro(180);
     }
 
     private void configureButtonBindings() {
