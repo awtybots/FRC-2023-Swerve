@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
-import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
@@ -26,7 +25,6 @@ import frc.robot.commands.Positions.Intake.IntakeFromSlidingHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -49,7 +47,7 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    //! private final LedSubsystem s_Led = new LedSubsystem(0, 120);
+    // ! private final LedSubsystem s_Led = new LedSubsystem(0, 120);
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
@@ -154,6 +152,7 @@ public class RobotContainer {
     public void setIsCone(boolean value) {
         isCone = value;
     }
+
     public static boolean getIsCone() {
         return isCone;
     }
@@ -161,14 +160,16 @@ public class RobotContainer {
     public static boolean getResetPosMode() {
         return resetPosMode;
     }
+
     public static void setResetPosMode(boolean mode) {
         resetPosMode = mode;
     }
 
-    public static double getAngleOffset(){
+    public static double getAngleOffset() {
         return angleOffset;
     }
-    public static void setAngleOffset(double offset){
+
+    public static void setAngleOffset(double offset) {
         angleOffset = offset;
     }
 
