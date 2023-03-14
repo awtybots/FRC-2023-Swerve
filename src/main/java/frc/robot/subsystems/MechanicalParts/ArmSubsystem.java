@@ -85,7 +85,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition);
+        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition, 0, Constants.ArmConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
         SmartDashboard.putNumber("Arm encoder readout", mRightArmEncoder.getPosition());
         SmartDashboard.putNumber("Arm angle", this.getAngle());
     }

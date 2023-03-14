@@ -177,6 +177,7 @@ public final class Constants {
                 130;
 
         public static final double rampRate = 0.6;
+        public static final double arbitraryFeedFowardRate = 0.0;
     }
 
     public static final class ClawConstants {
@@ -198,8 +199,9 @@ public final class Constants {
         public static final double kI = 0.0001; // !
         public static final double kD = 0.00;
 
-        public static final double startingAngle =
-                64; // ! ONLY FROM TOP OF WRIST NOT INDICATIVE OF MASS
+        public static final double startingAngle = 64; // ! ONLY FROM TOP OF WRIST NOT INDICATIVE OF MASS
+
+        public static final double arbitraryFeedFowardRate = 0.0;
     }
 
     public static final class PistonConstants {
