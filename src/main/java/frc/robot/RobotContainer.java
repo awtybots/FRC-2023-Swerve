@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.auto.Diagnostic;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
@@ -128,6 +129,7 @@ public class RobotContainer {
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
+        autonManager.addOption("Diagnostic", new Diagnostic(s_Elevator, s_Arm, s_Claw, s_Intake, s_Swerve).withTimeout(1.5));
         for (var i = 0; i < autonChoices.length; i++) {
             autonManager.addOption(
                     autonChoices[i],
