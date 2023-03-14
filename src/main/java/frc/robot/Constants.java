@@ -86,6 +86,11 @@ public final class Constants {
         }
 
         public static final class Intake {
+            public static final class IntakeFromGroundLowPosition {
+                public static final int ElevatorPosition = 4000;
+                public static final double ArmPosition = 77.86;
+                public static final double ClawPosition = -4.07;
+            }
             public static final class Cube {
                 public static final class IntakeFromGroundPosition {
                     public static final int ElevatorPosition = 80000;

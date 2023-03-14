@@ -18,6 +18,7 @@ import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.DriveParts.*;
+import frc.robot.commands.Positions.Intake.IntakeFromGroundLowPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromSlidingHumanPlayerPosition;
@@ -242,6 +243,7 @@ public class RobotContainer {
         operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadRight.onTrue(
                 new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator, s_Arm, s_Claw));
     }
 
     /**
