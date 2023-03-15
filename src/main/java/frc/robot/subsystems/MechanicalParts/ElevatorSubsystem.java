@@ -86,11 +86,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         return meters * 198000 / 1.1;
     }
 
-    public boolean atTarget() {
-        return Math.abs(motors[1].getSelectedSensorPosition() - elevatorTargetHeight)
-                < Presets.ElevatorThreshold;
-    }
-
     public void setHeight(double value) {
         elevatorTargetHeight = value;
     }

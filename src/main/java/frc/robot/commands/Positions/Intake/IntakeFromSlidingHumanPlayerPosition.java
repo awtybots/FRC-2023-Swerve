@@ -40,11 +40,8 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(
-                                s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                        < Presets.ElevatorThreshold
+        return s_elevator.atTargetHeight()
                 && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
-                && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Presets.ClawThreshold;
+                && s_claw.atTargetAngle();
     }
 }

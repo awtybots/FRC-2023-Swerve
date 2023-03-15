@@ -34,7 +34,6 @@ public class IntakeFromGroundLowPosition extends CommandBase {
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
                 && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
-                && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Presets.ClawThreshold;
+                && s_claw.atTargetAngle();
     }
 }

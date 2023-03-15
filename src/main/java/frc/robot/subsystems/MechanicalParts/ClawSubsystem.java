@@ -19,10 +19,10 @@ public class ClawSubsystem extends SubsystemBase {
 
     private CANSparkMax mPivotMotor;
 
-    public final RelativeEncoder mPivotEncoder;
+    private final RelativeEncoder mPivotEncoder;
 
     private final SparkMaxPIDController mPivotPIDController;
-    public double wristHeight;
+    private double wristHeight;
 
     public ClawSubsystem() {
         wristHeight = Claw.initialHeight;
@@ -69,7 +69,7 @@ public class ClawSubsystem extends SubsystemBase {
         wristHeight += (pct / 4.5) * Claw.clawConversion;
     }
 
-    public boolean isFinished() {
+    public boolean atTargetAngle() {
         return Math.abs(mPivotEncoder.getPosition() - wristHeight) < Presets.ClawThreshold;
     }
 
