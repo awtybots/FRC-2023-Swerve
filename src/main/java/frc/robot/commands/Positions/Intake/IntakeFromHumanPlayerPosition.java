@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Intake.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
@@ -27,19 +28,17 @@ public class IntakeFromHumanPlayerPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_elevator.setHeight(
-                    Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Intake.Cone.IntakeFromHumanPlayerPosition.ClawPosition);
+            s_elevator.setHeight(Cone.IntakeFromHumanPlayer.ElevatorPosition);
+            s_arm.setRotation(Cone.IntakeFromHumanPlayer.ArmPosition);
+            s_claw.setRotation(Cone.IntakeFromHumanPlayer.ClawPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
+                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
                 && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Constants.Position.ClawThreshold;
+                        < Presets.ClawThreshold;
     }
 }

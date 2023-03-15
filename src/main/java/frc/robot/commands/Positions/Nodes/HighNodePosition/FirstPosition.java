@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Nodes.HighNodePosition;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
@@ -21,18 +22,17 @@ public class FirstPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_arm.setRotation(Constants.Position.Nodes.Cone.HighNodePosition.TransitionArmRotation);
-            s_elevator.setHeight(Constants.Position.Nodes.Cone.HighNodePosition.ElevatorPosition);
+            s_arm.setRotation(Cone.HighNode.TransitionArmRotation);
+            s_elevator.setHeight(Cone.HighNode.ElevatorPosition);
         } else {
-            s_arm.setRotation(Constants.Position.Nodes.Cube.HighNodePosition.TransitionArmRotation);
-            s_elevator.setHeight(Constants.Position.Nodes.Cube.HighNodePosition.ElevatorPosition);
+            s_arm.setRotation(Cube.HighNode.TransitionArmRotation);
+            s_elevator.setHeight(Cube.HighNode.ElevatorPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
+        return Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
                 && s_elevator.atTargetHeight();
     }
 }

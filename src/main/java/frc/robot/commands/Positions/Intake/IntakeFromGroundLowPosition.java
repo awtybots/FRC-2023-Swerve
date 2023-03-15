@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Intake.IntakeFromGroundLow;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
@@ -24,17 +25,16 @@ public class IntakeFromGroundLowPosition extends CommandBase {
 
     @Override
     public void execute() {
-        s_elevator.setHeight(Constants.Position.Intake.IntakeFromGroundLowPosition.ElevatorPosition);
-        s_arm.setRotation(Constants.Position.Intake.IntakeFromGroundLowPosition.ArmPosition);
-        s_claw.setRotation(Constants.Position.Intake.IntakeFromGroundLowPosition.ClawPosition);
+        s_elevator.setHeight(IntakeFromGroundLow.ElevatorPosition);
+        s_arm.setRotation(IntakeFromGroundLow.ArmPosition);
+        s_claw.setRotation(IntakeFromGroundLow.ClawPosition);
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
+                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
                 && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Constants.Position.ClawThreshold;
+                        < Presets.ClawThreshold;
     }
 }

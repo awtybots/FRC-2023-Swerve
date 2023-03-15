@@ -7,7 +7,8 @@ import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Claw;
+import frc.robot.Constants.Presets;
 import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
@@ -24,21 +25,21 @@ public class ClawSubsystem extends SubsystemBase {
     public double wristHeight;
 
     public ClawSubsystem() {
-        wristHeight = Constants.ClawConstants.initialHeight;
-        mPivotMotor = new CANSparkMax(Constants.ClawConstants.kPivotMotorId, MotorType.kBrushless);
+        wristHeight = Claw.initialHeight;
+        mPivotMotor = new CANSparkMax(Claw.kPivotMotorId, MotorType.kBrushless);
         mPivotMotor.restoreFactoryDefaults();
 
         mPivotMotor.setInverted(true);
 
-        mPivotMotor.setSmartCurrentLimit(Constants.ClawConstants.kClawCurrentLimit);
+        mPivotMotor.setSmartCurrentLimit(Claw.kClawCurrentLimit);
 
         mPivotPIDController = mPivotMotor.getPIDController();
 
         mPivotEncoder = mPivotMotor.getEncoder();
 
-        mPivotPIDController.setP(Constants.ClawConstants.kP);
-        mPivotPIDController.setI(Constants.ClawConstants.kI);
-        mPivotPIDController.setD(Constants.ClawConstants.kD);
+        mPivotPIDController.setP(Claw.kP);
+        mPivotPIDController.setI(Claw.kI);
+        mPivotPIDController.setD(Claw.kD);
         mPivotPIDController.setOutputRange(-0.4, 0.4);
 
         // mPivotPIDController.setFeedbackDevice(mPivotEncoder);
@@ -53,7 +54,7 @@ public class ClawSubsystem extends SubsystemBase {
         final double theta =
                 Convert.encoderPosToAngle(rawRevs, kWristGearRatio, Encoder.RevRelativeEncoder);
         // System.out.println(theta);
-        return theta + Constants.ClawConstants.startingAngle;
+        return theta + Claw.startingAngle;
     }
 
     public void resetEncoderValue() {
@@ -63,17 +64,13 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void driveClaw(double pct) {
         if (!RobotContainer.getResetPosMode()) {
-            wristHeight =
-                    MathUtil.clamp(
-                            wristHeight,
-                            Constants.ClawConstants.minimumHeight,
-                            Constants.ClawConstants.maximumHeight);
+            wristHeight = MathUtil.clamp(wristHeight, Claw.minimumHeight, Claw.maximumHeight);
         }
-        wristHeight += (pct / 4.5) * Constants.ClawConstants.clawConversion;
+        wristHeight += (pct / 4.5) * Claw.clawConversion;
     }
 
     public boolean isFinished() {
-        return Math.abs(mPivotEncoder.getPosition() - wristHeight) < Constants.Position.ClawThreshold;
+        return Math.abs(mPivotEncoder.getPosition() - wristHeight) < Presets.ClawThreshold;
     }
 
     @Override
@@ -82,7 +79,7 @@ public class ClawSubsystem extends SubsystemBase {
                 wristHeight,
                 CANSparkMax.ControlType.kPosition,
                 0,
-                Constants.ClawConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
+                Claw.arbitraryFeedFowardRate * Math.cos(getAngle()));
         SmartDashboard.putNumber("Wrist encoder readout", mPivotEncoder.getPosition());
         SmartDashboard.putNumber("Wrist angle", getAngle());
     }

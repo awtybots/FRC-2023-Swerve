@@ -2,7 +2,7 @@ package frc.robot.commands.Autonomous.ScoringPositionning;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.DefaultConfig;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 
@@ -72,7 +72,7 @@ public class AutomatedVisionTracking extends CommandBase {
             rotation = -getSign(aprilBeta) * rotateSpeed;
         }
         if (Math.abs(Math.toDegrees(aprilAlpha)) > driveThreshold
-                && Constants.CustomConstants.VisionTrackingStrafe) {
+                && DefaultConfig.VisionTrackingStrafe) {
             translation = new Translation2d(0, getSign(aprilAlpha) * driveSpeed);
         }
         s_Swerve.drive(translation, rotation, fieldRelative);
@@ -88,7 +88,7 @@ public class AutomatedVisionTracking extends CommandBase {
         } else if (s_Limelight.hasTarget() && s_Limelight.getPipeline() == 1) {
             reflectiveAlpha = Math.toRadians(s_Limelight.getSkew());
             if (Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) > reflectiveThreshold
-                    && Constants.CustomConstants.VisionTrackingStrafe) {
+                    && DefaultConfig.VisionTrackingStrafe) {
                 translation =
                         new Translation2d(0, -getSign(reflectiveAlpha - Math.toRadians(45)) * driveSpeed);
             }

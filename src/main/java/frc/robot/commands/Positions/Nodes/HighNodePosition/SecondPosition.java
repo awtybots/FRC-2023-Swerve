@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Nodes.HighNodePosition;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
@@ -24,21 +25,20 @@ public class SecondPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_elevator.setHeight(Constants.Position.Nodes.Cone.HighNodePosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Nodes.Cone.HighNodePosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Nodes.Cone.HighNodePosition.ClawPosition);
+            s_elevator.setHeight(Cone.HighNode.ElevatorPosition);
+            s_arm.setRotation(Cone.HighNode.ArmPosition);
+            s_claw.setRotation(Cone.HighNode.ClawPosition);
         } else {
-            s_elevator.setHeight(Constants.Position.Nodes.Cube.HighNodePosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Nodes.Cube.HighNodePosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Nodes.Cube.HighNodePosition.ClawPosition);
+            s_elevator.setHeight(Cube.HighNode.ElevatorPosition);
+            s_arm.setRotation(Cube.HighNode.ArmPosition);
+            s_claw.setRotation(Cube.HighNode.ClawPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold;
+                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold;
         // && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
         //         < Constants.Position.ClawThreshold;
     }

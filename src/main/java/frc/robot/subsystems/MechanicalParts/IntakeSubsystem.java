@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Claw;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -14,7 +14,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private double kIntakePct;
 
     public IntakeSubsystem() {
-        mIntakeMotor = new WPI_TalonFX(Constants.ClawConstants.kIntakeMotorId);
+        mIntakeMotor = new WPI_TalonFX(Claw.kIntakeMotorId);
         configMotors();
     }
 
@@ -22,16 +22,16 @@ public class IntakeSubsystem extends SubsystemBase {
         mIntakeMotor.configFactoryDefault();
         mIntakeMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         mIntakeMotor.setNeutralMode(NeutralMode.Brake);
-        mIntakeMotor.configPeakOutputForward(Constants.ClawConstants.kMaxPercentOutput);
-        mIntakeMotor.configPeakOutputReverse(-Constants.ClawConstants.kMaxPercentOutput);
+        mIntakeMotor.configPeakOutputForward(Claw.kMaxPercentOutput);
+        mIntakeMotor.configPeakOutputReverse(-Claw.kMaxPercentOutput);
     }
 
     public void intake(double pct, boolean keep) {
         kKeep = keep;
         if (keep) {
-            kIntakePct = pct * Constants.ClawConstants.kMaxPercentOutput;
+            kIntakePct = pct * Claw.kMaxPercentOutput;
         } else {
-            mIntakeMotor.set(pct * Constants.ClawConstants.kMaxPercentOutput);
+            mIntakeMotor.set(pct * Claw.kMaxPercentOutput);
         }
     }
 

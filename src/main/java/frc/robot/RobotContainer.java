@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.auto.Diagnostic;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Pickup;
@@ -87,12 +86,12 @@ public class RobotContainer {
                     // Pose2d consumer, used to reset odometry at the beginning of auto
                     s_Swerve::resetOdometry,
                     // SwerveDriveKinematics
-                    Constants.DriveConstants.kDriveKinematics,
+                    Constants.Drivetrain.kDriveKinematics,
                     // PID constants to correct for translation error (used to create the X and Y PID
                     // controllers)
-                    new PIDConstants(Constants.AutoConstants.kPXYController, 0.0, 0.0),
+                    new PIDConstants(Constants.Auton.kPXYController, 0.0, 0.0),
                     // PID constants to correct for rotation error (used to create the rotation controller)
-                    new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0),
+                    new PIDConstants(Constants.Auton.kPThetaController, 0.0, 0.0),
                     // Module states consumer used to output to the drive subsystem
                     s_Swerve::setModuleStates,
                     eventMap,
@@ -140,20 +139,10 @@ public class RobotContainer {
                             PathPlanner.loadPathGroup(
                                     autonChoices[i],
                                     new PathConstraints(
-                                            Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                                            Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
+                                            Constants.Auton.kMaxSpeedMetersPerSecond,
+                                            Constants.Auton.kMaxAccelerationMetersPerSecondSquared))));
         }
         // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
-    }
-
-    /**
-     * Use this method to define your button->command mappings. Buttons can be created by
-     * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
-     * {@link JoystickButton}.
-     */
-    public void setIsCone(boolean value) {
-        isCone = value;
     }
 
     public static boolean getIsCone() {

@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Intake.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
@@ -27,19 +28,13 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_elevator.setHeight(
-                    Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ElevatorPosition);
-            s_arm.setRotation(
-                    Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ArmPosition);
-            s_claw.setRotation(
-                    Constants.Position.Intake.Cone.IntakeFromSlidingHumanPlayerPosition.ClawPosition);
+            s_elevator.setHeight(Cone.IntakeFromSlidingHumanPlayer.ElevatorPosition);
+            s_arm.setRotation(Cone.IntakeFromSlidingHumanPlayer.ArmPosition);
+            s_claw.setRotation(Cone.IntakeFromSlidingHumanPlayer.ClawPosition);
         } else {
-            s_elevator.setHeight(
-                    Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ElevatorPosition);
-            s_arm.setRotation(
-                    Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ArmPosition);
-            s_claw.setRotation(
-                    Constants.Position.Intake.Cube.IntakeFromSlidingHumanPlayerPosition.ClawPosition);
+            s_elevator.setHeight(Cube.IntakeFromSlidingHumanPlayer.ElevatorPosition);
+            s_arm.setRotation(Cube.IntakeFromSlidingHumanPlayer.ArmPosition);
+            s_claw.setRotation(Cube.IntakeFromSlidingHumanPlayer.ClawPosition);
         }
     }
 
@@ -47,10 +42,9 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
     public boolean isFinished() {
         return Math.abs(
                                 s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                        < Constants.Position.ElevatorThreshold
-                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
+                        < Presets.ElevatorThreshold
+                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
                 && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Constants.Position.ClawThreshold;
+                        < Presets.ClawThreshold;
     }
 }

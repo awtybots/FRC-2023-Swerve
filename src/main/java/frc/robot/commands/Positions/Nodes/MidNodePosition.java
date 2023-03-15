@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Nodes;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
@@ -27,22 +28,21 @@ public class MidNodePosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_elevator.setHeight(Constants.Position.Nodes.Cone.MidNodePosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Nodes.Cone.MidNodePosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Nodes.Cone.MidNodePosition.ClawPosition);
+            s_elevator.setHeight(Cone.MidNode.ElevatorPosition);
+            s_arm.setRotation(Cone.MidNode.ArmPosition);
+            s_claw.setRotation(Cone.MidNode.ClawPosition);
         } else {
-            s_elevator.setHeight(Constants.Position.Nodes.Cube.MidNodePosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Nodes.Cube.MidNodePosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Nodes.Cube.MidNodePosition.ClawPosition);
+            s_elevator.setHeight(Presets.Nodes.Cube.MidNode.ElevatorPosition);
+            s_arm.setRotation(Presets.Nodes.Cube.MidNode.ArmPosition);
+            s_claw.setRotation(Presets.Nodes.Cube.MidNode.ClawPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
+                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
                 && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Constants.Position.ClawThreshold;
+                        < Presets.ClawThreshold;
     }
 }

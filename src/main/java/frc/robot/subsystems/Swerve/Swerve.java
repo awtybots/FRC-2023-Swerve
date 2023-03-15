@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.Drivetrain;
 import frc.robot.RobotContainer;
 
 public class Swerve extends SubsystemBase {
@@ -28,27 +28,27 @@ public class Swerve extends SubsystemBase {
     // Create MAXSwerveModules
     private final MAXSwerveModule m_frontLeft =
             new MAXSwerveModule(
-                    DriveConstants.kFrontLeftDrivingCanId,
-                    DriveConstants.kFrontLeftTurningCanId,
-                    DriveConstants.kFrontLeftChassisAngularOffset);
+                    Drivetrain.kFrontLeftDrivingCanId,
+                    Drivetrain.kFrontLeftTurningCanId,
+                    Drivetrain.kFrontLeftChassisAngularOffset);
 
     private final MAXSwerveModule m_frontRight =
             new MAXSwerveModule(
-                    DriveConstants.kFrontRightDrivingCanId,
-                    DriveConstants.kFrontRightTurningCanId,
-                    DriveConstants.kFrontRightChassisAngularOffset);
+                    Drivetrain.kFrontRightDrivingCanId,
+                    Drivetrain.kFrontRightTurningCanId,
+                    Drivetrain.kFrontRightChassisAngularOffset);
 
     private final MAXSwerveModule m_rearLeft =
             new MAXSwerveModule(
-                    DriveConstants.kRearLeftDrivingCanId,
-                    DriveConstants.kRearLeftTurningCanId,
-                    DriveConstants.kBackLeftChassisAngularOffset);
+                    Drivetrain.kRearLeftDrivingCanId,
+                    Drivetrain.kRearLeftTurningCanId,
+                    Drivetrain.kBackLeftChassisAngularOffset);
 
     private final MAXSwerveModule m_rearRight =
             new MAXSwerveModule(
-                    DriveConstants.kRearRightDrivingCanId,
-                    DriveConstants.kRearRightTurningCanId,
-                    DriveConstants.kBackRightChassisAngularOffset);
+                    Drivetrain.kRearRightDrivingCanId,
+                    Drivetrain.kRearRightTurningCanId,
+                    Drivetrain.kBackRightChassisAngularOffset);
 
     // The gyro sensor
     private final AHRS m_gyro;
@@ -71,7 +71,7 @@ public class Swerve extends SubsystemBase {
         // Odometry class for tracking robot pose
         m_odometry =
                 new SwerveDriveOdometry(
-                        DriveConstants.kDriveKinematics,
+                        Drivetrain.kDriveKinematics,
                         Rotation2d.fromDegrees(m_gyro.getAngle()),
                         new SwerveModulePosition[] {
                             m_frontLeft.getPosition(),
@@ -160,7 +160,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public boolean isStalled() {
-        return (getOutputCurrent() > Constants.DriveConstants.stallCurrentLimit);
+        return (getOutputCurrent() > Constants.Drivetrain.stallCurrentLimit);
     }
 
     /**
@@ -199,13 +199,13 @@ public class Swerve extends SubsystemBase {
                         : (m_gyro.getYaw() + RobotContainer.getAngleOffset());
 
         var swerveModuleStates =
-                DriveConstants.kDriveKinematics.toSwerveModuleStates(
+                Drivetrain.kDriveKinematics.toSwerveModuleStates(
                         fieldRelative
                                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
                                         XVelocity, YVelocity, rot, Rotation2d.fromDegrees(-turnAngle))
                                 : new ChassisSpeeds(XVelocity, YVelocity, rot));
         SwerveDriveKinematics.desaturateWheelSpeeds(
-                swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+                swerveModuleStates, Drivetrain.kMaxSpeedMetersPerSecond);
         m_frontLeft.setDesiredState(swerveModuleStates[0]);
         m_frontRight.setDesiredState(swerveModuleStates[1]);
         m_rearLeft.setDesiredState(swerveModuleStates[2]);
@@ -226,8 +226,7 @@ public class Swerve extends SubsystemBase {
      * @param desiredStates The desired SwerveModule states.
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(
-                desiredStates, DriveConstants.kMaxSpeedMetersPerSecond);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Drivetrain.kMaxSpeedMetersPerSecond);
         m_frontLeft.setDesiredState(desiredStates[0]);
         m_frontRight.setDesiredState(desiredStates[1]);
         m_rearLeft.setDesiredState(desiredStates[2]);
@@ -268,7 +267,7 @@ public class Swerve extends SubsystemBase {
      * @return The turn rate of the robot, in degrees per second
      */
     public double getTurnRate() {
-        return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+        return m_gyro.getRate() * (Drivetrain.kGyroReversed ? -1.0 : 1.0);
     }
 
     public void toggleSwerveMode() {

@@ -27,7 +27,7 @@ public class ledutils extends SubsystemBase {
 
     public ledutils(int LEDPort, int length) {
         this.length = length;
-        m_led = new AddressableLED(Constants.CustomConstants.LEDPort);
+        m_led = new AddressableLED(Constants.DefaultConfig.LEDPort);
         m_ledBuffer = new AddressableLEDBuffer(length);
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);

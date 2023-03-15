@@ -3,7 +3,8 @@ package frc.robot.commands.DriveParts;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.DefaultConfig;
+import frc.robot.Constants.Drivetrain;
 import frc.robot.subsystems.Swerve.Swerve;
 import frc.util.Controller;
 
@@ -15,8 +16,8 @@ public class TeleopSwerve extends CommandBase {
     private Swerve s_Swerve;
     private Controller driver;
 
-    private SlewRateLimiter xLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
-    private SlewRateLimiter yLimiter = new SlewRateLimiter(Constants.CustomConstants.rampRate);
+    private SlewRateLimiter xLimiter = new SlewRateLimiter(DefaultConfig.rampRate);
+    private SlewRateLimiter yLimiter = new SlewRateLimiter(DefaultConfig.rampRate);
 
     private double applyDeadband(double axisValue, double deadbandValue) {
         return (Math.abs(axisValue) < deadbandValue ? 0 : axisValue);
@@ -29,7 +30,7 @@ public class TeleopSwerve extends CommandBase {
         addRequirements(s_Swerve);
 
         this.driver = driver;
-        this.fieldRelative = Constants.CustomConstants.fieldRelative;
+        this.fieldRelative = DefaultConfig.fieldRelative;
     }
 
     @Override
@@ -39,21 +40,21 @@ public class TeleopSwerve extends CommandBase {
         double xAxis = -driver.getLeftStickX();
         double rAxis = -driver.getRightStickX();
 
-        yAxis = applyDeadband(yAxis, Constants.CustomConstants.stickDeadband);
-        xAxis = applyDeadband(xAxis, Constants.CustomConstants.stickDeadband);
-        rAxis = applyDeadband(rAxis, Constants.CustomConstants.stickDeadband);
+        yAxis = applyDeadband(yAxis, DefaultConfig.stickDeadband);
+        xAxis = applyDeadband(xAxis, DefaultConfig.stickDeadband);
+        rAxis = applyDeadband(rAxis, DefaultConfig.stickDeadband);
 
         // Reduces speed if low speed mode is activated
         if (!s_Swerve.swerveHighSpeedMode) {
-            yAxis *= Constants.CustomConstants.lowSpeedMultiplier;
-            xAxis *= Constants.CustomConstants.lowSpeedMultiplier;
-            rAxis *= Constants.CustomConstants.lowSpeedMultiplier;
+            yAxis *= DefaultConfig.lowSpeedMultiplier;
+            xAxis *= DefaultConfig.lowSpeedMultiplier;
+            rAxis *= DefaultConfig.lowSpeedMultiplier;
         }
 
         translation =
                 new Translation2d(yLimiter.calculate(yAxis), xLimiter.calculate(xAxis))
-                        .times(Constants.DriveConstants.kMaxSpeedMetersPerSecond);
-        rotation = rAxis * Constants.DriveConstants.kMaxAngularSpeed;
+                        .times(Drivetrain.kMaxSpeedMetersPerSecond);
+        rotation = rAxis * Drivetrain.kMaxAngularSpeed;
         s_Swerve.drive(translation, rotation, fieldRelative);
     }
 }

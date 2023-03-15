@@ -7,7 +7,8 @@ import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Arm;
+import frc.robot.Constants.Presets;
 import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
@@ -26,28 +27,28 @@ public class ArmSubsystem extends SubsystemBase {
 
     public ArmSubsystem() {
 
-        mLeftArmMotor = new CANSparkMax(Constants.ArmConstants.kRightArmMotorId, MotorType.kBrushless);
-        mRightArmMotor = new CANSparkMax(Constants.ArmConstants.kLeftArmMotorId, MotorType.kBrushless);
+        mLeftArmMotor = new CANSparkMax(Arm.kRightArmMotorId, MotorType.kBrushless);
+        mRightArmMotor = new CANSparkMax(Arm.kLeftArmMotorId, MotorType.kBrushless);
         // mLeftArmMotor.restoreFactoryDefaults();
 
         mRightArmMotor.restoreFactoryDefaults();
 
         // Current limit
-        mLeftArmMotor.setSmartCurrentLimit(Constants.ArmConstants.kCurrentLimit);
-        mRightArmMotor.setSmartCurrentLimit(Constants.ArmConstants.kCurrentLimit);
+        mLeftArmMotor.setSmartCurrentLimit(Arm.kCurrentLimit);
+        mRightArmMotor.setSmartCurrentLimit(Arm.kCurrentLimit);
 
         mRightArmMotor.setInverted(true);
         mLeftArmMotor.follow(mRightArmMotor, true);
 
-        armHeight = Constants.ArmConstants.initialHeight;
+        armHeight = Arm.initialHeight;
 
         mRightArmEncoder = mRightArmMotor.getEncoder();
 
         mRightArmPIDController = mRightArmMotor.getPIDController();
 
-        mRightArmPIDController.setP(Constants.ArmConstants.kP);
-        mRightArmPIDController.setI(Constants.ArmConstants.kI);
-        mRightArmPIDController.setD(Constants.ArmConstants.kD);
+        mRightArmPIDController.setP(Arm.kP);
+        mRightArmPIDController.setI(Arm.kI);
+        mRightArmPIDController.setD(Arm.kD);
         mRightArmPIDController.setOutputRange(-0.5, 0.5);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
@@ -62,7 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
         final double rawRevs = mRightArmEncoder.getPosition();
         final double theta =
                 Convert.encoderPosToAngle(rawRevs, kArmGearRatio, Encoder.RevRelativeEncoder);
-        return Constants.ArmConstants.startingAngle - theta;
+        return Arm.startingAngle - theta;
     }
 
     public void resetEncoderValue() {
@@ -72,14 +73,14 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void drive(double pct) {
         if (!RobotContainer.getResetPosMode()) {
-            armHeight = MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, 100);
+            armHeight = MathUtil.clamp(armHeight, Arm.minimumHeight, 100);
         }
-        // MathUtil.clamp(armHeight, Constants.ArmConstants.minimumHeight, getMaximumRotation());
-        armHeight += pct * Constants.ArmConstants.armConversion;
+        // MathUtil.clamp(armHeight, ArmConstants.minimumHeight, getMaximumRotation());
+        armHeight += pct * Arm.armConversion;
     }
 
     public boolean isFinished() {
-        return Math.abs(mRightArmEncoder.getPosition() - armHeight) < Constants.Position.ArmThreshold;
+        return Math.abs(mRightArmEncoder.getPosition() - armHeight) < Presets.ArmThreshold;
     }
 
     @Override
@@ -88,7 +89,7 @@ public class ArmSubsystem extends SubsystemBase {
                 armHeight,
                 CANSparkMax.ControlType.kPosition,
                 0,
-                Constants.ArmConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
+                Arm.arbitraryFeedFowardRate * Math.cos(getAngle()));
         SmartDashboard.putNumber(
                 "Arm Error",
                 Convert.encoderPosToAngle(

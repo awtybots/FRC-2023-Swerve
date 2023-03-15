@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final class CustomConstants {
+    public static final class DefaultConfig {
         public static final boolean isCone = true;
 
         public static final double rampRate = 2;
@@ -34,20 +34,20 @@ public final class Constants {
         public static final boolean VisionTrackingStrafe = true;
     }
 
-    public static final class Balance {
+    public static final class Balance { // TODO move to balance command
         public static final double BEAM_BALANCED_GOAL_DEGREES = 0;
         public static final double BEAM_BALANACED_DRIVE_KP = 1;
         public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 3;
         public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
     }
 
-    public static final class Position {
+    public static final class Presets {
 
         public static final int ElevatorThreshold = 5000;
-        public static final int ArmThreshold = (int) (10 * Constants.ArmConstants.armConversion);
+        public static final int ArmThreshold = (int) (10 * Constants.Arm.armConversion);
         public static final int ClawThreshold = 10;
 
-        public static final class StowPosition {
+        public static final class Stow {
             public static final int ElevatorPosition = 4000;
             public static final int ArmPosition = 0;
             public static final int ClawPosition = 0;
@@ -55,13 +55,13 @@ public final class Constants {
 
         public static final class Nodes {
             public static final class Cube {
-                public static final class MidNodePosition {
+                public static final class MidNode {
                     public static final int ElevatorPosition = 23700;
-                    public static final double ArmPosition = 16.07 * Constants.ArmConstants.armConversion;
-                    public static final double ClawPosition = 11.714 * Constants.ClawConstants.clawConversion;
+                    public static final double ArmPosition = 16.07 * Constants.Arm.armConversion;
+                    public static final double ClawPosition = 11.714 * Constants.Claw.clawConversion;
                 }
 
-                public static final class HighNodePosition {
+                public static final class HighNode {
                     public static final int TransitionArmRotation = 28;
                     public static final int ElevatorPosition = 50000;
                     public static final double ArmPosition = 47.28;
@@ -70,13 +70,13 @@ public final class Constants {
             }
 
             public static final class Cone {
-                public static final class MidNodePosition {
+                public static final class MidNode {
                     public static final int ElevatorPosition = 126270;
                     public static final double ArmPosition = 23.69;
                     public static final double ClawPosition = -6.214;
                 }
 
-                public static final class HighNodePosition {
+                public static final class HighNode {
                     public static final int TransitionArmRotation = 28;
                     public static final int ElevatorPosition = 194000;
                     public static final double ArmPosition = 46.78;
@@ -86,20 +86,20 @@ public final class Constants {
         }
 
         public static final class Intake {
-            public static final class IntakeFromGroundLowPosition {
+            public static final class IntakeFromGroundLow {
                 public static final int ElevatorPosition = 4000;
                 public static final double ArmPosition = 77.86;
                 public static final double ClawPosition = -4.07;
             }
 
             public static final class Cube {
-                public static final class IntakeFromGroundPosition {
+                public static final class IntakeFromGround {
                     public static final int ElevatorPosition = 80000;
                     public static final double ArmPosition = 100.074;
                     public static final double ClawPosition = -5.11;
                 }
 
-                public static final class IntakeFromSlidingHumanPlayerPosition {
+                public static final class IntakeFromSlidingHumanPlayer {
                     public static final int ElevatorPosition = 9393;
                     public static final double ArmPosition = 17.59;
                     public static final double ClawPosition = 0.738;
@@ -107,19 +107,19 @@ public final class Constants {
             }
 
             public static final class Cone {
-                public static final class IntakeFromGroundPosition {
+                public static final class IntakeFromGround {
                     public static final int ElevatorPosition = 115000;
                     public static final double ArmPosition = 100.38;
                     public static final double ClawPosition = -5.45;
                 }
 
-                public static final class IntakeFromHumanPlayerPosition {
+                public static final class IntakeFromHumanPlayer {
                     public static final int ElevatorPosition = 86700;
-                    public static final double ArmPosition = 36.6 * Constants.ArmConstants.armConversion;
+                    public static final double ArmPosition = 36.6 * Constants.Arm.armConversion;
                     public static final double ClawPosition = 1.64;
                 }
 
-                public static final class IntakeFromSlidingHumanPlayerPosition {
+                public static final class IntakeFromSlidingHumanPlayer {
                     public static final int ElevatorPosition = 7510;
                     public static final double ArmPosition = 16.81;
                     public static final double ClawPosition = 1.98;
@@ -128,16 +128,18 @@ public final class Constants {
         }
     }
 
-    public static final class ElevatorConstants {
+    public static final class Elevator {
         public static final int kLeftElevatorMotorId = 20; // !
         public static final int kRightElevatorMotorId = 21; // !
         public static final int kElevatorEncoderId = 22; // !
 
         public static final double kMaxPercentOutput = 0.75;
-        public static final double kRamp = 0.08;
-        public static final double kWinchDiameter = 1.0;
-        // 9:1
-        public static final double kGearRatio = 1.0 / 9;
+        public static final double kRamp =
+                0.08; // seconds from zero to full throttle on elevator motors
+        public static final double kWinchDiameter =
+                1.751; // (inches) pitch diameter of #25 chain 22T sprocket
+        public static final double kGearRatio =
+                1.0 / 9; // output over input (9:1 reduction please double check this)
 
         // Heights
         public static final int initialHeight = 4000;
@@ -154,7 +156,7 @@ public final class Constants {
         public static final double arbitraryFeedforwardRate = 0.02; // 0.0425;
     }
 
-    public static final class ArmConstants {
+    public static final class Arm {
         public static final double armConversion = 216.0 / 184.0;
 
         public static final int kLeftArmMotorId = 7;
@@ -180,7 +182,7 @@ public final class Constants {
         public static final double arbitraryFeedFowardRate = 0.1;
     }
 
-    public static final class ClawConstants {
+    public static final class Claw {
         public static final double clawConversion = 40.0 / 91.67;
 
         public static final int kPivotMotorId = 6;
@@ -192,8 +194,8 @@ public final class Constants {
         public static final int kIntakeCurrentLimit = 20;
 
         public static final int initialHeight = 0;
-        public static final int minimumHeight = (int) (-15 * Constants.ClawConstants.clawConversion);
-        public static final int maximumHeight = (int) (35 * Constants.ClawConstants.clawConversion);
+        public static final int minimumHeight = (int) (-15 * Constants.Claw.clawConversion);
+        public static final int maximumHeight = (int) (35 * Constants.Claw.clawConversion);
 
         public static final double kP = 0.10;
         public static final double kI = 0.00; // !
@@ -205,18 +207,18 @@ public final class Constants {
         public static final double arbitraryFeedFowardRate = 0.0;
     }
 
-    public static final class PistonConstants {
+    public static final class Piston {
         public static final int kTraverseSolenoidF = 0;
         public static final int kTraverseSolenoidR = 1;
     }
 
-    public static final class LimeLightConstants {
+    public static final class LimeLight {
         public static final double AprilTagHeight = 0.50;
         public static final double LimelightHeight = 0.46;
         public static final double LimelightAngle = 14;
     }
 
-    public static final class DriveConstants {
+    public static final class Drivetrain {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
         public static final double kMaxSpeedMetersPerSecond = 4.8;
@@ -264,7 +266,7 @@ public final class Constants {
         // stalling when it starts accelerating.
     }
 
-    public static final class ModuleConstants {
+    public static final class SwerveModule {
         // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
         // This changes the drive speed of the module (a pinion gear with more teeth will result in a
         // robot that drives faster).
@@ -275,7 +277,8 @@ public final class Constants {
         public static final boolean kTurningEncoderInverted = true;
 
         // Calculations required for driving motor conversion factors and feed forward
-        public static final double kDrivingMotorFreeSpeedRps = NeoMotorConstants.kFreeSpeedRpm / 60;
+        public static final double kNeoMotorFreeRpm = 5676;
+        public static final double kDrivingMotorFreeSpeedRps = kNeoMotorFreeRpm / 60;
         public static final double kWheelDiameterMeters = 0.0762;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the
@@ -319,11 +322,7 @@ public final class Constants {
         public static final int kTurningMotorCurrentLimit = 20; // amps
     }
 
-    public static final class OIConstants {
-        public static final int kDriverControllerPort = 0;
-    }
-
-    public static final class AutoConstants {
+    public static final class Auton {
         public static final double kMaxSpeedMetersPerSecond = 3; // 4
         public static final double kMaxAccelerationMetersPerSecondSquared = 2; // 2
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -340,11 +339,7 @@ public final class Constants {
                         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
-    public static final class NeoMotorConstants {
-        public static final double kFreeSpeedRpm = 5676;
-    }
-
-    public static final class IntakeConstants {
+    public static final class Intake { // TODO move into intake subsytem
         // Time in milliseconds that it should take to eject a cube / cone
         public static final long IntakeEjectionTime = 500;
         // Time in milliseconds that it should take to intake a cube / cone

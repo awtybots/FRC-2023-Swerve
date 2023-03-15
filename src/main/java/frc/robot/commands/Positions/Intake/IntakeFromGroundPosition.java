@@ -1,7 +1,8 @@
 package frc.robot.commands.Positions.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Intake.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
@@ -27,24 +28,21 @@ public class IntakeFromGroundPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_elevator.setHeight(
-                    Constants.Position.Intake.Cone.IntakeFromGroundPosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Intake.Cone.IntakeFromGroundPosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Intake.Cone.IntakeFromGroundPosition.ClawPosition);
+            s_elevator.setHeight(Cone.IntakeFromGround.ElevatorPosition);
+            s_arm.setRotation(Cone.IntakeFromGround.ArmPosition);
+            s_claw.setRotation(Cone.IntakeFromGround.ClawPosition);
         } else {
-            s_elevator.setHeight(
-                    Constants.Position.Intake.Cube.IntakeFromGroundPosition.ElevatorPosition);
-            s_arm.setRotation(Constants.Position.Intake.Cube.IntakeFromGroundPosition.ArmPosition);
-            s_claw.setRotation(Constants.Position.Intake.Cube.IntakeFromGroundPosition.ClawPosition);
+            s_elevator.setHeight(Cube.IntakeFromGround.ElevatorPosition);
+            s_arm.setRotation(Cube.IntakeFromGround.ArmPosition);
+            s_claw.setRotation(Cube.IntakeFromGround.ClawPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
-                        < Constants.Position.ArmThreshold
-                && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-                        < Constants.Position.ClawThreshold;
+                && (Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold)
+                && (Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
+                        < Presets.ClawThreshold);
     }
 }
