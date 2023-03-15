@@ -13,6 +13,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.util.math.Convert;
+import frc.util.math.Convert.Encoder;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
@@ -84,6 +85,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public double convertMetersToTalon(double meters) {
         return meters * 198000 / 1.1;
+    }
+
+    public void setHeightInches(double inches) {
+        double sensorUnits =
+                Convert.distanceToEncoderPos(
+                        inches, Elevator.kGearRatio, Elevator.kWinchDiameter, Encoder.TalonFXIntegrated);
+        setHeight(sensorUnits);
     }
 
     public void setHeight(double value) {

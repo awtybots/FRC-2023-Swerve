@@ -1,5 +1,8 @@
 {
   "NetworkTables": {
+    "SmartDashboard": {
+      "open": true
+    },
     "retained": {
       "SmartDashboard": {
         "open": true
@@ -17,14 +20,14 @@
     }
   },
   "NetworkTables Settings": {
-    "mode": "Client (NT4)",
+    "mode": "Client",
     "serverTeam": "5829"
   },
   "Plots": {
     "Plot <0>": {
       "plots": [
         {
-          "height": 797,
+          "height": 854,
           "series": [
             {
               "color": [
@@ -46,15 +49,12 @@
             }
           ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <1>": {
       "plots": [
         {
-          "height": 584,
+          "height": 823,
           "series": [
             {
               "color": [
@@ -65,18 +65,24 @@
               ],
               "digital": "Analog",
               "id": "NT:/SmartDashboard/Elevator Error"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Arm angle"
             }
           ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <2>": {
       "plots": [
         {
-          "height": 845,
+          "height": 368,
           "series": [
             {
               "color": [
@@ -98,7 +104,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     }
   }
 }

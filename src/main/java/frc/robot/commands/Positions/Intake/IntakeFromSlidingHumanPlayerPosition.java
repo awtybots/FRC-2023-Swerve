@@ -34,7 +34,7 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
         } else {
             s_elevator.setHeight(Cube.IntakeFromSlidingHumanPlayer.ElevatorPosition);
             s_arm.setRotation(Cube.IntakeFromSlidingHumanPlayer.ArmPosition);
-            s_claw.setRotation(Cube.IntakeFromSlidingHumanPlayer.ClawPosition);
+            s_claw.setDegrees(Cube.IntakeFromSlidingHumanPlayer.ClawPosition);
         }
     }
 

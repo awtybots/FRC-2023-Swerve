@@ -49,6 +49,12 @@ public class ClawSubsystem extends SubsystemBase {
         wristHeight = value;
     }
 
+    public void setDegrees(double degrees) {
+        double sensorUnits =
+                Convert.angleToEncoderPos(degrees + Claw.startingAngle, kWristGearRatio, Encoder.RevRelativeEncoder);
+        wristHeight = sensorUnits;
+    }
+
     public double getAngle() {
         final double rawRevs = mPivotEncoder.getPosition();
         final double theta =

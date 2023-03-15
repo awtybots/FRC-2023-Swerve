@@ -22,8 +22,8 @@ public class FirstPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_arm.setRotation(Cone.HighNode.TransitionArmRotation);
-            s_elevator.setHeight(Cone.HighNode.ElevatorPosition);
+            s_arm.setDegrees(Cone.HighNode.TransitionArmRotation);
+            s_elevator.setHeightInches(Cone.HighNode.ElevatorPosition);
         } else {
             s_arm.setRotation(Cube.HighNode.TransitionArmRotation);
             s_elevator.setHeight(Cube.HighNode.ElevatorPosition);

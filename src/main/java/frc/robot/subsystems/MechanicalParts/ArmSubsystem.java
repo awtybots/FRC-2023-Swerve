@@ -59,6 +59,12 @@ public class ArmSubsystem extends SubsystemBase {
         armHeight = value;
     }
 
+    public void setDegrees(double degrees) {
+        double encoderunits =
+                Convert.angleToEncoderPos(degrees, kArmGearRatio, Encoder.RevRelativeEncoder);
+        armHeight = encoderunits;
+    }
+
     public double getAngle() {
         final double rawRevs = mRightArmEncoder.getPosition();
         final double theta =
