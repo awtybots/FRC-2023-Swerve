@@ -323,8 +323,8 @@ public final class Constants {
     }
 
     public static final class Auton {
-        public static final double kMaxSpeedMetersPerSecond = 3; // 4
-        public static final double kMaxAccelerationMetersPerSecondSquared = 2; // 2
+        public static final double kMaxSpeedMetersPerSecond = 4.8; // 4
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 2
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
