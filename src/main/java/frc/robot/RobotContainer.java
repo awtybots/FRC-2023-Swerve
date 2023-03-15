@@ -130,7 +130,9 @@ public class RobotContainer {
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
-        autonManager.addOption("Diagnostic", new Diagnostic(s_Elevator, s_Arm, s_Claw, s_Intake, s_Swerve).withTimeout(1.5));
+        autonManager.addOption(
+                "Diagnostic",
+                new Diagnostic(s_Elevator, s_Arm, s_Claw, s_Intake, s_Swerve).withTimeout(1.5));
         for (var i = 0; i < autonChoices.length; i++) {
             autonManager.addOption(
                     autonChoices[i],

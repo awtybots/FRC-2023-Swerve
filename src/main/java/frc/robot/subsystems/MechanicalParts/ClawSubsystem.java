@@ -39,7 +39,7 @@ public class ClawSubsystem extends SubsystemBase {
         mPivotPIDController.setP(Constants.ClawConstants.kP);
         mPivotPIDController.setI(Constants.ClawConstants.kI);
         mPivotPIDController.setD(Constants.ClawConstants.kD);
-        mPivotPIDController.setOutputRange(-0.2, 0.2);
+        mPivotPIDController.setOutputRange(-0.4, 0.4);
 
         // mPivotPIDController.setFeedbackDevice(mPivotEncoder);
     }
@@ -52,7 +52,7 @@ public class ClawSubsystem extends SubsystemBase {
         final double rawRevs = mPivotEncoder.getPosition();
         final double theta =
                 Convert.encoderPosToAngle(rawRevs, kWristGearRatio, Encoder.RevRelativeEncoder);
-        System.out.println(theta);
+        // System.out.println(theta);
         return theta + Constants.ClawConstants.startingAngle;
     }
 
@@ -78,7 +78,11 @@ public class ClawSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        mPivotPIDController.setReference(wristHeight, CANSparkMax.ControlType.kPosition, 0, Constants.ClawConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
+        mPivotPIDController.setReference(
+                wristHeight,
+                CANSparkMax.ControlType.kPosition,
+                0,
+                Constants.ClawConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
         SmartDashboard.putNumber("Wrist encoder readout", mPivotEncoder.getPosition());
         SmartDashboard.putNumber("Wrist angle", getAngle());
     }

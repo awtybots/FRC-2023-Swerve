@@ -36,9 +36,7 @@ public class IntakeFromHumanPlayerPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(
-                                s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                        < Constants.Position.ElevatorThreshold
+        return s_elevator.atTargetHeight()
                 && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
                         < Constants.Position.ArmThreshold
                 && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)

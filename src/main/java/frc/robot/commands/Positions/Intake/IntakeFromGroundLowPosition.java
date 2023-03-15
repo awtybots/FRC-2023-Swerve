@@ -24,17 +24,14 @@ public class IntakeFromGroundLowPosition extends CommandBase {
 
     @Override
     public void execute() {
-        s_elevator.setHeight(
-                Constants.Position.Intake.IntakeFromGroundLowPosition.ElevatorPosition);
+        s_elevator.setHeight(Constants.Position.Intake.IntakeFromGroundLowPosition.ElevatorPosition);
         s_arm.setRotation(Constants.Position.Intake.IntakeFromGroundLowPosition.ArmPosition);
         s_claw.setRotation(Constants.Position.Intake.IntakeFromGroundLowPosition.ClawPosition);
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(
-                                s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                        < Constants.Position.ElevatorThreshold
+        return s_elevator.atTargetHeight()
                 && Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
                         < Constants.Position.ArmThreshold
                 && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)

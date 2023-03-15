@@ -10,7 +10,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.util.math.Convert;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
@@ -50,13 +50,21 @@ public class ElevatorSubsystem extends SubsystemBase {
         mLeftElevatorMotor.setNeutralMode(NeutralMode.Brake);
         mRightElevatorMotor.setNeutralMode(NeutralMode.Brake);
 
+        mLeftElevatorMotor.configNeutralDeadband(0.0);
+        mRightElevatorMotor.configNeutralDeadband(0);
+
         mRightElevatorMotor.configOpenloopRamp(kRamp);
         mRightElevatorMotor.configClosedloopRamp(kRamp);
         mRightElevatorMotor.configPeakOutputForward(kMaxPercentOutput);
         mRightElevatorMotor.configPeakOutputReverse(-kMaxPercentOutput);
         mRightElevatorMotor.configClosedLoopPeakOutput(0, kMaxPercentOutput);
-        
+
         mLeftElevatorMotor.follow(mRightElevatorMotor);
+
+        mRightElevatorMotor.config_kP(0, Constants.ElevatorConstants.kP);
+        mRightElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI);
+        mRightElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD);
+        mRightElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF);
     }
     // mLeftElevatorMotor.configOpenloopRamp(kRamp); // !
     // mLeftElevatorMotor.configClosedloopRamp(kRamp); // !
@@ -70,8 +78,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     //     return convertTalonToMeters(getCanCoder());
     // }
 
-    public double convertTalonToMeters(double talon) {
-        return talon * 1.1 / 198000;
+    public double convertTalonToInches(double talon) {
+        return Convert.encoderPosToDistance(
+                talon,
+                Constants.ElevatorConstants.kGearRatio,
+                Constants.ElevatorConstants.kWinchDiameter,
+                Convert.Encoder.TalonFXIntegrated);
+        // return talon * 1.1 / 198000;
     }
 
     public double convertMetersToTalon(double meters) {
@@ -94,13 +107,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void drive(double pct) {
         elevatorTargetHeight += pct * 1000;
-        if (!RobotContainer.getResetPosMode()) {
-            elevatorTargetHeight =
-                    MathUtil.clamp(
-                            elevatorTargetHeight,
-                            Constants.ElevatorConstants.minimumHeight,
-                            Constants.ElevatorConstants.maximumHeight);
-        }
+        // if (!RobotContainer.getResetPosMode()) {
+        elevatorTargetHeight =
+                MathUtil.clamp(
+                        elevatorTargetHeight,
+                        Constants.ElevatorConstants.minimumHeight,
+                        Constants.ElevatorConstants.maximumHeight);
+        // }
     }
 
     public void stop() {
@@ -108,10 +121,27 @@ public class ElevatorSubsystem extends SubsystemBase {
         motors[1].set(ControlMode.PercentOutput, 0.0);
     }
 
+    private double positionError() {
+        return motors[1].getSelectedSensorPosition() - elevatorTargetHeight;
+    }
+
+    private double getHeightInches() {
+        return convertTalonToInches(motors[1].getSelectedSensorPosition());
+    }
+
+    private double getErrorInches() {
+        return convertTalonToInches(this.positionError());
+    }
+
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator Left", mLeftElevatorMotor.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Elevator Right", mRightElevatorMotor.getSelectedSensorPosition());
+        SmartDashboard.putNumber(
+                "Elevator Left", convertTalonToInches(mLeftElevatorMotor.getSelectedSensorPosition()));
+        SmartDashboard.putNumber(
+                "Elevator Right", convertTalonToInches(mRightElevatorMotor.getSelectedSensorPosition()));
+
+        SmartDashboard.putNumber("Elevator Target Height", convertTalonToInches(elevatorTargetHeight));
+        SmartDashboard.putNumber("Elevator Error", this.getErrorInches());
 
         motors[1].set(
                 ControlMode.Position,
@@ -121,22 +151,23 @@ public class ElevatorSubsystem extends SubsystemBase {
         // motors[1].set(ControlMode.Position, elevatorTargetHeight);
         // Constants.ElevatorConstants.arbitraryFeedforwardRate);
 
-        if ((elevatorTargetHeight - motors[1].getSelectedSensorPosition()) < 3000
-                && motors[1].getSelectedSensorPosition() < 6000
-                && !RobotContainer.getResetPosMode()) motors[1].set(ControlMode.PercentOutput, 0);
+        // if ((elevatorTargetHeight - motors[1].getSelectedSensorPosition()) < 3000
+        //         && motors[1].getSelectedSensorPosition() < 6000
+        //         && !RobotContainer.getResetPosMode()) motors[1].set(ControlMode.PercentOutput, 0);
 
         // 3868 -> 5828  =  1960
         // 15067 -> 24873   =  9806
 
         // for (WPI_TalonFX motor : motors){
-        mRightElevatorMotor.config_kP(0, Constants.ElevatorConstants.kP);
-        mRightElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI);
-        mRightElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD);
-        mRightElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF);
+
         // mLeftElevatorMotor.config_kP(0, Constants.ElevatorConstants.kP);
         // mLeftElevatorMotor.config_kI(0, Constants.ElevatorConstants.kI);
         // mLeftElevatorMotor.config_kD(0, Constants.ElevatorConstants.kD);
         // mLeftElevatorMotor.config_kF(0, Constants.ElevatorConstants.kF);
     }
     // }
+
+    public boolean atTargetHeight() {
+        return Math.abs(this.positionError()) < Constants.Position.ElevatorThreshold;
+    }
 }

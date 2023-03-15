@@ -33,8 +33,6 @@ public class FirstPosition extends CommandBase {
     public boolean isFinished() {
         return Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight)
                         < Constants.Position.ArmThreshold
-                && Math.abs(
-                                s_elevator.motors[1].getSelectedSensorPosition() - s_elevator.elevatorTargetHeight)
-                        < Constants.Position.ElevatorThreshold * 10;
+                && s_elevator.atTargetHeight();
     }
 }

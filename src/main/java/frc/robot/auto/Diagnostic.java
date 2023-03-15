@@ -19,7 +19,12 @@ public class Diagnostic extends CommandBase {
     private final Swerve s_Swerve;
 
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
-    public Diagnostic(ElevatorSubsystem s_Elevator, ArmSubsystem s_Arm, ClawSubsystem s_Claw, IntakeSubsystem s_Intake, Swerve s_Swerve) {
+    public Diagnostic(
+            ElevatorSubsystem s_Elevator,
+            ArmSubsystem s_Arm,
+            ClawSubsystem s_Claw,
+            IntakeSubsystem s_Intake,
+            Swerve s_Swerve) {
         addRequirements(s_Elevator, s_Arm, s_Claw, s_Intake, s_Swerve);
         this.s_Elevator = s_Elevator;
         this.s_Arm = s_Arm;

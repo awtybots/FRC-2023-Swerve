@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
     private final SparkMaxPIDController mRightArmPIDController;
 
     public double armHeight;
-    private final double kArmGearRatio = 1.0 / 216.0;
+    private final double kArmGearRatio = 1.0 / (216.0);
 
     public ArmSubsystem() {
 
@@ -45,9 +45,9 @@ public class ArmSubsystem extends SubsystemBase {
 
         mRightArmPIDController = mRightArmMotor.getPIDController();
 
-        mRightArmPIDController.setP(0.04);
-        mRightArmPIDController.setI(0);
-        mRightArmPIDController.setD(0);
+        mRightArmPIDController.setP(Constants.ArmConstants.kP);
+        mRightArmPIDController.setI(Constants.ArmConstants.kI);
+        mRightArmPIDController.setD(Constants.ArmConstants.kD);
         mRightArmPIDController.setOutputRange(-0.5, 0.5);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
@@ -62,7 +62,6 @@ public class ArmSubsystem extends SubsystemBase {
         final double rawRevs = mRightArmEncoder.getPosition();
         final double theta =
                 Convert.encoderPosToAngle(rawRevs, kArmGearRatio, Encoder.RevRelativeEncoder);
-        System.out.println(theta);
         return Constants.ArmConstants.startingAngle - theta;
     }
 
@@ -85,8 +84,15 @@ public class ArmSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition, 0, Constants.ArmConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
-        SmartDashboard.putNumber("Arm encoder readout", mRightArmEncoder.getPosition());
+        mRightArmPIDController.setReference(
+                armHeight,
+                CANSparkMax.ControlType.kPosition,
+                0,
+                Constants.ArmConstants.arbitraryFeedFowardRate * Math.cos(getAngle()));
+        SmartDashboard.putNumber(
+                "Arm Error",
+                Convert.encoderPosToAngle(
+                        mRightArmEncoder.getPosition() - armHeight, kArmGearRatio, Encoder.RevRelativeEncoder));
         SmartDashboard.putNumber("Arm angle", this.getAngle());
     }
 

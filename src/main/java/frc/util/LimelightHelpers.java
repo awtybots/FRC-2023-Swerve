@@ -721,7 +721,7 @@ public class LimelightHelpers {
         double millis = (end - start) * .000001;
         results.targetingResults.latency_jsonParse = millis;
         if (profileJSON) {
-            System.out.printf("lljson: %.2f\r\n", millis);
+            // System.out.printf("lljson: %.2f\r\n", millis);
         }
 
         return results;

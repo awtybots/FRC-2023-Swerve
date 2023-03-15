@@ -91,6 +91,7 @@ public final class Constants {
                 public static final double ArmPosition = 77.86;
                 public static final double ClawPosition = -4.07;
             }
+
             public static final class Cube {
                 public static final class IntakeFromGroundPosition {
                     public static final int ElevatorPosition = 80000;
@@ -132,25 +133,25 @@ public final class Constants {
         public static final int kRightElevatorMotorId = 21; // !
         public static final int kElevatorEncoderId = 22; // !
 
-        public static final double kMaxPercentOutput = 0.6;
-        public static final double kRamp = 0.5;
+        public static final double kMaxPercentOutput = 0.75;
+        public static final double kRamp = 0.08;
         public static final double kWinchDiameter = 1.0;
         // 9:1
         public static final double kGearRatio = 1.0 / 9;
 
         // Heights
         public static final int initialHeight = 4000;
-        public static final int minimumHeight = 2000;
+        public static final int minimumHeight = 4000;
         public static final int maximumHeight = 195000;
         public static final double ElevatorOffset = 0.05;
 
         // PID
-        public static final double kP = 0.025; // = 0.025;
+        public static final double kP = 0.25; // = 0.025;
         public static final double kI = 0; // = 0.00;
-        public static final double kD = 0.015; // 0.015;
+        public static final double kD = 0.1; // 0.015;
         public static final double kF = 0;
 
-        public static final double arbitraryFeedforwardRate = 0;
+        public static final double arbitraryFeedforwardRate = 0.02; // 0.0425;
     }
 
     public static final class ArmConstants {
@@ -167,17 +168,16 @@ public final class Constants {
         public static final int maximumHeight = (int) (70 * armConversion);
 
         // PID
-        public static final double kP = 0.002;
-        public static final double kI = 0.0001;
+        public static final double kP = 0.04; // 0.002
+        public static final double kI = 0; // 0.0001
         public static final double kD = 0.000;
         public static final double kF = 0.00;
 
         public static final double armLength = 0.54; // 0.54 m
-        public static final double startingAngle =
-                130;
+        public static final double startingAngle = 144;
 
         public static final double rampRate = 0.6;
-        public static final double arbitraryFeedFowardRate = 0.0;
+        public static final double arbitraryFeedFowardRate = 0.1;
     }
 
     public static final class ClawConstants {
@@ -195,11 +195,12 @@ public final class Constants {
         public static final int minimumHeight = (int) (-15 * Constants.ClawConstants.clawConversion);
         public static final int maximumHeight = (int) (35 * Constants.ClawConstants.clawConversion);
 
-        public static final double kP = 0.04;
-        public static final double kI = 0.0001; // !
+        public static final double kP = 0.10;
+        public static final double kI = 0.00; // !
         public static final double kD = 0.00;
 
-        public static final double startingAngle = 64; // ! ONLY FROM TOP OF WRIST NOT INDICATIVE OF MASS
+        public static final double startingAngle =
+                64; // ! ONLY FROM TOP OF WRIST NOT INDICATIVE OF MASS
 
         public static final double arbitraryFeedFowardRate = 0.0;
     }
