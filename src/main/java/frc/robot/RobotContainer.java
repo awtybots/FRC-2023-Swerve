@@ -55,8 +55,8 @@ public class RobotContainer {
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem();
 
-    private static Boolean isCone = Constants.CustomConstants.isCone;
-    private static Boolean resetPosMode = false;
+    private static boolean isCone = Constants.DefaultConfig.isCone;
+    private static boolean resetPosMode = false;
     private static double angleOffset = 0;
 
     // The controllers
@@ -201,9 +201,8 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setMode(1);
-                            setIsCone(false);
+                            isCone = false;
                             // s_Led.ivans_patterns(patterens_eneum.cube);
-                            ;
                         }));
 
         // Reflective Tape Mode
@@ -211,9 +210,8 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setMode(3);
-                            setIsCone(true);
+                            isCone = true;
                             // s_Led.ivans_patterns(patterens_eneum.cone);
-                            ;
                         }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
