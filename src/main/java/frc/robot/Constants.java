@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
@@ -114,7 +115,7 @@ public final class Constants {
                 public static final class IntakeFromSlidingHumanPlayer {
                     public static final int ElevatorPosition = 9393;
                     public static final double ArmPosition = 17.59;
-                    public static final double ClawPosition = 0.738;
+                    public static final double ClawPosition = 17.82 ;
                     // public static final double ClawPosition = 13.2857; // TODO THIS
                 }
             }
