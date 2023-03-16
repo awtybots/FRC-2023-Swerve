@@ -8,7 +8,10 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -243,22 +246,22 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
-        // isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
-        // isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
-        // SmartDashboard.putData("PipelineChooser", isConeChooser);
-        // final String isConeDashboardSelection =
-        //         NetworkTableInstance.getDefault()
-        //                 .getTable("SmartDashboard")
-        //                 .getSubTable("PipelineChooser")
-        //                 .getEntry("active")
-        //                 .getString("Cube");
-        // Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
-        // // setIsCone(isConeDashboardSelection != "Cube");
-        // setIsCone(false);
-        // return autonManager.getSelected();
-        return autoBuilder.fullAuto(
-                PathPlanner.loadPathGroup("GyroTest", new PathConstraints(1, 0.5))); // ! Test
+        isCone = false;
+        SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
+        isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
+        isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
+        SmartDashboard.putData("PipelineChooser", isConeChooser);
+        final String isConeDashboardSelection =
+                NetworkTableInstance.getDefault()
+                        .getTable("SmartDashboard")
+                        .getSubTable("PipelineChooser")
+                        .getEntry("active")
+                        .getString("Cube");
+        Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
+        // setIsCone(isConeDashboardSelection != "Cube");
+        return autonManager.getSelected();
+        // return autoBuilder.fullAuto(
+        //         PathPlanner.loadPathGroup("GyroTest", new PathConstraints(1, 0.5))); // ! Test
     }
 
     public void idleLimelight() {

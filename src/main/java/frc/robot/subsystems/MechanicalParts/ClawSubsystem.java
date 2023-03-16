@@ -51,7 +51,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void setDegrees(double degrees) {
         double sensorUnits =
-                Convert.angleToEncoderPos(degrees + Claw.startingAngle, kWristGearRatio, Encoder.RevRelativeEncoder);
+                Convert.angleToEncoderPos(degrees, kWristGearRatio, Encoder.RevRelativeEncoder);
         wristHeight = sensorUnits;
     }
 

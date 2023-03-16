@@ -2,22 +2,24 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 
 public class Intake extends CommandBase {
 
     private final IntakeSubsystem s_Intake;
-    private final boolean isCone;
+    private boolean isCone;
 
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
-    public Intake(IntakeSubsystem s_Intake, boolean isCone) {
+    public Intake(IntakeSubsystem s_Intake) {
         addRequirements(s_Intake);
+        isCone = RobotContainer.getIsCone();
         this.s_Intake = s_Intake;
-        this.isCone = isCone;
     }
 
     @Override
     public void execute() {
+        isCone = RobotContainer.getIsCone();
         s_Intake.intake(isCone ? -1 : 1, true);
     }
 
