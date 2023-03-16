@@ -87,7 +87,7 @@ public class ClawSubsystem extends SubsystemBase {
                 0,
                 Claw.arbitraryFeedFowardRate * Math.cos(getAngle()));
         SmartDashboard.putNumber("Wrist encoder readout", mPivotEncoder.getPosition());
-        SmartDashboard.putNumber("Wrist angle", getAngle());
+        SmartDashboard.putNumber("Wrist angle", getAngle() - Claw.startingAngle);
     }
 
     public void stopClaw() {

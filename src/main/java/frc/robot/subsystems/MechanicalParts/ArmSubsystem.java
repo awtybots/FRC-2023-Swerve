@@ -100,7 +100,7 @@ public class ArmSubsystem extends SubsystemBase {
                 "Arm Error",
                 Convert.encoderPosToAngle(
                         mRightArmEncoder.getPosition() - armHeight, kArmGearRatio, Encoder.RevRelativeEncoder));
-        SmartDashboard.putNumber("Arm angle", this.getAngle());
+        SmartDashboard.putNumber("Arm angle", -(this.getAngle()-Arm.startingAngle));
     }
 
     public void stop() {
