@@ -69,14 +69,16 @@ public class RobotContainer {
 
     private final String[] autonChoices =
             new String[] {
-                "LeftPlaceBalance",
-                "LeftPlacePickup",
-                "LeftPlacePickupBalance",
                 "LeftPlacePickupPlace",
-                "LeftPlacePickupPlaceBalance",
                 "MiddlePlaceBalance",
-                "RightPlaceBalance",
+                "MiddlePlaceExitBalance",
                 "RightPlacePickup",
+                
+                "LeftPlacePickup",
+                "LeftPlaceBalance",
+                "LeftPlacePickupBalance",
+                "LeftPlacePickupPlaceBalance",
+                "RightPlaceBalance",
                 "RightPlacePickupBalance",
                 "RightPlacePickupPlace",
                 "RightPlacePickupPlaceBalance"
