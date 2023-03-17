@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -11,9 +12,11 @@ public class LedSubsystem extends SubsystemBase {
     AddressableLEDBuffer m_ledBuffer;
     int length;
 
-    public static double ledCount = 0;
-    public static final double LED_SPEED = 1;
-    public final int stripLength;
+    private static double ledCount = 0;
+    private static final double LED_SPEED = 1;
+    private final int stripLength;
+
+    private boolean stop = false;
 
     public int[] rgb = new int[3];
 
@@ -24,11 +27,16 @@ public class LedSubsystem extends SubsystemBase {
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
         this.stripLength = (int) (length / 2);
-        m_led = new AddressableLED(LEDPort);
-        m_ledBuffer = new AddressableLEDBuffer(length);
-        m_led.setLength(m_ledBuffer.getLength());
-        m_led.setData(m_ledBuffer);
-        m_led.start();
+        try {
+            m_led = new AddressableLED(LEDPort);
+            m_ledBuffer = new AddressableLEDBuffer(length);
+            m_led.setLength(m_ledBuffer.getLength());
+            m_led.setData(m_ledBuffer);
+            m_led.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+            stop = true;
+        }
     }
 
     public void fillRange(int first, int last, int[] color) {
@@ -89,8 +97,13 @@ public class LedSubsystem extends SubsystemBase {
         m_led.setData(m_ledBuffer);
     }
 
-    @Override
-    public void periodic() {
+    private void SolidColor() {
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+            setLed(i, RobotContainer.getIsCone() ? YELLOW_CODE : PURPLE_CODE);
+        }
+    }
+
+    private void Animations() {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
             setLed(i, GREEN_CODE);
         }
@@ -102,8 +115,19 @@ public class LedSubsystem extends SubsystemBase {
             setLed(((int) (i + ledCount) % length), rgb);
         }
 
-        if (ledCount > 120) {
+        if (ledCount > length) {
             ledCount = 0;
+        }
+    }
+
+    @Override
+    public void periodic() {
+        if (stop) return;
+
+        if (DriverStation.isTeleopEnabled()) {
+            SolidColor();
+        } else {
+            Animations();
         }
 
         m_led.setData(m_ledBuffer);

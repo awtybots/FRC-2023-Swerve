@@ -27,6 +27,7 @@ import frc.robot.commands.Positions.Intake.IntakeFromSlidingHumanPlayerPosition;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
+import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
@@ -49,7 +50,9 @@ public class RobotContainer {
 
     // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
-    // ! private final LedSubsystem s_Led = new LedSubsystem(0, 120);
+    private LedSubsystem s_Led = new LedSubsystem(0, 72);
+
+
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
@@ -197,7 +200,6 @@ public class RobotContainer {
                         () -> {
                             Limelight.setMode(1);
                             isCone = false;
-                            // s_Led.ivans_patterns(patterens_eneum.cube);
                         }));
 
         // Reflective Tape Mode
@@ -206,7 +208,6 @@ public class RobotContainer {
                         () -> {
                             Limelight.setMode(3);
                             isCone = true;
-                            // s_Led.ivans_patterns(patterens_eneum.cone);
                         }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
