@@ -25,8 +25,8 @@ public class FirstPosition extends CommandBase {
             s_arm.setDegrees(Cone.HighNode.TransitionArmRotation);
             s_elevator.setHeightInches(Cone.HighNode.ElevatorPosition);
         } else {
-            s_arm.setRotation(Cube.HighNode.TransitionArmRotation);
-            s_elevator.setHeight(Cube.HighNode.ElevatorPosition);
+            s_arm.setDegrees(Cube.HighNode.TransitionArmRotation);
+            s_elevator.setHeightInches(Cube.HighNode.ElevatorPosition);
         }
     }
 

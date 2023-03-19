@@ -29,9 +29,9 @@ public class SecondPosition extends CommandBase {
             s_arm.setDegrees(Cone.HighNode.ArmPosition);
             s_claw.setDegrees(Cone.HighNode.ClawPosition);
         } else {
-            s_elevator.setHeight(Cube.HighNode.ElevatorPosition);
-            s_arm.setRotation(Cube.HighNode.ArmPosition);
-            s_claw.setRotation(Cube.HighNode.ClawPosition);
+            s_elevator.setHeightInches(Cube.HighNode.ElevatorPosition);
+            s_arm.setDegrees(Cube.HighNode.ArmPosition);
+            s_claw.setDegrees(Cube.HighNode.ClawPosition);
         }
     }
 

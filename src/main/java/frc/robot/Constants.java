@@ -47,7 +47,7 @@ public final class Constants {
         public static final int ClawThreshold = 10;
 
         public static final class Stow {
-            public static final int ElevatorPosition = 4000;
+            public static final double ElevatorPosition = 1.19377;
             public static final int ArmPosition = 0;
             public static final int ClawPosition = 0;
         }
@@ -64,10 +64,10 @@ public final class Constants {
                 }
 
                 public static final class HighNode {
-                    public static final int TransitionArmRotation = 28;
-                    public static final int ElevatorPosition = 50000;
-                    public static final double ArmPosition = 47.28;
-                    public static final double ClawPosition = 4.92;
+                    public static final double TransitionArmRotation = 46.667;
+                    public static final double ElevatorPosition = 14.9222;
+                    public static final double ArmPosition = 78.8;
+                    public static final double ClawPosition = 44.28;
                 }
             }
 
@@ -98,44 +98,44 @@ public final class Constants {
             public static final class IntakeFromGroundLow {
                 public static final double ElevatorPosition = 1.1928;
                 public static final double ArmPosition = 117.62; //77.86
-                public static final double ClawPosition = -1.00;
+                public static final double ClawPosition = -9.00;
             }
 
             public static final class Cube {
                 public static final class IntakeFromGround {
-                    public static final int ElevatorPosition = 80000; // 1.206 inch on dash
-                    public static final double ArmPosition = 100.074; // 25.266 degrees on dash
-                    public static final double ClawPosition = -5.11; // 38.286 degrees on dash
+                    public static final double ElevatorPosition = 23.8756; // 1.206 inch on dash
+                    public static final double ArmPosition = 166.79 ; // 25.266 degrees on dash
+                    public static final double ClawPosition = -45.99; // 38.286 degrees on dash
                     // public static final int ElevatorPosition = 80000;
                     // public static final double ArmPosition = 100.074;
                     // public static final double ClawPosition = -5.11;
                 }
 
                 public static final class IntakeFromSlidingHumanPlayer {
-                    public static final int ElevatorPosition = 9393;
-                    public static final double ArmPosition = 17.59;
-                    public static final double ClawPosition = 17.82;
+                    public static final double ElevatorPosition = 2.8033;
+                    public static final double ArmPosition = 29.3167;
+                    public static final double ClawPosition = 160.38;
                     // public static final double ClawPosition = 13.2857; // TODO THIS
                 }
             }
 
             public static final class Cone {
                 public static final class IntakeFromGround {
-                    public static final int ElevatorPosition = 115000;
-                    public static final double ArmPosition = 100.38;
-                    public static final double ClawPosition = -5.45;
+                    public static final double ElevatorPosition = 34.321;
+                    public static final double ArmPosition = 167.300;
+                    public static final double ClawPosition = -49.050;
                 }
 
                 public static final class IntakeFromHumanPlayer {
-                    public static final int ElevatorPosition = 86700;
-                    public static final double ArmPosition = 36.6 * Constants.Arm.armConversion;
-                    public static final double ClawPosition = 1.64;
+                    public static final double ElevatorPosition = 25.875;
+                    public static final double ArmPosition = 71.609;
+                    public static final double ClawPosition = 14.76;
                 }
 
                 public static final class IntakeFromSlidingHumanPlayer {
-                    public static final int ElevatorPosition = 7510;
-                    public static final double ArmPosition = 16.81;
-                    public static final double ClawPosition = 1.98;
+                    public static final double ElevatorPosition = 2.2413;
+                    public static final double ArmPosition = 28.0167;
+                    public static final double ClawPosition = 17.82;
                 }
             }
         }

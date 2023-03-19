@@ -25,9 +25,9 @@ public class StowPosition extends CommandBase {
 
     @Override
     public void execute() {
-        s_elevator.setHeight(Stow.ElevatorPosition);
-        s_arm.setRotation(Stow.ArmPosition);
-        s_claw.setRotation(Stow.ClawPosition);
+        s_elevator.setHeightInches(Stow.ElevatorPosition);
+        s_arm.setDegrees(Stow.ArmPosition);
+        s_claw.setDegrees(Stow.ClawPosition);
     }
 
     @Override
