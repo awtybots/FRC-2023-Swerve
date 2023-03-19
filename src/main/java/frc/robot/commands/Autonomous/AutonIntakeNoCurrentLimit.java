@@ -5,11 +5,12 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 
-public class runIntake extends CommandBase {
+public class AutonIntakeNoCurrentLimit extends CommandBase {
 
     private final IntakeSubsystem s_intake;
 
-    public runIntake(IntakeSubsystem IntakeSubsystem, LimelightSubsystem s_LimelightSubsystem) {
+    public AutonIntakeNoCurrentLimit(
+            IntakeSubsystem IntakeSubsystem, LimelightSubsystem s_LimelightSubsystem) {
         addRequirements(IntakeSubsystem);
         this.s_intake = IntakeSubsystem;
     }
@@ -20,7 +21,7 @@ public class runIntake extends CommandBase {
     @Override
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
-        s_intake.intake(isCone ? 1.5 : -1.5, true);
+        s_intake.intake(isCone ? 1.0 : -1.0, true);
     }
 
     @Override

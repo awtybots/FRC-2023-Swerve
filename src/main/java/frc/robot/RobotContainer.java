@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.auto.Diagnostic;
+import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
 import frc.robot.commands.Autonomous.Balance;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
-import frc.robot.commands.Autonomous.runIntake;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundLowPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -52,7 +52,6 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve();
     private LedSubsystem s_Led = new LedSubsystem(0, 72);
 
-
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
@@ -75,8 +74,8 @@ public class RobotContainer {
                 "LeftPlacePickupPlace",
                 "MiddlePlaceBalance",
                 "MiddlePlaceExitBalance",
+                "MiddlePlace",
                 "RightPlacePickup",
-                
                 "LeftPlacePickup",
                 "LeftPlaceBalance",
                 "LeftPlacePickupBalance",
@@ -116,7 +115,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         // s_Led.ivans_patterns(patterens_eneum.awtybots);
-        SmartDashboard.putBoolean("EmergencyButton", false);
+        // SmartDashboard.putBoolean("EmergencyButton", false);
     }
 
     /**
@@ -129,7 +128,7 @@ public class RobotContainer {
                 "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 0, false));
         eventMap.put(
                 "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, false));
-        eventMap.put("PlaceLow", new runIntake(s_Intake, Limelight).withTimeout(0.3));
+        eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake, Limelight).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
@@ -213,7 +212,7 @@ public class RobotContainer {
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
         s_Claw.setDefaultCommand(new DriveClaw(operatorController, s_Claw));
-        s_Intake.setDefaultCommand(new setIntake(operatorController, s_Intake));
+        s_Intake.setDefaultCommand(new TeleopIntake(operatorController, s_Intake));
 
         operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
         driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
@@ -233,6 +232,17 @@ public class RobotContainer {
                             }
                             ;
                         }));
+
+        operatorController.buttonStart.onTrue(
+            new InstantCommand(() -> {
+                setResetPosMode(true);
+            })
+        );
+        operatorController.buttonStart.onFalse(
+            new InstantCommand(() -> {
+                setResetPosMode(false);
+            })
+        );
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));

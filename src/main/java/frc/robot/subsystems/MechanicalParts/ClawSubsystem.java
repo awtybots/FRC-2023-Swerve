@@ -68,6 +68,10 @@ public class ClawSubsystem extends SubsystemBase {
         mPivotEncoder.setPosition(wristHeight);
     }
 
+    private double positionError() {
+        return mPivotEncoder.getPosition() - wristHeight;
+    }
+
     public void driveClaw(double pct) {
         if (!RobotContainer.getResetPosMode()) {
             wristHeight = MathUtil.clamp(wristHeight, Claw.minimumHeight, Claw.maximumHeight);
@@ -88,6 +92,8 @@ public class ClawSubsystem extends SubsystemBase {
                 Claw.arbitraryFeedFowardRate * Math.cos(getAngle()));
         SmartDashboard.putNumber("Wrist encoder readout", mPivotEncoder.getPosition());
         SmartDashboard.putNumber("Wrist angle", getAngle() - Claw.startingAngle);
+        SmartDashboard.putNumber("Wrist error", positionError());
+
     }
 
     public void stopClaw() {

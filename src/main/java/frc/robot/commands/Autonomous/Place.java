@@ -29,7 +29,7 @@ public class Place extends SequentialCommandGroup {
                 nodeId == 0
                         ? new MidNodePosition(s_Elevator, s_Arm, s_Claw)
                         : new HighNodePosition(s_Elevator, s_Arm, s_Claw),
-                new runIntake(s_Intake, s_Limelight).withTimeout(0.3),
+                new AutonIntakeNoCurrentLimit(s_Intake, s_Limelight).withTimeout(0.3),
                 new InstantCommand(() -> s_Intake.intake(0, false)),
                 new StowPosition(s_Elevator, s_Arm, s_Claw));
     }
