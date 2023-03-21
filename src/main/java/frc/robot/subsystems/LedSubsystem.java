@@ -29,7 +29,7 @@ public class LedSubsystem extends SubsystemBase {
         this.length = length;
         this.stripLength = (int) (length / 2);
 
-        SmartDashboard.putBoolean("Rainbow Mode", false);
+        SmartDashboard.putBoolean("Rainbow Mode", true);
         try {
             m_led = new AddressableLED(LEDPort);
             m_ledBuffer = new AddressableLEDBuffer(length);
