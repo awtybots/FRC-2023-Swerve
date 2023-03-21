@@ -97,14 +97,14 @@ public final class Constants {
         public static final class Intake {
             public static final class IntakeFromGroundLow {
                 public static final double ElevatorPosition = 1.1928;
-                public static final double ArmPosition = 117.62; //77.86
+                public static final double ArmPosition = 117.62; // 77.86
                 public static final double ClawPosition = -9.00;
             }
 
             public static final class Cube {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 23.8756; // 1.206 inch on dash
-                    public static final double ArmPosition = 166.79 ; // 25.266 degrees on dash
+                    public static final double ArmPosition = 166.79; // 25.266 degrees on dash
                     public static final double ClawPosition = -45.99; // 38.286 degrees on dash
                     // public static final int ElevatorPosition = 80000;
                     // public static final double ArmPosition = 100.074;

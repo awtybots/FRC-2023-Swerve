@@ -93,7 +93,6 @@ public class ClawSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist encoder readout", mPivotEncoder.getPosition());
         SmartDashboard.putNumber("Wrist angle", getAngle() - Claw.startingAngle);
         SmartDashboard.putNumber("Wrist error", positionError());
-
     }
 
     public void stopClaw() {
