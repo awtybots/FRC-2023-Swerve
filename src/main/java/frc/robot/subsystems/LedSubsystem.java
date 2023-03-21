@@ -3,14 +3,15 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
 public class LedSubsystem extends SubsystemBase {
 
-    AddressableLED m_led;
-    AddressableLEDBuffer m_ledBuffer;
-    int length;
+    private AddressableLED m_led;
+    private AddressableLEDBuffer m_ledBuffer;
+    private final int length;
 
     private static double ledCount = 0;
     private static final double LED_SPEED = 1;
@@ -27,6 +28,8 @@ public class LedSubsystem extends SubsystemBase {
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
         this.stripLength = (int) (length / 2);
+
+        SmartDashboard.putBoolean("Rainbow Mode", false);
         try {
             m_led = new AddressableLED(LEDPort);
             m_ledBuffer = new AddressableLEDBuffer(length);
@@ -120,14 +123,36 @@ public class LedSubsystem extends SubsystemBase {
         }
     }
 
+    private void GayRainbow(int offset) {
+        final int hueShiftRate = 20;
+        int hue = offset % 360;
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+            m_ledBuffer.setHSV(i, hue, 80, 80);
+            hue = (hue + hueShiftRate) % 360;
+        }
+    }
+
+    private int offset = 0;
+
+    private void RotatingRainbow() {
+        final int speed = 2; // TODO tune led speed
+        offset = (offset + speed) % m_ledBuffer.getLength();
+        GayRainbow(offset);
+    }
+
+    boolean rainbowMode = true;
+
     @Override
     public void periodic() {
         if (stop) return;
 
+        rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
+
         if (DriverStation.isTeleopEnabled()) {
             SolidColor();
         } else {
-            Animations();
+            // Animations();
+            RotatingRainbow();
         }
 
         m_led.setData(m_ledBuffer);
