@@ -44,11 +44,11 @@ public class LedCustomAnimations {
         if (Timer > getAnimationLength() && !isLoop) return;
 
         JSONObject frame = (JSONObject) json.get(Timer);
-        Integer red = (Integer) frame.get("red");
-        Integer green = (Integer) frame.get("green");
-        Integer blue = (Integer) frame.get("blue");
+        int red = (int) frame.get("red");
+        int green = (int) frame.get("green");
+        int blue = (int) frame.get("blue");
 
-        Double length = (Double) frame.get("length");
+        double length = (double) frame.get("length");
 
         for (int i = 0; i < ledBuffer.getLength() * (length / 100); i++) {
             ledBuffer.setRGB(i, red, green, blue);
