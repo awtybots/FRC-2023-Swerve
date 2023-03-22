@@ -20,7 +20,7 @@ public class LedCustomAnimations {
 
     private int Timer;
 
-    JSONArray json;
+    private final JSONArray json;
 
     public LedCustomAnimations(
             AddressableLED m_Led,
