@@ -27,6 +27,7 @@ public class LedSubsystem extends SubsystemBase {
     private int[] YELLOW_CODE = {255, 255, 0};
 
     private LedCustomAnimations SuperCoolLedAnim;
+    private LedCustomAnimations BootUp;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -44,7 +45,9 @@ public class LedSubsystem extends SubsystemBase {
             stop = true;
         }
 
-        SuperCoolLedAnim = new LedCustomAnimations(m_led, m_ledBuffer, "SuperCoolAnimation", 100, true); //!
+        SuperCoolLedAnim = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp", 100, false); //!
+        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "SuperCoolAnimation", 0, true); //!
+
 
     }
 
@@ -153,16 +156,19 @@ public class LedSubsystem extends SubsystemBase {
         if (stop) return;
 
         // TODO Use New Custom Animation Software
-        SuperCoolLedAnim.setAnimation(); //!
-
-        rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
-
-        if (DriverStation.isTeleopEnabled()) {
-            SolidColor();
-        } else {
-            // Animations();
-            RotatingRainbow();
+        BootUp.setAnimation();
+        if(BootUp.isFinished()){
+            SuperCoolLedAnim.setAnimation();
         }
+
+        // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
+
+        // if (DriverStation.isTeleopEnabled()) {
+        //     SolidColor();
+        // } else {
+        //     // Animations();
+        //     RotatingRainbow();
+        // }
 
         m_led.setData(m_ledBuffer);
         m_led.start();

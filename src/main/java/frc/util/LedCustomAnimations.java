@@ -14,7 +14,7 @@ public class LedCustomAnimations {
 
     private final AddressableLED m_Led;
     private final AddressableLEDBuffer ledBuffer;
-    private final boolean isLoop;
+    private boolean isLoop;
 
     private int Timer;
 
@@ -36,6 +36,14 @@ public class LedCustomAnimations {
 
     public int getAnimationLength() {
         return json.toArray().length;
+    }
+
+    public void reset(){
+        this.Timer = 0;
+    }
+
+    public void setLoop(boolean value) {
+        this.isLoop = value;
     }
 
     public void setAnimation() {
