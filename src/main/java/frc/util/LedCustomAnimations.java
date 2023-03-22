@@ -14,7 +14,6 @@ public class LedCustomAnimations {
 
     private final AddressableLED m_Led;
     private final AddressableLEDBuffer ledBuffer;
-    private final String AnimationPath;
     private final boolean isLoop;
 
     private int Timer;
@@ -29,7 +28,6 @@ public class LedCustomAnimations {
             boolean isLoop) {
         this.m_Led = m_Led;
         this.ledBuffer = ledBuffer;
-        this.AnimationPath = AnimationPath;
         this.isLoop = isLoop;
 
         this.Timer = -startTime;
