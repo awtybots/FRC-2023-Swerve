@@ -3,9 +3,11 @@ package frc.util;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Filesystem;
-import java.io.BufferedReader;
-import java.io.File;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+ 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,9 +54,9 @@ public class LedCustomAnimations {
         if (Timer > getAnimationLength() && !isLoop) return;
 
         JSONObject frame = (JSONObject) json.get(Timer);
-        int red = (int) frame.get("red");
-        int green = (int) frame.get("green");
-        int blue = (int) frame.get("blue");
+        int red = (int) frame.get("r");
+        int green = (int) frame.get("g");
+        int blue = (int) frame.get("b");
 
         double length = (double) frame.get("length");
 
@@ -67,19 +69,10 @@ public class LedCustomAnimations {
     }
 
     public JSONArray loadPath(String name) {
-        try (BufferedReader br =
-                new BufferedReader(
-                        new FileReader(
-                                new File(
-                                        Filesystem.getDeployDirectory(), "5829LedAnimations/" + name + ".json")))) {
-            StringBuilder fileContentBuilder = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                fileContentBuilder.append(line);
-            }
-
-            String fileContent = fileContentBuilder.toString();
-            JSONArray json = (JSONArray) new JSONParser().parse(fileContent);
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader file = new FileReader(Filesystem.getDeployDirectory() +  "5829LedAnimations/" + name + ".json")) {
+            Object obj = jsonParser.parse(file);
+            JSONArray json = (JSONArray) obj;
             return json;
         } catch (Exception e) {
             e.printStackTrace();
