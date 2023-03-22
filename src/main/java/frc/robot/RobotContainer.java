@@ -234,15 +234,15 @@ public class RobotContainer {
                         }));
 
         operatorController.buttonStart.onTrue(
-            new InstantCommand(() -> {
-                setResetPosMode(true);
-            })
-        );
+                new InstantCommand(
+                        () -> {
+                            setResetPosMode(true);
+                        }));
         operatorController.buttonStart.onFalse(
-            new InstantCommand(() -> {
-                setResetPosMode(false);
-            })
-        );
+                new InstantCommand(
+                        () -> {
+                            setResetPosMode(false);
+                        }));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));

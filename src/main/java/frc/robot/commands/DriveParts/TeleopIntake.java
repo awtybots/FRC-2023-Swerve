@@ -19,7 +19,7 @@ public class TeleopIntake extends CommandBase {
     public void execute() {
         double forward = 0;
         double reverse = 0;
-        if(RobotContainer.getIsCone()) {
+        if (RobotContainer.getIsCone()) {
             forward = controller.getRightTrigger() > 0.2 ? 1 : 0;
             reverse = controller.getLeftTrigger() > 0.2 ? 1 : 0;
         } else {
