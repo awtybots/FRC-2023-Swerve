@@ -49,7 +49,7 @@ public class LedSubsystem extends SubsystemBase {
             stop = true;
         }
 
-        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp", 100, false); //!
+        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 1000, false); //!
         // SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
 
