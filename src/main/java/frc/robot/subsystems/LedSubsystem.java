@@ -176,23 +176,22 @@ public class LedSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         if (stop) return;
-
-    }
     // TODO Use New Custom Animation Software
-    if (DriverStation.isTeleopEnabled()) {
-        SolidColor();
-    } else {
-        BootUp.setAnimation();
-        if(BootUp.isFinished()) {
-            Transitions.setAnimation();
-            // Animations();
-            // RotatingRainbow();
+        if (DriverStation.isTeleopEnabled()) {
+            SolidColor();
+        } else {
+            BootUp.setAnimation();
+            if(BootUp.isFinished()) {
+                Transitions.setAnimation();
+                // Animations();
+                // RotatingRainbow();
+            }
+
+            // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
+
+
+            m_led.setData(m_ledBuffer);
+            m_led.start();
         }
-
-        // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
-
-
-        m_led.setData(m_ledBuffer);
-        m_led.start();
     }
 }
