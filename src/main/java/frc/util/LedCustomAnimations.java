@@ -66,7 +66,7 @@ public class LedCustomAnimations {
         System.out.println(green);
         System.out.println(blue);
 
-        double length = (double) frame.get("length");
+        long length = (long) frame.get("length");
 
         for (int i = 0; i < Math.floor(ledBuffer.getLength() * length); i++) {
             ledBuffer.setRGB(i, (int) red, (int) green, (int) blue);
