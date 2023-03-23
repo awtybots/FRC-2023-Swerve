@@ -30,8 +30,9 @@ public class LedSubsystem extends SubsystemBase {
     private int[] YELLOW_CODE = {255, 255, 0};
 
     private LedCustomAnimations BootUp;
-    // private LedCustomAnimations SolidAnimation;
     private LedCustomAnimations Transitions;
+    private LedCustomAnimations ConeToCube;
+    private LedCustomAnimations CubeToCone;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -52,6 +53,8 @@ public class LedSubsystem extends SubsystemBase {
         BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 1000, false); //!
         // SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
+        ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
+        CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
 
 
     }
@@ -115,8 +118,22 @@ public class LedSubsystem extends SubsystemBase {
     }
 
     private void SolidColor() {
-        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-            setLed(i, RobotContainer.getIsCone() ? YELLOW_CODE : PURPLE_CODE);
+        if(RobotContainer.getIsCone()){
+            ConeToCube.reset();
+            CubeToCone.setAnimation();
+            if(CubeToCone.isFinished()) {
+                for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                    setLed(i, YELLOW_CODE);
+                }
+            }
+        } else {
+            CubeToCone.reset();
+            ConeToCube.setAnimation();
+            if(ConeToCube.isFinished()) {
+                for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                    setLed(i, PURPLE_CODE);
+                }
+            }
         }
     }
 
@@ -160,20 +177,20 @@ public class LedSubsystem extends SubsystemBase {
     public void periodic() {
         if (stop) return;
 
-        // TODO Use New Custom Animation Software
+    }
+    // TODO Use New Custom Animation Software
+    if (DriverStation.isTeleopEnabled()) {
+        SolidColor();
+    } else {
         BootUp.setAnimation();
         if(BootUp.isFinished()) {
             Transitions.setAnimation();
+            // Animations();
+            // RotatingRainbow();
         }
 
         // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
 
-        // if (DriverStation.isTeleopEnabled()) {
-        //     SolidColor();
-        // } else {
-        //     // Animations();
-        //     RotatingRainbow();
-        // }
 
         m_led.setData(m_ledBuffer);
         m_led.start();
