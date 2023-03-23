@@ -67,6 +67,9 @@ public class LedCustomAnimations {
         System.out.println(blue);
 
         long length = (long) frame.get("length");
+        for (int i = 0; i < ledBuffer.getLength(); i++) {
+            ledBuffer.setRGB(i, 0, 0, 0);
+        }
 
         for (int i = 0; i < Math.floor(ledBuffer.getLength() * length/100); i++) {
             ledBuffer.setRGB(i, (int) red, (int) green, (int) blue);
@@ -90,6 +93,6 @@ public class LedCustomAnimations {
     }
 
     public boolean isFinished(){
-        return Timer > getAnimationLength();
+        return Timer >= getAnimationLength();
     }
 }
