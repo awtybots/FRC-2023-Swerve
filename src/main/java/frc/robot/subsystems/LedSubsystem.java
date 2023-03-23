@@ -34,6 +34,7 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations ConeToCube;
     private LedCustomAnimations CubeToCone;
     private LedCustomAnimations VIVELAFRANCE;
+    private LedCustomAnimations GreenAndGold;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -57,6 +58,7 @@ public class LedSubsystem extends SubsystemBase {
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
         VIVELAFRANCE = new LedCustomAnimations(m_led, m_ledBuffer, "VIVELAFRANCE", 0, false);
         VIVELAFRANCE.end();
+        GreenAndGold = new LedCustomAnimations(m_led, m_ledBuffer, "GreenAndGold", 0, true);
     }
 
     public void fillRange(int first, int last, int[] color) {
@@ -176,10 +178,10 @@ public class LedSubsystem extends SubsystemBase {
     public void setVIVELAFRANCE(boolean value){
         if(value){
             VIVELAFRANCE.reset();
-            VIVELAFRANCE.setLoop(value);
+            VIVELAFRANCE.setLoop(true);
         } else {
             VIVELAFRANCE.setLoop(false);
-            VIVELAFRANCE.reset();
+            VIVELAFRANCE.end();
         }
     }
 
@@ -195,7 +197,8 @@ public class LedSubsystem extends SubsystemBase {
         } else {
             BootUp.setAnimation();
             if(BootUp.isFinished()) {
-                Transitions.setAnimation();
+                // Transitions.setAnimation();
+                GreenAndGold.setAnimation();
                 // Animations();
                 // RotatingRainbow();
             }
