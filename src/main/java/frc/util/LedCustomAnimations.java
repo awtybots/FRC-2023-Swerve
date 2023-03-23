@@ -5,9 +5,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Filesystem;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
  
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -50,19 +48,28 @@ public class LedCustomAnimations {
     }
 
     public void setAnimation() {
-        if (Timer < 0) return;
+        System.out.println(getAnimationLength());
+        System.out.println(Timer);
+        if (Timer < 0) {
+            Timer++;
+            return;
+        } 
         if (Timer > getAnimationLength() && isLoop) Timer = 0;
         if (Timer > getAnimationLength() && !isLoop) return;
 
         JSONObject frame = (JSONObject) json.get(Timer);
-        int red = (int) frame.get("r");
-        int green = (int) frame.get("g");
-        int blue = (int) frame.get("b");
+        long red = (long) frame.get("r");
+        long green = (long) frame.get("g");
+        long blue = (long) frame.get("b");
+
+        System.out.println(red);
+        System.out.println(green);
+        System.out.println(blue);
 
         double length = (double) frame.get("length");
 
-        for (int i = 0; i < Math.floor(ledBuffer.getLength() * (length)); i++) {
-            ledBuffer.setRGB(i, red, green, blue);
+        for (int i = 0; i < Math.floor(ledBuffer.getLength() * length); i++) {
+            ledBuffer.setRGB(i, (int) red, (int) green, (int) blue);
         }
         m_Led.setData(ledBuffer);
         m_Led.start();
