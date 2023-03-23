@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Filesystem;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class LedCustomAnimations {
 
         double length = (double) frame.get("length");
 
-        for (int i = 0; i < ledBuffer.getLength() * (length / 100); i++) {
+        for (int i = 0; i < Math.floor(ledBuffer.getLength() * (length)); i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
         m_Led.setData(ledBuffer);
@@ -70,13 +71,14 @@ public class LedCustomAnimations {
 
     public JSONArray loadPath(String name) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader file = new FileReader(Filesystem.getDeployDirectory() +  "5829LedAnimations/" + name + ".json")) {
+        // try (FileReader file = new FileReader(Filesystem.getDeployDirectory() +  "5829LedAnimations/" + name + ".json")) {
+        try (FileReader file = new FileReader(new File(Filesystem.getDeployDirectory(), "5829LedAnimations/" + name + ".json"))){
             Object obj = jsonParser.parse(file);
             JSONArray json = (JSONArray) obj;
             return json;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return new JSONArray();
         }
     }
 
