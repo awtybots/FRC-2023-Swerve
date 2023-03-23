@@ -209,6 +209,13 @@ public class RobotContainer {
                             isCone = true;
                         }));
 
+        driverController.buttonStart.onTrue(new InstantCommand(() -> {
+            s_Led.setVIVELAFRANCE(true);
+        }));
+        driverController.buttonBack.onTrue(new InstantCommand(() -> {
+            s_Led.setVIVELAFRANCE(false);
+        }));
+
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
         s_Claw.setDefaultCommand(new DriveClaw(operatorController, s_Claw));

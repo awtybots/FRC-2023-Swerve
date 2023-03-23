@@ -33,6 +33,7 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations Transitions;
     private LedCustomAnimations ConeToCube;
     private LedCustomAnimations CubeToCone;
+    private LedCustomAnimations VIVELAFRANCE;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -54,6 +55,8 @@ public class LedSubsystem extends SubsystemBase {
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
+        VIVELAFRANCE = new LedCustomAnimations(m_led, m_ledBuffer, "VIVELAFRANCE", 0, false);
+        VIVELAFRANCE.end();
     }
 
     public void fillRange(int first, int last, int[] color) {
@@ -170,12 +173,25 @@ public class LedSubsystem extends SubsystemBase {
 
     boolean rainbowMode = true;
 
+    public void setVIVELAFRANCE(boolean value){
+        if(value){
+            VIVELAFRANCE.reset();
+            VIVELAFRANCE.setLoop(value);
+        } else {
+            VIVELAFRANCE.setLoop(false);
+            VIVELAFRANCE.reset();
+        }
+    }
+
     @Override
     public void periodic() {
         if (stop) return;
     // TODO Use New Custom Animation Software
         if (DriverStation.isTeleopEnabled()) {
-            SolidColor();
+            VIVELAFRANCE.setAnimation();
+            if(VIVELAFRANCE.isFinished()){
+                SolidColor();
+            }
         } else {
             BootUp.setAnimation();
             if(BootUp.isFinished()) {

@@ -90,6 +90,11 @@ public class LedCustomAnimations {
         }
     }
 
+    public void end(){
+        setLoop(false);
+        Timer = getAnimationLength();
+    }
+
     public boolean isFinished(){
         return Timer >= getAnimationLength();
     }
