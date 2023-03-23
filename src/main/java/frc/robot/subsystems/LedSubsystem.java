@@ -34,7 +34,6 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations ConeToCube;
     private LedCustomAnimations CubeToCone;
     private LedCustomAnimations VIVELAFRANCE;
-    private LedCustomAnimations GreenAndGold;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -51,14 +50,13 @@ public class LedSubsystem extends SubsystemBase {
             e.printStackTrace();
             stop = true;
         }
-        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 200, false); //!
+        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp", 200, false); //!
         // SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
         VIVELAFRANCE = new LedCustomAnimations(m_led, m_ledBuffer, "VIVELAFRANCE", 0, false);
         VIVELAFRANCE.end();
-        GreenAndGold = new LedCustomAnimations(m_led, m_ledBuffer, "GreenAndGold", 0, true);
     }
 
     public void fillRange(int first, int last, int[] color) {
@@ -197,8 +195,7 @@ public class LedSubsystem extends SubsystemBase {
         } else {
             BootUp.setAnimation();
             if(BootUp.isFinished()) {
-                // Transitions.setAnimation();
-                GreenAndGold.setAnimation();
+                Transitions.setAnimation();
                 // Animations();
                 // RotatingRainbow();
             }
