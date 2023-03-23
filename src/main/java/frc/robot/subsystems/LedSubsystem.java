@@ -30,7 +30,8 @@ public class LedSubsystem extends SubsystemBase {
     private int[] YELLOW_CODE = {255, 255, 0};
 
     private LedCustomAnimations BootUp;
-    private LedCustomAnimations SolidAnimation;
+    // private LedCustomAnimations SolidAnimation;
+    private LedCustomAnimations Transitions;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -49,7 +50,9 @@ public class LedSubsystem extends SubsystemBase {
         }
 
         BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp", 100, false); //!
-        SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
+        // SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
+        Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
+
 
     }
 
@@ -160,7 +163,7 @@ public class LedSubsystem extends SubsystemBase {
         // TODO Use New Custom Animation Software
         BootUp.setAnimation();
         if(BootUp.isFinished()) {
-            SolidAnimation.setAnimation();
+            Transitions.setAnimation();
         }
 
         // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
