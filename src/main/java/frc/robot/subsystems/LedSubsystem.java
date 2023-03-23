@@ -49,14 +49,11 @@ public class LedSubsystem extends SubsystemBase {
             e.printStackTrace();
             stop = true;
         }
-
-        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 1000, false); //!
+        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 200, false); //!
         // SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
-
-
     }
 
     public void fillRange(int first, int last, int[] color) {
@@ -188,10 +185,9 @@ public class LedSubsystem extends SubsystemBase {
             }
 
             // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
-
+        }
 
             m_led.setData(m_ledBuffer);
             m_led.start();
-        }
     }
 }
