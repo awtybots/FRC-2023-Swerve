@@ -48,8 +48,6 @@ public class LedCustomAnimations {
     }
 
     public void setAnimation() {
-        System.out.println(getAnimationLength());
-        System.out.println(Timer);
         if (Timer < 0) {
             Timer++;
             return;
