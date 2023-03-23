@@ -54,8 +54,8 @@ public class LedCustomAnimations {
             Timer++;
             return;
         } 
-        if (Timer > getAnimationLength() && isLoop) Timer = 0;
-        if (Timer > getAnimationLength() && !isLoop) return;
+        if (Timer >= getAnimationLength() && isLoop) Timer = 0;
+        if (Timer >= getAnimationLength() && !isLoop) return;
 
         JSONObject frame = (JSONObject) json.get(Timer);
         long red = (long) frame.get("r");
