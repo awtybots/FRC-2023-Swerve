@@ -12,7 +12,9 @@ updates:
       day: "friday"
       time: "09:00"
       timezone: "America/Chicago"
-    labels: "dependabot"
+    labels: 
+      - "dependabot"
     assignees:
       - "WoodenMaxim"
     target-branch: "main"
+    apply: ""
