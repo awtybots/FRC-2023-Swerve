@@ -148,12 +148,6 @@ buildscript {
     apply from: 'dependencies.gradle'
 }
 
-dependencies {
-    ....
-    implementation supportDependencies.KauaiLabs_navX_FRC
-   ....
-}
-
 
 afterEvaluate {
     tasks.getByName('spotlessCheck').dependsOn(tasks.getByName('spotlessApply'))
