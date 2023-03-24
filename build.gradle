@@ -144,11 +144,6 @@ spotless {
     }
 }
 
-buildscript {
-    apply from: 'dependencies.gradle'
-}
-
-
 afterEvaluate {
     tasks.getByName('spotlessCheck').dependsOn(tasks.getByName('spotlessApply'))
 }
