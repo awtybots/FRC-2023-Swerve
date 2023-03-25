@@ -210,10 +210,10 @@ public class RobotContainer {
                         }));
 
         driverController.buttonStart.onTrue(new InstantCommand(() -> {
-            s_Led.setVIVELAFRANCE(true);
+            s_Led.setAnimation("VIVELAFRANCE", true);
         }));
         driverController.buttonBack.onTrue(new InstantCommand(() -> {
-            s_Led.setVIVELAFRANCE(false);
+            s_Led.setAnimation("VIVELAFRANCE", false);
         }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));

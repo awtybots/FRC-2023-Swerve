@@ -38,6 +38,8 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations IntakeCONE;
     private LedCustomAnimations IntakeCUBE;
 
+    private LedCustomAnimations[] animations;
+
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
         this.stripLength = (int) (length / 2);
@@ -53,8 +55,8 @@ public class LedSubsystem extends SubsystemBase {
             e.printStackTrace();
             stop = true;
         }
+
         BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp", 200, false); //!
-        // SolidAnimation = new LedCustomAnimations(m_led, m_ledBuffer, "SolidAnimation", 0, true);
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
@@ -64,6 +66,8 @@ public class LedSubsystem extends SubsystemBase {
         Greg = new LedCustomAnimations(m_led, m_ledBuffer, "GregAmazingAnimation", 0, true);
         IntakeCONE = new LedCustomAnimations(m_led, m_ledBuffer, "intake CONE", 0, true);
         IntakeCUBE = new LedCustomAnimations(m_led, m_ledBuffer, "intake CUBE", 0, true);
+
+        animations = new LedCustomAnimations[]{BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCONE, IntakeCUBE};
 
     }
 
@@ -85,6 +89,13 @@ public class LedSubsystem extends SubsystemBase {
     public void setLed(int i, int[] color) {
         if (i < 120 && i >= 0) {
             m_ledBuffer.setRGB(i, color[0], color[1], color[2]);
+        }
+    }
+
+    public void resetAnimations(){
+        for (LedCustomAnimations anim : animations) {
+            anim.end();
+            anim.setLoop(false);
         }
     }
 
@@ -130,16 +141,24 @@ public class LedSubsystem extends SubsystemBase {
             ConeToCube.reset();
             CubeToCone.setAnimation();
             if(CubeToCone.isFinished()) {
-                for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                    setLed(i, YELLOW_CODE);
+                if(IntakeCONE.isActive()) {
+                    IntakeCONE.setAnimation();
+                } else {
+                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                        setLed(i, YELLOW_CODE);
+                    }
                 }
             }
         } else {
             CubeToCone.reset();
             ConeToCube.setAnimation();
             if(ConeToCube.isFinished()) {
-                for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                    setLed(i, PURPLE_CODE);
+                if(IntakeCUBE.isActive()) {
+                    IntakeCUBE.setAnimation();
+                } else {
+                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                        setLed(i, PURPLE_CODE);
+                    }
                 }
             }
         }
@@ -181,13 +200,22 @@ public class LedSubsystem extends SubsystemBase {
 
     boolean rainbowMode = true;
 
-    public void setVIVELAFRANCE(boolean value){
+    public void setAnimation(String animationName, boolean value){
+        LedCustomAnimations animation = null;
+        for (LedCustomAnimations tmp_anim : animations) {
+            if(tmp_anim.getName() == animationName) {
+                animation = tmp_anim;
+            }
+        }
+        if(animation == null) return;
+
+        animation.setIsActive(value);
         if(value){
-            VIVELAFRANCE.reset();
-            VIVELAFRANCE.setLoop(true);
+            animation.reset();
+            animation.setLoop(true);
         } else {
-            VIVELAFRANCE.setLoop(false);
-            VIVELAFRANCE.end();
+            animation.setLoop(false);
+            animation.end();
         }
     }
 
@@ -196,8 +224,9 @@ public class LedSubsystem extends SubsystemBase {
         if (stop) return;
     // TODO Use New Custom Animation Software
         if (DriverStation.isTeleopEnabled()) {
-            VIVELAFRANCE.setAnimation();
-            if(VIVELAFRANCE.isFinished()){
+            if(VIVELAFRANCE.isActive()) {
+                VIVELAFRANCE.setAnimation();
+            } else {
                 SolidColor();
             }
         } else {

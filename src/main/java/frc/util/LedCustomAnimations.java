@@ -16,6 +16,8 @@ public class LedCustomAnimations {
     private final AddressableLED m_Led;
     private final AddressableLEDBuffer ledBuffer;
     private boolean isLoop;
+    private boolean isActive;
+    private final String name;
 
     private int Timer;
 
@@ -27,12 +29,25 @@ public class LedCustomAnimations {
             String AnimationPath,
             int startTime,
             boolean isLoop) {
+        this.name = AnimationPath; 
         this.m_Led = m_Led;
         this.ledBuffer = ledBuffer;
         this.isLoop = isLoop;
-
+        this.isActive = false;
         this.Timer = -startTime;
         json = loadPath(AnimationPath);
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setIsActive(boolean value){
+        isActive = value;
+    }
+
+    public boolean isActive(){
+        return isActive;
     }
 
     public int getAnimationLength() {
