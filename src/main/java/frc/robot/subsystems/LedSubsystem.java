@@ -35,6 +35,8 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations CubeToCone;
     private LedCustomAnimations VIVELAFRANCE;
     private LedCustomAnimations Greg;
+    private LedCustomAnimations IntakeCONE;
+    private LedCustomAnimations IntakeCUBE;
 
     public LedSubsystem(int LEDPort, int length) {
         this.length = length;
@@ -60,6 +62,9 @@ public class LedSubsystem extends SubsystemBase {
         VIVELAFRANCE.end();
 
         Greg = new LedCustomAnimations(m_led, m_ledBuffer, "GregAmazingAnimation", 0, true);
+        IntakeCONE = new LedCustomAnimations(m_led, m_ledBuffer, "intake CONE", 0, true);
+        IntakeCUBE = new LedCustomAnimations(m_led, m_ledBuffer, "intake CUBE", 0, true);
+
     }
 
     public void fillRange(int first, int last, int[] color) {
