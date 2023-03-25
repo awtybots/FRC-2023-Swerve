@@ -35,8 +35,8 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations CubeToCone;
     private LedCustomAnimations VIVELAFRANCE;
     private LedCustomAnimations Greg;
-    private LedCustomAnimations IntakeCONE;
-    private LedCustomAnimations IntakeCUBE;
+    private LedCustomAnimations IntakeCone;
+    private LedCustomAnimations IntakeCube;
 
     private LedCustomAnimations[] animations;
 
@@ -56,7 +56,7 @@ public class LedSubsystem extends SubsystemBase {
             stop = true;
         }
 
-        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp", 200, false); //!
+        BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 200, false); //!
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
@@ -64,10 +64,10 @@ public class LedSubsystem extends SubsystemBase {
         VIVELAFRANCE.end();
 
         Greg = new LedCustomAnimations(m_led, m_ledBuffer, "GregAmazingAnimation", 0, true);
-        IntakeCONE = new LedCustomAnimations(m_led, m_ledBuffer, "intake CONE", 0, true);
-        IntakeCUBE = new LedCustomAnimations(m_led, m_ledBuffer, "intake CUBE", 0, true);
+        IntakeCone = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCone", 0, true);
+        IntakeCube = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCube", 0, true);
 
-        animations = new LedCustomAnimations[]{BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCONE, IntakeCUBE};
+        animations = new LedCustomAnimations[]{BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCone, IntakeCube};
 
     }
 
@@ -141,8 +141,9 @@ public class LedSubsystem extends SubsystemBase {
             ConeToCube.reset();
             CubeToCone.setAnimation();
             if(CubeToCone.isFinished()) {
-                if(IntakeCONE.isActive()) {
-                    IntakeCONE.setAnimation();
+                if(IntakeCone.isActive()) {
+                    System.out.println("INTAKE CONE IS ACTIVE");
+                    IntakeCone.setAnimation();
                 } else {
                     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
                         setLed(i, YELLOW_CODE);
@@ -153,8 +154,9 @@ public class LedSubsystem extends SubsystemBase {
             CubeToCone.reset();
             ConeToCube.setAnimation();
             if(ConeToCube.isFinished()) {
-                if(IntakeCUBE.isActive()) {
-                    IntakeCUBE.setAnimation();
+                if(IntakeCube.isActive()) {
+                    System.out.println("INTAKE CUBE IS ACTIVE");
+                    IntakeCube.setAnimation();
                 } else {
                     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
                         setLed(i, PURPLE_CODE);
@@ -200,6 +202,17 @@ public class LedSubsystem extends SubsystemBase {
 
     boolean rainbowMode = true;
 
+    public void setHoldAnimation(String animationName, boolean value){
+        LedCustomAnimations animation = null;
+        for (LedCustomAnimations tmp_anim : animations) {
+            if(tmp_anim.getName() == animationName) {
+                animation = tmp_anim;
+            }
+        }
+        if(animation == null) return;
+        animation.setIsActive(value);
+    }
+
     public void setAnimation(String animationName, boolean value){
         LedCustomAnimations animation = null;
         for (LedCustomAnimations tmp_anim : animations) {
@@ -209,7 +222,6 @@ public class LedSubsystem extends SubsystemBase {
         }
         if(animation == null) return;
 
-        animation.setIsActive(value);
         if(value){
             animation.reset();
             animation.setLoop(true);
@@ -217,6 +229,7 @@ public class LedSubsystem extends SubsystemBase {
             animation.setLoop(false);
             animation.end();
         }
+        animation.setIsActive(value);
     }
 
     @Override
@@ -232,8 +245,7 @@ public class LedSubsystem extends SubsystemBase {
         } else {
             BootUp.setAnimation();
             if(BootUp.isFinished()) {
-                Greg.setAnimation();
-                // Transitions.setAnimation();
+                Transitions.setAnimation();
 
                 // Animations();
                 // RotatingRainbow();

@@ -16,7 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private double kIntakePct;
     private final LedSubsystem s_Led;
 
-    private double idlePct = 0.1;
+    // private double idlePct = 0.06;
 
     public IntakeSubsystem(LedSubsystem ledSubsystem) {
         s_Led = ledSubsystem;
@@ -26,6 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     private void configMotors() {
         mIntakeMotor.configFactoryDefault();
+        mIntakeMotor.configNeutralDeadband(0.0);
         mIntakeMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         mIntakeMotor.setNeutralMode(NeutralMode.Brake);
         mIntakeMotor.configPeakOutputForward(Claw.kMaxPercentOutput);
@@ -34,6 +35,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void intake(double pct, boolean keep) {
         kKeep = keep;
+        // if(pct == 0) {
+        //     if(RobotContainer.getIsCone()) {
+        //         intake(-idlePct, true);
+        //     } else {
+        //         intake(idlePct, true);
+        //     }
+        //     return;   
+        // }
         if (keep) {
             kIntakePct = pct * Claw.kMaxPercentOutput;
         } else {
@@ -51,27 +60,21 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(getOutputCurrent() > 10) {
+        if(getOutputCurrent() > 20) {
             if(RobotContainer.getIsCone()){
-                s_Led.setAnimation("intakeCUBE", false);
-                s_Led.setAnimation("intakeCONE", true);
+                s_Led.setHoldAnimation("IntakeCube", false);
+                s_Led.setHoldAnimation("IntakeCone", true);
             } else {
-                s_Led.setAnimation("intakeCUBE", true);
-                s_Led.setAnimation("intakeCONE", false);
+                s_Led.setHoldAnimation("IntakeCube", true);
+                s_Led.setHoldAnimation("IntakeCone", false);
             }
         } else {
-            s_Led.setAnimation("intakeCUBE", false);
-            s_Led.setAnimation("intakeCONE", false);
+            s_Led.setHoldAnimation("IntakeCube", false);
+            s_Led.setHoldAnimation("IntakeCone", false);
         }
         SmartDashboard.putNumber("Claw Current", getOutputCurrent());
         if (kKeep) {
             mIntakeMotor.set(kIntakePct);
-        } else {
-            if(RobotContainer.getIsCone()) {
-                mIntakeMotor.set(-idlePct);
-            } else {
-                mIntakeMotor.set(idlePct);
-            }
         }
     }
 }
