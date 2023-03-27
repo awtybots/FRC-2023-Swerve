@@ -20,7 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private final LedSubsystem s_Led;
 
     private final Debouncer currentFilter =
-            new Debouncer(0.3, DebounceType.kRising);
+            new Debouncer(0.2, DebounceType.kRising);
 
     // private double idlePct = 0.06;
 
@@ -66,7 +66,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(currentFilter.calculate(getOutputCurrent() > 20)) {
+        if(currentFilter.calculate(getOutputCurrent() > 18)) {
             if(RobotContainer.getIsCone()){
                 s_Led.setHoldAnimation("IntakeCube", false);
                 s_Led.setHoldAnimation("IntakeCone", true);

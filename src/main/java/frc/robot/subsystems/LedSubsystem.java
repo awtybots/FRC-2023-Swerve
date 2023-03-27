@@ -209,6 +209,9 @@ public class LedSubsystem extends SubsystemBase {
         }
         if(animation == null) return;
         animation.setIsActive(value);
+        if(!value){
+            animation.reset();
+        }
     }
 
 
