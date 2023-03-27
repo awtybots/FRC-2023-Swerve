@@ -169,6 +169,22 @@ public final class Constants {
         public static final double arbitraryFeedforwardRate = 0.02; // 0.0425;
     }
 
+    public static final class ArmElevator {
+        public static final int kArmMotorId = 7;
+        public static final int kCurrentLimit = 40;
+
+        public static final int initialExtent = 0;
+        public static final int minimumExtent = 0;
+        public static final int maximumExtend = 100;
+
+        public static final double kP = 0.04;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double kF = 0.0;
+
+        public static final double rampRate = 0.6;
+    }
+    
     public static final class Arm {
         public static final double armConversion = 216.0 / 184.0;
 
