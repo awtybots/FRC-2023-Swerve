@@ -170,7 +170,7 @@ public final class Constants {
     }
 
     public static final class ArmElevator {
-        public static final int kArmMotorId = 7;
+        public static final int kArmMotorId = 6;
         public static final int kCurrentLimit = 40;
 
         public static final int initialExtent = 0;
