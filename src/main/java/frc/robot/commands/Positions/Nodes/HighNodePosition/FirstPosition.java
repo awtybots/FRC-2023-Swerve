@@ -4,17 +4,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 
 public class FirstPosition extends CommandBase {
 
-    private final ArmSubsystem s_arm;
+    private final ArmElevatorSubsystem s_armElevator;
     private final ElevatorSubsystem s_elevator;
 
-    public FirstPosition(ArmSubsystem s_armSubsystem, ElevatorSubsystem s_elevatorSubsystem) {
-        addRequirements(s_armSubsystem, s_elevatorSubsystem);
-        this.s_arm = s_armSubsystem;
+    public FirstPosition(ArmElevatorSubsystem s_armElevatorSubsystem, ElevatorSubsystem s_elevatorSubsystem) {
+        addRequirements(s_armElevatorSubsystem, s_elevatorSubsystem);
+        this.s_armElevator = s_armElevatorSubsystem;
         this.s_elevator = s_elevatorSubsystem;
     }
 
@@ -22,17 +22,17 @@ public class FirstPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_arm.setDegrees(Cone.HighNode.TransitionArmRotation);
+            s_armElevator.setExtentInches(Cone.HighNode.TransitionArmRotation);
             s_elevator.setHeightInches(Cone.HighNode.ElevatorPosition);
         } else {
-            s_arm.setDegrees(Cube.HighNode.TransitionArmRotation);
+            s_armElevator.setExtentInches(Cube.HighNode.TransitionArmRotation);
             s_elevator.setHeightInches(Cube.HighNode.ElevatorPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(s_arm.mRightArmEncoder.getPosition() - s_arm.armHeight) < Presets.ArmThreshold
+        return Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent) < Presets.ArmThreshold
                 && s_elevator.atTargetHeight();
     }
 }

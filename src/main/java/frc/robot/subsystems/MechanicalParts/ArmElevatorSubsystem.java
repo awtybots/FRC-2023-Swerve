@@ -22,8 +22,8 @@ public class ArmElevatorSubsystem extends SubsystemBase {
     private final SparkMaxPIDController mArmPIDController;
 
     public double armExtent;
-    private final double kArmGearRatio = 1.0 / (216.0);
-    private final double kDiameter = 1.0;
+    private final double kArmGearRatio = (1/9) / (44/36);
+    private final double kDiameter = 1.5;
 
     public ArmElevatorSubsystem() {
 

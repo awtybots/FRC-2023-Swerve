@@ -55,7 +55,8 @@ public class RobotContainer {
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
-    private final ArmSubsystem s_Arm = new ArmSubsystem();
+    //! private final ArmSubsystem s_Arm = new ArmSubsystem(); 
+    private final ArmElevatorSubsystem s_ArmElevator = new ArmElevatorSubsystem();
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem(s_Led);
 
@@ -123,11 +124,11 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignment() {
-        eventMap.put("Pickup", new Pickup(s_Claw, s_Arm, s_Elevator, s_Intake));
+        eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake));
         eventMap.put(
-                "Place", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 0, false));
+                "Place", new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, false));
         eventMap.put(
-                "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_Arm, s_Elevator, s_Intake, 1, false));
+                "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
         eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake, Limelight).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve));
     }
@@ -139,7 +140,7 @@ public class RobotContainer {
         autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
         autonManager.addOption(
                 "Diagnostic",
-                new Diagnostic(s_Elevator, s_Arm, s_Claw, s_Intake, s_Swerve).withTimeout(1.5));
+                new Diagnostic(s_Elevator, s_ArmElevator, s_Claw, s_Intake, s_Swerve).withTimeout(1.5));
         for (var i = 0; i < autonChoices.length; i++) {
             autonManager.addOption(
                     autonChoices[i],
@@ -217,14 +218,14 @@ public class RobotContainer {
         }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
-        s_Arm.setDefaultCommand(new RotateArm(operatorController, s_Arm));
+        s_ArmElevator.setDefaultCommand(new DriveArmElevator(operatorController, s_ArmElevator));
         s_Claw.setDefaultCommand(new DriveClaw(operatorController, s_Claw));
         s_Intake.setDefaultCommand(new TeleopIntake(operatorController, s_Intake));
 
-        operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
-        driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.buttonA.onTrue(new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
+        driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw));
         // operatorController.buttonY.onTrue(new Place(s_Swerve, Limelight, s_Claw,s_Arm, s_Elevator,
         // s_Intake, 1, true ));
 
@@ -234,7 +235,7 @@ public class RobotContainer {
                         () -> {
                             if (getResetPosMode()) {
                                 s_Elevator.resetEncoderValue();
-                                s_Arm.resetEncoderValue();
+                                s_ArmElevator.resetEncoderValue();
                                 s_Claw.resetEncoderValue();
                             }
                             ;
@@ -252,11 +253,11 @@ public class RobotContainer {
                         }));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
+        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.dPadRight.onTrue(
-                new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator, s_Arm, s_Claw));
+                new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator, s_ArmElevator, s_Claw));
     }
 
     /**

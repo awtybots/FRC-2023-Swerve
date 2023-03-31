@@ -56,7 +56,7 @@ public final class Constants {
             public static final class Cube {
                 public static final class MidNode {
                     public static final double ElevatorPosition = 1.1938;
-                    public static final double ArmPosition = 18.691;
+                    public static final double ArmPosition = 0; //! 18.691
                     public static final double ClawPosition = 28.9285;
                     // public static final int ElevatorPosition = 23700;
                     // public static final double ArmPosition = 16.07 * Constants.Arm.armConversion;
@@ -66,7 +66,7 @@ public final class Constants {
                 public static final class HighNode {
                     public static final double TransitionArmRotation = 46.667;
                     public static final double ElevatorPosition = 14.9222;
-                    public static final double ArmPosition = 78.8;
+                    public static final double ArmPosition = 0; //! 78.8;
                     public static final double ClawPosition = 44.28;
                 }
             }
@@ -74,7 +74,7 @@ public final class Constants {
             public static final class Cone {
                 public static final class MidNode {
                     public static final double ElevatorPosition = 38.1040;
-                    public static final double ArmPosition = 45.844;
+                    public static final double ArmPosition = 0; //! 45.844;
                     public static final double ClawPosition = -33.4285;
                     // public static final int ElevatorPosition = 126270;
                     // public static final double ArmPosition = 23.69;
@@ -84,7 +84,7 @@ public final class Constants {
                 public static final class HighNode {
                     public static final double TransitionArmRotation = 46.6666666;
                     public static final double ElevatorPosition = 57.89822997;
-                    public static final double ArmPosition = 77.966666666;
+                    public static final double ArmPosition = 0; //! 77.966666666;
                     public static final double ClawPosition = -10.89;
                     // public static final int TransitionArmRotation = 28;
                     // public static final int ElevatorPosition = 194000;
@@ -97,14 +97,14 @@ public final class Constants {
         public static final class Intake {
             public static final class IntakeFromGroundLow {
                 public static final double ElevatorPosition = 1.1928;
-                public static final double ArmPosition = 117.62; // 77.86
+                public static final double ArmPosition = 0; //! 117.62; // 77.86
                 public static final double ClawPosition = -9.00;
             }
 
             public static final class Cube {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 23.8756; // 1.206 inch on dash
-                    public static final double ArmPosition = 166.79; // 25.266 degrees on dash
+                    public static final double ArmPosition = 0; //! 166.79; // 25.266 degrees on dash
                     public static final double ClawPosition = -45.99; // 38.286 degrees on dash
                     // public static final int ElevatorPosition = 80000;
                     // public static final double ArmPosition = 100.074;
@@ -113,7 +113,7 @@ public final class Constants {
 
                 public static final class IntakeFromSlidingHumanPlayer {
                     public static final double ElevatorPosition = 2.8033;
-                    public static final double ArmPosition = 29.3167;
+                    public static final double ArmPosition = 0; //! 29.3167;
                     public static final double ClawPosition = 160.38;
                     // public static final double ClawPosition = 13.2857; // TODO THIS
                 }
@@ -122,19 +122,19 @@ public final class Constants {
             public static final class Cone {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 34.321;
-                    public static final double ArmPosition = 167.300;
+                    public static final double ArmPosition = 0; //! 167.300;
                     public static final double ClawPosition = -49.050;
                 }
 
                 public static final class IntakeFromHumanPlayer {
                     public static final double ElevatorPosition = 25.875;
-                    public static final double ArmPosition = 71.609;
+                    public static final double ArmPosition = 0; //! 71.609;
                     public static final double ClawPosition = 14.76;
                 }
 
                 public static final class IntakeFromSlidingHumanPlayer {
                     public static final double ElevatorPosition = 2.2413;
-                    public static final double ArmPosition = 28.0167;
+                    public static final double ArmPosition = 0; //! 28.0167;
                     public static final double ClawPosition = 17.82;
                 }
             }
@@ -170,7 +170,7 @@ public final class Constants {
     }
 
     public static final class ArmElevator {
-        public static final int kArmMotorId = 6;
+        public static final int kArmMotorId = 7;
         public static final int kCurrentLimit = 40;
 
         public static final int initialExtent = 0;
@@ -185,6 +185,7 @@ public final class Constants {
         public static final double rampRate = 0.6;
     }
     
+    //! OLD ARM
     public static final class Arm {
         public static final double armConversion = 216.0 / 184.0;
 
