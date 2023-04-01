@@ -4,11 +4,13 @@ package frc.robot.commands.Autonomous.Balance;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 
 public class PreciseBalance extends CommandBase {
 
     private final Swerve s_Swerve;
+    private final LedSubsystem s_Led;
 
     private Translation2d translation;
     private double rotation;
@@ -19,9 +21,10 @@ public class PreciseBalance extends CommandBase {
     private double decrease = 1;
 
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
-    public PreciseBalance(Swerve s_Swerve) {
+    public PreciseBalance(Swerve s_Swerve, LedSubsystem s_Led) {
         addRequirements(s_Swerve);
         this.s_Swerve = s_Swerve;
+        this.s_Led = s_Led;
     }
 
     @Override
@@ -54,6 +57,7 @@ public class PreciseBalance extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        s_Led.setAnimation("VIVELAFRANCE", false);
         s_Swerve.drive(new Translation2d(0, 0), 0, true);
     }
 
