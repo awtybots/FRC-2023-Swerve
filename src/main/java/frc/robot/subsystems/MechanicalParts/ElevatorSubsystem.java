@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -105,10 +106,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void drive(double pct) {
         elevatorTargetHeight += pct * 1000;
-        // if (!RobotContainer.getResetPosMode()) {
-        elevatorTargetHeight =
+        if (!RobotContainer.getResetPosMode()) {
+            elevatorTargetHeight =
                 MathUtil.clamp(elevatorTargetHeight, Elevator.minimumHeight, Elevator.maximumHeight);
-        // }
+        }
     }
 
     public void stop() {

@@ -22,7 +22,7 @@ public class ArmElevatorSubsystem extends SubsystemBase {
     private final SparkMaxPIDController mArmPIDController;
 
     public double armExtent;
-    private final double kArmGearRatio = (1/9) / (44/36);
+    private final double kArmGearRatio = (1/9) / (48/34);
     private final double kDiameter = 1.5;
 
     public ArmElevatorSubsystem() {
@@ -58,11 +58,11 @@ public class ArmElevatorSubsystem extends SubsystemBase {
         armExtent = encoderunits;
     }
 
-    public double getAngle() {
+    public double getExtent() {
         final double rawRevs = mArmEncoder.getPosition();
-        final double height =
+        final double extent =
                 Convert.encoderPosToDistance(rawRevs, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder);
-        return height;
+        return extent;
     }
 
     public void resetEncoderValue() {
@@ -91,7 +91,8 @@ public class ArmElevatorSubsystem extends SubsystemBase {
                 "Arm Error",
                 Convert.encoderPosToDistance(
                         mArmEncoder.getPosition() - armExtent, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder));
-        SmartDashboard.putNumber("Arm angle", -this.getAngle());
+        SmartDashboard.putNumber("Arm extent", -this.getExtent());
+        SmartDashboard.putNumber("Arm Target Extent", this.armExtent);
     }
 
     public void stop() {

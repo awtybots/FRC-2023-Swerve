@@ -57,7 +57,7 @@ public final class Constants {
                 public static final class MidNode {
                     public static final double ElevatorPosition = 1.1938;
                     public static final double ArmPosition = 0; //! 18.691
-                    public static final double ClawPosition = 28.9285;
+                    public static final double ClawPosition = 0; //! 28.9285;
                     // public static final int ElevatorPosition = 23700;
                     // public static final double ArmPosition = 16.07 * Constants.Arm.armConversion;
                     // public static final double ClawPosition = 11.714 * Constants.Claw.clawConversion;
@@ -67,7 +67,7 @@ public final class Constants {
                     public static final double TransitionArmRotation = 46.667;
                     public static final double ElevatorPosition = 14.9222;
                     public static final double ArmPosition = 0; //! 78.8;
-                    public static final double ClawPosition = 44.28;
+                    public static final double ClawPosition = 0; //! 44.28;
                 }
             }
 
@@ -75,7 +75,7 @@ public final class Constants {
                 public static final class MidNode {
                     public static final double ElevatorPosition = 38.1040;
                     public static final double ArmPosition = 0; //! 45.844;
-                    public static final double ClawPosition = -33.4285;
+                    public static final double ClawPosition = 0; //! -33.4285;
                     // public static final int ElevatorPosition = 126270;
                     // public static final double ArmPosition = 23.69;
                     // public static final double ClawPosition = -6.214;
@@ -85,7 +85,7 @@ public final class Constants {
                     public static final double TransitionArmRotation = 46.6666666;
                     public static final double ElevatorPosition = 57.89822997;
                     public static final double ArmPosition = 0; //! 77.966666666;
-                    public static final double ClawPosition = -10.89;
+                    public static final double ClawPosition = 0; //! -10.89;
                     // public static final int TransitionArmRotation = 28;
                     // public static final int ElevatorPosition = 194000;
                     // public static final double ArmPosition = 46.78;
@@ -98,14 +98,14 @@ public final class Constants {
             public static final class IntakeFromGroundLow {
                 public static final double ElevatorPosition = 1.1928;
                 public static final double ArmPosition = 0; //! 117.62; // 77.86
-                public static final double ClawPosition = -9.00;
+                public static final double ClawPosition = 0; //! -9.00;
             }
 
             public static final class Cube {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 23.8756; // 1.206 inch on dash
                     public static final double ArmPosition = 0; //! 166.79; // 25.266 degrees on dash
-                    public static final double ClawPosition = -45.99; // 38.286 degrees on dash
+                    public static final double ClawPosition = 0; //! -45.99; // 38.286 degrees on dash
                     // public static final int ElevatorPosition = 80000;
                     // public static final double ArmPosition = 100.074;
                     // public static final double ClawPosition = -5.11;
@@ -114,7 +114,7 @@ public final class Constants {
                 public static final class IntakeFromSlidingHumanPlayer {
                     public static final double ElevatorPosition = 2.8033;
                     public static final double ArmPosition = 0; //! 29.3167;
-                    public static final double ClawPosition = 160.38;
+                    public static final double ClawPosition = 0; //! 160.38;
                     // public static final double ClawPosition = 13.2857; // TODO THIS
                 }
             }
@@ -123,19 +123,19 @@ public final class Constants {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 34.321;
                     public static final double ArmPosition = 0; //! 167.300;
-                    public static final double ClawPosition = -49.050;
+                    public static final double ClawPosition = 0; //! -49.050;
                 }
 
                 public static final class IntakeFromHumanPlayer {
                     public static final double ElevatorPosition = 25.875;
                     public static final double ArmPosition = 0; //! 71.609;
-                    public static final double ClawPosition = 14.76;
+                    public static final double ClawPosition = 0; //! 14.76;
                 }
 
                 public static final class IntakeFromSlidingHumanPlayer {
                     public static final double ElevatorPosition = 2.2413;
                     public static final double ArmPosition = 0; //! 28.0167;
-                    public static final double ClawPosition = 17.82;
+                    public static final double ClawPosition = 0; //! 17.82;
                 }
             }
         }
@@ -182,7 +182,7 @@ public final class Constants {
         public static final double kD = 0.0;
         public static final double kF = 0.0;
 
-        public static final double rampRate = 0.6;
+        public static final double rampRate = 0.3;
     }
     
     //! OLD ARM
@@ -224,8 +224,8 @@ public final class Constants {
         public static final int kIntakeCurrentLimit = 20;
 
         public static final int initialHeight = 0;
-        public static final int minimumHeight = (int) (-15 * Constants.Claw.clawConversion);
-        public static final int maximumHeight = (int) (35 * Constants.Claw.clawConversion);
+        public static final int minimumHeight = -80; //! (int) (-15 * Constants.Claw.clawConversion);
+        public static final int maximumHeight = 0; //! (int) (35 * Constants.Claw.clawConversion);
 
         public static final double kP = 0.10;
         public static final double kI = 0.00; // !
