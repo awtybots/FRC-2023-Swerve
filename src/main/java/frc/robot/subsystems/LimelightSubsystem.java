@@ -116,13 +116,13 @@ public class LimelightSubsystem extends SubsystemBase {
         ry = 0;
 
         // post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", tx);
-        SmartDashboard.putNumber("LimelightY", ty);
-        SmartDashboard.putNumber("LimelightSkew", ts);
-        SmartDashboard.putNumber("LimelightArea", ta);
-        SmartDashboard.putNumber("LimelightRY", ry);
+        // SmartDashboard.putNumber("LimelightX", tx);
+        // SmartDashboard.putNumber("LimelightY", ty);
+        // SmartDashboard.putNumber("LimelightSkew", ts);
+        // SmartDashboard.putNumber("LimelightArea", ta);
+        // SmartDashboard.putNumber("LimelightRY", ry);
 
-        SmartDashboard.putNumber("Get Pipeline", getPipeline());
+        // SmartDashboard.putNumber("Get Pipeline", getPipeline());
 
         // TODO: LED | s_LEDSubsystem.visionTrackingLED(area);
     }

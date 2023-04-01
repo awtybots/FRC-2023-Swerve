@@ -59,8 +59,8 @@ public class Swerve extends SubsystemBase {
     /** Creates a new DriveSubsystem. */
     public Swerve() {
 
-        SmartDashboard.putNumber("Output Swerve Current", getOutputCurrent());
-        SmartDashboard.putData("Field", m_field);
+        // SmartDashboard.putNumber("Output Swerve Current", getOutputCurrent());
+        // SmartDashboard.putData("Field", m_field);
 
         swerveHighSpeedMode = true;
 

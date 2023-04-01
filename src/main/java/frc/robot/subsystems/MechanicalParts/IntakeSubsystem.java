@@ -78,7 +78,7 @@ public class IntakeSubsystem extends SubsystemBase {
             s_Led.setHoldAnimation("IntakeCube", false);
             s_Led.setHoldAnimation("IntakeCone", false);
         }
-        SmartDashboard.putNumber("Claw Current", getOutputCurrent());
+        // SmartDashboard.putNumber("Claw Current", getOutputCurrent());
         if (kKeep) {
             mIntakeMotor.set(kIntakePct);
         }

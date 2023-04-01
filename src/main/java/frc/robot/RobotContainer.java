@@ -291,14 +291,14 @@ public class RobotContainer {
         SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
         isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
         isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
-        SmartDashboard.putData("PipelineChooser", isConeChooser);
-        final String isConeDashboardSelection =
-                NetworkTableInstance.getDefault()
-                        .getTable("SmartDashboard")
-                        .getSubTable("PipelineChooser")
-                        .getEntry("active")
-                        .getString("Cube");
-        Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
+        // SmartDashboard.putData("PipelineChooser", isConeChooser);
+        // final String isConeDashboardSelection =
+        //         NetworkTableInstance.getDefault()
+        //                 .getTable("SmartDashboard")
+        //                 .getSubTable("PipelineChooser")
+        //                 .getEntry("active")
+        //                 .getString("Cube");
+        // Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
         // setIsCone(isConeDashboardSelection != "Cube");
         return autonManager.getSelected();
         // return autoBuilder.fullAuto(

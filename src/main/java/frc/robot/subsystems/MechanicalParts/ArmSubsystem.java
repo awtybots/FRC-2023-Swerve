@@ -96,11 +96,11 @@ public class ArmSubsystem extends SubsystemBase {
                 CANSparkMax.ControlType.kPosition,
                 0,
                 Arm.arbitraryFeedFowardRate * Math.cos(getAngle()));
-        SmartDashboard.putNumber(
-                "Arm Error",
-                Convert.encoderPosToAngle(
-                        mRightArmEncoder.getPosition() - armHeight, kArmGearRatio, Encoder.RevRelativeEncoder));
-        SmartDashboard.putNumber("Arm angle", -(this.getAngle() - Arm.startingAngle));
+        // SmartDashboard.putNumber(
+        //         "Arm Error",
+        //         Convert.encoderPosToAngle(
+        //                 mRightArmEncoder.getPosition() - armHeight, kArmGearRatio, Encoder.RevRelativeEncoder));
+        // SmartDashboard.putNumber("Arm angle", -(this.getAngle() - Arm.startingAngle));
     }
 
     public void stop() {

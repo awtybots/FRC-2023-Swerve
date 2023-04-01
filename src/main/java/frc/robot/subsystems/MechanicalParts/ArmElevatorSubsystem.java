@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmElevator;
@@ -93,6 +94,8 @@ public class ArmElevatorSubsystem extends SubsystemBase {
                         mArmEncoder.getPosition() - armExtent, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder));
         SmartDashboard.putNumber("Arm extent", -this.getExtent());
         SmartDashboard.putNumber("Arm Target Extent", this.armExtent);
+
+        SmartDashboard.putData("ARMELEVATOR PID Controller", (Sendable)mArmPIDController);
     }
 
     public void stop() {

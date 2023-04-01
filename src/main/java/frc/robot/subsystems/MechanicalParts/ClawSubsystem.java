@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Claw;
@@ -93,6 +94,9 @@ public class ClawSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist encoder readout", mPivotEncoder.getPosition());
         SmartDashboard.putNumber("Wrist angle", getAngle() - Claw.startingAngle);
         SmartDashboard.putNumber("Wrist error", positionError());
+
+        SmartDashboard.putData("WRIST PID Controller", (Sendable)mPivotPIDController);
+
     }
 
     public void stopClaw() {
