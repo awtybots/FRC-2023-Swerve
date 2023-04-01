@@ -31,6 +31,7 @@ public class IntakeFromHumanPlayerPosition extends CommandBase {
         if (isCone) {
             s_elevator.setHeightInches(Cone.IntakeFromHumanPlayer.ElevatorPosition);
             s_armElevator.setExtentInches(Cone.IntakeFromHumanPlayer.ArmPosition);
+            if(!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cone.IntakeFromHumanPlayer.ClawPosition);
         }
     }

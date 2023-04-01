@@ -78,7 +78,7 @@ public class ArmElevatorSubsystem extends SubsystemBase {
         armExtent += pct;
     }
 
-    public boolean isFinished() {
+    public boolean atTargetExtent() {
         return Math.abs(mArmEncoder.getPosition() - armExtent) < Presets.ArmThreshold;
     }
 

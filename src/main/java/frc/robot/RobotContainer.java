@@ -64,6 +64,18 @@ public class RobotContainer {
     private static boolean resetPosMode = false;
     private static double angleOffset = 0;
 
+    public enum State {
+        Stow,
+
+        IntakeFromGround,
+        IntakeFromSlidingHumanPlayer,
+
+        HighNode,
+        MidNode
+    }
+
+    private static State currentState = State.Stow;
+
     // The controllers
     private final Controller driverController = new Controller(0);
     private final Controller operatorController = new Controller(1);
@@ -174,6 +186,14 @@ public class RobotContainer {
         angleOffset = offset;
     }
 
+    public static State getCurrentState(){
+        return currentState;
+    }
+
+    public static void setCurrentState(State state) {
+        currentState = state;
+    }
+
     public void autonResetGyro() {
         s_Swerve.zeroGyro(180);
     }
@@ -257,7 +277,7 @@ public class RobotContainer {
         operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.dPadRight.onTrue(
                 new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
-        operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator, s_ArmElevator, s_Claw));
+        //! operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator, s_ArmElevator, s_Claw));
     }
 
     /**

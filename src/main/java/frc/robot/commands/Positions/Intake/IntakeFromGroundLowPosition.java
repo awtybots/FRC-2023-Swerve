@@ -27,6 +27,7 @@ public class IntakeFromGroundLowPosition extends CommandBase {
     public void execute() {
         s_elevator.setHeightInches(IntakeFromGroundLow.ElevatorPosition);
         s_armElevator.setExtentInches(IntakeFromGroundLow.ArmPosition);
+        if(!s_armElevator.atTargetExtent()) return;
         s_claw.setDegrees(IntakeFromGroundLow.ClawPosition);
     }
 

@@ -27,14 +27,17 @@ public class MidNodePosition extends CommandBase {
 
     @Override
     public void execute() {
+        RobotContainer.setCurrentState(RobotContainer.State.MidNode);
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
             s_elevator.setHeightInches(Cone.MidNode.ElevatorPosition);
             s_armElevator.setExtentInches(Cone.MidNode.ArmPosition);
+            if(!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cone.MidNode.ClawPosition);
         } else {
             s_elevator.setHeightInches(Presets.Nodes.Cube.MidNode.ElevatorPosition);
             s_armElevator.setExtentInches(Presets.Nodes.Cube.MidNode.ArmPosition);
+            if(!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Presets.Nodes.Cube.MidNode.ClawPosition);
         }
     }

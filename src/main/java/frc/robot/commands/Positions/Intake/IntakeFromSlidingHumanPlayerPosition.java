@@ -26,14 +26,17 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
 
     @Override
     public void execute() {
+        RobotContainer.setCurrentState(RobotContainer.State.IntakeFromSlidingHumanPlayer);
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
             s_elevator.setHeightInches(Cone.IntakeFromSlidingHumanPlayer.ElevatorPosition);
             s_armElevator.setExtentInches(Cone.IntakeFromSlidingHumanPlayer.ArmPosition);
+            if(!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cone.IntakeFromSlidingHumanPlayer.ClawPosition);
         } else {
             s_elevator.setHeightInches(Cube.IntakeFromSlidingHumanPlayer.ElevatorPosition);
             s_armElevator.setExtentInches(Cube.IntakeFromSlidingHumanPlayer.ArmPosition);
+            if(!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cube.IntakeFromSlidingHumanPlayer.ClawPosition);
         }
     }
