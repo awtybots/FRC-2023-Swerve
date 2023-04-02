@@ -12,7 +12,8 @@ public class FirstPosition extends CommandBase {
     private final ArmElevatorSubsystem s_armElevator;
     private final ElevatorSubsystem s_elevator;
 
-    public FirstPosition(ArmElevatorSubsystem s_armElevatorSubsystem, ElevatorSubsystem s_elevatorSubsystem) {
+    public FirstPosition(
+            ArmElevatorSubsystem s_armElevatorSubsystem, ElevatorSubsystem s_elevatorSubsystem) {
         addRequirements(s_armElevatorSubsystem, s_elevatorSubsystem);
         this.s_armElevator = s_armElevatorSubsystem;
         this.s_elevator = s_elevatorSubsystem;
@@ -22,17 +23,18 @@ public class FirstPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_armElevator.setExtentInches(Cone.HighNode.TransitionArmRotation);
-            s_elevator.setHeightInches(Cone.HighNode.ElevatorPosition);
+            s_armElevator.setExtent(Cone.HighNode.TransitionArmRotation);
+            s_elevator.setHeightInches(Cone.HighNode.ElevatorPosition / 2);
         } else {
-            s_armElevator.setExtentInches(Cube.HighNode.TransitionArmRotation);
+            s_armElevator.setExtent(Cube.HighNode.TransitionArmRotation);
             s_elevator.setHeightInches(Cube.HighNode.ElevatorPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent) < Presets.ArmThreshold
+        return Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
+                        < Presets.ArmThreshold
                 && s_elevator.atTargetHeight();
     }
 }

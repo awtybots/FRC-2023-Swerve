@@ -30,13 +30,13 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
             s_elevator.setHeightInches(Cone.IntakeFromSlidingHumanPlayer.ElevatorPosition);
-            s_armElevator.setExtentInches(Cone.IntakeFromSlidingHumanPlayer.ArmPosition);
-            if(!s_armElevator.atTargetExtent()) return;
+            s_armElevator.setExtent(Cone.IntakeFromSlidingHumanPlayer.ArmPosition);
+            if (!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cone.IntakeFromSlidingHumanPlayer.ClawPosition);
         } else {
             s_elevator.setHeightInches(Cube.IntakeFromSlidingHumanPlayer.ElevatorPosition);
-            s_armElevator.setExtentInches(Cube.IntakeFromSlidingHumanPlayer.ArmPosition);
-            if(!s_armElevator.atTargetExtent()) return;
+            s_armElevator.setExtent(Cube.IntakeFromSlidingHumanPlayer.ArmPosition);
+            if (!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cube.IntakeFromSlidingHumanPlayer.ClawPosition);
         }
     }
@@ -44,7 +44,8 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && (Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent) < Presets.ArmThreshold)
+                && (Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
+                        < Presets.ArmThreshold)
                 && s_claw.atTargetAngle();
     }
 }

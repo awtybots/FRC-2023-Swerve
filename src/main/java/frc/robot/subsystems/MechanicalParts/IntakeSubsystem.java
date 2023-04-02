@@ -3,13 +3,11 @@ package frc.robot.subsystems.MechanicalParts;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.Claw;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.LedSubsystem;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -19,8 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private double kIntakePct;
     private final LedSubsystem s_Led;
 
-    private final Debouncer currentFilter =
-            new Debouncer(0.2, DebounceType.kRising);
+    private final Debouncer currentFilter = new Debouncer(0.2, DebounceType.kRising);
 
     // private double idlePct = 0.06;
 
@@ -47,7 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
         //     } else {
         //         intake(idlePct, true);
         //     }
-        //     return;   
+        //     return;
         // }
         if (keep) {
             kIntakePct = pct * Claw.kMaxPercentOutput;
@@ -66,8 +63,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(currentFilter.calculate(getOutputCurrent() > 18)) {
-            if(RobotContainer.getIsCone()){
+        if (currentFilter.calculate(getOutputCurrent() > 18)) {
+            if (RobotContainer.getIsCone()) {
                 s_Led.setHoldAnimation("IntakeCube", false);
                 s_Led.setHoldAnimation("IntakeCone", true);
             } else {

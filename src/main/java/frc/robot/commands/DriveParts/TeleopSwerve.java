@@ -38,9 +38,9 @@ public class TeleopSwerve extends CommandBase {
 
         // Reduces speed if low speed mode is activated
         if (!s_Swerve.swerveHighSpeedMode) {
-            yAxis *= DefaultConfig.lowSpeedMultiplier;
-            xAxis *= DefaultConfig.lowSpeedMultiplier;
-            rAxis *= DefaultConfig.lowSpeedMultiplier;
+            yAxis *= s_Swerve.swerveSpeedValue;
+            xAxis *= s_Swerve.swerveSpeedValue;
+            rAxis *= s_Swerve.swerveSpeedValue;
         }
 
         translation =

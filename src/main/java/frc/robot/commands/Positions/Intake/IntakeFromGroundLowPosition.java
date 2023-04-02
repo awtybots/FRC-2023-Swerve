@@ -26,15 +26,16 @@ public class IntakeFromGroundLowPosition extends CommandBase {
     @Override
     public void execute() {
         s_elevator.setHeightInches(IntakeFromGroundLow.ElevatorPosition);
-        s_armElevator.setExtentInches(IntakeFromGroundLow.ArmPosition);
-        if(!s_armElevator.atTargetExtent()) return;
+        s_armElevator.setExtent(IntakeFromGroundLow.ArmPosition);
+        if (!s_armElevator.atTargetExtent()) return;
         s_claw.setDegrees(IntakeFromGroundLow.ClawPosition);
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent) < Presets.ArmThreshold
+                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
+                        < Presets.ArmThreshold
                 && s_claw.atTargetAngle();
     }
 }

@@ -36,24 +36,10 @@ public class AutomatedVisionTracking extends CommandBase {
         this.aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
         this.aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
         this.reflectiveBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        this.reflectiveAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-
-        this.offset = 7.5;
-        this.ReflectiveOffset = 84;
-    }
-
-    public AutomatedVisionTracking(Swerve s_Swerve, LimelightSubsystem s_Limelight, boolean isCone) {
-        addRequirements(s_Swerve);
-        this.s_Swerve = s_Swerve;
-        this.s_Limelight = s_Limelight;
-
-        this.aprilBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
-        this.aprilAlpha = Math.toRadians(s_Limelight.getHorizontalRotation());
-        this.reflectiveBeta = Math.toRadians(s_Limelight.getHorizontalOffset());
         this.reflectiveAlpha = Math.toRadians(s_Limelight.getSkew());
 
-        this.offset = 7.5;
-        this.ReflectiveOffset = 84;
+        this.offset = 0;
+        this.ReflectiveOffset = 90;
     }
 
     private int getSign(double num) {
@@ -126,11 +112,11 @@ public class AutomatedVisionTracking extends CommandBase {
                     || Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold
                             && Math.abs(Math.toDegrees(aprilAlpha)) < driveThreshold;
         } else if (s_Limelight.getPipeline() == 1) {
-            return (Math.abs(Math.toDegrees(aprilBeta) - offset) < reflectiveThreshold
-                    && Math.abs(Math.toDegrees(aprilAlpha) - ReflectiveOffset) < reflectiveThreshold);
+            return (Math.abs(Math.toDegrees(reflectiveBeta) - offset) < reflectiveThreshold
+                    && Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) < reflectiveThreshold);
         } else {
             return !s_Limelight.hasTarget()
-                    || (Math.abs(Math.toDegrees(aprilBeta) - offset) < rotateThreshold);
+                    || (Math.abs(Math.toDegrees(reflectiveBeta) - offset) < rotateThreshold);
         }
     }
 }

@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmElevator;
@@ -23,7 +22,7 @@ public class ArmElevatorSubsystem extends SubsystemBase {
     private final SparkMaxPIDController mArmPIDController;
 
     public double armExtent;
-    private final double kArmGearRatio = (1/9) / (48/34);
+    private final double kArmGearRatio = (1 / 9) / (48 / 34);
     private final double kDiameter = 1.5;
 
     public ArmElevatorSubsystem() {
@@ -54,15 +53,17 @@ public class ArmElevatorSubsystem extends SubsystemBase {
     }
 
     public void setExtentInches(double inches) {
-        double encoderunits =
-                Convert.angleToEncoderPos(inches, kArmGearRatio, Encoder.RevRelativeEncoder);
-        armExtent = encoderunits;
+        double sensorUnits =
+                Convert.distanceToEncoderPos(inches, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder);
+        setExtent(sensorUnits);
     }
 
     public double getExtent() {
         final double rawRevs = mArmEncoder.getPosition();
+        System.out.println(rawRevs);
         final double extent =
                 Convert.encoderPosToDistance(rawRevs, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder);
+        System.out.println(extent);
         return extent;
     }
 
@@ -85,17 +86,16 @@ public class ArmElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        mArmPIDController.setReference(
-                armExtent,
-                CANSparkMax.ControlType.kPosition);
+        mArmPIDController.setReference(armExtent, CANSparkMax.ControlType.kPosition);
         SmartDashboard.putNumber(
                 "Arm Error",
                 Convert.encoderPosToDistance(
-                        mArmEncoder.getPosition() - armExtent, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder));
-        SmartDashboard.putNumber("Arm extent", -this.getExtent());
+                        mArmEncoder.getPosition() - armExtent,
+                        kArmGearRatio,
+                        kDiameter,
+                        Encoder.RevRelativeEncoder));
+        SmartDashboard.putNumber("Arm extent", mArmEncoder.getPosition());
         SmartDashboard.putNumber("Arm Target Extent", this.armExtent);
-
-        SmartDashboard.putData("ARMELEVATOR PID Controller", (Sendable)mArmPIDController);
     }
 
     public void stop() {

@@ -8,17 +8,15 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.auto.Diagnostic;
 import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
+import frc.robot.commands.Autonomous.Balance.Balance;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
-import frc.robot.commands.Autonomous.Balance.Balance;
+import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
@@ -54,7 +52,7 @@ public class RobotContainer {
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
-    //! private final ArmSubsystem s_Arm = new ArmSubsystem(); 
+    // ! private final ArmSubsystem s_Arm = new ArmSubsystem();
     private final ArmElevatorSubsystem s_ArmElevator = new ArmElevatorSubsystem();
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem(s_Led);
@@ -139,10 +137,12 @@ public class RobotContainer {
     private void eventAssignment() {
         eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake));
         eventMap.put(
-                "Place", new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, false));
+                "Place",
+                new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, false));
         eventMap.put(
-                "PlaceHigh", new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
-        eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake, Limelight).withTimeout(0.3));
+                "PlaceHigh",
+                new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
+        eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve, s_Led));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
@@ -187,7 +187,7 @@ public class RobotContainer {
         angleOffset = offset;
     }
 
-    public static State getCurrentState(){
+    public static State getCurrentState() {
         return currentState;
     }
 
@@ -210,10 +210,11 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
                 new TeleopSwerve(s_Swerve, driverController, translationAxis, strafeAxis, rotationAxis));
 
-        driverController.buttonA.onTrue(new InstantCommand(s_Swerve::toggleSwerveMode));
+        driverController.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.2)));
+        driverController.buttonB.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.5)));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        // ! driverController.buttonB.onTrue(new Balance(s_Swerve));
         // ! driverController.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+        // ! driverController.buttonB.onTrue(new Balance(s_Swerve));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(
@@ -231,12 +232,16 @@ public class RobotContainer {
                             isCone = true;
                         }));
 
-        driverController.buttonStart.onTrue(new InstantCommand(() -> {
-            s_Led.setAnimation("VIVELAFRANCE", true);
-        }));
-        driverController.buttonBack.onTrue(new InstantCommand(() -> {
-            s_Led.setAnimation("VIVELAFRANCE", false);
-        }));
+        driverController.buttonStart.onTrue(
+                new InstantCommand(
+                        () -> {
+                            s_Led.setAnimation("VIVELAFRANCE", true);
+                        }));
+        driverController.buttonBack.onTrue(
+                new InstantCommand(
+                        () -> {
+                            s_Led.setAnimation("VIVELAFRANCE", false);
+                        }));
 
         s_Elevator.setDefaultCommand(new DriveElevator(operatorController, s_Elevator));
         s_ArmElevator.setDefaultCommand(new DriveArmElevator(operatorController, s_ArmElevator));
@@ -274,11 +279,15 @@ public class RobotContainer {
                         }));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
-        operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw));
-        operatorController.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.dPadDown.onTrue(
+                new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.dPadUp.onTrue(
+                new IntakeFromHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.dPadRight.onTrue(
                 new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
-        //! operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.dPadLeft.onTrue(new ShootPiece(s_Intake, s_Elevator, s_ArmElevator, s_Claw));
+        // ! operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator,
+        // s_ArmElevator, s_Claw));
     }
 
     /**
@@ -288,9 +297,9 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         isCone = false;
-        SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
-        isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
-        isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
+        // SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
+        // isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
+        // isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
         // SmartDashboard.putData("PipelineChooser", isConeChooser);
         // final String isConeDashboardSelection =
         //         NetworkTableInstance.getDefault()

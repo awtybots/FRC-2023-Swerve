@@ -9,11 +9,13 @@ import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 
 public class HighNodePosition extends SequentialCommandGroup {
 
-    public HighNodePosition(ElevatorSubsystem s_Elevator, ArmElevatorSubsystem s_ArmElevator, ClawSubsystem s_Claw) {
+    public HighNodePosition(
+            ElevatorSubsystem s_Elevator, ArmElevatorSubsystem s_ArmElevator, ClawSubsystem s_Claw) {
+        if (!s_Claw.isMotorConnected()) return;
         addRequirements(s_Elevator, s_ArmElevator, s_Claw);
         addCommands(
-            new InstantCommand(() -> RobotContainer.setCurrentState(RobotContainer.State.HighNode)),
-            new FirstPosition(s_ArmElevator, s_Elevator), 
-            new SecondPosition(s_Elevator, s_ArmElevator, s_Claw));
+                new InstantCommand(() -> RobotContainer.setCurrentState(RobotContainer.State.HighNode)),
+                new FirstPosition(s_ArmElevator, s_Elevator),
+                new SecondPosition(s_Elevator, s_ArmElevator, s_Claw));
     }
 }

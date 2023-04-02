@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Arm;
 import frc.robot.Constants.Presets;
@@ -99,7 +98,8 @@ public class ArmSubsystem extends SubsystemBase {
         // SmartDashboard.putNumber(
         //         "Arm Error",
         //         Convert.encoderPosToAngle(
-        //                 mRightArmEncoder.getPosition() - armHeight, kArmGearRatio, Encoder.RevRelativeEncoder));
+        //                 mRightArmEncoder.getPosition() - armHeight, kArmGearRatio,
+        // Encoder.RevRelativeEncoder));
         // SmartDashboard.putNumber("Arm angle", -(this.getAngle() - Arm.startingAngle));
     }
 

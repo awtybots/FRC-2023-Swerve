@@ -15,7 +15,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Drivetrain;
@@ -55,6 +54,7 @@ public class Swerve extends SubsystemBase {
     private final SwerveDriveOdometry m_odometry;
 
     public Boolean swerveHighSpeedMode;
+    public double swerveSpeedValue;
 
     /** Creates a new DriveSubsystem. */
     public Swerve() {
@@ -270,7 +270,8 @@ public class Swerve extends SubsystemBase {
         return m_gyro.getRate() * (Drivetrain.kGyroReversed ? -1.0 : 1.0);
     }
 
-    public void toggleSwerveMode() {
-        swerveHighSpeedMode = !swerveHighSpeedMode;
+    public void toggleSwerveMode(double pct) {
+        swerveHighSpeedMode = !swerveHighSpeedMode || pct != swerveSpeedValue;
+        swerveSpeedValue = pct;
     }
 }

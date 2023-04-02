@@ -5,7 +5,6 @@ import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.ArmSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 
@@ -31,13 +30,13 @@ public class MidNodePosition extends CommandBase {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
             s_elevator.setHeightInches(Cone.MidNode.ElevatorPosition);
-            s_armElevator.setExtentInches(Cone.MidNode.ArmPosition);
-            if(!s_armElevator.atTargetExtent()) return;
+            s_armElevator.setExtent(Cone.MidNode.ArmPosition);
+            if (!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Cone.MidNode.ClawPosition);
         } else {
             s_elevator.setHeightInches(Presets.Nodes.Cube.MidNode.ElevatorPosition);
-            s_armElevator.setExtentInches(Presets.Nodes.Cube.MidNode.ArmPosition);
-            if(!s_armElevator.atTargetExtent()) return;
+            s_armElevator.setExtent(Presets.Nodes.Cube.MidNode.ArmPosition);
+            if (!s_armElevator.atTargetExtent()) return;
             s_claw.setDegrees(Presets.Nodes.Cube.MidNode.ClawPosition);
         }
     }
@@ -45,7 +44,8 @@ public class MidNodePosition extends CommandBase {
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent) < Presets.ArmThreshold
+                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
+                        < Presets.ArmThreshold
                 && s_claw.atTargetAngle();
     }
 }

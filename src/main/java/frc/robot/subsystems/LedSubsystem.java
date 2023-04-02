@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import frc.util.LedCustomAnimations;
@@ -64,8 +63,10 @@ public class LedSubsystem extends SubsystemBase {
         IntakeCone = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCone", 0, true);
         IntakeCube = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCube", 0, true);
 
-        animations = new LedCustomAnimations[]{BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCone, IntakeCube};
-
+        animations =
+                new LedCustomAnimations[] {
+                    BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCone, IntakeCube
+                };
     }
 
     // public void fillRange(int first, int last, int[] color) {
@@ -134,11 +135,11 @@ public class LedSubsystem extends SubsystemBase {
     // }
 
     private void SolidColor() {
-        if(RobotContainer.getIsCone()){
+        if (RobotContainer.getIsCone()) {
             ConeToCube.reset();
             CubeToCone.setAnimation();
-            if(CubeToCone.isFinished()) {
-                if(IntakeCone.isActive()) {
+            if (CubeToCone.isFinished()) {
+                if (IntakeCone.isActive()) {
                     System.out.println("INTAKE CONE IS ACTIVE");
                     IntakeCone.setAnimation();
                 } else {
@@ -150,8 +151,8 @@ public class LedSubsystem extends SubsystemBase {
         } else {
             CubeToCone.reset();
             ConeToCube.setAnimation();
-            if(ConeToCube.isFinished()) {
-                if(IntakeCube.isActive()) {
+            if (ConeToCube.isFinished()) {
+                if (IntakeCube.isActive()) {
                     System.out.println("INTAKE CUBE IS ACTIVE");
                     IntakeCube.setAnimation();
                 } else {
@@ -199,31 +200,30 @@ public class LedSubsystem extends SubsystemBase {
 
     // boolean rainbowMode = true;
 
-    public void setHoldAnimation(String animationName, boolean value){
+    public void setHoldAnimation(String animationName, boolean value) {
         LedCustomAnimations animation = null;
         for (LedCustomAnimations tmp_anim : animations) {
-            if(tmp_anim.getName() == animationName) {
+            if (tmp_anim.getName() == animationName) {
                 animation = tmp_anim;
             }
         }
-        if(animation == null) return;
+        if (animation == null) return;
         animation.setIsActive(value);
-        if(!value){
+        if (!value) {
             animation.reset();
         }
     }
 
-
-    public void setAnimation(String animationName, boolean value){
+    public void setAnimation(String animationName, boolean value) {
         LedCustomAnimations animation = null;
         for (LedCustomAnimations tmp_anim : animations) {
-            if(tmp_anim.getName() == animationName) {
+            if (tmp_anim.getName() == animationName) {
                 animation = tmp_anim;
             }
         }
-        if(animation == null) return;
+        if (animation == null) return;
 
-        if(value){
+        if (value) {
             animation.reset();
             animation.setLoop(true);
         } else {
@@ -236,16 +236,16 @@ public class LedSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         if (stop) return;
-    // TODO Use New Custom Animation Software
+        // TODO Use New Custom Animation Software
         if (DriverStation.isTeleopEnabled()) {
-            if(VIVELAFRANCE.isActive()) {
+            if (VIVELAFRANCE.isActive()) {
                 VIVELAFRANCE.setAnimation();
             } else {
                 SolidColor();
             }
         } else {
             BootUp.setAnimation();
-            if(BootUp.isFinished()) {
+            if (BootUp.isFinished()) {
                 Transitions.setAnimation();
 
                 // Animations();
@@ -255,7 +255,7 @@ public class LedSubsystem extends SubsystemBase {
             // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
         }
 
-            m_led.setData(m_ledBuffer);
-            m_led.start();
+        m_led.setData(m_ledBuffer);
+        m_led.start();
     }
 }

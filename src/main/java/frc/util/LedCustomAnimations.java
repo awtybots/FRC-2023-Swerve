@@ -3,10 +3,8 @@ package frc.util;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Filesystem;
-
 import java.io.File;
 import java.io.FileReader;
- 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,7 +27,7 @@ public class LedCustomAnimations {
             String AnimationPath,
             int startTime,
             boolean isLoop) {
-        this.name = AnimationPath; 
+        this.name = AnimationPath;
         this.m_Led = m_Led;
         this.ledBuffer = ledBuffer;
         this.isLoop = isLoop;
@@ -38,15 +36,15 @@ public class LedCustomAnimations {
         json = loadPath(AnimationPath);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setIsActive(boolean value){
+    public void setIsActive(boolean value) {
         isActive = value;
     }
 
-    public boolean isActive(){
+    public boolean isActive() {
         return isActive;
     }
 
@@ -54,7 +52,7 @@ public class LedCustomAnimations {
         return json.toArray().length;
     }
 
-    public void reset(){
+    public void reset() {
         this.Timer = 0;
     }
 
@@ -66,7 +64,7 @@ public class LedCustomAnimations {
         if (Timer < 0) {
             Timer++;
             return;
-        } 
+        }
         if (Timer >= getAnimationLength() && isLoop) Timer = 0;
         if (Timer >= getAnimationLength() && !isLoop) return;
 
@@ -80,7 +78,7 @@ public class LedCustomAnimations {
             ledBuffer.setRGB(i, 0, 0, 0);
         }
 
-        for (int i = 0; i < Math.floor(ledBuffer.getLength() * length/100); i++) {
+        for (int i = 0; i < Math.floor(ledBuffer.getLength() * length / 100); i++) {
             ledBuffer.setRGB(i, (int) red, (int) green, (int) blue);
         }
         m_Led.setData(ledBuffer);
@@ -90,8 +88,11 @@ public class LedCustomAnimations {
 
     public JSONArray loadPath(String name) {
         JSONParser jsonParser = new JSONParser();
-        // try (FileReader file = new FileReader(Filesystem.getDeployDirectory() +  "5829LedAnimations/" + name + ".json")) {
-        try (FileReader file = new FileReader(new File(Filesystem.getDeployDirectory(), "5829LedAnimations/" + name + ".json"))){
+        // try (FileReader file = new FileReader(Filesystem.getDeployDirectory() +  "5829LedAnimations/"
+        // + name + ".json")) {
+        try (FileReader file =
+                new FileReader(
+                        new File(Filesystem.getDeployDirectory(), "5829LedAnimations/" + name + ".json"))) {
             Object obj = jsonParser.parse(file);
             JSONArray json = (JSONArray) obj;
             return json;
@@ -101,12 +102,12 @@ public class LedCustomAnimations {
         }
     }
 
-    public void end(){
+    public void end() {
         setLoop(false);
         Timer = getAnimationLength();
     }
 
-    public boolean isFinished(){
+    public boolean isFinished() {
         return Timer >= getAnimationLength();
     }
 }

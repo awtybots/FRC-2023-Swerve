@@ -1,10 +1,9 @@
 package frc.robot.commands.Positions;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Stow;
-import frc.robot.RobotContainer.State;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
@@ -30,14 +29,15 @@ public class StowPosition extends CommandBase {
         RobotContainer.setCurrentState(RobotContainer.State.Stow);
         s_claw.setDegrees(Stow.ClawPosition);
         s_elevator.setHeightInches(Stow.ElevatorPosition);
-        if(!s_claw.atTargetAngle()) return;
-        s_armElevator.setExtentInches(Stow.ArmPosition);
+        if (!s_claw.atTargetAngle()) return;
+        s_armElevator.setExtent(Stow.ArmPosition);
     }
 
     @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
-                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent) < Presets.ArmThreshold
+                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
+                        < Presets.ArmThreshold
                 && s_claw.atTargetAngle();
     }
 }
