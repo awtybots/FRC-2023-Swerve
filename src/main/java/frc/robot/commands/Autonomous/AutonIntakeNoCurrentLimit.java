@@ -7,10 +7,17 @@ import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 public class AutonIntakeNoCurrentLimit extends CommandBase {
 
     private final IntakeSubsystem s_intake;
+    private boolean isCone = false;
 
     public AutonIntakeNoCurrentLimit(IntakeSubsystem IntakeSubsystem) {
         addRequirements(IntakeSubsystem);
         this.s_intake = IntakeSubsystem;
+    }
+
+    public AutonIntakeNoCurrentLimit(IntakeSubsystem IntakeSubsystem, boolean isCone) {
+        addRequirements(IntakeSubsystem);
+        this.s_intake = IntakeSubsystem;
+        this.isCone = isCone;
     }
 
     @Override
@@ -18,7 +25,7 @@ public class AutonIntakeNoCurrentLimit extends CommandBase {
 
     @Override
     public void execute() {
-        boolean isCone = RobotContainer.getIsCone();
+        // boolean isCone = RobotContainer.getIsCone();
         s_intake.intake(isCone ? 1.0 : -1.0, true);
     }
 

@@ -57,7 +57,7 @@ public final class Constants {
                 public static final class ShootCube {
                     public static final double ElevatorPosition = 0;
                     public static final double ArmPosition = 0;
-                    public static final double ClawPosition = -70.5; // ! 28.9285;
+                    public static final double ClawPosition = -75.5; // ! 28.9285;
                 }
 
                 public static final class MidNode {

@@ -20,7 +20,7 @@ public class AutonIntakeCurrentLimit extends CommandBase {
     @Override
     public void execute() {
         isCone = RobotContainer.getIsCone();
-        s_Intake.intake(isCone ? -1.5 : 1.5, true);
+        s_Intake.intake(isCone ? -0.9 : 0.9, true);
     }
 
     // Called once the command ends or is interrupted.
@@ -36,10 +36,11 @@ public class AutonIntakeCurrentLimit extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (isCone) {
-            return s_Intake.getOutputCurrent() > 25;
-        } else {
-            return s_Intake.getOutputCurrent() > 25;
-        }
+        return false;
+        // if (isCone) {
+        //     return s_Intake.getOutputCurrent() > 25;
+        // } else {
+        //     return s_Intake.getOutputCurrent() > 25;
+        // }
     }
 }

@@ -2,6 +2,7 @@ package frc.robot.commands.Autonomous.ShootPiece;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
@@ -19,6 +20,7 @@ public class ShootPiece extends SequentialCommandGroup {
         addRequirements(s_Intake, s_Elevator, s_ArmElevator, s_Claw);
         addCommands(
                 new Position(s_ArmElevator, s_Elevator, s_Claw),
+                new WaitCommand(0.3),
                 new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3),
                 new InstantCommand(() -> s_Intake.intake(0, false)),
                 new StowPosition(s_Elevator, s_ArmElevator, s_Claw));

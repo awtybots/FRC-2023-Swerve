@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.auto.Diagnostic;
 import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
 import frc.robot.commands.Autonomous.Balance.Balance;
+import frc.robot.commands.Autonomous.Balance.BalanceWithShoot;
+import frc.robot.commands.Autonomous.ScoringPositionning.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
@@ -84,6 +86,7 @@ public class RobotContainer {
     private final String[] autonChoices =
             new String[] {
                 "LeftPlacePickupPlace",
+                "LeftPlacePickupShootBalance",
                 "MiddlePlaceBalance",
                 "MiddlePlaceExitBalance",
                 "MiddlePlace",
@@ -135,15 +138,19 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignment() {
-        eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake));
+        eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
         eventMap.put(
                 "Place",
                 new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, false));
+        eventMap.put(
+                "PlaceCone",
+                new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, true));
         eventMap.put(
                 "PlaceHigh",
                 new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
         eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve, s_Led));
+        eventMap.put("BalanceWithShoot", new BalanceWithShoot(s_Swerve, s_Led, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
     // from Right wall (y: 0.76).
@@ -169,6 +176,10 @@ public class RobotContainer {
 
     public static boolean getIsCone() {
         return isCone;
+    }
+
+    public static void setIsCone(boolean value) {
+        isCone = value;
     }
 
     public static boolean getResetPosMode() {
@@ -213,14 +224,15 @@ public class RobotContainer {
         driverController.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.2)));
         driverController.buttonB.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.5)));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        // ! driverController.buttonX.onTrue(new VisionTracking(s_Swerve, Limelight));
+        //! driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
         // ! driverController.buttonB.onTrue(new Balance(s_Swerve));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            Limelight.setMode(1);
+                            // Limelight.setMode(1);
+                            Limelight.setPipeline(0);
                             isCone = false;
                         }));
 
@@ -228,7 +240,8 @@ public class RobotContainer {
         driverController.rightTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            Limelight.setMode(3);
+                            Limelight.setPipeline(1);
+                            // Limelight.setMode(3);
                             isCone = true;
                         }));
 

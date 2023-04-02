@@ -30,7 +30,7 @@ public class PreciseBalance extends CommandBase {
     @Override
     public void execute() {
         if (Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES * 5) {
-            decrease += 0.05;
+            decrease += 0.1;
             // return;
         }
 

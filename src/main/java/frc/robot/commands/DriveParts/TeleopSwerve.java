@@ -47,6 +47,6 @@ public class TeleopSwerve extends CommandBase {
                 new Translation2d(yLimiter.calculate(yAxis), xLimiter.calculate(xAxis))
                         .times(Drivetrain.kMaxSpeedMetersPerSecond);
         rotation = rAxis * Drivetrain.kMaxAngularSpeed;
-        s_Swerve.drive(translation, rotation, fieldRelative);
+        s_Swerve.drive(translation, rotation, true);
     }
 }

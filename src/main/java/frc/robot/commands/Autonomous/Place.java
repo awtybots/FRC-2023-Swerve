@@ -2,8 +2,10 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
@@ -25,11 +27,13 @@ public class Place extends SequentialCommandGroup {
             boolean isCone) {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);
         addCommands(
+                new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
                 // new PlaceSetup(s_Swerve, s_Limelight, isCone),
                 nodeId == 0
                         ? new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw)
                         : new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw),
-                new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3),
+                new WaitCommand(0.5),
+                new AutonIntakeNoCurrentLimit(s_Intake, isCone).withTimeout(0.3),
                 new InstantCommand(() -> s_Intake.intake(0, false)),
                 new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
     }
