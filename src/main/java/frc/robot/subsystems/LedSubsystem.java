@@ -37,6 +37,7 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations IntakeCube;
     private LedCustomAnimations PlaceCone;
     private LedCustomAnimations PlaceCube;
+    private LedCustomAnimations ShootPiece;
 
     private LedCustomAnimations[] animations;
 
@@ -65,7 +66,7 @@ public class LedSubsystem extends SubsystemBase {
         
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
         CubeToCone.end();
-        
+
         VIVELAFRANCE = new LedCustomAnimations(m_led, m_ledBuffer, "VIVELAFRANCE", 0, false);
         VIVELAFRANCE.end();
 
@@ -76,6 +77,7 @@ public class LedSubsystem extends SubsystemBase {
         PlaceCone = new LedCustomAnimations(m_led, m_ledBuffer, "PlaceCone", 0, false);
         PlaceCube = new LedCustomAnimations(m_led, m_ledBuffer, "PlaceCube", 0, false);
 
+        ShootPiece = new LedCustomAnimations(m_led, m_ledBuffer, "ShootPiece", 0, true);
 
         animations =
                 new LedCustomAnimations[] {
@@ -218,30 +220,35 @@ public class LedSubsystem extends SubsystemBase {
     }
 
     private void SolidColor() {
-        if (RobotContainer.getIsCone()) {
-            ConeToCube.reset();
-            CubeToCone.setAnimation();
-            if (CubeToCone.isFinished()) {
-                if (IntakeCone.isActive()) {
-                    System.out.println("INTAKE CONE IS ACTIVE");
-                    IntakeCone.setAnimation();
-                } else {
-                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                        setLed(i, YELLOW_CODE);
+        if(RobotContainer.getCurrentState() == RobotContainer.State.Shooting){
+            ShootPiece.setAnimation();
+        } else {
+            ShootPiece.reset();
+            if (RobotContainer.getIsCone()) {
+                ConeToCube.reset();
+                CubeToCone.setAnimation();
+                if (CubeToCone.isFinished()) {
+                    if (IntakeCone.isActive()) {
+                        System.out.println("INTAKE CONE IS ACTIVE");
+                        IntakeCone.setAnimation();
+                    } else {
+                        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                            setLed(i, YELLOW_CODE);
+                        }
                     }
                 }
-            }
-        } else {
-            CubeToCone.reset();
-            ConeToCube.setAnimation();
-            PlaceCube.reset();
-            if (ConeToCube.isFinished()) {
-                if (IntakeCube.isActive()) {
-                    System.out.println("INTAKE CUBE IS ACTIVE");
-                    IntakeCube.setAnimation();
-                } else {
-                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                        setLed(i, PURPLE_CODE);
+            } else {
+                CubeToCone.reset();
+                ConeToCube.setAnimation();
+                PlaceCube.reset();
+                if (ConeToCube.isFinished()) {
+                    if (IntakeCube.isActive()) {
+                        System.out.println("INTAKE CUBE IS ACTIVE");
+                        IntakeCube.setAnimation();
+                    } else {
+                        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                            setLed(i, PURPLE_CODE);
+                        }
                     }
                 }
             }

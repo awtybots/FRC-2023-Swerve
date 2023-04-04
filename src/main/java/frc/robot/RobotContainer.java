@@ -70,6 +70,7 @@ public class RobotContainer {
         IntakeFromGround,
         IntakeFromSlidingHumanPlayer,
 
+        Shooting,
         HighNode,
         MidNode,
 
