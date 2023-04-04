@@ -110,7 +110,7 @@ public final class Constants {
             public static final class Cube {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 1.194; // 1.206 inch on dash
-                    public static final double ArmPosition = 24.0; // ! 166.79; // 25.266 degrees on dash
+                    public static final double ArmPosition = 20.0; // ! 166.79; // 25.266 degrees on dash
                     public static final double ClawPosition = -183.074; // ! -45.99; // 38.286 degrees on dash
                     // public static final int ElevatorPosition = 80000;
                     // public static final double ArmPosition = 100.074;
