@@ -274,7 +274,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void toggleSwerveMode(double pct) {
-        swerveHighSpeedMode = !swerveHighSpeedMode || pct != swerveSpeedValue;
+        swerveHighSpeedMode = !swerveHighSpeedMode && swerveSpeedValue != pct;
         swerveSpeedValue = pct;
     }
 }

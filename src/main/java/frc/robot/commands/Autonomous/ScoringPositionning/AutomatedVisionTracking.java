@@ -2,7 +2,6 @@ package frc.robot.commands.Autonomous.ScoringPositionning;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.DefaultConfig;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve.Swerve;
 
@@ -81,7 +80,8 @@ public class AutomatedVisionTracking extends CommandBase {
     //         if (Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) > reflectiveThreshold
     //                 && DefaultConfig.VisionTrackingStrafe) {
     //             translation =
-    //                     new Translation2d(0, -getSign(reflectiveAlpha - Math.toRadians(45)) * driveSpeed);
+    //                     new Translation2d(0, -getSign(reflectiveAlpha - Math.toRadians(45)) *
+    // driveSpeed);
     //         }
     //     }
     //     // Rotate until beta is right
@@ -91,7 +91,7 @@ public class AutomatedVisionTracking extends CommandBase {
     //     s_Swerve.drive(translation, rotation, fieldRelative);
     // }
 
-    private void VisionTracking(){
+    private void VisionTracking() {
         Beta = Math.toRadians(s_Limelight.getHorizontalOffset());
         rotation = -getSign(Beta) * rotateSpeed;
         s_Swerve.drive(translation, rotation, fieldRelative);
@@ -126,7 +126,8 @@ public class AutomatedVisionTracking extends CommandBase {
         //                     && Math.abs(Math.toDegrees(aprilAlpha)) < driveThreshold;
         // } else if (s_Limelight.getPipeline() == 1) {
         //     return (Math.abs(Math.toDegrees(reflectiveBeta) - offset) < reflectiveThreshold
-        //             && Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) < reflectiveThreshold);
+        //             && Math.abs(Math.toDegrees(reflectiveAlpha) - ReflectiveOffset) <
+        // reflectiveThreshold);
         // } else {
         //     return !s_Limelight.hasTarget()
         //             || (Math.abs(Math.toDegrees(reflectiveBeta) - offset) < rotateThreshold);

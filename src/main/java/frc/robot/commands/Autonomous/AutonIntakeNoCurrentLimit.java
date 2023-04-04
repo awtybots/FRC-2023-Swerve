@@ -1,7 +1,6 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 
 public class AutonIntakeNoCurrentLimit extends CommandBase {
@@ -26,7 +25,7 @@ public class AutonIntakeNoCurrentLimit extends CommandBase {
     @Override
     public void execute() {
         // boolean isCone = RobotContainer.getIsCone();
-        s_intake.intake(isCone ? 1.5 : -1.5, true);
+        s_intake.intake(isCone ? 1 : -1, true);
     }
 
     @Override

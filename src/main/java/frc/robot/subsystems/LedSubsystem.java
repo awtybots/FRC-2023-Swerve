@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.State;
 import frc.util.LedCustomAnimations;
@@ -63,7 +62,7 @@ public class LedSubsystem extends SubsystemBase {
 
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
         ConeToCube.end();
-        
+
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
         CubeToCone.end();
 
@@ -81,7 +80,16 @@ public class LedSubsystem extends SubsystemBase {
 
         animations =
                 new LedCustomAnimations[] {
-                    BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCone, IntakeCube, PlaceCone, PlaceCube
+                    BootUp,
+                    Transitions,
+                    ConeToCube,
+                    CubeToCone,
+                    VIVELAFRANCE,
+                    Greg,
+                    IntakeCone,
+                    IntakeCube,
+                    PlaceCone,
+                    PlaceCube
                 };
     }
 
@@ -220,7 +228,7 @@ public class LedSubsystem extends SubsystemBase {
     }
 
     private void SolidColor() {
-        if(RobotContainer.getCurrentState() == RobotContainer.State.Shooting){
+        if (RobotContainer.getCurrentState() == RobotContainer.State.Shooting) {
             ShootPiece.setAnimation();
         } else {
             ShootPiece.reset();
@@ -262,18 +270,22 @@ public class LedSubsystem extends SubsystemBase {
         if (VIVELAFRANCE.isActive()) {
             VIVELAFRANCE.setAnimation();
         } else {
-            if(RobotContainer.getIsCone() && (RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode)){
+            if (RobotContainer.getIsCone()
+                    && (RobotContainer.getCurrentState() == State.HighNode
+                            || RobotContainer.getCurrentState() == State.MidNode)) {
                 PlaceCube.reset();
                 PlaceCone.setAnimation();
-                if(PlaceCone.isFinished()) {
+                if (PlaceCone.isFinished()) {
                     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
                         setLed(i, YELLOW_CODE);
                     }
                 }
-            } else if(!RobotContainer.getIsCone() && (RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode)){
+            } else if (!RobotContainer.getIsCone()
+                    && (RobotContainer.getCurrentState() == State.HighNode
+                            || RobotContainer.getCurrentState() == State.MidNode)) {
                 PlaceCone.reset();
                 PlaceCube.setAnimation();
-                if(PlaceCube.isFinished()) {
+                if (PlaceCube.isFinished()) {
                     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
                         setLed(i, PURPLE_CODE);
                     }
@@ -282,11 +294,12 @@ public class LedSubsystem extends SubsystemBase {
                 PlaceCone.reset();
                 PlaceCube.reset();
                 if (DriverStation.isTeleopEnabled()) {
-                        SolidColor();
+                    SolidColor();
                 } else {
                     BootUp.setAnimation();
                     if (BootUp.isFinished()) {
-                        if(DriverStation.isAutonomousEnabled() && RobotContainer.getCurrentState() != State.Stow) {
+                        if (DriverStation.isAutonomousEnabled()
+                                && RobotContainer.getCurrentState() != State.Stow) {
                             SolidColor();
                         } else {
                             Transitions.setAnimation();

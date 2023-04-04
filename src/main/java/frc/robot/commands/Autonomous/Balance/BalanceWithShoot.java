@@ -15,7 +15,13 @@ import frc.robot.subsystems.Swerve.Swerve;
 
 public class BalanceWithShoot extends SequentialCommandGroup {
 
-    public BalanceWithShoot(Swerve s_Swerve, LedSubsystem s_Led, ClawSubsystem s_Claw, ArmElevatorSubsystem s_ArmElevator, ElevatorSubsystem s_ElevatorSubsystem, IntakeSubsystem s_Intake) {
+    public BalanceWithShoot(
+            Swerve s_Swerve,
+            LedSubsystem s_Led,
+            ClawSubsystem s_Claw,
+            ArmElevatorSubsystem s_ArmElevator,
+            ElevatorSubsystem s_ElevatorSubsystem,
+            IntakeSubsystem s_Intake) {
         addRequirements(s_Swerve);
         addCommands(
                 new InstantCommand(() -> RobotContainer.setCurrentState(State.Balance)),

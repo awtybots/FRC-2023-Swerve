@@ -15,7 +15,6 @@ import frc.robot.auto.Diagnostic;
 import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
 import frc.robot.commands.Autonomous.Balance.Balance;
 import frc.robot.commands.Autonomous.Balance.BalanceWithShoot;
-import frc.robot.commands.Autonomous.ScoringPositionning.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.Autonomous.PreparePickup;
@@ -136,7 +135,8 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignment() {
-        eventMap.put("PreparePickup", new PreparePickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
+        eventMap.put(
+                "PreparePickup", new PreparePickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
         eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
         eventMap.put(
                 "PlaceCubeMid",
@@ -149,7 +149,9 @@ public class RobotContainer {
                 new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
         eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve, s_Led));
-        eventMap.put("BalanceWithShoot", new BalanceWithShoot(s_Swerve, s_Led, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
+        eventMap.put(
+                "BalanceWithShoot",
+                new BalanceWithShoot(s_Swerve, s_Led, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
     }
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
     // from Right wall (y: 0.76).
@@ -223,7 +225,7 @@ public class RobotContainer {
         driverController.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.2)));
         driverController.buttonB.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.5)));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        //! driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
+        // ! driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
         // ! driverController.buttonB.onTrue(new Balance(s_Swerve));
 
         // April Tag Mode
