@@ -24,6 +24,6 @@ public class PreparePickup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
                 new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw).withTimeout(0.5),
-                new InstantCommand(() -> s_Intake.intake(1, true)));
+                new InstantCommand(() -> s_Intake.intake(RobotContainer.getIsCone() ? -1 : 1, true)));
     }
 }
