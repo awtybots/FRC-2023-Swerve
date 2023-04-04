@@ -2,12 +2,12 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 1.912834483331396,
+        "x": 1.9,
         "y": 2.720417752805844
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9396017404483188,
+        "x": 1.9267672571169228,
         "y": 2.720417752805844
       },
       "holonomicAngle": 180.0,
@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "PlaceHigh"
+          "PlaceHighCube"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
@@ -26,12 +26,12 @@
     },
     {
       "anchorPoint": {
-        "x": 1.930173695269707,
-        "y": 2.7091472650459423
+        "x": 1.9008795529949818,
+        "y": 2.72
       },
       "prevControl": {
-        "x": 1.924111664823074,
-        "y": 2.7091472650459423
+        "x": 1.894817522548349,
+        "y": 2.72
       },
       "nextControl": null,
       "holonomicAngle": 180.0,

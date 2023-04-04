@@ -85,7 +85,16 @@ public class RobotContainer {
 
     private final String[] autonChoices =
             new String[] {
-                "RightPlacePickupBalance",
+                "GyroTest",
+                "LeftPlacePickup",
+                "LeftPlacePickupPlace",
+                "LeftPlacePickupShootBalance",
+                "MiddlePlace",
+                "MiddlePlaceBalance",
+                "MiddlePlaceExitBalance",
+                "RightPlacePickup",
+                "RightPlacePickupPlace",
+                "RightPlacePickupShootBalance",
             };
 
     public final SwerveAutoBuilder autoBuilder =

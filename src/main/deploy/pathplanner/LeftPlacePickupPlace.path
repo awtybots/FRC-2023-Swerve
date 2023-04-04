@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "PlaceCone"
+          "PlaceConeMid"
         ],
         "executionBehavior": "parallel",
         "waitBehavior": "after",
@@ -26,18 +26,43 @@
     },
     {
       "anchorPoint": {
-        "x": 4.306025412398047,
-        "y": 4.734079327533655
+        "x": 4.054865970784202,
+        "y": 4.818644915361865
       },
       "prevControl": {
-        "x": 3.6395117633985277,
-        "y": 4.7232355784156015
+        "x": 3.3883523217846823,
+        "y": 4.807801166243812
       },
       "nextControl": {
-        "x": 4.873867446631938,
-        "y": 4.7433177528339625
+        "x": 4.622708005018093,
+        "y": 4.827883340662173
       },
       "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 4.966041558142439,
+        "y": 4.616278060239736
+      },
+      "prevControl": {
+        "x": 4.637660246311506,
+        "y": 4.6444877270270135
+      },
+      "nextControl": {
+        "x": 5.2944228699733715,
+        "y": 4.588068393452459
+      },
+      "holonomicAngle": 0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -78,16 +103,16 @@
     },
     {
       "anchorPoint": {
-        "x": 4.957462190966049,
-        "y": 4.725903024722716
+        "x": 4.92766714435265,
+        "y": 4.6767827840034215
       },
       "prevControl": {
-        "x": 5.806532305407857,
-        "y": 4.710130136673169
+        "x": 5.7767372587944585,
+        "y": 4.661009895953875
       },
       "nextControl": {
-        "x": 3.4060522235627806,
-        "y": 4.754723042432196
+        "x": 3.376257176949382,
+        "y": 4.705602801712901
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -118,7 +143,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "Place"
+          "PlaceCubeMid"
         ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",

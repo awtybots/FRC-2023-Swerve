@@ -143,7 +143,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "Balance"
+          "BalanceWithShoot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
