@@ -11,9 +11,9 @@ import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
 import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
 
-public class Pickup extends SequentialCommandGroup {
+public class PreparePickup extends SequentialCommandGroup {
 
-    public Pickup(
+    public PreparePickup(
             ClawSubsystem s_Claw,
             ArmElevatorSubsystem s_ArmElevator,
             ElevatorSubsystem s_Elevator,
@@ -23,8 +23,7 @@ public class Pickup extends SequentialCommandGroup {
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
-                new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw),
-                new AutonIntakeCurrentLimit(s_Intake).withTimeout(1),
-                new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
+                new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw).withTimeout(0.5),
+                new InstantCommand(() -> s_Intake.intake(1, true)));
     }
 }

@@ -20,7 +20,7 @@
           "PlaceConeMid"
         ],
         "executionBehavior": "parallel",
-        "waitBehavior": "after",
+        "waitBehavior": "none",
         "waitTime": 0
       }
     },
@@ -66,9 +66,11 @@
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "PreparePickup"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -97,8 +99,8 @@
           "Pickup"
         ],
         "executionBehavior": "parallel",
-        "waitBehavior": "before",
-        "waitTime": 0.5
+        "waitBehavior": "none",
+        "waitTime": 0.0
       }
     },
     {

@@ -18,6 +18,7 @@ import frc.robot.commands.Autonomous.Balance.BalanceWithShoot;
 import frc.robot.commands.Autonomous.ScoringPositionning.AutomatedVisionTracking;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
+import frc.robot.commands.Autonomous.PreparePickup;
 import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -134,6 +135,7 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignment() {
+        eventMap.put("PreparePickup", new PreparePickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
         eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
         eventMap.put(
                 "PlaceCubeMid",
