@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.RobotContainer.State;
 import frc.util.LedCustomAnimations;
 
 public class LedSubsystem extends SubsystemBase {
@@ -33,6 +35,8 @@ public class LedSubsystem extends SubsystemBase {
     private LedCustomAnimations Greg;
     private LedCustomAnimations IntakeCone;
     private LedCustomAnimations IntakeCube;
+    private LedCustomAnimations PlaceCone;
+    private LedCustomAnimations PlaceCube;
 
     private LedCustomAnimations[] animations;
 
@@ -63,9 +67,13 @@ public class LedSubsystem extends SubsystemBase {
         IntakeCone = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCone", 0, true);
         IntakeCube = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCube", 0, true);
 
+        PlaceCone = new LedCustomAnimations(m_led, m_ledBuffer, "PlaceCone", 0, false);
+        PlaceCube = new LedCustomAnimations(m_led, m_ledBuffer, "PlaceCube", 0, false);
+
+
         animations =
                 new LedCustomAnimations[] {
-                    BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCone, IntakeCube
+                    BootUp, Transitions, ConeToCube, CubeToCone, VIVELAFRANCE, Greg, IntakeCone, IntakeCube, PlaceCone, PlaceCube
                 };
     }
 
@@ -136,28 +144,50 @@ public class LedSubsystem extends SubsystemBase {
 
     private void SolidColor() {
         if (RobotContainer.getIsCone()) {
+            PlaceCone.reset();
             ConeToCube.reset();
             CubeToCone.setAnimation();
-            if (CubeToCone.isFinished()) {
-                if (IntakeCone.isActive()) {
-                    System.out.println("INTAKE CONE IS ACTIVE");
-                    IntakeCone.setAnimation();
-                } else {
+            if(RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode){
+                PlaceCone.setAnimation();
+                if(PlaceCone.isFinished()) {
                     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
                         setLed(i, YELLOW_CODE);
                     }
                 }
+            } else {
+                PlaceCone.reset();
+                if (CubeToCone.isFinished()) {
+                    if (IntakeCone.isActive()) {
+                        System.out.println("INTAKE CONE IS ACTIVE");
+                        IntakeCone.setAnimation();
+                    } else {
+                        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                            setLed(i, YELLOW_CODE);
+                        }
+                    }
+                }
             }
         } else {
+            PlaceCone.reset();
             CubeToCone.reset();
             ConeToCube.setAnimation();
-            if (ConeToCube.isFinished()) {
-                if (IntakeCube.isActive()) {
-                    System.out.println("INTAKE CUBE IS ACTIVE");
-                    IntakeCube.setAnimation();
-                } else {
+            if(RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode){
+                PlaceCube.setAnimation();
+                if(PlaceCube.isFinished()) {
                     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
                         setLed(i, PURPLE_CODE);
+                    }
+                }
+            } else {
+                PlaceCube.reset();
+                if (ConeToCube.isFinished()) {
+                    if (IntakeCube.isActive()) {
+                        System.out.println("INTAKE CUBE IS ACTIVE");
+                        IntakeCube.setAnimation();
+                    } else {
+                        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                            setLed(i, PURPLE_CODE);
+                        }
                     }
                 }
             }
