@@ -57,9 +57,15 @@ public class LedSubsystem extends SubsystemBase {
 
         // Creating all the animation objects
         BootUp = new LedCustomAnimations(m_led, m_ledBuffer, "BootUp2", 200, false);
+
         Transitions = new LedCustomAnimations(m_led, m_ledBuffer, "Transitions", 0, true);
+
         ConeToCube = new LedCustomAnimations(m_led, m_ledBuffer, "ConeToCube", 0, false);
+        ConeToCube.end();
+        
         CubeToCone = new LedCustomAnimations(m_led, m_ledBuffer, "CubeToCone", 0, false);
+        CubeToCone.end();
+        
         VIVELAFRANCE = new LedCustomAnimations(m_led, m_ledBuffer, "VIVELAFRANCE", 0, false);
         VIVELAFRANCE.end();
 
