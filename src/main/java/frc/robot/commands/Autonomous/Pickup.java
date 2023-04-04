@@ -24,7 +24,7 @@ public class Pickup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
                 new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw),
-                new AutonIntakeCurrentLimit(s_Intake).withTimeout(1),
+                new AutonIntakeCurrentLimit(s_Intake).withTimeout(0.5),
                 new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
     }
 }
