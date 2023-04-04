@@ -85,20 +85,7 @@ public class RobotContainer {
 
     private final String[] autonChoices =
             new String[] {
-                "LeftPlacePickupPlace",
-                "LeftPlacePickupShootBalance",
-                "MiddlePlaceBalance",
-                "MiddlePlaceExitBalance",
-                "MiddlePlace",
-                "RightPlacePickup",
-                "LeftPlacePickup",
-                "LeftPlaceBalance",
-                "LeftPlacePickupBalance",
-                "LeftPlacePickupPlaceBalance",
-                "RightPlaceBalance",
                 "RightPlacePickupBalance",
-                "RightPlacePickupPlace",
-                "RightPlacePickupPlaceBalance"
             };
 
     public final SwerveAutoBuilder autoBuilder =
@@ -140,13 +127,13 @@ public class RobotContainer {
     private void eventAssignment() {
         eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
         eventMap.put(
-                "Place",
+                "PlaceCubeMid",
                 new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, false));
         eventMap.put(
-                "PlaceCone",
+                "PlaceConeMid",
                 new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, true));
         eventMap.put(
-                "PlaceHigh",
+                "PlaceCubeHigh",
                 new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
         eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve, s_Led));

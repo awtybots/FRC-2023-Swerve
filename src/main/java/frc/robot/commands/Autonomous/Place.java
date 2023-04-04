@@ -35,6 +35,6 @@ public class Place extends SequentialCommandGroup {
                 new WaitCommand(0.5),
                 new AutonIntakeNoCurrentLimit(s_Intake, isCone).withTimeout(0.3),
                 new InstantCommand(() -> s_Intake.intake(0, false)),
-                new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
+                new StowPosition(s_Elevator, s_ArmElevator, s_Claw).withTimeout(0.1));
     }
 }
