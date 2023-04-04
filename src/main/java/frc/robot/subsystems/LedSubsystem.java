@@ -142,58 +142,6 @@ public class LedSubsystem extends SubsystemBase {
     //     m_led.setData(m_ledBuffer);
     // }
 
-    private void SolidColor() {
-        if (RobotContainer.getIsCone()) {
-            PlaceCone.reset();
-            ConeToCube.reset();
-            CubeToCone.setAnimation();
-            if(RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode){
-                PlaceCone.setAnimation();
-                if(PlaceCone.isFinished()) {
-                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                        setLed(i, YELLOW_CODE);
-                    }
-                }
-            } else {
-                PlaceCone.reset();
-                if (CubeToCone.isFinished()) {
-                    if (IntakeCone.isActive()) {
-                        System.out.println("INTAKE CONE IS ACTIVE");
-                        IntakeCone.setAnimation();
-                    } else {
-                        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                            setLed(i, YELLOW_CODE);
-                        }
-                    }
-                }
-            }
-        } else {
-            PlaceCone.reset();
-            CubeToCone.reset();
-            ConeToCube.setAnimation();
-            if(RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode){
-                PlaceCube.setAnimation();
-                if(PlaceCube.isFinished()) {
-                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                        setLed(i, PURPLE_CODE);
-                    }
-                }
-            } else {
-                PlaceCube.reset();
-                if (ConeToCube.isFinished()) {
-                    if (IntakeCube.isActive()) {
-                        System.out.println("INTAKE CUBE IS ACTIVE");
-                        IntakeCube.setAnimation();
-                    } else {
-                        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-                            setLed(i, PURPLE_CODE);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     // private void Animations() {
     //     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
     //         setLed(i, GREEN_CODE);
@@ -263,28 +211,77 @@ public class LedSubsystem extends SubsystemBase {
         animation.setIsActive(value);
     }
 
+    private void SolidColor() {
+        if (RobotContainer.getIsCone()) {
+            ConeToCube.reset();
+            CubeToCone.setAnimation();
+            if (CubeToCone.isFinished()) {
+                if (IntakeCone.isActive()) {
+                    System.out.println("INTAKE CONE IS ACTIVE");
+                    IntakeCone.setAnimation();
+                } else {
+                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                        setLed(i, YELLOW_CODE);
+                    }
+                }
+            }
+        } else {
+            CubeToCone.reset();
+            ConeToCube.setAnimation();
+            PlaceCube.reset();
+            if (ConeToCube.isFinished()) {
+                if (IntakeCube.isActive()) {
+                    System.out.println("INTAKE CUBE IS ACTIVE");
+                    IntakeCube.setAnimation();
+                } else {
+                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                        setLed(i, PURPLE_CODE);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public void periodic() {
         if (stop) return;
         // TODO Use New Custom Animation Software
-        if (DriverStation.isTeleopEnabled()) {
-            if (VIVELAFRANCE.isActive()) {
-                VIVELAFRANCE.setAnimation();
-            } else {
-                SolidColor();
-            }
+        if (VIVELAFRANCE.isActive()) {
+            VIVELAFRANCE.setAnimation();
         } else {
-            BootUp.setAnimation();
-            if (BootUp.isFinished()) {
-                Transitions.setAnimation();
-
-                // Animations();
-                // RotatingRainbow();
+            if(RobotContainer.getIsCone() && (RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode)){
+                PlaceCube.reset();
+                PlaceCone.setAnimation();
+                if(PlaceCone.isFinished()) {
+                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                        setLed(i, YELLOW_CODE);
+                    }
+                }
+            } else if(!RobotContainer.getIsCone() && (RobotContainer.getCurrentState() == State.HighNode || RobotContainer.getCurrentState() == State.MidNode)){
+                PlaceCone.reset();
+                PlaceCube.setAnimation();
+                if(PlaceCube.isFinished()) {
+                    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+                        setLed(i, PURPLE_CODE);
+                    }
+                }
+            } else {
+                PlaceCone.reset();
+                PlaceCube.reset();
+                if (DriverStation.isTeleopEnabled()) {
+                        SolidColor();
+                } else {
+                    BootUp.setAnimation();
+                    if (BootUp.isFinished()) {
+                        if(DriverStation.isAutonomousEnabled() && RobotContainer.getCurrentState() != State.Stow) {
+                            SolidColor();
+                        } else {
+                            Transitions.setAnimation();
+                        }
+                    }
+                }
             }
-
-            // rainbowMode = SmartDashboard.getBoolean("Rainbow Mode", false);
         }
-
         m_led.setData(m_ledBuffer);
         m_led.start();
     }
