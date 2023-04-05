@@ -222,8 +222,7 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
                 new TeleopSwerve(s_Swerve, driverController, translationAxis, strafeAxis, rotationAxis));
 
-        driverController.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.2)));
-        driverController.buttonB.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode(0.5)));
+        driverController.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
         // ! driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
         // ! driverController.buttonB.onTrue(new Balance(s_Swerve));

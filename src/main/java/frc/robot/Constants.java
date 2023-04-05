@@ -57,12 +57,12 @@ public final class Constants {
                 public static final class ShootCube {
                     public static final double ElevatorPosition = 0;
                     public static final double ArmPosition = 0;
-                    public static final double ClawPosition = -75.5; 
+                    public static final double ClawPosition = -75.5;
                 }
 
                 public static final class MidNode {
                     public static final double ElevatorPosition = 24.0269;
-                    public static final double ArmPosition = 0; 
+                    public static final double ArmPosition = 0;
                     public static final double ClawPosition = -104.786;
                     // public static final int ElevatorPosition = 23700;
                     // public static final double ArmPosition = 16.07 * Constants.Arm.armConversion;
@@ -72,7 +72,8 @@ public final class Constants {
                 public static final class HighNode {
                     public static final double TransitionArmRotation = 26.916;
                     public static final double ElevatorPosition = 48.498;
-                    public static final double ArmPosition = 26.916 * ArmElevator.convert;;
+                    public static final double ArmPosition = 26.916 * ArmElevator.convert;
+                    ;
                     public static final double ClawPosition = -110.5719;
                 }
             }
@@ -80,7 +81,8 @@ public final class Constants {
             public static final class Cone {
                 public static final class MidNode {
                     public static final double ElevatorPosition = 51.4045;
-                    public static final double ArmPosition = 10.952 * ArmElevator.convert;;
+                    public static final double ArmPosition = 10.952 * ArmElevator.convert;
+                    ;
                     public static final double ClawPosition = -155.1426;
                     // public static final int ElevatorPosition = 126270;
                     // public static final double ArmPosition = 23.69;
@@ -90,8 +92,8 @@ public final class Constants {
                 public static final class HighNode {
                     public static final double TransitionArmRotation = 27.0;
                     public static final double ElevatorPosition = 56.9110;
-                    public static final double ArmPosition = 27.0; 
-                    public static final double ClawPosition = -121.500; 
+                    public static final double ArmPosition = 27.0;
+                    public static final double ClawPosition = -121.500;
                     // public static final int TransitionArmRotation = 28;
                     // public static final int ElevatorPosition = 194000;
                     // public static final double ArmPosition = 46.78;
@@ -103,14 +105,15 @@ public final class Constants {
         public static final class Intake {
             public static final class IntakeFromGroundLow {
                 public static final double ElevatorPosition = 1.1928;
-                public static final double ArmPosition = 0; 
+                public static final double ArmPosition = 0;
                 public static final double ClawPosition = 0;
             }
 
             public static final class Cube {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 1.194; // 1.206 inch on dash
-                    public static final double ArmPosition = 20.0 * ArmElevator.convert;;
+                    public static final double ArmPosition = 20.0 * ArmElevator.convert;
+                    ;
                     public static final double ClawPosition = -183.074;
                     // public static final int ElevatorPosition = 80000;
                     // public static final double ArmPosition = 100.074;
@@ -119,14 +122,15 @@ public final class Constants {
 
                 public static final class IntakeFromHumanPlayer {
                     public static final double ElevatorPosition = 62.976;
-                    public static final double ArmPosition = 5.6428 * ArmElevator.convert;;
+                    public static final double ArmPosition = 5.6428 * ArmElevator.convert;
+                    ;
                     public static final double ClawPosition = -178.071;
                 }
 
                 public static final class IntakeFromSlidingHumanPlayer {
                     public static final double ElevatorPosition = 1.1938;
-                    public static final double ArmPosition = 0; 
-                    public static final double ClawPosition = -49.93; 
+                    public static final double ArmPosition = 0;
+                    public static final double ClawPosition = -49.93;
                     // public static final double ClawPosition = 13.2857; // TODO THIS
                 }
             }
@@ -134,13 +138,15 @@ public final class Constants {
             public static final class Cone {
                 public static final class IntakeFromGround {
                     public static final double ElevatorPosition = 14.4489;
-                    public static final double ArmPosition = 12.714 * ArmElevator.convert;;
+                    public static final double ArmPosition = 12.714 * ArmElevator.convert;
+                    ;
                     public static final double ClawPosition = -199.928; // ! -49.050;
                 }
 
                 public static final class IntakeFromHumanPlayer {
                     public static final double ElevatorPosition = 54.4494;
-                    public static final double ArmPosition = 5.595 * ArmElevator.convert;;
+                    public static final double ArmPosition = 5.595 * ArmElevator.convert;
+                    ;
                     public static final double ClawPosition = -145.4999; // ! 14.76;
                 }
 
@@ -287,10 +293,10 @@ public final class Constants {
         // public static final double kBackLeftChassisAngularOffset = Math.PI;
         // public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
-        public static final double kFrontLeftChassisAngularOffset = Math.PI; //! Pract 0
+        public static final double kFrontLeftChassisAngularOffset = Math.PI; // ! Pract 0
         public static final double kFrontRightChassisAngularOffset = 0;
         public static final double kBackLeftChassisAngularOffset = Math.PI;
-        public static final double kBackRightChassisAngularOffset =  0; // ! Pract Math.PI;;
+        public static final double kBackRightChassisAngularOffset = 0; // ! Pract Math.PI;;
 
         // SPARK MAX CAN IDs
         public static final int kFrontLeftDrivingCanId = 10;

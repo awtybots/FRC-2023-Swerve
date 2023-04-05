@@ -273,8 +273,8 @@ public class Swerve extends SubsystemBase {
         return m_gyro.getRate() * (Drivetrain.kGyroReversed ? -1.0 : 1.0);
     }
 
-    public void toggleSwerveMode(double pct) {
-        swerveHighSpeedMode = !swerveHighSpeedMode && swerveSpeedValue != pct;
-        swerveSpeedValue = pct;
+    public void toggleSwerveMode() {
+        swerveHighSpeedMode = !swerveHighSpeedMode;
+        //    swerveSpeedValue = pct;
     }
 }
