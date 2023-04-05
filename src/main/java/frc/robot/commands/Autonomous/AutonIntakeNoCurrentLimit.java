@@ -25,7 +25,7 @@ public class AutonIntakeNoCurrentLimit extends CommandBase {
     @Override
     public void execute() {
         // boolean isCone = RobotContainer.getIsCone();
-        s_intake.intake(isCone ? 1 : -1, true);
+        s_intake.intake(isCone ? 0.7 : -0.7, true);
     }
 
     @Override
