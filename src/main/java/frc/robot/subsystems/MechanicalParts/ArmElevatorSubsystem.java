@@ -22,7 +22,7 @@ public class ArmElevatorSubsystem extends SubsystemBase {
     private final SparkMaxPIDController mArmPIDController;
 
     public double armExtent;
-    private final double kArmGearRatio = (1 / 9) / (48 / 34);
+    private final double kArmGearRatio = (1.0 / 9.0) / (48.0 / 34.0);
     private final double kDiameter = 1.5;
 
     public ArmElevatorSubsystem() {
@@ -39,9 +39,13 @@ public class ArmElevatorSubsystem extends SubsystemBase {
 
         mArmPIDController = mArmMotor.getPIDController();
 
-        mArmPIDController.setP(ArmElevator.kP);
-        mArmPIDController.setI(ArmElevator.kI);
-        mArmPIDController.setD(ArmElevator.kD);
+        // mArmPIDController.setP(ArmElevator.kP);
+        // mArmPIDController.setI(ArmElevator.kI);
+        // mArmPIDController.setD(ArmElevator.kD);
+        mArmPIDController.setP(0.08);
+        mArmPIDController.setI(0);
+        mArmPIDController.setD(0);
+
         mArmPIDController.setOutputRange(-0.6, 0.6);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);

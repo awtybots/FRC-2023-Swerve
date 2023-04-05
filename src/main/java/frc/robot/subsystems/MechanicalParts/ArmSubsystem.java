@@ -90,11 +90,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        mRightArmPIDController.setReference(
-                armHeight,
-                CANSparkMax.ControlType.kPosition,
-                0,
-                Arm.arbitraryFeedFowardRate * Math.cos(getAngle()));
+        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition, 0);
         // SmartDashboard.putNumber(
         //         "Arm Error",
         //         Convert.encoderPosToAngle(

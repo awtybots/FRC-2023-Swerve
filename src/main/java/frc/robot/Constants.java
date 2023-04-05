@@ -91,9 +91,9 @@ public final class Constants {
 
                 public static final class HighNode {
                     public static final double TransitionArmRotation = 27.0;
-                    public static final double ElevatorPosition = 56.9110;
-                    public static final double ArmPosition = 27.0;
-                    public static final double ClawPosition = -121.500;
+                    public static final double ElevatorPosition = 59.39;
+                    public static final double ArmPosition = 24.5;
+                    public static final double ClawPosition = -145.200;
                     // public static final int TransitionArmRotation = 28;
                     // public static final int ElevatorPosition = 194000;
                     // public static final double ArmPosition = 46.78;

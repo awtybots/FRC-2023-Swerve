@@ -138,6 +138,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Elevator Target Height", convertTalonToInches(elevatorTargetHeight));
         SmartDashboard.putNumber("Elevator Error", this.getErrorInches());
+        SmartDashboard.putNumber("Elevator Target Height Ticks", elevatorTargetHeight);
+
 
         motors[1].set(
                 ControlMode.Position,
