@@ -371,8 +371,8 @@ public final class Constants {
         public static final double kMaxSpeedMetersPerSecond = 4.8; // 4
         public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 2
 
-        public static final double kPXYController = 1; // TODO: tune PID for autos
-        public static final double kPThetaController = 2.5; // ! 1
+        public static final double kPXYController = 3; // TODO: tune PID for autos
+        public static final double kPThetaController = 1.5; // ! 1
     }
 
     public static final class Intake { // TODO move into intake subsytem
