@@ -231,8 +231,8 @@ public class RobotContainer {
         driverController.leftTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            // Limelight.setMode(1);
-                            Limelight.setPipeline(0);
+                            Limelight.setMode(1);
+                            // Limelight.setPipeline(0);
                             isCone = false;
                         }));
 
@@ -240,8 +240,8 @@ public class RobotContainer {
         driverController.rightTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            Limelight.setPipeline(1);
-                            // Limelight.setMode(3);
+                            // Limelight.setPipeline(1);
+                            Limelight.setMode(3);
                             isCone = true;
                         }));
 

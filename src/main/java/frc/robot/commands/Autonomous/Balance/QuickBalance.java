@@ -33,7 +33,7 @@ public class QuickBalance extends CommandBase {
 
         error = Constants.Balance.BEAM_BALANCED_GOAL_DEGREES - currentAngle;
 
-        drivePower = -Math.min(Constants.Balance.BEAM_BALANACED_DRIVE_KP * error, 1);
+        drivePower = -Math.min(Constants.Balance.BEAM_BALANACED_DRIVE_KP * error, 3.7);
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {
