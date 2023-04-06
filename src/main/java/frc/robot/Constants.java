@@ -80,10 +80,10 @@ public final class Constants {
 
             public static final class Cone {
                 public static final class MidNode {
-                    public static final double ElevatorPosition = 51.4045;
-                    public static final double ArmPosition = 10.952 * ArmElevator.convert;
-                    ;
-                    public static final double ClawPosition = -155.1426;
+                    public static final double ElevatorPosition = 39.7641;
+                    public static final double ArmPosition = 0;
+                    public static final double ClawPosition = -102.1426;
+
                     // public static final int ElevatorPosition = 126270;
                     // public static final double ArmPosition = 23.69;
                     // public static final double ClawPosition = -6.214;
@@ -175,7 +175,7 @@ public final class Constants {
         // Heights
         public static final int initialHeight = 4000;
         public static final int minimumHeight = 4000;
-        public static final int maximumHeight = 210000;
+        public static final int maximumHeight = 198000;
         public static final double ElevatorOffset = 0.05;
 
         // PID
