@@ -30,7 +30,7 @@ public class PreciseBalance extends CommandBase {
     @Override
     public void execute() {
         if (Math.abs(error) < Constants.Balance.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES * 5) {
-            decrease += 0.1;
+            decrease += 0.07;
             // return;
         }
 
@@ -57,7 +57,7 @@ public class PreciseBalance extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        s_Led.setAnimation("VIVELAFRANCE", false);
+        // s_Led.setAnimation("VIVELAFRANCE", false);
         s_Swerve.drive(new Translation2d(0, 0), 0, true);
     }
 

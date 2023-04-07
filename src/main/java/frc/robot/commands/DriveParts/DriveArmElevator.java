@@ -19,9 +19,9 @@ public class DriveArmElevator extends CommandBase {
         // double forward = controller.rightTrigger.getAsBoolean() ? 1 : 0;
         // double reverse = controller.leftTrigger.getAsBoolean() ? 1 : 0;
         // double rate = forward - reverse;
-        double rate = -controller.getRightStickY();
+        // double rate = -controller.getRightStickY();
 
-        s_armElevator.drive(rate);
+        // s_armElevator.drive(rate);
     }
 
     @Override

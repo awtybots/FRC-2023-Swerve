@@ -18,6 +18,7 @@ import frc.robot.commands.Autonomous.Balance.BalanceWithShoot;
 import frc.robot.commands.Autonomous.Pickup;
 import frc.robot.commands.Autonomous.Place;
 import frc.robot.commands.Autonomous.PreparePickup;
+import frc.robot.commands.Autonomous.ShootPiece.Position;
 import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
@@ -265,6 +266,7 @@ public class RobotContainer {
         driverController.rightBumper.onTrue(new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw));
+        operatorController.buttonX.onTrue(new Position(s_ArmElevator, s_Elevator, s_Claw));
         // operatorController.buttonY.onTrue(new Place(s_Swerve, Limelight, s_Claw,s_Arm, s_Elevator,
         // s_Intake, 1, true ));
 

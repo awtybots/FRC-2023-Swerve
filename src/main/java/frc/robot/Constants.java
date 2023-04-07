@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
     public static final class DefaultConfig {
-        public static final boolean isCone = true;
+        public static final boolean isCone = false;
 
         public static final double rampRate = 2;
         public static final double stickDeadband = 0.1;
@@ -80,9 +80,9 @@ public final class Constants {
 
             public static final class Cone {
                 public static final class MidNode {
-                    public static final double ElevatorPosition = 39.7641;
-                    public static final double ArmPosition = 0;
-                    public static final double ClawPosition = -102.1426;
+                    public static final double ElevatorPosition = 51.4045;
+                    public static final double ArmPosition = 10.952 * ArmElevator.convert;
+                    public static final double ClawPosition = -155.1426;
 
                     // public static final int ElevatorPosition = 126270;
                     // public static final double ArmPosition = 23.69;

@@ -2,7 +2,6 @@ package frc.robot.commands.Autonomous.Balance;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.State;
 import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
@@ -25,8 +24,8 @@ public class BalanceWithShoot extends SequentialCommandGroup {
         addRequirements(s_Swerve);
         addCommands(
                 new InstantCommand(() -> RobotContainer.setCurrentState(State.Balance)),
-                new QuickBalance(s_Swerve, s_Led),
-                new WaitCommand(1.5),
+                // new QuickBalance(s_Swerve, s_Led),
+                // new WaitCommand(1.5),
                 new ShootPiece(s_Intake, s_ElevatorSubsystem, s_ArmElevator, s_Claw),
                 new PreciseBalance(s_Swerve, s_Led));
     }

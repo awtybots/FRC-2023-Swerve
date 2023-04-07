@@ -34,6 +34,11 @@ public class StowPosition extends CommandBase {
     }
 
     @Override
+    public void end(boolean interrupted) {
+        s_armElevator.setExtent(Stow.ArmPosition);
+    }
+
+    @Override
     public boolean isFinished() {
         return s_elevator.atTargetHeight()
                 && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
