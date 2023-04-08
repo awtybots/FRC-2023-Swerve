@@ -70,8 +70,8 @@ public class LedSubsystem extends SubsystemBase {
         VIVELAFRANCE.end();
 
         Greg = new LedCustomAnimations(m_led, m_ledBuffer, "GregAmazingAnimation", 0, true);
-        IntakeCone = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCone", 0, true);
-        IntakeCube = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeCube", 0, true);
+        IntakeCone = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeGreen", 0, true);
+        IntakeCube = new LedCustomAnimations(m_led, m_ledBuffer, "IntakeGreen", 0, true);
 
         PlaceCone = new LedCustomAnimations(m_led, m_ledBuffer, "PlaceCone", 0, false);
         PlaceCube = new LedCustomAnimations(m_led, m_ledBuffer, "PlaceCube", 0, false);

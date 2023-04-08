@@ -130,6 +130,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+
+        if (!RobotContainer.getResetPosMode()) {
+            elevatorTargetHeight =
+                    MathUtil.clamp(elevatorTargetHeight, Elevator.minimumHeight, Elevator.maximumHeight);
+        }
+
         // SmartDashboard.putNumber(
         //         "Elevator Left",
         // convertTalonToInches(mLeftElevatorMotor.getSelectedSensorPosition()));
