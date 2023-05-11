@@ -16,7 +16,7 @@ import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
-public class ElevatorSubsystem extends SubsystemBase {
+public class ElevatorSubsystem extends SubsystemBase implements ElevatorMech {
 
     private final double kMaxPercentOutput = Elevator.kMaxPercentOutput;
     private final double kRamp = Elevator.kRamp;
@@ -99,7 +99,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorTargetHeight = value;
     }
 
-    public void resetEncoderValue() {
+    public void zeroHeightEncoder() {
         elevatorTargetHeight = Elevator.initialHeight;
         motors[1].setSelectedSensorPosition(elevatorTargetHeight);
     }
@@ -116,16 +116,16 @@ public class ElevatorSubsystem extends SubsystemBase {
         motors[1].set(ControlMode.PercentOutput, 0.0);
     }
 
-    private double positionError() {
+    public double distToSetpoint() {
         return motors[1].getSelectedSensorPosition() - elevatorTargetHeight;
     }
 
-    private double getHeightInches() {
+    public double getHeightInches() {
         return convertTalonToInches(motors[1].getSelectedSensorPosition());
     }
 
     private double getErrorInches() {
-        return convertTalonToInches(this.positionError());
+        return convertTalonToInches(this.distToSetpoint());
     }
 
     @Override
@@ -171,6 +171,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     // }
 
     public boolean atTargetHeight() {
-        return Math.abs(this.positionError()) < Presets.ElevatorThreshold;
+        return Math.abs(this.distToSetpoint()) < Presets.ElevatorThreshold;
     }
 }

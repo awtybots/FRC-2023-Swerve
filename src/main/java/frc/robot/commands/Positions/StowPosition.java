@@ -6,16 +6,16 @@ import frc.robot.Constants.Presets.Stow;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 
 public class StowPosition extends CommandBase {
 
-    private final ElevatorSubsystem s_elevator;
+    private final ElevatorMech s_elevator;
     private final ArmElevatorSubsystem s_armElevator;
     private final ClawSubsystem s_claw;
 
     public StowPosition(
-            ElevatorSubsystem s_elevatorSubsystem,
+            ElevatorMech s_elevatorSubsystem,
             ArmElevatorSubsystem s_ArmElevatorSubsystem,
             ClawSubsystem s_ClawSubsystem) {
         addRequirements(s_elevatorSubsystem, s_ArmElevatorSubsystem, s_ClawSubsystem);

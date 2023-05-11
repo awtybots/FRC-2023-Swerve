@@ -275,7 +275,7 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             if (getResetPosMode()) {
-                                s_Elevator.resetEncoderValue();
+                                s_Elevator.zeroHeightEncoder();
                                 s_ArmElevator.resetEncoderValue();
                                 s_Claw.resetEncoderValue();
                             }
