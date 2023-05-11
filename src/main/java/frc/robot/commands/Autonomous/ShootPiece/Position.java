@@ -1,7 +1,6 @@
 package frc.robot.commands.Autonomous.ShootPiece;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
@@ -34,9 +33,6 @@ public class Position extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
-                        < Presets.ArmThreshold
-                && s_elevator.atTargetHeight()
-                && s_claw.atTargetAngle();
+        return s_armElevator.atTargetExtent() && s_elevator.atTargetHeight() && s_claw.atTargetAngle();
     }
 }

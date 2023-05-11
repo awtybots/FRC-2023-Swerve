@@ -13,15 +13,15 @@ import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
-public class ArmElevatorSubsystem extends SubsystemBase {
+public class ArmElevatorSubsystem extends SubsystemBase implements ArmElevatorMech {
 
     private CANSparkMax mArmMotor;
 
-    public final RelativeEncoder mArmEncoder;
+    private final RelativeEncoder mArmEncoder;
 
     private final SparkMaxPIDController mArmPIDController;
 
-    public double armExtent;
+    private double armExtent;
     private final double kArmGearRatio = (1.0 / 9.0) / (48.0 / 34.0);
     private final double kDiameter = 1.5;
 
@@ -85,7 +85,11 @@ public class ArmElevatorSubsystem extends SubsystemBase {
     }
 
     public boolean atTargetExtent() {
-        return Math.abs(mArmEncoder.getPosition() - armExtent) < Presets.ArmThreshold;
+        return Math.abs(getTickError()) < Presets.ArmThreshold;
+    }
+
+    public double getTickError() {
+        return mArmEncoder.getPosition() - armExtent;
     }
 
     @Override

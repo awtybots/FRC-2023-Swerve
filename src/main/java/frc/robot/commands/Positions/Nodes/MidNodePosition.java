@@ -43,9 +43,6 @@ public class MidNodePosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight()
-                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
-                        < Presets.ArmThreshold
-                && s_claw.atTargetAngle();
+        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent() && s_claw.atTargetAngle();
     }
 }

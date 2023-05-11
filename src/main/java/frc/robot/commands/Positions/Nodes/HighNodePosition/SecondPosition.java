@@ -1,7 +1,6 @@
 package frc.robot.commands.Positions.Nodes.HighNodePosition;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
@@ -40,9 +39,7 @@ public class SecondPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight()
-                && Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
-                        < Presets.ArmThreshold;
+        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent();
         // && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
         //         < Constants.Position.ClawThreshold;
     }

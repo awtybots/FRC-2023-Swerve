@@ -1,7 +1,6 @@
 package frc.robot.commands.Positions.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Intake.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
@@ -43,9 +42,6 @@ public class IntakeFromGroundPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight()
-                && (Math.abs(s_armElevator.mArmEncoder.getPosition() - s_armElevator.armExtent)
-                        < Presets.ArmThreshold)
-                && s_claw.atTargetAngle();
+        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent() && s_claw.atTargetAngle();
     }
 }
