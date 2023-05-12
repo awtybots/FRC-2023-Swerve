@@ -4,30 +4,30 @@ package frc.robot.auto;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorMech;
+import frc.robot.subsystems.MechanicalParts.IntakeMech;
 import frc.robot.subsystems.Swerve.Swerve;
 
 public class Diagnostic extends CommandBase {
 
-    private final ElevatorSubsystem s_Elevator;
-    private final ArmElevatorSubsystem s_ArmElevator;
+    private final ElevatorMech s_Elevator;
+    private final ArmElevatorMech s_ArmElevator;
     private final ClawSubsystem s_Claw;
-    private final IntakeSubsystem s_Intake;
+    private final IntakeMech s_Intake;
     private final Swerve s_Swerve;
 
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
     public Diagnostic(
-            ElevatorSubsystem s_Elevator,
-            ArmElevatorSubsystem s_ArmElevatorSubsystem,
+            ElevatorMech s_Elevator,
+            ArmElevatorMech s_ArmElevator,
             ClawSubsystem s_Claw,
-            IntakeSubsystem s_Intake,
+            IntakeMech s_Intake,
             Swerve s_Swerve) {
-        addRequirements(s_Elevator, s_ArmElevatorSubsystem, s_Claw, s_Intake, s_Swerve);
+        addRequirements(s_Elevator, s_ArmElevator, s_Claw, s_Intake, s_Swerve);
         this.s_Elevator = s_Elevator;
-        this.s_ArmElevator = s_ArmElevatorSubsystem;
+        this.s_ArmElevator = s_ArmElevator;
         this.s_Claw = s_Claw;
         this.s_Intake = s_Intake;
         this.s_Swerve = s_Swerve;

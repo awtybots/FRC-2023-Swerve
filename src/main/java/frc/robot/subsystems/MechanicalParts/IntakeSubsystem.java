@@ -10,7 +10,7 @@ import frc.robot.Constants.Claw;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.LedSubsystem;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase implements IntakeMech {
 
     private WPI_TalonFX mIntakeMotor;
     private boolean kKeep;
@@ -53,7 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public double getOutputCurrent() {
+    private double getOutputCurrent() {
         return mIntakeMotor.getSupplyCurrent();
     }
 
@@ -75,7 +75,7 @@ public class IntakeSubsystem extends SubsystemBase {
             s_Led.setHoldAnimation("IntakeCube", false);
             s_Led.setHoldAnimation("IntakeCone", false);
         }
-        // SmartDashboard.putNumber("Claw Current", getOutputCurrent());
+
         if (kKeep) {
             mIntakeMotor.set(kIntakePct);
         }

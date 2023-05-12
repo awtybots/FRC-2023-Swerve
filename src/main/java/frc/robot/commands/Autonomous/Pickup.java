@@ -5,18 +5,18 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
 import frc.robot.commands.Positions.StowPosition;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorMech;
+import frc.robot.subsystems.MechanicalParts.IntakeMech;
 
 public class Pickup extends SequentialCommandGroup {
 
     public Pickup(
             ClawSubsystem s_Claw,
-            ArmElevatorSubsystem s_ArmElevator,
-            ElevatorSubsystem s_Elevator,
-            IntakeSubsystem s_Intake,
+            ArmElevatorMech s_ArmElevator,
+            ElevatorMech s_Elevator,
+            IntakeMech s_Intake,
             boolean isCone) {
         // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?

@@ -3,19 +3,19 @@ package frc.robot.commands.Positions;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Presets.Stow;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 
 public class StowPosition extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmElevatorSubsystem s_armElevator;
+    private final ArmElevatorMech s_armElevator;
     private final ClawSubsystem s_claw;
 
     public StowPosition(
             ElevatorMech s_elevatorSubsystem,
-            ArmElevatorSubsystem s_ArmElevatorSubsystem,
+            ArmElevatorMech s_ArmElevatorSubsystem,
             ClawSubsystem s_ClawSubsystem) {
         addRequirements(s_elevatorSubsystem, s_ArmElevatorSubsystem, s_ClawSubsystem);
         this.s_elevator = s_elevatorSubsystem;

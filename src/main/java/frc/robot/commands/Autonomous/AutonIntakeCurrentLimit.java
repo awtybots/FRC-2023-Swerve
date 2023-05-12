@@ -3,15 +3,15 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.IntakeMech;
 
 public class AutonIntakeCurrentLimit extends CommandBase {
 
-    private final IntakeSubsystem s_Intake;
+    private final IntakeMech s_Intake;
     private boolean isCone;
 
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
-    public AutonIntakeCurrentLimit(IntakeSubsystem s_Intake) {
+    public AutonIntakeCurrentLimit(IntakeMech s_Intake) {
         addRequirements(s_Intake);
         isCone = RobotContainer.getIsCone();
         this.s_Intake = s_Intake;

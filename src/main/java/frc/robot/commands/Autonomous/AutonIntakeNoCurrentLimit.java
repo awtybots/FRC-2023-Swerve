@@ -1,19 +1,19 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.IntakeMech;
 
 public class AutonIntakeNoCurrentLimit extends CommandBase {
 
-    private final IntakeSubsystem s_intake;
+    private final IntakeMech s_intake;
     private boolean isCone = false;
 
-    public AutonIntakeNoCurrentLimit(IntakeSubsystem IntakeSubsystem) {
+    public AutonIntakeNoCurrentLimit(IntakeMech IntakeSubsystem) {
         addRequirements(IntakeSubsystem);
         this.s_intake = IntakeSubsystem;
     }
 
-    public AutonIntakeNoCurrentLimit(IntakeSubsystem IntakeSubsystem, boolean isCone) {
+    public AutonIntakeNoCurrentLimit(IntakeMech IntakeSubsystem, boolean isCone) {
         addRequirements(IntakeSubsystem);
         this.s_intake = IntakeSubsystem;
         this.isCone = isCone;

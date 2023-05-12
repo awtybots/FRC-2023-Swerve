@@ -2,14 +2,14 @@ package frc.robot.commands.DriveParts;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.IntakeMech;
 import frc.util.Controller;
 
 public class TeleopIntake extends CommandBase {
-    private final IntakeSubsystem s_Intake;
+    private final IntakeMech s_Intake;
     private final Controller controller;
 
-    public TeleopIntake(Controller controller, IntakeSubsystem s_Intake) {
+    public TeleopIntake(Controller controller, IntakeMech s_Intake) {
         addRequirements(s_Intake);
         this.s_Intake = s_Intake;
         this.controller = controller;

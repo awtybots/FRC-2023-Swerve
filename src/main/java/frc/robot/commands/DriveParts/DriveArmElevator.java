@@ -1,14 +1,14 @@
 package frc.robot.commands.DriveParts;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.util.Controller;
 
 public class DriveArmElevator extends CommandBase {
-    private final ArmElevatorSubsystem s_armElevator;
+    private final ArmElevatorMech s_armElevator;
     private final Controller controller;
 
-    public DriveArmElevator(Controller controller, ArmElevatorSubsystem s_armElevatorSubsystem) {
+    public DriveArmElevator(Controller controller, ArmElevatorMech s_armElevatorSubsystem) {
         addRequirements(s_armElevatorSubsystem);
         this.s_armElevator = s_armElevatorSubsystem;
         this.controller = controller;

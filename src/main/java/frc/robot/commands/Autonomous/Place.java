@@ -8,10 +8,10 @@ import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorSubsystem;
+import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
-import frc.robot.subsystems.MechanicalParts.ElevatorSubsystem;
-import frc.robot.subsystems.MechanicalParts.IntakeSubsystem;
+import frc.robot.subsystems.MechanicalParts.ElevatorMech;
+import frc.robot.subsystems.MechanicalParts.IntakeMech;
 import frc.robot.subsystems.Swerve.Swerve;
 
 public class Place extends SequentialCommandGroup {
@@ -20,9 +20,9 @@ public class Place extends SequentialCommandGroup {
             Swerve s_Swerve,
             LimelightSubsystem s_Limelight,
             ClawSubsystem s_Claw,
-            ArmElevatorSubsystem s_ArmElevator,
-            ElevatorSubsystem s_Elevator,
-            IntakeSubsystem s_Intake,
+            ArmElevatorMech s_ArmElevator,
+            ElevatorMech s_Elevator,
+            IntakeMech s_Intake,
             int nodeId,
             boolean isCone) {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);

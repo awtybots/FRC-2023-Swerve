@@ -8,4 +8,8 @@ public interface ArmElevatorMech extends Subsystem {
     double getTickError();
 
     boolean atTargetExtent();
+
+    void drive(double pct);
+
+    void stop();
 }
