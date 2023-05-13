@@ -16,6 +16,30 @@ import frc.robot.subsystems.Swerve.Swerve;
 
 public class Place extends SequentialCommandGroup {
 
+    public static Place Cone(
+            int nodeId,
+            Swerve s_Swerve,
+            LimelightSubsystem s_Limelight,
+            ClawSubsystem s_Claw,
+            ArmElevatorMech s_ArmElevator,
+            ElevatorMech s_Elevator,
+            IntakeMech s_Intake) {
+        return new Place(
+                nodeId, true, s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);
+    }
+
+    public static Place Cube(
+            int nodeId,
+            Swerve s_Swerve,
+            LimelightSubsystem s_Limelight,
+            ClawSubsystem s_Claw,
+            ArmElevatorMech s_ArmElevator,
+            ElevatorMech s_Elevator,
+            IntakeMech s_Intake) {
+        return new Place(
+                nodeId, false, s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);
+    }
+
     public Place(
             int nodeId,
             boolean isCone,
@@ -28,7 +52,6 @@ public class Place extends SequentialCommandGroup {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);
         addCommands(
                 new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
-                // new PlaceSetup(s_Swerve, s_Limelight, isCone),
                 nodeId == 0
                         ? new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw)
                         : new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw),

@@ -135,17 +135,17 @@ public class RobotContainer {
      */
     private void eventAssignment() {
         eventMap.put(
-                "PreparePickup", new PreparePickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
-        eventMap.put("Pickup", new Pickup(s_Claw, s_ArmElevator, s_Elevator, s_Intake, false));
+                "PreparePickup", new PreparePickup(false, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
+        eventMap.put("Pickup", new Pickup(false, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
         eventMap.put(
                 "PlaceCubeMid",
-                new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, false));
+                Place.Cube(0, s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
         eventMap.put(
                 "PlaceConeMid",
-                new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 0, true));
+                Place.Cone(0, s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
         eventMap.put(
                 "PlaceCubeHigh",
-                new Place(s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake, 1, false));
+                Place.Cube(1, s_Swerve, Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
         eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3));
         eventMap.put("Balance", new Balance(s_Swerve, s_Led));
         eventMap.put(

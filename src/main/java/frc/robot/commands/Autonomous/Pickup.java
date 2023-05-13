@@ -13,11 +13,11 @@ import frc.robot.subsystems.MechanicalParts.IntakeMech;
 public class Pickup extends SequentialCommandGroup {
 
     public Pickup(
+            boolean isCone,
             ClawSubsystem s_Claw,
             ArmElevatorMech s_ArmElevator,
             ElevatorMech s_Elevator,
-            IntakeMech s_Intake,
-            boolean isCone) {
+            IntakeMech s_Intake) {
         // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
