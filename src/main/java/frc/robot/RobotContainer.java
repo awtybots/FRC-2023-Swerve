@@ -4,14 +4,12 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.auto.Diagnostic;
 import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
 import frc.robot.commands.Autonomous.Balance.Balance;
 import frc.robot.commands.Autonomous.Balance.BalanceWithShoot;
@@ -160,20 +158,11 @@ public class RobotContainer {
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
-        autonManager.addOption(
-                "Diagnostic",
-                new Diagnostic(s_Elevator, s_ArmElevator, s_Claw, s_Intake, s_Swerve).withTimeout(1.5));
-        for (var i = 0; i < autonChoices.length; i++) {
-            autonManager.addOption(
-                    autonChoices[i],
-                    autoBuilder.fullAuto(
-                            PathPlanner.loadPathGroup(
-                                    autonChoices[i],
-                                    new PathConstraints(
-                                            Constants.Auton.kMaxSpeedMetersPerSecond,
-                                            Constants.Auton.kMaxAccelerationMetersPerSecondSquared))));
+        for (String auton : autonChoices) {
+            var trajectories = PathPlanner.loadPathGroup(auton, Constants.Auton.kPathConstr);
+            Command autoPath = autoBuilder.fullAuto(trajectories);
+            autonManager.addOption(auton, autoPath);
         }
-        // Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared))));
     }
 
     public static boolean getIsCone() {
@@ -237,7 +226,6 @@ public class RobotContainer {
                 new InstantCommand(
                         () -> {
                             Limelight.setMode(1);
-                            // Limelight.setPipeline(0);
                             isCone = false;
                         }));
 
@@ -245,7 +233,6 @@ public class RobotContainer {
         driverController.rightTrigger.onTrue(
                 new InstantCommand(
                         () -> {
-                            // Limelight.setPipeline(1);
                             Limelight.setMode(3);
                             isCone = true;
                         }));
@@ -308,21 +295,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         isCone = false;
-        // SendableChooser<InstantCommand> isConeChooser = new SendableChooser<InstantCommand>();
-        // isConeChooser.setDefaultOption("Cube", new InstantCommand(() -> Limelight.setPipeline(0)));
-        // isConeChooser.addOption("Cone", new InstantCommand(() -> Limelight.setPipeline(1)));
-        // SmartDashboard.putData("PipelineChooser", isConeChooser);
-        // final String isConeDashboardSelection =
-        //         NetworkTableInstance.getDefault()
-        //                 .getTable("SmartDashboard")
-        //                 .getSubTable("PipelineChooser")
-        //                 .getEntry("active")
-        //                 .getString("Cube");
-        // Limelight.setPipeline(isConeDashboardSelection == "Cube" ? 0 : 1);
-        // setIsCone(isConeDashboardSelection != "Cube");
         return autonManager.getSelected();
-        // return autoBuilder.fullAuto(
-        //         PathPlanner.loadPathGroup("GyroTest", new PathConstraints(1, 0.5))); // ! Test
     }
 
     public void idleLimelight() {

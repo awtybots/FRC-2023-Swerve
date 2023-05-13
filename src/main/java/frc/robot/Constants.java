@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -376,6 +377,9 @@ public final class Constants {
     public static final class Auton {
         public static final double kMaxSpeedMetersPerSecond = 4.8; // 4
         public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 2
+
+        public static final PathConstraints kPathConstr =
+                new PathConstraints(kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared);
 
         public static final double kPXYController = 3; // TODO: tune PID for autos
         public static final double kPThetaController = 1.5; // ! 1
