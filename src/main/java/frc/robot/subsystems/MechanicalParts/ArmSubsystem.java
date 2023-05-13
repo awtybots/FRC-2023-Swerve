@@ -5,97 +5,104 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Arm;
 import frc.robot.Constants.Presets;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
-public class ArmSubsystem extends SubsystemBase {
+public class ArmSubsystem extends SubsystemBase implements ArmMech {
 
-    private CANSparkMax mLeftArmMotor;
-    private CANSparkMax mRightArmMotor;
+    private CANSparkMax mArmMotor;
 
-    public final RelativeEncoder mRightArmEncoder;
+    private final RelativeEncoder mArmEncoder;
 
-    private final SparkMaxPIDController mRightArmPIDController;
+    private final SparkMaxPIDController mArmPIDController;
 
-    public double armHeight;
-    private final double kArmGearRatio = 1.0 / (216.0);
+    private double armExtent;
+    private final double kArmGearRatio = (1.0 / 9.0) / (48.0 / 34.0);
+    private final double kDiameter = 1.5;
 
     public ArmSubsystem() {
 
-        mLeftArmMotor = new CANSparkMax(Arm.kRightArmMotorId, MotorType.kBrushless);
-        mRightArmMotor = new CANSparkMax(Arm.kLeftArmMotorId, MotorType.kBrushless);
-        // mLeftArmMotor.restoreFactoryDefaults();
-
-        mRightArmMotor.restoreFactoryDefaults();
+        mArmMotor = new CANSparkMax(Arm.kArmMotorId, MotorType.kBrushless);
+        mArmMotor.restoreFactoryDefaults();
 
         // Current limit
-        mLeftArmMotor.setSmartCurrentLimit(Arm.kCurrentLimit);
-        mRightArmMotor.setSmartCurrentLimit(Arm.kCurrentLimit);
+        mArmMotor.setSmartCurrentLimit(Arm.kCurrentLimit);
 
-        mRightArmMotor.setInverted(true);
-        mLeftArmMotor.follow(mRightArmMotor, true);
+        armExtent = Arm.initialExtent;
 
-        armHeight = Arm.initialHeight;
+        mArmEncoder = mArmMotor.getEncoder();
 
-        mRightArmEncoder = mRightArmMotor.getEncoder();
+        mArmPIDController = mArmMotor.getPIDController();
 
-        mRightArmPIDController = mRightArmMotor.getPIDController();
+        // mArmPIDController.setP(Arm.kP);
+        // mArmPIDController.setI(Arm.kI);
+        // mArmPIDController.setD(Arm.kD);
+        mArmPIDController.setP(0.08);
+        mArmPIDController.setI(0);
+        mArmPIDController.setD(0);
 
-        mRightArmPIDController.setP(Arm.kP);
-        mRightArmPIDController.setI(Arm.kI);
-        mRightArmPIDController.setD(Arm.kD);
-        mRightArmPIDController.setOutputRange(-0.6, 0.6);
+        mArmPIDController.setOutputRange(-0.6, 0.6);
 
         // mRightArmPIDController.setFeedbackDevice(mRightArmEncoder);
 
     }
 
-    public void setRotation(double value) {
-        armHeight = value;
+    public void setExtent(double value) {
+        armExtent = value;
     }
 
-    public void setDegrees(double degrees) {
-        double encoderunits =
-                Convert.angleToEncoderPos(degrees, kArmGearRatio, Encoder.RevRelativeEncoder);
-        armHeight = encoderunits;
+    public void setExtentInches(double inches) {
+        double sensorUnits =
+                Convert.distanceToEncoderPos(inches, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder);
+        setExtent(sensorUnits);
     }
 
-    public double getAngle() {
-        final double rawRevs = mRightArmEncoder.getPosition();
-        final double theta =
-                Convert.encoderPosToAngle(rawRevs, kArmGearRatio, Encoder.RevRelativeEncoder);
-        return Arm.startingAngle - theta;
+    public double getExtent() {
+        final double rawRevs = mArmEncoder.getPosition();
+        System.out.println(rawRevs);
+        final double extent =
+                Convert.encoderPosToDistance(rawRevs, kArmGearRatio, kDiameter, Encoder.RevRelativeEncoder);
+        System.out.println(extent);
+        return extent;
     }
 
     public void resetEncoderValue() {
-        armHeight = 0;
-        mRightArmEncoder.setPosition(armHeight);
+        armExtent = 0;
+        mArmEncoder.setPosition(armExtent);
     }
 
     public void drive(double pct) {
-        armHeight += pct * Arm.armConversion;
-        armHeight = MathUtil.clamp(armHeight, Arm.minimumHeight, 100);
+        armExtent += pct;
+        armExtent = MathUtil.clamp(armExtent, Arm.minimumExtent, Arm.maximumExtend);
     }
 
-    public boolean isFinished() {
-        return Math.abs(mRightArmEncoder.getPosition() - armHeight) < Presets.ArmThreshold;
+    public boolean atTargetExtent() {
+        return Math.abs(getTickError()) < Presets.ArmThreshold;
+    }
+
+    public double getTickError() {
+        return mArmEncoder.getPosition() - armExtent;
     }
 
     @Override
     public void periodic() {
-        mRightArmPIDController.setReference(armHeight, CANSparkMax.ControlType.kPosition, 0);
-        // SmartDashboard.putNumber(
-        //         "Arm Error",
-        //         Convert.encoderPosToAngle(
-        //                 mRightArmEncoder.getPosition() - armHeight, kArmGearRatio,
-        // Encoder.RevRelativeEncoder));
-        // SmartDashboard.putNumber("Arm angle", -(this.getAngle() - Arm.startingAngle));
+        mArmPIDController.setReference(armExtent, CANSparkMax.ControlType.kPosition);
+        SmartDashboard.putNumber(
+                "Arm Error",
+                Convert.encoderPosToDistance(
+                        mArmEncoder.getPosition() - armExtent,
+                        kArmGearRatio,
+                        kDiameter,
+                        Encoder.RevRelativeEncoder));
+        SmartDashboard.putNumber("Arm extent", mArmEncoder.getPosition());
+        SmartDashboard.putNumber("Arm Target Extent", this.armExtent);
     }
 
     public void stop() {
-        mRightArmMotor.set(0);
+        mArmMotor.set(0);
     }
 }

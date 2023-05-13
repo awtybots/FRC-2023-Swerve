@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.State;
 import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
 import frc.robot.subsystems.LedSubsystem;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
+import frc.robot.subsystems.MechanicalParts.ArmMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 import frc.robot.subsystems.MechanicalParts.IntakeMech;
@@ -18,7 +18,7 @@ public class BalanceWithShoot extends SequentialCommandGroup {
             Swerve s_Swerve,
             LedSubsystem s_Led,
             ClawSubsystem s_Claw,
-            ArmElevatorMech s_ArmElevator,
+            ArmMech s_Arm,
             ElevatorMech s_ElevatorSubsystem,
             IntakeMech s_Intake) {
         addRequirements(s_Swerve);
@@ -26,7 +26,7 @@ public class BalanceWithShoot extends SequentialCommandGroup {
                 new InstantCommand(() -> RobotContainer.setCurrentState(State.Balance)),
                 // new QuickBalance(s_Swerve, s_Led),
                 // new WaitCommand(1.5),
-                new ShootPiece(s_Intake, s_ElevatorSubsystem, s_ArmElevator, s_Claw),
+                new ShootPiece(s_Intake, s_ElevatorSubsystem, s_Arm, s_Claw),
                 new PreciseBalance(s_Swerve, s_Led));
     }
 }

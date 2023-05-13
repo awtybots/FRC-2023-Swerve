@@ -42,7 +42,7 @@ public class RobotContainer {
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem Elevator = new ElevatorSubsystem();
-    private final ArmElevatorSubsystem Arm = new ArmElevatorSubsystem();
+    private final ArmSubsystem Arm = new ArmSubsystem();
     private final ClawSubsystem Claw = new ClawSubsystem();
     private final IntakeSubsystem Intake = new IntakeSubsystem(Led);
 
@@ -173,7 +173,7 @@ public class RobotContainer {
                 new TeleopSwerve(Swerve, driver, translationAxis, strafeAxis, rotationAxis));
 
         Elevator.setDefaultCommand(new DriveElevator(operator, Elevator));
-        Arm.setDefaultCommand(new DriveArmElevator(operator, Arm));
+        Arm.setDefaultCommand(new DriveArm(operator, Arm));
         Claw.setDefaultCommand(new DriveClaw(operator, Claw));
         Intake.setDefaultCommand(new TeleopIntake(operator, Intake));
 

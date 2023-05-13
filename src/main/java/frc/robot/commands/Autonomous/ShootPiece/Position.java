@@ -3,18 +3,18 @@ package frc.robot.commands.Autonomous.ShootPiece;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
+import frc.robot.subsystems.MechanicalParts.ArmMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 
 public class Position extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmElevatorMech s_armElevator;
+    private final ArmMech s_armElevator;
     private final ClawSubsystem s_claw;
 
     public Position(
-            ArmElevatorMech s_armElevatorSubsystem,
+            ArmMech s_armElevatorSubsystem,
             ElevatorMech s_elevatorSubsystem,
             ClawSubsystem s_clawSubsystem) {
         addRequirements(s_armElevatorSubsystem, s_elevatorSubsystem);
