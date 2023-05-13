@@ -47,7 +47,6 @@ public class RobotContainer {
     private final IntakeSubsystem Intake = new IntakeSubsystem(Led);
 
     private static boolean isCone = Constants.DefaultConfig.isCone;
-    private static boolean resetPosMode = false;
     private static double angleOffset = 0;
 
     public enum State {
@@ -142,18 +141,6 @@ public class RobotContainer {
         isCone = value;
     }
 
-    public static boolean resetPosMode() {
-        return resetPosMode;
-    }
-
-    public static void enableResetPos() {
-        resetPosMode = true;
-    }
-
-    public static void disableResetPos() {
-        resetPosMode = false;
-    }
-
     public static double getAngleOffset() {
         return angleOffset;
     }
@@ -216,19 +203,6 @@ public class RobotContainer {
         operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
         operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
         operator.buttonX.onTrue(new Position(Arm, Elevator, Claw));
-        operator.buttonStart.onTrue(new InstantCommand(RobotContainer::enableResetPos));
-        operator.buttonStart.onFalse(new InstantCommand(RobotContainer::disableResetPos));
-
-        operator.buttonBack.onTrue(
-                new InstantCommand(
-                        () -> {
-                            if (resetPosMode()) {
-                                Elevator.zeroHeightEncoder();
-                                Arm.resetEncoderValue();
-                                Claw.resetEncoderValue();
-                            }
-                        }));
-
         operator.dPadDown.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
         operator.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(Elevator, Arm, Claw));
         operator.dPadRight.onTrue(new IntakeFromSlidingHumanPlayerPosition(Elevator, Arm, Claw));

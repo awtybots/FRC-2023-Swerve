@@ -8,7 +8,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Arm;
 import frc.robot.Constants.Presets;
-import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -77,11 +76,8 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        if (!RobotContainer.resetPosMode()) {
-            armHeight = MathUtil.clamp(armHeight, Arm.minimumHeight, 100);
-        }
-        // MathUtil.clamp(armHeight, ArmConstants.minimumHeight, getMaximumRotation());
         armHeight += pct * Arm.armConversion;
+        armHeight = MathUtil.clamp(armHeight, Arm.minimumHeight, 100);
     }
 
     public boolean isFinished() {

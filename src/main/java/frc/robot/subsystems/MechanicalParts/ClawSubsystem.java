@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Claw;
 import frc.robot.Constants.Presets;
-import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -77,10 +76,8 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void driveClaw(double pct) {
-        if (!RobotContainer.resetPosMode()) {
-            wristHeight = MathUtil.clamp(wristHeight, Claw.minimumHeight, Claw.maximumHeight);
-        }
         wristHeight += (pct / 4.5) * Claw.clawConversion;
+        wristHeight = MathUtil.clamp(wristHeight, Claw.minimumHeight, Claw.maximumHeight);
     }
 
     public boolean atTargetAngle() {

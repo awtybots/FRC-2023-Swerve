@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmElevator;
 import frc.robot.Constants.Presets;
-import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -77,11 +76,8 @@ public class ArmElevatorSubsystem extends SubsystemBase implements ArmElevatorMe
     }
 
     public void drive(double pct) {
-        if (!RobotContainer.resetPosMode()) {
-            armExtent = MathUtil.clamp(armExtent, ArmElevator.minimumExtent, ArmElevator.maximumExtend);
-        }
-        // MathUtil.clamp(armHeight, ArmConstants.minimumHeight, getMaximumRotation());
         armExtent += pct;
+        armExtent = MathUtil.clamp(armExtent, ArmElevator.minimumExtent, ArmElevator.maximumExtend);
     }
 
     public boolean atTargetExtent() {

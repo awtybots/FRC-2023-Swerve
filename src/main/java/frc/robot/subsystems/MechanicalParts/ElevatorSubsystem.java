@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.util.math.Convert;
 import frc.util.math.Convert.Encoder;
 
@@ -84,11 +83,9 @@ public class ElevatorSubsystem extends SubsystemBase implements ElevatorMech {
     }
 
     public void drive(double pct) {
+        elevatorTargetHeight =
+                MathUtil.clamp(elevatorTargetHeight, Elevator.minimumHeight, Elevator.maximumHeight);
         elevatorTargetHeight += pct * 1000;
-        if (!RobotContainer.resetPosMode()) {
-            elevatorTargetHeight =
-                    MathUtil.clamp(elevatorTargetHeight, Elevator.minimumHeight, Elevator.maximumHeight);
-        }
     }
 
     public void stop() {
@@ -110,10 +107,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ElevatorMech {
     @Override
     public void periodic() {
 
-        if (!RobotContainer.resetPosMode()) {
-            elevatorTargetHeight =
-                    MathUtil.clamp(elevatorTargetHeight, Elevator.minimumHeight, Elevator.maximumHeight);
-        }
+        elevatorTargetHeight =
+                MathUtil.clamp(elevatorTargetHeight, Elevator.minimumHeight, Elevator.maximumHeight);
 
         SmartDashboard.putNumber(
                 "Elevator Right", convertTalonToInches(mRightElevatorMotor.getSelectedSensorPosition()));
