@@ -21,7 +21,7 @@ public class Pickup extends SequentialCommandGroup {
         // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
-                new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
+                new InstantCommand(() -> RobotContainer.enableConeMode(isCone)),
                 new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw),
                 new AutonIntakeCurrentLimit(s_Intake).withTimeout(0.2),
                 new StowPosition(s_Elevator, s_ArmElevator, s_Claw));

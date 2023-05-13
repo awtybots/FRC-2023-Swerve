@@ -51,7 +51,7 @@ public class Place extends SequentialCommandGroup {
             IntakeMech s_Intake) {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);
         addCommands(
-                new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
+                new InstantCommand(() -> RobotContainer.enableConeMode(isCone)),
                 nodeId == 0
                         ? new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw)
                         : new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw),

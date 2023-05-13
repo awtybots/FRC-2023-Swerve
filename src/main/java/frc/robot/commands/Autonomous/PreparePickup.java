@@ -20,8 +20,9 @@ public class PreparePickup extends SequentialCommandGroup {
         // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
-                new InstantCommand(() -> RobotContainer.setIsCone(isCone)),
+                new InstantCommand(() -> RobotContainer.enableConeMode(isCone)),
                 new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw).withTimeout(0.5),
-                new InstantCommand(() -> s_Intake.intake(RobotContainer.getIsCone() ? -0.9 : 0.9, true)));
+                new InstantCommand(
+                        () -> s_Intake.intake(RobotContainer.coneModeEnabled() ? -0.9 : 0.9, true)));
     }
 }

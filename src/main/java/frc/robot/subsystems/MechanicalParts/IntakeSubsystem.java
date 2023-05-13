@@ -64,7 +64,7 @@ public class IntakeSubsystem extends SubsystemBase implements IntakeMech {
     @Override
     public void periodic() {
         if (currentFilter.calculate(getOutputCurrent() > 18)) {
-            if (RobotContainer.getIsCone()) {
+            if (RobotContainer.coneModeEnabled()) {
                 s_Led.setHoldAnimation("IntakeCube", false);
                 s_Led.setHoldAnimation("IntakeCone", true);
             } else {

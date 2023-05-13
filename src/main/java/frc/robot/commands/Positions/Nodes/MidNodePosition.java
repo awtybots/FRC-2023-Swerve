@@ -27,7 +27,7 @@ public class MidNodePosition extends CommandBase {
     @Override
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.MidNode);
-        boolean isCone = RobotContainer.getIsCone();
+        boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
             s_elevator.setHeight(Cone.MidNode.ElevatorPosition);
             s_armElevator.setExtent(Cone.MidNode.ArmPosition);

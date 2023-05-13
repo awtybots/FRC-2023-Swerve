@@ -26,7 +26,7 @@ public class IntakeFromGroundPosition extends CommandBase {
     @Override
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.IntakeFromGround);
-        boolean isCone = RobotContainer.getIsCone();
+        boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
             s_elevator.setHeight(Cone.IntakeFromGround.ElevatorPosition);
             s_armElevator.setExtent(Cone.IntakeFromGround.ArmPosition);

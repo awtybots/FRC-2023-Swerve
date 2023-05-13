@@ -23,7 +23,7 @@ public class SecondPosition extends CommandBase {
 
     @Override
     public void execute() {
-        boolean isCone = RobotContainer.getIsCone();
+        boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
             s_elevator.setHeight(Cone.HighNode.ElevatorPosition);
             s_armElevator.setExtent(Cone.HighNode.ArmPosition);

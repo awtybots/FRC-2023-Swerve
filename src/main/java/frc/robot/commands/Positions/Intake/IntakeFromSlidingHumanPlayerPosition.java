@@ -26,7 +26,7 @@ public class IntakeFromSlidingHumanPlayerPosition extends CommandBase {
     @Override
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.IntakeFromSlidingHumanPlayer);
-        boolean isCone = RobotContainer.getIsCone();
+        boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
             s_elevator.setHeight(Cone.IntakeFromSlidingHumanPlayer.ElevatorPosition);
             s_armElevator.setExtent(Cone.IntakeFromSlidingHumanPlayer.ArmPosition);

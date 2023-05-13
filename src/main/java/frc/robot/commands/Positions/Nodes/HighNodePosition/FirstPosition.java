@@ -19,7 +19,7 @@ public class FirstPosition extends CommandBase {
 
     @Override
     public void execute() {
-        boolean isCone = RobotContainer.getIsCone();
+        boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
             s_armElevator.setExtent(Cone.HighNode.TransitionArmRotation);
             s_elevator.setHeight(Cone.HighNode.ElevatorPosition / 2);

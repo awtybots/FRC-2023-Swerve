@@ -13,13 +13,13 @@ public class AutonIntakeCurrentLimit extends CommandBase {
     /** Command to use Gyro data to resist the tip angle from the beam - to stabilize and balance. */
     public AutonIntakeCurrentLimit(IntakeMech s_Intake) {
         addRequirements(s_Intake);
-        isCone = RobotContainer.getIsCone();
+        isCone = RobotContainer.coneModeEnabled();
         this.s_Intake = s_Intake;
     }
 
     @Override
     public void execute() {
-        isCone = RobotContainer.getIsCone();
+        isCone = RobotContainer.coneModeEnabled();
         s_Intake.intake(isCone ? -0.9 : 0.9, true);
     }
 

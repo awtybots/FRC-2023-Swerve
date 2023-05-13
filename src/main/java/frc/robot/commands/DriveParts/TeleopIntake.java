@@ -23,7 +23,7 @@ public class TeleopIntake extends CommandBase {
         double Right = controller.getRightTrigger();
         double Left = controller.getLeftTrigger();
 
-        if (RobotContainer.getIsCone()) {
+        if (RobotContainer.coneModeEnabled()) {
             forward = Right > 0.1 ? Right : 0;
             reverse = Left > 0.2 ? Left : 0;
         } else {
