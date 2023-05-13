@@ -10,18 +10,11 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.Autonomous.AutonIntakeNoCurrentLimit;
-import frc.robot.commands.Autonomous.Balance.Balance;
-import frc.robot.commands.Autonomous.Balance.BalanceWithShoot;
-import frc.robot.commands.Autonomous.Pickup;
-import frc.robot.commands.Autonomous.Place;
-import frc.robot.commands.Autonomous.PreparePickup;
-import frc.robot.commands.Autonomous.ShootPiece.Position;
-import frc.robot.commands.Autonomous.ShootPiece.ShootPiece;
+import frc.robot.commands.Autonomous.*;
+import frc.robot.commands.Autonomous.Balance.*;
+import frc.robot.commands.Autonomous.ShootPiece.*;
 import frc.robot.commands.DriveParts.*;
-import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
-import frc.robot.commands.Positions.Intake.IntakeFromHumanPlayerPosition;
-import frc.robot.commands.Positions.Intake.IntakeFromSlidingHumanPlayerPosition;
+import frc.robot.commands.Positions.Intake.*;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
 import frc.robot.commands.Positions.Nodes.MidNodePosition;
 import frc.robot.commands.Positions.StowPosition;
@@ -29,8 +22,6 @@ import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
 import frc.robot.subsystems.Swerve.Swerve;
-// import frc.robot.subsystems.ledutils;
-// import frc.robot.subsystems.ledutils.patterens_eneum;
 import frc.util.AutonManager;
 import frc.util.Controller;
 import java.util.HashMap;
@@ -43,17 +34,14 @@ import java.util.HashMap;
  */
 public class RobotContainer {
 
-    // Autonomous manager import
     private final AutonManager autonManager;
 
-    // The robot's subsystems
     private final Swerve s_Swerve = new Swerve();
     private LedSubsystem s_Led = new LedSubsystem(0, 72);
 
     private final LimelightSubsystem Limelight = new LimelightSubsystem();
 
     private final ElevatorSubsystem s_Elevator = new ElevatorSubsystem();
-    // ! private final ArmSubsystem s_Arm = new ArmSubsystem();
     private final ArmElevatorSubsystem s_ArmElevator = new ArmElevatorSubsystem();
     private final ClawSubsystem s_Claw = new ClawSubsystem();
     private final IntakeSubsystem s_Intake = new IntakeSubsystem(s_Led);
@@ -77,7 +65,6 @@ public class RobotContainer {
 
     private static State currentState = State.Stow;
 
-    // The controllers
     private final Controller driverController = new Controller(0);
     private final Controller operatorController = new Controller(1);
 
@@ -99,21 +86,13 @@ public class RobotContainer {
 
     public final SwerveAutoBuilder autoBuilder =
             new SwerveAutoBuilder(
-                    // Pose2d supplier
                     s_Swerve::getPose,
-                    // Pose2d consumer, used to reset odometry at the beginning of auto
                     s_Swerve::resetOdometry,
-                    // SwerveDriveKinematics
                     Constants.Drivetrain.kDriveKinematics,
-                    // PID constants to correct for translation error (used to create the X and Y PID
-                    // controllers)
                     new PIDConstants(Constants.Auton.kPXYController, 0.0, 0.0),
-                    // PID constants to correct for rotation error (used to create the rotation controller)
                     new PIDConstants(Constants.Auton.kPThetaController, 0.0, 0.0),
-                    // Module states consumer used to output to the drive subsystem
                     s_Swerve::setModuleStates,
                     eventMap,
-                    // TODO: make sure that the drive team understands that the alliance color thing matters
                     true,
                     s_Swerve);
 
@@ -123,10 +102,7 @@ public class RobotContainer {
         eventAssignment();
         addAutonomousChoices();
         autonManager.displayChoices();
-        // Configure the button bindings
         configureButtonBindings();
-        // s_Led.ivans_patterns(patterens_eneum.awtybots);
-        // SmartDashboard.putBoolean("EmergencyButton", false);
     }
 
     /**
@@ -152,12 +128,13 @@ public class RobotContainer {
                 "BalanceWithShoot",
                 new BalanceWithShoot(s_Swerve, s_Led, s_Claw, s_ArmElevator, s_Elevator, s_Intake));
     }
+
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches
     // from Right wall (y: 0.76).
-    // The
     /** Use this method to add Autonomous paths, displayed with {@link AutonManager} */
     private void addAutonomousChoices() {
         autonManager.addDefaultOption("Do Nothing.", new InstantCommand());
+
         for (String auton : autonChoices) {
             var trajectories = PathPlanner.loadPathGroup(auton, Constants.Auton.kPathConstr);
             Command autoPath = autoBuilder.fullAuto(trajectories);
@@ -218,8 +195,6 @@ public class RobotContainer {
 
         driverController.buttonA.onTrue(new InstantCommand(() -> s_Swerve.toggleSwerveMode()));
         driverController.buttonY.onTrue(new InstantCommand(s_Swerve::zeroGyro));
-        // ! driverController.buttonX.onTrue(new AutomatedVisionTracking(s_Swerve, Limelight));
-        // ! driverController.buttonB.onTrue(new Balance(s_Swerve));
 
         // April Tag Mode
         driverController.leftTrigger.onTrue(
@@ -258,10 +233,7 @@ public class RobotContainer {
         operatorController.buttonB.onTrue(new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.buttonY.onTrue(new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.buttonX.onTrue(new Position(s_ArmElevator, s_Elevator, s_Claw));
-        // operatorController.buttonY.onTrue(new Place(s_Swerve, Limelight, s_Claw,s_Arm, s_Elevator,
-        // s_Intake, 1, true ));
 
-        // Emergency mode
         operatorController.buttonBack.onTrue(
                 new InstantCommand(
                         () -> {
@@ -270,13 +242,11 @@ public class RobotContainer {
                                 s_ArmElevator.resetEncoderValue();
                                 s_Claw.resetEncoderValue();
                             }
-                            ;
                         }));
 
         operatorController.buttonStart.onTrue(new InstantCommand(RobotContainer::enableResetPos));
         operatorController.buttonStart.onFalse(new InstantCommand(RobotContainer::disableResetPos));
 
-        // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(
                 new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.dPadUp.onTrue(
@@ -284,15 +254,8 @@ public class RobotContainer {
         operatorController.dPadRight.onTrue(
                 new IntakeFromSlidingHumanPlayerPosition(s_Elevator, s_ArmElevator, s_Claw));
         operatorController.dPadLeft.onTrue(new ShootPiece(s_Intake, s_Elevator, s_ArmElevator, s_Claw));
-        // ! operatorController.dPadLeft.onTrue(new IntakeFromGroundLowPosition(s_Elevator,
-        // s_ArmElevator, s_Claw));
     }
 
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
     public Command getAutonomousCommand() {
         isCone = false;
         return autonManager.getSelected();
