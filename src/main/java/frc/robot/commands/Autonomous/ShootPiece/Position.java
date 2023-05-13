@@ -27,7 +27,7 @@ public class Position extends CommandBase {
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.Shooting);
         s_armElevator.setExtent(Cube.ShootCube.ArmPosition);
-        s_elevator.setHeightInches(Cube.ShootCube.ElevatorPosition);
+        s_elevator.setHeight(Cube.ShootCube.ElevatorPosition);
         s_claw.setDegrees(Cube.ShootCube.ClawPosition);
     }
 

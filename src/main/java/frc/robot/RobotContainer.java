@@ -184,12 +184,16 @@ public class RobotContainer {
         isCone = value;
     }
 
-    public static boolean getResetPosMode() {
+    public static boolean resetPosMode() {
         return resetPosMode;
     }
 
-    public static void setResetPosMode(boolean mode) {
-        resetPosMode = mode;
+    public static void enableResetPos() {
+        resetPosMode = true;
+    }
+
+    public static void disableResetPos() {
+        resetPosMode = false;
     }
 
     public static double getAngleOffset() {
@@ -274,7 +278,7 @@ public class RobotContainer {
         operatorController.buttonBack.onTrue(
                 new InstantCommand(
                         () -> {
-                            if (getResetPosMode()) {
+                            if (resetPosMode()) {
                                 s_Elevator.zeroHeightEncoder();
                                 s_ArmElevator.resetEncoderValue();
                                 s_Claw.resetEncoderValue();
@@ -282,16 +286,8 @@ public class RobotContainer {
                             ;
                         }));
 
-        operatorController.buttonStart.onTrue(
-                new InstantCommand(
-                        () -> {
-                            setResetPosMode(true);
-                        }));
-        operatorController.buttonStart.onFalse(
-                new InstantCommand(
-                        () -> {
-                            setResetPosMode(false);
-                        }));
+        operatorController.buttonStart.onTrue(new InstantCommand(RobotContainer::enableResetPos));
+        operatorController.buttonStart.onFalse(new InstantCommand(RobotContainer::disableResetPos));
 
         // operatorController.dPadDown.onTrue(new IntakeFromGroundPosition(s_Elevator, s_Arm, s_Claw));
         operatorController.dPadDown.onTrue(

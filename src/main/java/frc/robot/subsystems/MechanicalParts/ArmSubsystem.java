@@ -77,7 +77,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void drive(double pct) {
-        if (!RobotContainer.getResetPosMode()) {
+        if (!RobotContainer.resetPosMode()) {
             armHeight = MathUtil.clamp(armHeight, Arm.minimumHeight, 100);
         }
         // MathUtil.clamp(armHeight, ArmConstants.minimumHeight, getMaximumRotation());

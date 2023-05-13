@@ -77,7 +77,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void driveClaw(double pct) {
-        if (!RobotContainer.getResetPosMode()) {
+        if (!RobotContainer.resetPosMode()) {
             wristHeight = MathUtil.clamp(wristHeight, Claw.minimumHeight, Claw.maximumHeight);
         }
         wristHeight += (pct / 4.5) * Claw.clawConversion;

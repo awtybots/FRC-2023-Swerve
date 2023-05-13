@@ -77,7 +77,7 @@ public class ArmElevatorSubsystem extends SubsystemBase implements ArmElevatorMe
     }
 
     public void drive(double pct) {
-        if (!RobotContainer.getResetPosMode()) {
+        if (!RobotContainer.resetPosMode()) {
             armExtent = MathUtil.clamp(armExtent, ArmElevator.minimumExtent, ArmElevator.maximumExtend);
         }
         // MathUtil.clamp(armHeight, ArmConstants.minimumHeight, getMaximumRotation());

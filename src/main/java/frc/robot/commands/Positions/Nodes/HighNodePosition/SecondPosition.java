@@ -25,11 +25,11 @@ public class SecondPosition extends CommandBase {
     public void execute() {
         boolean isCone = RobotContainer.getIsCone();
         if (isCone) {
-            s_elevator.setHeightInches(Cone.HighNode.ElevatorPosition);
+            s_elevator.setHeight(Cone.HighNode.ElevatorPosition);
             s_armElevator.setExtent(Cone.HighNode.ArmPosition);
             s_claw.setDegrees(Cone.HighNode.ClawPosition);
         } else {
-            s_elevator.setHeightInches(Cube.HighNode.ElevatorPosition);
+            s_elevator.setHeight(Cube.HighNode.ElevatorPosition);
             s_armElevator.setExtent(Cube.HighNode.ArmPosition);
             s_claw.setDegrees(Cube.HighNode.ClawPosition);
         }

@@ -17,14 +17,14 @@ import frc.robot.subsystems.Swerve.Swerve;
 public class Place extends SequentialCommandGroup {
 
     public Place(
+            int nodeId,
+            boolean isCone,
             Swerve s_Swerve,
             LimelightSubsystem s_Limelight,
             ClawSubsystem s_Claw,
             ArmElevatorMech s_ArmElevator,
             ElevatorMech s_Elevator,
-            IntakeMech s_Intake,
-            int nodeId,
-            boolean isCone) {
+            IntakeMech s_Intake) {
         addRequirements(s_Swerve, s_Limelight, s_Claw, s_ArmElevator, s_Elevator, s_Intake);
         addCommands(
                 new InstantCommand(() -> RobotContainer.setIsCone(isCone)),

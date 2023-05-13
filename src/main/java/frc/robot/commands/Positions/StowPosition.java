@@ -27,7 +27,7 @@ public class StowPosition extends CommandBase {
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.Stow);
         s_claw.setDegrees(Stow.ClawPosition);
-        s_elevator.setHeightInches(Stow.ElevatorPosition);
+        s_elevator.setHeight(Stow.ElevatorPosition);
         if (!s_claw.atTargetAngle()) return;
         s_armElevator.setExtent(Stow.ArmPosition);
     }
