@@ -1,19 +1,20 @@
-package frc.robot.commands.Positions;
+package frc.robot.commands.Positions.Nodes;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Presets.Stow;
+import frc.robot.Constants.Presets;
+import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 
-public class StowPosition extends CommandBase {
+public class MidNodePos extends CommandBase {
 
     private final ElevatorMech s_elevator;
     private final ArmElevatorMech s_armElevator;
     private final ClawSubsystem s_claw;
 
-    public StowPosition(
+    public MidNodePos(
             ElevatorMech s_elevatorSubsystem,
             ArmElevatorMech s_ArmElevatorSubsystem,
             ClawSubsystem s_ClawSubsystem) {
@@ -25,16 +26,19 @@ public class StowPosition extends CommandBase {
 
     @Override
     public void execute() {
-        RobotContainer.setCurrentState(RobotContainer.State.Stow);
-        s_claw.setDegrees(Stow.ClawPosition);
-        s_elevator.setHeight(Stow.ElevatorPosition);
-        if (!s_claw.atTargetAngle()) return;
-        s_armElevator.setExtent(Stow.ArmPosition);
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        s_armElevator.setExtent(Stow.ArmPosition);
+        RobotContainer.setCurrentState(RobotContainer.State.MidNode);
+        boolean isCone = RobotContainer.coneModeEnabled();
+        if (isCone) {
+            s_elevator.setHeight(Cone.MidNode.ElevatorPosition);
+            s_armElevator.setExtent(Cone.MidNode.ArmPosition);
+            if (!s_armElevator.atTargetExtent()) return;
+            s_claw.setDegrees(Cone.MidNode.ClawPosition);
+        } else {
+            s_elevator.setHeight(Presets.Nodes.Cube.MidNode.ElevatorPosition);
+            s_armElevator.setExtent(Presets.Nodes.Cube.MidNode.ArmPosition);
+            if (!s_armElevator.atTargetExtent()) return;
+            s_claw.setDegrees(Presets.Nodes.Cube.MidNode.ClawPosition);
+        }
     }
 
     @Override

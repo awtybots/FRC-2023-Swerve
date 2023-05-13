@@ -3,8 +3,8 @@ package frc.robot.commands.Autonomous;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.Positions.Intake.IntakeFromGroundPosition;
-import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.Positions.Intake.IntakeGroundPos;
+import frc.robot.commands.Positions.StowPos;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
@@ -22,8 +22,8 @@ public class Pickup extends SequentialCommandGroup {
         // ! only isCone = true done, not finished cube and possible intake?
         addCommands(
                 new InstantCommand(() -> RobotContainer.enableConeMode(isCone)),
-                new IntakeFromGroundPosition(s_Elevator, s_ArmElevator, s_Claw),
+                new IntakeGroundPos(s_Elevator, s_ArmElevator, s_Claw),
                 new AutonIntakeCurrentLimit(s_Intake).withTimeout(0.2),
-                new StowPosition(s_Elevator, s_ArmElevator, s_Claw));
+                new StowPos(s_Elevator, s_ArmElevator, s_Claw));
     }
 }

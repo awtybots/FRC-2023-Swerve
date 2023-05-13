@@ -1,37 +1,40 @@
-package frc.robot.commands.Positions.Intake;
+package frc.robot.commands.Positions;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Presets.Intake.*;
+import frc.robot.Constants.Presets.Stow;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 
-public class IntakeFromHumanPlayerPosition extends CommandBase {
+public class StowPos extends CommandBase {
 
     private final ElevatorMech s_elevator;
     private final ArmElevatorMech s_armElevator;
     private final ClawSubsystem s_claw;
 
-    public IntakeFromHumanPlayerPosition(
+    public StowPos(
             ElevatorMech s_elevatorSubsystem,
-            ArmElevatorMech s_armElevatorSubsystem,
+            ArmElevatorMech s_ArmElevatorSubsystem,
             ClawSubsystem s_ClawSubsystem) {
-        addRequirements(s_elevatorSubsystem, s_armElevatorSubsystem, s_ClawSubsystem);
+        addRequirements(s_elevatorSubsystem, s_ArmElevatorSubsystem, s_ClawSubsystem);
         this.s_elevator = s_elevatorSubsystem;
-        this.s_armElevator = s_armElevatorSubsystem;
+        this.s_armElevator = s_ArmElevatorSubsystem;
         this.s_claw = s_ClawSubsystem;
     }
 
     @Override
     public void execute() {
-        boolean isCone = RobotContainer.coneModeEnabled();
-        if (isCone) {
-            s_elevator.setHeight(Cone.IntakeFromHumanPlayer.ElevatorPosition);
-            s_armElevator.setExtent(Cone.IntakeFromHumanPlayer.ArmPosition);
-            if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.IntakeFromHumanPlayer.ClawPosition);
-        }
+        RobotContainer.setCurrentState(RobotContainer.State.Stow);
+        s_claw.setDegrees(Stow.ClawPosition);
+        s_elevator.setHeight(Stow.ElevatorPosition);
+        if (!s_claw.atTargetAngle()) return;
+        s_armElevator.setExtent(Stow.ArmPosition);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        s_armElevator.setExtent(Stow.ArmPosition);
     }
 
     @Override

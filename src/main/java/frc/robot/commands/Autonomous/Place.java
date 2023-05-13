@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
-import frc.robot.commands.Positions.Nodes.MidNodePosition;
-import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.Positions.Nodes.MidNodePos;
+import frc.robot.commands.Positions.StowPos;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
@@ -53,11 +53,11 @@ public class Place extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> RobotContainer.enableConeMode(isCone)),
                 nodeId == 0
-                        ? new MidNodePosition(s_Elevator, s_ArmElevator, s_Claw)
+                        ? new MidNodePos(s_Elevator, s_ArmElevator, s_Claw)
                         : new HighNodePosition(s_Elevator, s_ArmElevator, s_Claw),
                 new WaitCommand(0.5),
                 new AutonIntakeNoCurrentLimit(s_Intake, isCone).withTimeout(0.3),
                 new InstantCommand(() -> s_Intake.intake(0, false)),
-                new StowPosition(s_Elevator, s_ArmElevator, s_Claw).withTimeout(0.1));
+                new StowPos(s_Elevator, s_ArmElevator, s_Claw).withTimeout(0.1));
     }
 }

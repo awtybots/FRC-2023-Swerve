@@ -16,8 +16,8 @@ import frc.robot.commands.Autonomous.ShootPiece.*;
 import frc.robot.commands.DriveParts.*;
 import frc.robot.commands.Positions.Intake.*;
 import frc.robot.commands.Positions.Nodes.HighNodePosition.HighNodePosition;
-import frc.robot.commands.Positions.Nodes.MidNodePosition;
-import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.Positions.Nodes.MidNodePos;
+import frc.robot.commands.Positions.StowPos;
 import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.MechanicalParts.*;
@@ -195,17 +195,17 @@ public class RobotContainer {
 
         driver.buttonA.onTrue(new InstantCommand(Swerve::toggleSwerveMode));
         driver.buttonY.onTrue(new InstantCommand(Swerve::zeroGyro));
-        driver.rightBumper.onTrue(new StowPosition(Elevator, Arm, Claw));
+        driver.rightBumper.onTrue(new StowPos(Elevator, Arm, Claw));
         driver.buttonStart.onTrue(Led.animationRun("VIVELAFRANCE", true));
         driver.buttonBack.onTrue(Led.animationRun("VIVELAFRANCE", false));
 
-        operator.buttonA.onTrue(new StowPosition(Elevator, Arm, Claw));
-        operator.buttonB.onTrue(new MidNodePosition(Elevator, Arm, Claw));
+        operator.buttonA.onTrue(new StowPos(Elevator, Arm, Claw));
+        operator.buttonB.onTrue(new MidNodePos(Elevator, Arm, Claw));
         operator.buttonY.onTrue(new HighNodePosition(Elevator, Arm, Claw));
         operator.buttonX.onTrue(new Position(Arm, Elevator, Claw));
-        operator.dPadDown.onTrue(new IntakeFromGroundPosition(Elevator, Arm, Claw));
-        operator.dPadUp.onTrue(new IntakeFromHumanPlayerPosition(Elevator, Arm, Claw));
-        operator.dPadRight.onTrue(new IntakeFromSlidingHumanPlayerPosition(Elevator, Arm, Claw));
+        operator.dPadDown.onTrue(new IntakeGroundPos(Elevator, Arm, Claw));
+        operator.dPadUp.onTrue(new IntakeDoubleSubstationPos(Elevator, Arm, Claw));
+        operator.dPadRight.onTrue(new IntakeSingleSubstationPos(Elevator, Arm, Claw));
         operator.dPadLeft.onTrue(new ShootPiece(Intake, Elevator, Arm, Claw));
     }
 

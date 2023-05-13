@@ -7,13 +7,13 @@ import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 
-public class IntakeFromGroundPosition extends CommandBase {
+public class IntakeGroundPos extends CommandBase {
 
     private final ElevatorMech s_elevator;
     private final ArmElevatorMech s_armElevator;
     private final ClawSubsystem s_claw;
 
-    public IntakeFromGroundPosition(
+    public IntakeGroundPos(
             ElevatorMech s_elevatorSubsystem,
             ArmElevatorMech s_armElevatorSubsystem,
             ClawSubsystem s_ClawSubsystem) {

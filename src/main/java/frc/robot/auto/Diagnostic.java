@@ -3,7 +3,7 @@ package frc.robot.auto;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.Positions.StowPosition;
+import frc.robot.commands.Positions.StowPos;
 import frc.robot.subsystems.MechanicalParts.ArmElevatorMech;
 import frc.robot.subsystems.MechanicalParts.ClawSubsystem;
 import frc.robot.subsystems.MechanicalParts.ElevatorMech;
@@ -45,7 +45,7 @@ public class Diagnostic extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        new StowPosition(s_Elevator, s_ArmElevator, s_Claw);
+        new StowPos(s_Elevator, s_ArmElevator, s_Claw);
         s_Intake.intake(0, false);
         s_Swerve.drive(new Translation2d(0.3, 0), 0, false);
     }
