@@ -23,24 +23,13 @@ public class AutonIntakeCurrentLimit extends CommandBase {
         s_Intake.intake(isCone ? -0.9 : 0.9, true);
     }
 
-    // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         s_Intake.intake(0, false);
     }
 
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {}
-
-    // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         return false;
-        // if (isCone) {
-        //     return s_Intake.getOutputCurrent() > 25;
-        // } else {
-        //     return s_Intake.getOutputCurrent() > 25;
-        // }
     }
 }

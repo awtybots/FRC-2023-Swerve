@@ -10,29 +10,26 @@ import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 public class Position extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmMech s_armElevator;
+    private final ArmMech s_arm;
     private final ClawSubsystem s_claw;
 
-    public Position(
-            ArmMech s_armElevatorSubsystem,
-            ElevatorMech s_elevatorSubsystem,
-            ClawSubsystem s_clawSubsystem) {
-        addRequirements(s_armElevatorSubsystem, s_elevatorSubsystem);
-        this.s_armElevator = s_armElevatorSubsystem;
-        this.s_elevator = s_elevatorSubsystem;
-        this.s_claw = s_clawSubsystem;
+    public Position(ArmMech s_arm, ElevatorMech s_elevator, ClawSubsystem s_claw) {
+        addRequirements(s_arm, s_elevator);
+        this.s_arm = s_arm;
+        this.s_elevator = s_elevator;
+        this.s_claw = s_claw;
     }
 
     @Override
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.Shooting);
-        s_armElevator.setExtent(Cube.ShootCube.ArmPosition);
-        s_elevator.setHeight(Cube.ShootCube.ElevatorPosition);
-        s_claw.setDegrees(Cube.ShootCube.ClawPosition);
+        s_arm.setExtent(Cube.ShootCube.ArmSetpoint);
+        s_elevator.setHeight(Cube.ShootCube.ElevatorSetpoint);
+        s_claw.setDegrees(Cube.ShootCube.ClawSetpoint);
     }
 
     @Override
     public boolean isFinished() {
-        return s_armElevator.atTargetExtent() && s_elevator.atTargetHeight() && s_claw.atTargetAngle();
+        return s_arm.atTargetExtent() && s_elevator.atTargetHeight() && s_claw.atTargetAngle();
     }
 }

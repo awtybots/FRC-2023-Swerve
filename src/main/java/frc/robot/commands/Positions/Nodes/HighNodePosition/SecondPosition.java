@@ -10,35 +10,32 @@ import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 public class SecondPosition extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmMech s_armElevator;
+    private final ArmMech s_arm;
     private final ClawSubsystem s_claw;
 
-    public SecondPosition(
-            ElevatorMech s_Elevator, ArmMech s_armElevatorSubsystem, ClawSubsystem s_Claw) {
-        addRequirements(s_Elevator, s_armElevatorSubsystem, s_Claw);
-        this.s_elevator = s_Elevator;
-        this.s_armElevator = s_armElevatorSubsystem;
-        this.s_claw = s_Claw;
+    public SecondPosition(ElevatorMech s_elevator, ArmMech s_arm, ClawSubsystem s_claw) {
+        addRequirements(s_elevator, s_arm, s_claw);
+        this.s_elevator = s_elevator;
+        this.s_arm = s_arm;
+        this.s_claw = s_claw;
     }
 
     @Override
     public void execute() {
         boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
-            s_elevator.setHeight(Cone.HighNode.ElevatorPosition);
-            s_armElevator.setExtent(Cone.HighNode.ArmPosition);
-            s_claw.setDegrees(Cone.HighNode.ClawPosition);
+            s_elevator.setHeight(Cone.HighNode.ElevatorSetpoint);
+            s_arm.setExtent(Cone.HighNode.ArmSetpoint);
+            s_claw.setDegrees(Cone.HighNode.ClawSetpoint);
         } else {
-            s_elevator.setHeight(Cube.HighNode.ElevatorPosition);
-            s_armElevator.setExtent(Cube.HighNode.ArmPosition);
-            s_claw.setDegrees(Cube.HighNode.ClawPosition);
+            s_elevator.setHeight(Cube.HighNode.ElevatorSetpoint);
+            s_arm.setExtent(Cube.HighNode.ArmSetpoint);
+            s_claw.setDegrees(Cube.HighNode.ClawSetpoint);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent();
-        // && Math.abs(s_claw.mPivotEncoder.getPosition() - s_claw.wristHeight)
-        //         < Constants.Position.ClawThreshold;
+        return s_elevator.atTargetHeight() && s_arm.atTargetExtent();
     }
 }

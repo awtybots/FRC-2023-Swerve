@@ -1,7 +1,6 @@
 package frc.robot.commands.Positions.Nodes;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Presets;
 import frc.robot.Constants.Presets.Nodes.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.MechanicalParts.ArmMech;
@@ -11,36 +10,39 @@ import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 public class MidNodePos extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmMech s_armElevator;
+    private final ArmMech s_arm;
     private final ClawSubsystem s_claw;
 
-    public MidNodePos(
-            ElevatorMech s_elevatorSubsystem, ArmMech s_ArmSubsystem, ClawSubsystem s_ClawSubsystem) {
-        addRequirements(s_elevatorSubsystem, s_ArmSubsystem, s_ClawSubsystem);
-        this.s_elevator = s_elevatorSubsystem;
-        this.s_armElevator = s_ArmSubsystem;
-        this.s_claw = s_ClawSubsystem;
+    public MidNodePos(ElevatorMech s_elevator, ArmMech s_arm, ClawSubsystem s_claw) {
+        addRequirements(s_elevator, s_arm, s_claw);
+        this.s_elevator = s_elevator;
+        this.s_arm = s_arm;
+        this.s_claw = s_claw;
     }
 
     @Override
     public void execute() {
         RobotContainer.setCurrentState(RobotContainer.State.MidNode);
-        boolean isCone = RobotContainer.coneModeEnabled();
-        if (isCone) {
-            s_elevator.setHeight(Cone.MidNode.ElevatorPosition);
-            s_armElevator.setExtent(Cone.MidNode.ArmPosition);
-            if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.MidNode.ClawPosition);
+
+        if (RobotContainer.coneModeEnabled()) {
+            s_elevator.setHeight(Cone.MidNode.ElevatorSetpoint);
+            s_arm.setExtent(Cone.MidNode.ArmSetpoint);
+
+            if (s_arm.atTargetExtent()) {
+                s_claw.setDegrees(Cone.MidNode.ClawSetpoint);
+            }
         } else {
-            s_elevator.setHeight(Presets.Nodes.Cube.MidNode.ElevatorPosition);
-            s_armElevator.setExtent(Presets.Nodes.Cube.MidNode.ArmPosition);
-            if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Presets.Nodes.Cube.MidNode.ClawPosition);
+            s_elevator.setHeight(Cube.MidNode.ElevatorSetpoint);
+            s_arm.setExtent(Cube.MidNode.ArmSetpoint);
+
+            if (s_arm.atTargetExtent()) {
+                s_claw.setDegrees(Cube.MidNode.ClawSetpoint);
+            }
         }
     }
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent() && s_claw.atTargetAngle();
+        return s_elevator.atTargetHeight() && s_arm.atTargetExtent() && s_claw.atTargetAngle();
     }
 }

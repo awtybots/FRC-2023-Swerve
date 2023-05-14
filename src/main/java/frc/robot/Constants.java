@@ -53,53 +53,29 @@ public final class Constants {
             public static final int ClawPosition = 0;
         }
 
+        public static final class Pos {
+            public final double ElevatorSetpoint, ArmSetpoint, ClawSetpoint;
+
+            public Pos(double elevator, double arm, double claw) {
+                ElevatorSetpoint = elevator;
+                ArmSetpoint = arm;
+                ClawSetpoint = claw;
+            }
+        }
+
         public static final class Nodes {
+
             public static final class Cube {
-                public static final class ShootCube {
-                    public static final double ElevatorPosition = 0;
-                    public static final double ArmPosition = 0;
-                    public static final double ClawPosition = -75.5;
-                }
-
-                public static final class MidNode {
-                    public static final double ElevatorPosition = 24.0269;
-                    public static final double ArmPosition = 0;
-                    public static final double ClawPosition = -104.786;
-                    // public static final int ElevatorPosition = 23700;
-                    // public static final double ArmPosition = 16.07 * Constants.Arm.armConversion;
-                    // public static final double ClawPosition = 11.714 * Constants.Claw.clawConversion;
-                }
-
-                public static final class HighNode {
-                    public static final double TransitionArmRotation = 26.916;
-                    public static final double ElevatorPosition = 48.498;
-                    public static final double ArmPosition = 26.916 * Arm.convert;
-                    ;
-                    public static final double ClawPosition = -110.5719;
-                }
+                public static final Pos ShootCube = new Pos(0, 0, -75.5);
+                public static final Pos MidNode = new Pos(24.0269, 0, -104.786);
+                public static final Pos HighNode = new Pos(48.498, 26.916 * Arm.convert, -110.5719);
+                public static final double TransitionArmRotation = 26.916;
             }
 
             public static final class Cone {
-                public static final class MidNode {
-                    public static final double ElevatorPosition = 51.4045;
-                    public static final double ArmPosition = 10.952 * Arm.convert;
-                    public static final double ClawPosition = -155.1426;
-
-                    // public static final int ElevatorPosition = 126270;
-                    // public static final double ArmPosition = 23.69;
-                    // public static final double ClawPosition = -6.214;
-                }
-
-                public static final class HighNode {
-                    public static final double TransitionArmRotation = 27.0;
-                    public static final double ElevatorPosition = 59.39;
-                    public static final double ArmPosition = 24.5;
-                    public static final double ClawPosition = -145.200;
-                    // public static final int TransitionArmRotation = 28;
-                    // public static final int ElevatorPosition = 194000;
-                    // public static final double ArmPosition = 46.78;
-                    // public static final double ClawPosition = -1.21;
-                }
+                public static final Pos MidNode = new Pos(51.4045, 10.952 * Arm.convert, -155.1426);
+                public static final Pos HighNode = new Pos(59.39, 24.5, -145.200);
+                public static final double TransitionArmRotation = 27.0;
             }
         }
 
