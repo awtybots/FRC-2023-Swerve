@@ -28,15 +28,15 @@ public class IntakeSingleSubstationPos extends CommandBase {
         RobotContainer.setCurrentState(RobotContainer.State.IntakeFromSlidingHumanPlayer);
         boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
-            s_elevator.setHeight(Cone.IntakeFromSlidingHumanPlayer.ElevatorPosition);
-            s_armElevator.setExtent(Cone.IntakeFromSlidingHumanPlayer.ArmPosition);
+            s_elevator.setHeight(Cone.SingleSubstation.ElevatorPosition);
+            s_armElevator.setExtent(Cone.SingleSubstation.ArmPosition);
             if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.IntakeFromSlidingHumanPlayer.ClawPosition);
+            s_claw.setDegrees(Cone.SingleSubstation.ClawPosition);
         } else {
-            s_elevator.setHeight(Cube.IntakeFromSlidingHumanPlayer.ElevatorPosition);
-            s_armElevator.setExtent(Cube.IntakeFromSlidingHumanPlayer.ArmPosition);
+            s_elevator.setHeight(Cube.SingleSubstation.ElevatorPosition);
+            s_armElevator.setExtent(Cube.SingleSubstation.ArmPosition);
             if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cube.IntakeFromSlidingHumanPlayer.ClawPosition);
+            s_claw.setDegrees(Cube.SingleSubstation.ClawPosition);
         }
     }
 

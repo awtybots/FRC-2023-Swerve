@@ -80,14 +80,14 @@ public final class Constants {
         }
 
         public static final class Intake {
-            public static final class IntakeFromGroundLow {
+            public static final class GroundLow {
                 public static final double ElevatorPosition = 1.1928;
                 public static final double ArmPosition = 0;
                 public static final double ClawPosition = 0;
             }
 
             public static final class Cube {
-                public static final class IntakeFromGround {
+                public static final class Ground {
                     public static final double ElevatorPosition = 1.194; // 1.206 inch on dash
                     public static final double ArmPosition = 20.0 * Arm.convert;
                     ;
@@ -97,14 +97,14 @@ public final class Constants {
                     // public static final double ClawPosition = -5.11;
                 }
 
-                public static final class IntakeFromHumanPlayer {
+                public static final class DoubleSubstation {
                     public static final double ElevatorPosition = 62.976;
                     public static final double ArmPosition = 5.6428 * Arm.convert;
                     ;
                     public static final double ClawPosition = -178.071;
                 }
 
-                public static final class IntakeFromSlidingHumanPlayer {
+                public static final class SingleSubstation {
                     public static final double ElevatorPosition = 1.1938;
                     public static final double ArmPosition = 0;
                     public static final double ClawPosition = -49.93;
@@ -113,21 +113,21 @@ public final class Constants {
             }
 
             public static final class Cone {
-                public static final class IntakeFromGround {
+                public static final class Ground {
                     public static final double ElevatorPosition = 14.4489;
                     public static final double ArmPosition = 12.714 * Arm.convert;
                     ;
                     public static final double ClawPosition = -199.928; // ! -49.050;
                 }
 
-                public static final class IntakeFromHumanPlayer {
+                public static final class DoubleSubstation {
                     public static final double ElevatorPosition = 54.4494;
                     public static final double ArmPosition = 5.595 * Arm.convert;
                     ;
                     public static final double ClawPosition = -145.4999; // ! 14.76;
                 }
 
-                public static final class IntakeFromSlidingHumanPlayer {
+                public static final class SingleSubstation {
                     public static final double ElevatorPosition = 1.1938;
                     public static final double ArmPosition = 0; // ! 28.0167;
                     public static final double ClawPosition = -49.93; // ! 17.82;
@@ -137,9 +137,9 @@ public final class Constants {
     }
 
     public static final class Elevator {
-        public static final int kLeftElevatorMotorId = 20; // !
-        public static final int kRightElevatorMotorId = 21; // !
-        public static final int kElevatorEncoderId = 22; // !
+        public static final int kLeftMotorId = 20;
+        public static final int kRightMotorId = 21;
+        public static final int kEncoderId = 22;
 
         public static final double kMaxPercentOutput = 0.75;
         public static final double kRamp =
@@ -147,7 +147,7 @@ public final class Constants {
         public static final double kWinchDiameter =
                 1.751; // (inches) pitch diameter of #25 chain 22T sprocket
         public static final double kGearRatio =
-                1.0 / 9; // output over input (9:1 reduction please double check this)
+                1.0 / 9.0; // output over input (9:1 reduction please double check this)
 
         // Heights
         public static final int initialHeight = 4000;
@@ -156,19 +156,19 @@ public final class Constants {
         public static final double ElevatorOffset = 0.05;
 
         // PID
-        public static final double kP = 0.25; // = 0.025;
-        public static final double kI = 0; // = 0.00;
-        public static final double kD = 0.1; // 0.015;
+        public static final double kP = 0.25;
+        public static final double kI = 0;
+        public static final double kD = 0.1; 
         public static final double kF = 0;
 
-        public static final double arbitraryFeedforwardRate = 0.02; // 0.0425;
+        public static final double arbitraryFeedforwardRate = 0.02; // Percent output required to offset gravity
     }
 
     public static final class Arm {
 
         public static final double convert = 1.1549647;
 
-        public static final int kArmMotorId = 7;
+        public static final int kMotorId = 7;
         public static final int kCurrentLimit = 40;
 
         public static final int initialExtent = 0;
@@ -187,19 +187,19 @@ public final class Constants {
         public static final double clawConversion = 40.0 / 91.67;
 
         public static final int kPivotMotorId = 6;
-        public static final int kIntakeMotorId = 15; // !
+        public static final int kIntakeMotorId = 15;
 
         public static final double kMaxPercentOutput = 0.75;
 
-        public static final int kClawCurrentLimit = 40;
+        public static final int kPivotCurrentLimit = 40;
         public static final int kIntakeCurrentLimit = 20;
 
         public static final int initialHeight = 0;
-        public static final int minimumHeight = -80; // ! (int) (-15 * Constants.Claw.clawConversion);
-        public static final int maximumHeight = 0; // ! (int) (35 * Constants.Claw.clawConversion);
+        public static final int minimumHeight = -80;
+        public static final int maximumHeight = 0;
 
         public static final double kP = 0.10;
-        public static final double kI = 0.00; // !
+        public static final double kI = 0.00;
         public static final double kD = 0.00;
 
         public static final double startingAngle =

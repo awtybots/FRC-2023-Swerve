@@ -10,32 +10,31 @@ import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 public class IntakeDoubleSubstationPos extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmMech s_armElevator;
+    private final ArmMech s_arm;
     private final ClawSubsystem s_claw;
 
     public IntakeDoubleSubstationPos(
-            ElevatorMech s_elevatorSubsystem,
-            ArmMech s_armElevatorSubsystem,
-            ClawSubsystem s_ClawSubsystem) {
-        addRequirements(s_elevatorSubsystem, s_armElevatorSubsystem, s_ClawSubsystem);
-        this.s_elevator = s_elevatorSubsystem;
-        this.s_armElevator = s_armElevatorSubsystem;
-        this.s_claw = s_ClawSubsystem;
+            ElevatorMech s_elevator,
+            ArmMech s_arm,
+            ClawSubsystem s_claw) {
+        addRequirements(s_elevator, s_arm, s_claw);
+        this.s_elevator = s_elevator;
+        this.s_arm = s_arm;
+        this.s_claw = s_claw;
     }
 
     @Override
     public void execute() {
-        boolean isCone = RobotContainer.coneModeEnabled();
-        if (isCone) {
-            s_elevator.setHeight(Cone.IntakeFromHumanPlayer.ElevatorPosition);
-            s_armElevator.setExtent(Cone.IntakeFromHumanPlayer.ArmPosition);
-            if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.IntakeFromHumanPlayer.ClawPosition);
+        if (RobotContainer.coneModeEnabled()) {
+            s_elevator.setHeight(Cone.DoubleSubstation.ElevatorPosition);
+            s_arm.setExtent(Cone.DoubleSubstation.ArmPosition);
+            if (!s_arm.atTargetExtent()) return;
+            s_claw.setDegrees(Cone.DoubleSubstation.ClawPosition);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent() && s_claw.atTargetAngle();
+        return s_elevator.atTargetHeight() && s_arm.atTargetExtent() && s_claw.atTargetAngle();
     }
 }

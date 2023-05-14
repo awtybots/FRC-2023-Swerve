@@ -30,7 +30,7 @@ public class ClawSubsystem extends SubsystemBase {
 
         mPivotMotor.setInverted(true);
 
-        mPivotMotor.setSmartCurrentLimit(Claw.kClawCurrentLimit);
+        mPivotMotor.setSmartCurrentLimit(Claw.kPivotCurrentLimit);
 
         mPivotPIDController = mPivotMotor.getPIDController();
 
@@ -58,11 +58,10 @@ public class ClawSubsystem extends SubsystemBase {
         wristHeight = sensorUnits;
     }
 
-    public double getAngle() {
+    public double getAngle() { // this gives back degrees, make sure that's what you want
         final double rawRevs = mPivotEncoder.getPosition();
         final double theta =
                 Convert.encoderPosToAngle(rawRevs, kWristGearRatio, Encoder.RevRelativeEncoder);
-        // System.out.println(theta);
         return theta + Claw.startingAngle;
     }
 

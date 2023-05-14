@@ -26,7 +26,7 @@ public class ArmSubsystem extends SubsystemBase implements ArmMech {
 
     public ArmSubsystem() {
 
-        mArmMotor = new CANSparkMax(Arm.kArmMotorId, MotorType.kBrushless);
+        mArmMotor = new CANSparkMax(Arm.kMotorId, MotorType.kBrushless);
         mArmMotor.restoreFactoryDefaults();
 
         // Current limit

@@ -28,15 +28,15 @@ public class IntakeGroundPos extends CommandBase {
         RobotContainer.setCurrentState(RobotContainer.State.IntakeFromGround);
         boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
-            s_elevator.setHeight(Cone.IntakeFromGround.ElevatorPosition);
-            s_armElevator.setExtent(Cone.IntakeFromGround.ArmPosition);
+            s_elevator.setHeight(Cone.Ground.ElevatorPosition);
+            s_armElevator.setExtent(Cone.Ground.ArmPosition);
             if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.IntakeFromGround.ClawPosition);
+            s_claw.setDegrees(Cone.Ground.ClawPosition);
         } else {
-            s_elevator.setHeight(Cube.IntakeFromGround.ElevatorPosition);
-            s_armElevator.setExtent(Cube.IntakeFromGround.ArmPosition);
+            s_elevator.setHeight(Cube.Ground.ElevatorPosition);
+            s_armElevator.setExtent(Cube.Ground.ArmPosition);
             if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cube.IntakeFromGround.ClawPosition);
+            s_claw.setDegrees(Cube.Ground.ClawPosition);
         }
     }
 

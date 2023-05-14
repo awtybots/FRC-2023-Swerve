@@ -27,8 +27,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ElevatorMech {
     public double elevatorTargetHeight = Elevator.initialHeight;
 
     public ElevatorSubsystem() {
-        mLeftElevatorMotor = new WPI_TalonFX(Elevator.kLeftElevatorMotorId);
-        mRightElevatorMotor = new WPI_TalonFX(Elevator.kRightElevatorMotorId);
+        mLeftElevatorMotor = new WPI_TalonFX(Elevator.kLeftMotorId);
+        mRightElevatorMotor = new WPI_TalonFX(Elevator.kRightMotorId);
         motors = new WPI_TalonFX[] {mLeftElevatorMotor, mRightElevatorMotor};
         configMotors();
     }
