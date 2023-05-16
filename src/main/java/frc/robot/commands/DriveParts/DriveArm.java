@@ -5,32 +5,23 @@ import frc.robot.subsystems.MechanicalParts.ArmMech;
 import frc.util.Controller;
 
 public class DriveArm extends CommandBase {
-    private final ArmMech s_armElevator;
+    private final ArmMech s_arm;
     private final Controller controller;
 
-    public DriveArm(Controller controller, ArmMech s_armElevatorSubsystem) {
-        addRequirements(s_armElevatorSubsystem);
-        this.s_armElevator = s_armElevatorSubsystem;
+    public DriveArm(Controller controller, ArmMech s_arm) {
+        addRequirements(s_arm);
+        this.s_arm = s_arm;
         this.controller = controller;
     }
 
     @Override
     public void execute() {
-        // double forward = controller.rightTrigger.getAsBoolean() ? 1 : 0;
-        // double reverse = controller.leftTrigger.getAsBoolean() ? 1 : 0;
-        // double rate = forward - reverse;
         double rate = -controller.getRightStickY();
-
-        s_armElevator.drive(rate);
+        s_arm.drive(rate);
     }
 
     @Override
     public void end(boolean interrupted) {
-        s_armElevator.stop();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        s_arm.stop();
     }
 }

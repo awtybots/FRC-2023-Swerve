@@ -21,7 +21,7 @@ public class Position extends CommandBase {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         RobotContainer.setCurrentState(RobotContainer.State.Shooting);
         s_arm.setExtent(Cube.ShootCube.ArmSetpoint);
         s_elevator.setHeight(Cube.ShootCube.ElevatorSetpoint);

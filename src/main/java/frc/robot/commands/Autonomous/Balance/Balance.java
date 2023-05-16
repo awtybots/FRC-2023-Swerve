@@ -13,8 +13,6 @@ public class Balance extends SequentialCommandGroup {
         addRequirements(s_Swerve);
         addCommands(
                 new InstantCommand(() -> RobotContainer.setCurrentState(State.Balance)),
-                // new QuickBalance(s_Swerve, s_Led),
-                // new WaitCommand(1.5),
-                new PreciseBalance(s_Swerve, s_Led));
+                new PreciseBalance(s_Swerve));
     }
 }

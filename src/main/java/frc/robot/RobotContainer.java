@@ -109,15 +109,16 @@ public class RobotContainer {
      * event markers can be created in PathPlanner.
      */
     private void eventAssignment() {
-        eventMap.put("PreparePickup", new PreparePickup(false, Claw, Arm, Elevator, Intake));
-        eventMap.put("Pickup", new Pickup(false, Claw, Arm, Elevator, Intake));
+        eventMap.put("PreparePickup", PreparePickup.Cube(Claw, Arm, Elevator, Intake));
+        eventMap.put("Pickup", Pickup.Cube(Claw, Arm, Elevator, Intake));
+
+        eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(Intake).withTimeout(0.3));
         eventMap.put("PlaceCubeMid", Place.Cube(0, Swerve, Limelight, Claw, Arm, Elevator, Intake));
         eventMap.put("PlaceConeMid", Place.Cone(0, Swerve, Limelight, Claw, Arm, Elevator, Intake));
         eventMap.put("PlaceCubeHigh", Place.Cube(1, Swerve, Limelight, Claw, Arm, Elevator, Intake));
-        eventMap.put("PlaceLow", new AutonIntakeNoCurrentLimit(Intake).withTimeout(0.3));
+
         eventMap.put("Balance", new Balance(Swerve, Led));
-        eventMap.put(
-                "BalanceWithShoot", new BalanceWithShoot(Swerve, Led, Claw, Arm, Elevator, Intake));
+        eventMap.put("BalanceWithShoot", new BalanceWithShoot(Swerve, Claw, Arm, Elevator, Intake));
     }
 
     // The RightPlacePickupPlaceBalance is : 1 foot from DriverStation blue line (x: 2.16), 6 inches

@@ -34,13 +34,6 @@ public final class Constants {
         public static final boolean VisionTrackingStrafe = true;
     }
 
-    public static final class Balance { // TODO move to balance command
-        public static final double BEAM_BALANCED_GOAL_DEGREES = 0;
-        public static final double BEAM_BALANACED_DRIVE_KP = 1;
-        public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 3;
-        public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
-    }
-
     public static final class Presets {
 
         public static final int ElevatorThreshold = 5000;
@@ -158,10 +151,11 @@ public final class Constants {
         // PID
         public static final double kP = 0.25;
         public static final double kI = 0;
-        public static final double kD = 0.1; 
+        public static final double kD = 0.1;
         public static final double kF = 0;
 
-        public static final double arbitraryFeedforwardRate = 0.02; // Percent output required to offset gravity
+        public static final double arbitraryFeedforwardRate =
+                0.02; // Percent output required to offset gravity
     }
 
     public static final class Arm {

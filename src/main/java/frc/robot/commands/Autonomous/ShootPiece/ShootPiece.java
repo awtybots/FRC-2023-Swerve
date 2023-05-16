@@ -13,13 +13,13 @@ import frc.robot.subsystems.MechanicalParts.IntakeMech;
 public class ShootPiece extends SequentialCommandGroup {
 
     public ShootPiece(
-            IntakeMech s_Intake, ElevatorMech s_Elevator, ArmMech s_Arm, ClawSubsystem s_Claw) {
-        addRequirements(s_Intake, s_Elevator, s_Arm, s_Claw);
+            IntakeMech s_intake, ElevatorMech s_elevator, ArmMech s_arm, ClawSubsystem s_claw) {
+        addRequirements(s_intake, s_elevator, s_arm, s_claw);
         addCommands(
-                new Position(s_Arm, s_Elevator, s_Claw),
+                new Position(s_arm, s_elevator, s_claw),
                 new WaitCommand(0.3),
-                new AutonIntakeNoCurrentLimit(s_Intake).withTimeout(0.3),
-                new InstantCommand(() -> s_Intake.intake(0, false)),
-                new StowPos(s_Elevator, s_Arm, s_Claw));
+                new AutonIntakeNoCurrentLimit(s_intake).withTimeout(0.3),
+                new InstantCommand(() -> s_intake.intake(0, false)),
+                new StowPos(s_elevator, s_arm, s_claw));
     }
 }

@@ -10,23 +10,18 @@ import frc.util.Controller;
 
 public class TeleopSwerve extends CommandBase {
 
-    private double rotation;
-    private Translation2d translation;
-    private boolean fieldRelative;
-    private Swerve s_Swerve;
+    private Swerve s_swerve;
     private Controller driver;
 
     private SlewRateLimiter xLimiter = new SlewRateLimiter(DefaultConfig.rampRate);
     private SlewRateLimiter yLimiter = new SlewRateLimiter(DefaultConfig.rampRate);
 
-    /** Driver control */
     public TeleopSwerve(
-            Swerve s_Swerve, Controller driver, int translationAxis, int strafeAxis, int rotationAxis) {
-        this.s_Swerve = s_Swerve;
-        addRequirements(s_Swerve);
+            Swerve s_swerve, Controller driver, int translationAxis, int strafeAxis, int rotationAxis) {
+        this.s_swerve = s_swerve;
+        addRequirements(s_swerve);
 
         this.driver = driver;
-        this.fieldRelative = DefaultConfig.fieldRelative;
     }
 
     @Override
@@ -37,16 +32,16 @@ public class TeleopSwerve extends CommandBase {
         double rAxis = -driver.getRightStickX();
 
         // Reduces speed if low speed mode is activated
-        if (!s_Swerve.swerveHighSpeedMode) {
+        if (!s_swerve.swerveHighSpeedMode) {
             yAxis *= 0.2;
             xAxis *= 0.2;
             rAxis *= 0.2;
         }
 
-        translation =
+        var translation =
                 new Translation2d(yLimiter.calculate(yAxis), xLimiter.calculate(xAxis))
                         .times(Drivetrain.kMaxSpeedMetersPerSecond);
-        rotation = rAxis * Drivetrain.kMaxAngularSpeed;
-        s_Swerve.drive(translation, rotation, true);
+        double rotation = rAxis * Drivetrain.kMaxAngularSpeed;
+        s_swerve.drive(translation, rotation, true);
     }
 }

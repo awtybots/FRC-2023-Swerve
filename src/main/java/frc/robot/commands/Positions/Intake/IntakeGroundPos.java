@@ -10,17 +10,14 @@ import frc.robot.subsystems.MechanicalParts.ElevatorMech;
 public class IntakeGroundPos extends CommandBase {
 
     private final ElevatorMech s_elevator;
-    private final ArmMech s_armElevator;
+    private final ArmMech s_arm;
     private final ClawSubsystem s_claw;
 
-    public IntakeGroundPos(
-            ElevatorMech s_elevatorSubsystem,
-            ArmMech s_armElevatorSubsystem,
-            ClawSubsystem s_ClawSubsystem) {
-        addRequirements(s_elevatorSubsystem, s_armElevatorSubsystem, s_ClawSubsystem);
-        this.s_elevator = s_elevatorSubsystem;
-        this.s_armElevator = s_armElevatorSubsystem;
-        this.s_claw = s_ClawSubsystem;
+    public IntakeGroundPos(ElevatorMech s_elevator, ArmMech s_arm, ClawSubsystem s_claw) {
+        addRequirements(s_elevator, s_arm, s_claw);
+        this.s_elevator = s_elevator;
+        this.s_arm = s_arm;
+        this.s_claw = s_claw;
     }
 
     @Override
@@ -29,19 +26,21 @@ public class IntakeGroundPos extends CommandBase {
         boolean isCone = RobotContainer.coneModeEnabled();
         if (isCone) {
             s_elevator.setHeight(Cone.Ground.ElevatorPosition);
-            s_armElevator.setExtent(Cone.Ground.ArmPosition);
-            if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.Ground.ClawPosition);
+            s_arm.setExtent(Cone.Ground.ArmPosition);
+            if (s_arm.atTargetExtent()) {
+                s_claw.setDegrees(Cone.Ground.ClawPosition);
+            }
         } else {
             s_elevator.setHeight(Cube.Ground.ElevatorPosition);
-            s_armElevator.setExtent(Cube.Ground.ArmPosition);
-            if (!s_armElevator.atTargetExtent()) return;
-            s_claw.setDegrees(Cube.Ground.ClawPosition);
+            s_arm.setExtent(Cube.Ground.ArmPosition);
+            if (s_arm.atTargetExtent()) {
+                s_claw.setDegrees(Cube.Ground.ClawPosition);
+            }
         }
     }
 
     @Override
     public boolean isFinished() {
-        return s_elevator.atTargetHeight() && s_armElevator.atTargetExtent() && s_claw.atTargetAngle();
+        return s_elevator.atTargetHeight() && s_arm.atTargetExtent() && s_claw.atTargetAngle();
     }
 }

@@ -38,7 +38,7 @@ public class Place extends SequentialCommandGroup {
         return new Place(nodeId, false, s_Swerve, s_Limelight, s_Claw, s_Arm, s_Elevator, s_Intake);
     }
 
-    public Place(
+    private Place(
             int nodeId,
             boolean isCone,
             Swerve s_Swerve,

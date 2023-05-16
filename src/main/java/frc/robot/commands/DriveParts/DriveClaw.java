@@ -26,9 +26,4 @@ public class DriveClaw extends CommandBase {
     public void end(boolean interrupted) {
         s_Claw.stopClaw();
     }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }

@@ -12,18 +12,27 @@ import frc.robot.subsystems.MechanicalParts.IntakeMech;
 
 public class Pickup extends SequentialCommandGroup {
 
-    public Pickup(
+    public static Pickup Cone(
+            ClawSubsystem s_claw, ArmMech s_arm, ElevatorMech s_elevator, IntakeMech s_intake) {
+        return new Pickup(true, s_claw, s_arm, s_elevator, s_intake);
+    }
+
+    public static Pickup Cube(
+            ClawSubsystem s_claw, ArmMech s_arm, ElevatorMech s_elevator, IntakeMech s_intake) {
+        return new Pickup(false, s_claw, s_arm, s_elevator, s_intake);
+    }
+
+    private Pickup(
             boolean isCone,
-            ClawSubsystem s_Claw,
-            ArmMech s_Arm,
-            ElevatorMech s_Elevator,
-            IntakeMech s_Intake) {
-        // addRequirements(s_Claw, s_Arm, s_Elevator, s_Intake);
-        // ! only isCone = true done, not finished cube and possible intake?
+            ClawSubsystem s_claw,
+            ArmMech s_arm,
+            ElevatorMech s_elevator,
+            IntakeMech s_intake) {
+        addRequirements(s_claw, s_arm, s_elevator, s_intake);
         addCommands(
                 new InstantCommand(() -> RobotContainer.enableConeMode(isCone)),
-                new IntakeGroundPos(s_Elevator, s_Arm, s_Claw),
-                new AutonIntakeCurrentLimit(s_Intake).withTimeout(0.2),
-                new StowPos(s_Elevator, s_Arm, s_Claw));
+                new IntakeGroundPos(s_elevator, s_arm, s_claw),
+                new AutonIntakeCurrentLimit(s_intake).withTimeout(0.2),
+                new StowPos(s_elevator, s_arm, s_claw));
     }
 }

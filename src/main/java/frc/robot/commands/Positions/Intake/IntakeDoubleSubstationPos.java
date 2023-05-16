@@ -13,10 +13,7 @@ public class IntakeDoubleSubstationPos extends CommandBase {
     private final ArmMech s_arm;
     private final ClawSubsystem s_claw;
 
-    public IntakeDoubleSubstationPos(
-            ElevatorMech s_elevator,
-            ArmMech s_arm,
-            ClawSubsystem s_claw) {
+    public IntakeDoubleSubstationPos(ElevatorMech s_elevator, ArmMech s_arm, ClawSubsystem s_claw) {
         addRequirements(s_elevator, s_arm, s_claw);
         this.s_elevator = s_elevator;
         this.s_arm = s_arm;
@@ -28,8 +25,9 @@ public class IntakeDoubleSubstationPos extends CommandBase {
         if (RobotContainer.coneModeEnabled()) {
             s_elevator.setHeight(Cone.DoubleSubstation.ElevatorPosition);
             s_arm.setExtent(Cone.DoubleSubstation.ArmPosition);
-            if (!s_arm.atTargetExtent()) return;
-            s_claw.setDegrees(Cone.DoubleSubstation.ClawPosition);
+            if (s_arm.atTargetExtent()) {
+                s_claw.setDegrees(Cone.DoubleSubstation.ClawPosition);
+            }
         }
     }
 

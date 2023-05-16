@@ -30,6 +30,7 @@ public class TeleopIntake extends CommandBase {
             forward = Left > 0.1 ? Left : 0;
             reverse = Right > 0.1 ? Right : 0;
         }
+
         double rate = forward - reverse;
         s_Intake.intake(rate, false);
     }
@@ -37,10 +38,5 @@ public class TeleopIntake extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         s_Intake.stopIntake();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }

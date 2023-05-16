@@ -16,9 +16,6 @@ public class DriveElevator extends CommandBase {
 
     @Override
     public void execute() {
-        // double forward = controller.rightBumper.getAsBoolean() ? 1 : 0;
-        // double reverse = controller.leftBumper.getAsBoolean() ? 1 : 0;
-        // double rate = forward - reverse;
         double rate = controller.getLeftStickY();
         s_elevator.drive(rate);
     }
@@ -26,10 +23,5 @@ public class DriveElevator extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         s_elevator.stop();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }

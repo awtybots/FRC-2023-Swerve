@@ -7,26 +7,27 @@ import frc.robot.subsystems.Swerve.Swerve;
 
 public class DistancePosition extends CommandBase {
 
-    private final Swerve s_Swerve;
-    private final LimelightSubsystem s_Limelight;
+    private final Swerve s_swerve;
+    private final LimelightSubsystem s_limelight;
 
     public DistancePosition(Swerve s_Swerve, LimelightSubsystem s_Limelight) {
         addRequirements(s_Swerve);
-        this.s_Swerve = s_Swerve;
-        this.s_Limelight = s_Limelight;
+        this.s_swerve = s_Swerve;
+        this.s_limelight = s_Limelight;
     }
 
     @Override
     public void execute() {
-        s_Swerve.drive(new Translation2d(0.5, 0), 0, false);
+        s_swerve.drive(new Translation2d(0.5, 0), 0, false);
     }
 
-    // @Override
+    @Override
     public boolean isFinished() {
-        return !s_Limelight.hasTarget() || s_Swerve.getOutputCurrent() > 40;
+        return !s_limelight.hasTarget() || s_swerve.getOutputCurrent() > 40;
     }
 
-    public void end() {
-        s_Swerve.drive(new Translation2d(0, 0), 0, true);
+    @Override
+    public void end(boolean interrupted) {
+        s_swerve.drive(new Translation2d(0, 0), 0, true);
     }
 }
