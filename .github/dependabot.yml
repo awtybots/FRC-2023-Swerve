@@ -17,3 +17,8 @@ updates:
     assignees:
       - "WoodenMaxim"
     target-branch: "main"
+    groups:
+       junit:
+          patterns:
+            - "junit*"  # A wildcard string that matches multiple dependency names
+
