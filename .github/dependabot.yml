@@ -21,4 +21,6 @@ updates:
        junit:
           patterns:
             - "org.junit*"  # A wildcard string that matches multiple dependency names
-
+          update-types:
+            - "minor"
+            - "patch"
