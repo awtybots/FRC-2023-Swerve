@@ -55,6 +55,7 @@ public class ledutils extends SubsystemBase {
 
         m_led.setData(m_ledBuffer);
     }
+
     // sets rest of bar to a secondary color
     public void setLED_RGB_PERCENTAGE_CLR_REST(
             double portionLED, int r, int g, int b, int rb, int gb, int bb) {
@@ -69,6 +70,7 @@ public class ledutils extends SubsystemBase {
 
         m_led.setData(m_ledBuffer);
     }
+
     // i have no idea what to call this but to put it in a few words it colors pair numbers with one
     // color and colors the odd numbers with another color
     // thanks to terrence for the led per zone implementation
