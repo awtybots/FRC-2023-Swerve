@@ -1,7 +1,7 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2023.4.3"
-    id 'com.diffplug.spotless' version '6.20.0'
+    id 'com.diffplug.spotless' version '6.21.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
