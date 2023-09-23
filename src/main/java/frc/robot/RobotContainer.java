@@ -45,7 +45,6 @@ import java.util.HashMap;
  */
 public class RobotContainer {
 
-
     // Autonomous manager import
     private final AutonManager autonManager;
 
@@ -212,11 +211,10 @@ public class RobotContainer {
 
     public void autonResetGyro() {
         s_Swerve.zeroGyro(180);
-
     }
 
     private void configureButtonBindings() {
-        
+
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
 
@@ -273,7 +271,7 @@ public class RobotContainer {
         operatorController.buttonX.onTrue(new Position(s_ArmElevator, s_Elevator, s_Claw));
         // operatorController.buttonY.onTrue(new Place(s_Swerve, Limelight, s_Claw,s_Arm, s_Elevator,
         // s_Intake, 1, true ));
-// hi
+        // hi
         // Emergency mode
         operatorController.buttonBack.onTrue(
                 new InstantCommand(
